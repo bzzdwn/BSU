@@ -1,0 +1,64 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{}} % команды для \begin
+{\hfill$\scriptstyle$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newtheorem*{thrm}{Теорема}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+\section*{Фазовая плоскость. Классификация точек покоя.}
+	Пусть линейное уравнение имеет вид $$D^2x + a_1Dx + a_0x = 0,\quad t \in \Rm.\eqno(1)$$ 
+	$\bullet$ \textit{\textbf{Фазовым графиком} решения $x(t)$ называется график параметрически заданной функции вида $$\begin{cases}
+			x = x(t),\\
+			y = Dx(t);
+		\end{cases}\quad t \in \Rm.$$}
+	$\bullet$ \textit{Решение, сохраняющее постоянное значение при всех $t$, называется \textbf{стационарным}.}\\\\
+	Фазовый график стационарного решения $x(t)\equiv C$ состоит из единственной точки $(C, 0)$.\\\\
+	$\bullet$ \textit{Точка, являющаяся фазовым графиком стационарного решения, называется \textbf{точкой покоя} уравнения.}\\\\
+	Любое уравнение вида (1) имеет стационарное решение $x(t)\equiv C$. Следовательно, точка $O(0, 0)$ является точкой покоя для этого уравнения.\\\\
+	Пусть $\lambda_1$, $\lambda_2$ --- корни характеристического уравнения для уравнения (1). Тогда тип точки покоя $O$ при $a_0 \ne 0$ определяется следующим образом:\begin{enumerate}
+		\item Если $\lambda_1$, $\lambda_2$ $\in \Rm$ и
+		\begin{enumerate}
+			\item $\lambda_1\cdot \lambda_2 < 0$, то точка покоя называется \textbf{седлом};
+			\item $\lambda_1\cdot \lambda_2 > 0$, $\lambda_1 \ne \lambda_2$, то точка покоя называется \textbf{бикритическим узлом}, причем, при $\lambda_1 < \lambda_2 < 0$ \textbf{устойчивым}; при $\lambda_2 > \lambda_1 > 0$ \textbf{неустойчивым};
+			\item $\lambda_1\cdot \lambda_2 > 0$, $\lambda_1 = \lambda_2$, то точка покоя называется \textbf{монокритическим узлом}, причем, при $\lambda_1 = \lambda_2 < 0$ \textbf{устойчивым}; при $\lambda_2 = \lambda_1 > 0$ \textbf{неустойчивым};
+		\end{enumerate}
+	\item Если $\lambda_{1,2} = \alpha \pm \beta i$ и\begin{enumerate}
+		\item $\alpha \ne 0$, $\beta \ne 0$, то точка покоя называется \textbf{фокусом}, причем, при $\alpha < 0$ \textbf{устойчивым}; при $\alpha > 0$ \textbf{неустойчивым};
+		\item $\alpha = 0$, $\beta \ne 0$, то точка покоя называется \textbf{центром}.
+	\end{enumerate}
+	\end{enumerate}
+Если линейное уравнение имеет вид $D^2x + a_1Dx = 0$, где $a_1 \geqslant 0$, то прямая $y=0$ состоит из точек покоя и называется \textbf{прямой покоя}.\\\\
+\textbf{Пример 1}. Установить тип точки покоя для уравнения $$D^2x - 4Dx + 3 =0.$$
+\textbf{Решение.} Найдем корни характеристического уравнения: $\lambda_1 = 1$, $\lambda_2 = 3$. Таким образом, $\lambda_1\cdot \lambda_2 > 0$, $\lambda_1 \ne \lambda_2$, $\lambda_2 > \lambda_1 > 0$. Следовательно, точка покоя $O$ --- неустойчивый бикритический узел.\\\\
+\textbf{Ответ:} $O$ --- неустойчивый бикритический узел.\\\\
+\textbf{Пример 2}. Установить тип точки покоя для уравнения $$D^2x + 9Dx =0.$$
+\textbf{Решение.} Так как коэффициент $a_0 = 0$, то прямая $y = 0$ является прямой покоя.\\\\\textbf{Ответ:} $y = 0$ --- прямая покоя.\\\\
+\textbf{Пример 3.} Определить тип точки покоя уравнения $$D^2x + 3\alpha Dx + 3x = 0$$ в зависимости от значений параметра $\alpha$.\\\\
+\textbf{Решение.} Построим характеристическое уравнение $$\lambda^2 + 3\alpha\lambda + 3 = 0.$$
+Тогда корни уравнения имеют вид $$\lambda_1 = \dfrac{-3\alpha + \sqrt{9\alpha^2 - 12}}{2},\quad \lambda_2 = \dfrac{-3\alpha - \sqrt{9\alpha^2 - 12}}{2}.$$\begin{enumerate}
+	\item Пусть $9\alpha^2 - 12 > 0$. Тогда $|\alpha| > \dfrac{2}{\sqrt{3}}$. Подставим $\alpha$ в $\lambda_1$ и $\lambda_2$ и получим $\lambda_1, \lambda_2 \in \Rm$, $\lambda_1 \ne \lambda_2$, $$\lambda_1 \cdot \lambda_2 = \dfrac{9\alpha^2 - 9\alpha^2 + 12}{4} = 3 > 0,$$ следовательно, точка $O$ --- бикритический узел. Причем при $\alpha > \dfrac{2}{\sqrt{3}}$ получаем устойчивый бикритический узел, а при $\alpha < -\dfrac{2}{\sqrt{3}}$ --- неустойчивый.
+	\item Пусть $9\alpha^2 - 12 = 0$. Тогда $|\alpha| = \dfrac{2}{\sqrt{3}}$. Подставим $\alpha$ в $\lambda_1$ и $\lambda_2$ и получим $\lambda_1, \lambda_2 \in \Rm$, $\lambda_1 = \lambda_2 = -\dfrac{3}{2}$, $\lambda_1\cdot\lambda_2 > 0$. Таким образом, точка $O$ --- монокритический узел. Причем при $\alpha = \dfrac{2}{\sqrt{3}}$ получаем устойчивый бикритический узел, а при $\alpha = -\dfrac{2}{\sqrt{3}}$ --- неустойчивый.
+	\item Пусть $9\alpha^2 - 12 < 0$. Тогда получаем два случая:\begin{enumerate}
+		\item $0 < |\alpha| < \dfrac{2}{\sqrt{3}}$. Таким образом, $\lambda_{1,2} = \alpha \pm \beta i$ и $\alpha \ne 0$. Тогда точка $O$ --- фокус, причем при $0 <\alpha < \dfrac{2}{\sqrt{3}}$ устойчивый, а при  $0 > \alpha >- \dfrac{2}{\sqrt{3}}$ неустойчивый.
+		\item $\alpha = 0$. Таким образом, $\lambda_{1,2} = \pm \beta i$, и точка $O$ --- центр.
+	\end{enumerate}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,197 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\section*{Метод введения параметра. Уравнение Лагранжа. Уравнение Клеро.}
+	Рассматриваем всё те же уравнения неразрещенные относительно производной. То есть уравнения вида $$F(x,y,y') = 0.$$
+	В прошлом уроке мы рассмотрели два метода, с помощью которых мы можем свести такие уравнения к нескольким разрешенным относительно производной. Однако не все уравнения мы сможем так же легко разложить, как в прошлом уроке. Поэтому мы рассмотрим еще один метод.\\\\
+	Метод введения параметра заключается в замене производной какой-то другой функцией. И зачастую берется $$y' = p.$$
+	Тогда отсюда получаем, что $$dy = p\cdot dx.$$
+	Именно эти два уравнения мы и будем использовать. В основном рассматриваются уравнения разрешенные относительно $x$ или $y$. \\\\\textit{(Далее пояснение, какого вида решения мы получаем в конкретных случаях. Этот момент нужен для понимания, однако можно пропустить это и переходить сразу к примеру 1)} \begin{enumerate}
+		\item Если \textbf{уравнение разрешенное относительно $y$}, то есть его можно представить в виде $$y = f(x,y'),$$
+		то используем замену $y' = p$ и получаем $y = f(x,p)$. Тогда, подставляя эту функцию в равенство $dy = pdx$, получаем $$dy = d(f(x,p)) = f'_xdx + f'_pdp = pdx.$$
+		Отсюда $$(f'x - p)dx + f'_pdp = 0.$$
+		Если его решение можно выразить через $x$, т.е. $$x = \varphi(p,C),$$
+		то общее решение исходного уравнения будет иметь \textbf{параметрический} вид $$\begin{cases}
+			x = \varphi(p,C),\\
+			y = f(\varphi(p,C), p).
+		\end{cases}$$
+	Иначе, если через $p = \varphi(x, C)$, то его решение будет иметь \textbf{явный} вид $$y = f(x, \varphi(x,C)).$$
+	\item Если \textbf{уравнение разрешенное относительно $x$}, то есть его можно представить в виде $$x = f(y,y'),$$
+	то используем замену $y' = p$ и получаем $x = f(y,p)$. Тогда, подставляя эту функцию в равенство $dy = pdx$, получаем $$dy = pdx = pd(f(y,p)) = p(f'_ydy + f'_pdp).$$
+	Отсюда $$(1 - pf'_y)dy - pf'_pdp = 0.$$
+	Если его решение можно выразить через $y$, т.е. $$y = \varphi(p,C),$$
+	то общее решение исходного уравнения будет иметь \textbf{параметрический} вид $$\begin{cases}
+		x = f(\varphi(p,C), p),\\
+		y = \varphi(p,C).
+	\end{cases}$$
+	Иначе, если через $p = \varphi(y, C)$, то его решение будет иметь \textbf{явный} вид $$x = f(y, \varphi(y,C)).$$
+	\end{enumerate}
+\textbf{Пример 1.} Найти полное решение уравнения $$2xy' - y = y'\ln (yy').$$
+\textbf{Решение.} Сразу же сделаем замену $$y' = p.$$ Тогда наше исходное уравнение будет иметь вид $$2xp - y = p\ln(y\cdot p).$$
+Теперь нам необходимо выбрать, через какую функцию ($x$ или $y$) мы будем всё выражать. Так как $y$ находится и под логарифмом, и как слагаемое, то проще выразить $x$ (то есть получить уравнение $x = f(y,y')$). Таким образом, $$x = \dfrac{p\ln(y\cdot p) + y}{2p} = \dfrac{\ln (y\cdot p)}{2} + \dfrac{y}{2p}.$$ Теперь воспользуемся соотношением $$dy = pdx.$$
+Тогда ($x$ дифференцируем как функцию 2 переменных)
+$$dy = pdx = p \cdot d\Big(\dfrac{\ln (y\cdot p)}{2} + \dfrac{y}{2p}\Big) = p\Big(\Big(\dfrac{1}{2p} - \dfrac{y}{2p^2}\Big)dp + \Big(\dfrac{1}{2y} + \dfrac{1}{2p}\Big)dy\Big).$$
+Домножим всё на 2 и раскроем скобки $$2dy = 2\cdot \Big(\Big(\dfrac{1}{2} - \dfrac{y}{2p}\Big)dp + \Big(\dfrac{p}{2y} + \dfrac{1}{2}\Big)dy\Big) = \Big(1 - \dfrac{y}{p}\Big)dp + \Big(\dfrac{p}{y} + 1\Big)dy.$$
+Перенесём все слагаемые в одну сторону и вынесем общий множитель $dy$
+$$\Big(1 - \dfrac{y}{p}\Big)dp + \Big(\dfrac{p}{y} -1 \Big)dy = 0.$$ Получили уравнение в нормальной форме, которое мы уже умеем решать. Домножим уравнение на $py$ $$(py - y^2)dp + (p^2 - py)dy = 0.$$
+Тогда $$(p-y)ydp + (p-y)pdy = 0.$$
+Можем сократить уравнение на $(p-y)$, при этом учитывая, что $$p - y = 0.$$
+К рассмотрению этого случая вернёмся чуть позже. Продолжим предыдущие рассуждения
+$$ydp + pdy = 0.$$
+Получили УРП. Его общее решение имеет вид $$py = C.$$ В данном случае мы можем выбрать 2 пути: выразить через $p$ или выразить через $y$. По первому пути общее решение будет задано явно, а по второму --- параметрически. Чтобы не награмождать ответ, выберем первый путь:
+$$p = \dfrac{C}{y}.$$ 
+Теперь вернемся к началу, а именно к уравнению, которое мы получили после замены $$x = \dfrac{\ln (y\cdot p)}{2} + \dfrac{y}{2p}.$$
+Остается лишь подставить найденное нами $p$ и получить общее решение. \textbf{НО} не забываем, что мы получили 2 выражения относительно $p$:
+$$\left[\begin{aligned}
+	&p = y,\\
+	&p = C/y.
+\end{aligned}\right.$$
+Соответственно, мы получим 2 решения, совокупность которых и будет составлять полное решение исходного уравнения:
+$$\begin{cases}
+	x = \dfrac{\ln (y\cdot p)}{2} + \dfrac{y}{2p},\\
+	\left[\begin{aligned}
+		&p = y,\\
+		&p = C/y.
+	\end{aligned}\right.
+\end{cases}\Rightarrow \left[\begin{aligned}
+&x = \dfrac{\ln (y^2)}{2} + \dfrac{1}{2},\\
+&x = \dfrac{\ln C}{2} + \dfrac{y^2}{2C}.
+\end{aligned}\right.$$
+\textbf{Ответ:} $\left[\begin{aligned}
+	&x = \dfrac{\ln (y^2)}{2} + \dfrac{1}{2},\\
+	&x = \dfrac{\ln C}{2} + \dfrac{y^2}{2C}.
+\end{aligned}\right.$\\\\
+\textbf{Пример 2.} Найти полное решение уравнения $$y = \dfrac{y'^2}{2} + \ln y'.$$
+\textbf{Решение.} Опять же сразу вводим замену $$y' = p.$$
+Тогда уравнение примет вид $$y = \dfrac{p^2}{2} + \ln p.$$
+Получили сразу же уравнение относительно $y$. Подставляем его в соотношение $$dy = pdx.$$
+Получаем $$dy = d\Big( \dfrac{p^2}{2} + \ln p\Big) = \Big(p + \dfrac{1}{p}\Big)dp = p dx.$$
+Раздели уравнение на $pdp$. Таким образом, получаем $$\dfrac{dx}{dp} = 1 + \dfrac{1}{p^2}.$$
+Причем случай $p = 0$ мы не рассматриваем, потому что $p \geqslant 1$ (т.к. стоит под логарифмом). Полученное уравнение является простейшим. Так что можем проинтегрировать его по $p$:
+$$x = \int\limits_{p_0}^p \Big(1 + \dfrac{1}{p^2}\Big)dp + C = p - \dfrac{1}{p} + C.$$
+Так как мы получили общее решение, выраженное относительно $x$, то, подставив его, получим полное решение исходного уравнения в параметрическом виде.\\\\ \textbf{НО} в равенстве $y = p^2/2 + \ln p$ у нас даже не присутствует $x$, поэтому в ответ мы можем сразу записать эту функцию, не подставляя $x$. Тогда полное решение исходного уравнения имеет вид
+$$\left[\begin{aligned}
+	&x=p - \dfrac{1}{p} + C,\\
+	&y = \dfrac{p^2}{2} + \ln p.
+\end{aligned}\right.$$
+\textbf{Ответ:} $\left[\begin{aligned}
+	&x=p - \dfrac{1}{p} + C,\\
+	&y = \dfrac{p^2}{2} + \ln p.
+\end{aligned}\right.$\\\\
+\subsection*{Частные случаи. Уравнение Лагранжа. Уравнение Клеро.}
+Мы рассмотрели метод введения параметра в общем случае для всех уравнений. По-хорошему на этом можно было бы и закончить. Однако есть несколько частных случаев, когда мы можем знать, что получится после замены.\begin{enumerate}
+	\item Если уравнение имеет вид $$F(y') = 0,$$ то его общее решение будет иметь вид $F\Big(\dfrac{y - C}{x}\Big) = 0.$ И если $$\lim\limits_{y' \to \infty} F(y') = 0,$$ то общее решение дополняется решениями вида $x = C$.
+	\item Если уравнение можно записать в виде $$y = x\psi(y') + \varphi(y'),$$ то оно называется \textbf{уравнением Лагранжа}. И с помощью замены $y' = p$, мы сведем это уравнение к линейному уравнению относительно $x$.
+	\item Если уравнение можно записать в виде $$y = xy' + \varphi(y'),$$ то оно называется \textbf{уравнением Клеро}. И после замены $y' = p$ мы всегда будем получать полное решение вида $$\left[\begin{aligned}
+		&y = Cx + \varphi(C),\\
+		&\begin{cases}
+			x + \varphi'(p) = 0,\\
+			y = px + \varphi(p).
+		\end{cases}
+	\end{aligned}\right.$$ В нижней системе мы из первого уравнения выражаем $x$ и подставляем во второе.
+\end{enumerate}
+Рассмотрим последовательно все эти 3 случая.\\\\
+\textbf{Пример 3}. Найти полное решение уравнения $$\ln y' + \dfrac{1}{y'^2} + 8 = 0.$$
+\textbf{Решение}. Это уравнение вида $F(y') = 0$, поэтому мы можем сразу записать его решения в виде $F\Big(\dfrac{y - C}{x}\Big) = 0.$ $$\ln\Big(\dfrac{y-C}{x}\Big) + \dfrac{x^2}{(y-C)^2} + 8 = 0.$$
+А так как $\lim\limits_{y' \to \infty} F(y') = 0,$ то полное решение уравнения будет иметь вид $$\left[\begin{aligned}
+	&\ln\Big(\dfrac{y-C}{x}\Big) + \dfrac{x^2}{(y-C)^2} + 8 = 0,\\
+	&x = C.
+\end{aligned}\right.$$
+\textbf{Ответ:} $\left[\begin{aligned}
+	&\ln\Big(\dfrac{y-C}{x}\Big) + \dfrac{x^2}{(y-C)^2} + 8 = 0,\\
+	&x = C.
+\end{aligned}\right.$\\\\
+\textbf{Пример 4}. Найти полное решение уравнения $$xy'(y' + 2) = y.$$
+\textbf{Решение}. Перед нами уравнение Лагранжа. Сделаем замену $$y' = p.$$ Тогда уравнение примет вид $$y = xp^2 + 2xp.$$
+Пользуясь соотношением $dy = pdx$, получаем $$dy = d(xp^2 + 2xp) = (p^2 + 2p)dx + (2xp + 2x)dp = pdx.$$
+Отсюда $$(p^2 + p)dx + (2xp + 2x)dp = (p+1)pdx + (p+1)2xdp = 0.$$
+Тогда сокращаем на $(p + 1)$, при этом не забывая, что $$p = - 1.$$
+У нас остается уравнение $$pdx + 2xdp = 0.$$ Его можно рассматривать и как линейное относительно $x$ и как УРП. Общее решение такого уравнения имеет вид $$xp^2 = C.$$
+Можем выразить через $p$ и получить совокупность из двух решений в явном виде: $$p = \pm \sqrt{\dfrac{C}{x}}.$$
+Тогда, подставляя в уравнение $y = xp^2 + 2xp$, получаем совокупность $$\left[\begin{aligned}
+	&y = C + 2\sqrt{Cx}.\\
+	&y =  C - 2\sqrt{Cx}.
+\end{aligned}\right.$$
+Теперь добавим к этой совокупность случай $p = - 1.$ Также подставим его в уравнение $y = xp^2 + 2xp \Rightarrow y = x - 2x$. Таким образом, полное решение исходного уравнения имеет вид $$\left[\begin{aligned}
+	&y = C + 2\sqrt{Cx},\\
+	&y =  C - 2\sqrt{Cx},\\
+	&y = -x.
+\end{aligned}\right.$$
+\textbf{Ответ:} $\left[\begin{aligned}
+	&y = C + 2\sqrt{Cx},\\
+	&y =  C - 2\sqrt{Cx},\\
+	&y = -x.
+\end{aligned}\right.$\\\\
+\textbf{Пример 5}. Найти полное решение уравнения $$y = xy' + y' - y'^2.$$
+\textbf{Решение.} В данном случае имеем уравнение Клеро. Введем замену $y' = p$. Тогда $$y = xp + p -p^2.$$ Подставим это уравнение в соотношение $dy = pdx$ и получим $$dy = d(xp + p - p^2) = pdx + (x +1 - 2p)dp = pdx.$$
+Отсюда $$(x + 1 - 2p)dp = 0.$$
+Тогда у нас получается совокупность $$\left[\begin{aligned}
+	&x + 1 - 2p = 0,\\
+	&dp = 0.
+\end{aligned}\right.\Rightarrow \left[\begin{aligned}
+&x + 1 - 2p = 0,\\
+dp = 0\cdot dx \Rightarrow dp/dx = 0\Rightarrow\ &p = C.
+\end{aligned}\right. \Rightarrow$$
+Подставим $p = C$ в $y = xp + p - p^2.$ Тогда 
+$$\left[\begin{aligned}
+	&x + 1 - 2p = 0,\\
+	&y = Cx - C + C^2.
+\end{aligned}\right.$$
+А это и есть та совокупность, которую мы записывали, когда ввели понятие уравнения Клеро.\\\\
+Остается из верхнего уравнения совокупности выделить $p$ ($p = \dfrac{x+1}{2}$) и подставить в $y = xp+ p - p^2.$ Тогда $$\left[\begin{aligned}
+	&y = x\dfrac{x+1}{2} + \dfrac{x+1}{2} - \dfrac{(x+1)^2}{4},\\
+	&y = Cx + C - C^2.
+\end{aligned}\right.\Rightarrow \left[\begin{aligned}
+&y = \dfrac{(x + 1)^2}{4},\\
+&y = Cx + C - C^2.
+\end{aligned}\right.$$
+Данная совокупность и будет полным решением исходного уравнения.\\\\
+\textbf{Ответ:} $$\left[\begin{aligned}
+	&y = \dfrac{(x + 1)^2}{4},\\
+	&y = Cx + C - C^2.
+\end{aligned}\right.$$
+\end{document}

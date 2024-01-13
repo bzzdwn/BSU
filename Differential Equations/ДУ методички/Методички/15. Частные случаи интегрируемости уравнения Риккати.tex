@@ -1,0 +1,134 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\section*{Частные случаи интегрируемости уравнения Риккати.}
+	$\bullet$ \textit{Уравнение вида $$y' = P(x)\cdot y^2 + Q(x)\cdot y + R(x)$$ называется \textbf{уравнением Риккати (УР)}}.\\\\
+	Причем и $P(x)\ne 0$, и $R(x)\ne 0$, иначе мы получим ЛУ-1 или уравнение Бернулли соответственно.\\\\
+	В общем случае принято считать, что УР не интегрируется в квадратурах, то есть решение уравнения нельзя представить в виде какого интеграла (или комбинации интегралов). Поэтому мы будем рассматривать некоторые частные случаи, в которых мы можем найти решение, приводя УР к уже известным нам уравнениям. (P.S. хотя в интернете можно найти массивную формулу, которая захватывает если и не все случаи, то большинство из них)\\\\
+	\textbf{Частные случаи:} (далее $a_i \in \Rm$)
+	\begin{enumerate}
+		\item Если уравнение можно записать в виде $$y' = P(x)\cdot (a_2y^2 + a_1y + a_0),$$
+		то мы можем найти его решение как решение \textbf{уравнения с разделяющимися переменными (УРП)};
+		\item Если уравнение можно записать в виде $$y' = a_2\cdot \dfrac{y^2}{x^2} + a_1\cdot \dfrac{y}{x} +a_0,$$
+		то это \textbf{однородное уравнение (ОУ)};
+		\begin{enumerate}
+			\item причем если уравнение можно записать в виде $$y' = a_2\cdot \dfrac{y^2}{x} + \dfrac{1}{2}\cdot \dfrac{y}{x} + a_0\quad \text{или}\quad y' = a_2\cdot \dfrac{y^2}{x^2} + \dfrac{1}{2}\cdot \dfrac{y}{x} + \dfrac{a_0}{x}. $$
+			то заменой $y = z\sqrt x$ уравнение сводится к \textbf{уравнению с разделяющимися переменными (УРП)}.	
+		\end{enumerate}
+		\item Если уравнение можно записать виде $$y' = a_1y^2 + \dfrac{a_2}{x^2},$$
+		то заменой $y = \dfrac{1}{z}$ уравнение сводится к \textbf{однородному уравнению (ОУ)};	
+		\item Если \textit{известно частное решение} $ y =y_1(x)$ уравнения $$y' = P(x)\cdot y^2 + Q(x)\cdot y + R(x),$$
+		то заменой $y = y_1 + \dfrac{1}{z(x)}$ уравнение сводится к \textbf{линейному уравнению относительно $z$ (ЛУ-1)}; 
+		\item Если уравнение можно записать в виде $$y' = a_2\cdot y^2 + a_1\cdot \dfrac{y}{x} + \dfrac{a_0}{x^2},$$
+		то оно имеет частное решение $y_1 = \dfrac{\alpha}{x}$, $\alpha\in \Rm$ (если уравнение $a_2\cdot \alpha ^2+ (a_1 + 1)\cdot \alpha + a_0 = 0$ имеет решение). Следовательно, найдя $\alpha$, заменой $y = \dfrac{\alpha}{x} + \dfrac{1}{z(x)}$ уравнение сводится к \textbf{ЛУ-1}.
+	\end{enumerate}
+	Частных случаев гораздо больше, но для того, чтобы не загружать себя же, ограничимся только рассмотренными случаями.\\\\
+	Мы не будем рассматривать примеров для случаев 1 и 2, так решением точно таких же уравнений мы занимались ранее.\\\\
+	\textbf{Пример 1.} Проинтегрировать уравнение $$y' = -y^2 + x^2 + 1,$$
+	если его частное решение представимо в виде $y_1 = ax + b$.\\\\
+	\textbf{Решение.} Это 4-ый из рассмотренных случаев. Но для начала нам нужно найти сами коэффициенты $a$ и $b$. Для этого подставим $y_1$ в исходное уравнение, причем $y_1' = a$:
+	$$a = -(ax + b)^2 + x^2 + 1 = -a^2x^2 - 2abx - b^2 + x^2 + 1.$$
+	Перенесем всё в одну сторону и вынесем $x$-ы за скобки:
+	$$(1-a^2)\cdot x^2 - (2ab)\cdot x + (1-b^2-a) = 0.$$
+	Так как $y_1$ должно быть решением, то равенство должно выполнятся. А для его выполнения достаточно, чтобы все коэффициенты (всё, что в скобочках) обращались в 0. Тогда $$1 - a^2 = 0\Rightarrow a = \pm 1,\text{ и пусть для определености } a = 1.$$
+	$$2ab = 0\Rightarrow b = 0.$$
+	Тогда исходное уравнение имеет частное решение $$y_1 = x.$$
+	Из случая 4 введем замену $$y = y_1 + \dfrac{1}{z(x)} = x + \dfrac{1}{z}.$$
+	Тогда $z = \dfrac{1}{y - x}$.
+	Подставим это в уравнение $y' = -y^2 + x^2 + 1$, причем $y' = y'_x = 1 -\dfrac{z'}{z^2}$, и получим
+	$$1 - \dfrac{z'}{z^2} = -x^2 - \dfrac{2x}{z} - \dfrac{1}{z^2} + x^2 + 1.$$
+	Приведем это уравнение к виду разрешенному относительно производной $$z' = 1 + 2zx.$$
+	А данное уравнение является линейным относительно $z$. Его решение имеет вид $$z=Ce^{x^2} + e^{x^2}\int\limits_{x_0}^xe^{-t^2}dt.$$
+	Сделаем обратную замену $$\dfrac{1}{y - x} =e^{x^2} (C + \int\limits_{x_0}^xe^{-t^2}dt).$$
+	Тогда решение исходного уравнения имеет вид $$y = x + \dfrac{e^{-x^2}}{C + \int\limits_{x_0}^xe^{-t^2}dt}.$$
+	Но, поскольку в ходе всех вычислений мы получили 2 решения (не забываем про частное $y_1 = x$), то правильнее будет записать, что полным решением исходного уравнения является система $$y = x + \dfrac{e^{-x^2}}{C + \int\limits_{x_0}^xe^{-t^2}dt},\quad y_1 = x.$$
+	\textbf{Ответ:} $y = x + \dfrac{e^{-x^2}}{C + \int\limits_{x_0}^xe^{-t^2}dt},\quad y_1 = x.$\\\\
+	\textbf{Пример 2.} Проинтегрировать уравнение $$y' + 2y^2 = \dfrac{1}{x^2}.$$
+	\textbf{Решение.} Перенесем $2y^2$ в правую сторону. Тогда $$y' = -2y^2 + \dfrac{1}{x^2},$$
+	а это случай 3. Применим замену $y = \dfrac{1}{z}$. Тогда $y' = -\dfrac{z'}{z^2}$ и $z = \dfrac{1}{y}$. Подставим замену в получившееся уравнение: $$-\dfrac{z'}{z^2} = -\dfrac{2}{z^2} + \dfrac{1}{x^2}.$$
+	$$z' = 2 - \dfrac{z^2}{x^2},$$
+	получили однородное уравнение. Применим замену $z = tx$ $\Big(t = \dfrac{z}{x} = \dfrac{1}{xy}\Big)$, тогда $$t'x = 2 - t^2 - t.$$
+	$$\int\limits_{t_0}^t\dfrac{dt}{-t^2-t+2} - \int\limits_{x_0}^x\dfrac{dx}{x} = C.$$
+	$$\dfrac{1}{3}\ln\Big(\dfrac{t+2}{t-1}\Big) = \ln x + C.$$
+	$$\dfrac{t+2}{t-1} = Cx^3.$$
+	$$\dfrac{\frac{1}{xy} + 2}{\frac{1}{xy} - 1} = Cx^3.$$
+	$$\dfrac{2xy + 1}{1 - xy} = Cx^3.$$
+	Преобразуем уравнение. Тогда решение исходного уравнения имеет вид $$y = \dfrac{Cx^3 - 1}{2x + Cx^4.}$$
+	\textbf{Ответ:} $y = \dfrac{Cx^3 - 1}{2x + Cx^4.}$\\\\
+	\textbf{Пример 3.} Проинтегрировать уравнение $$y' - y^2 + \dfrac{5y}{x} = \dfrac{4}{x^2}.$$
+	\textbf{Решение.} Для начала приведем уравнение к виду разрешенному относительно производной $$y' = y^2 - 5\cdot\dfrac{y}{x} + 4\cdot \dfrac{1}{x^2}.$$
+	А это уравнение соответствует случаю 5. Значит для этого уравнения существует частное решение, которое имеет вид $y_1 = \dfrac{\alpha}{x}$. Но предварительно необходимо проверить, имеет ли действительные корни уравнение $$a_2\cdot \alpha^2 + (a_1 + 1)\cdot \alpha + a_0 = \alpha^2 -5\alpha + 4 = 0\text{ (очевидно корни действительны)}$$ Найдем $\alpha$, подставив частное решение в уравнение, причем $y_1' = -\dfrac{\alpha}{x^2}$,
+	$$-\dfrac{\alpha}{x^2} = \dfrac{\alpha^2}{x^2} - \dfrac{5\alpha}{x^2} + \dfrac{4}{x^2}\quad\Rightarrow\quad\alpha^2 -4\alpha + 4 =0\quad\Rightarrow\quad \alpha = 2.$$
+	Тогда уравнение имеет частное решение $y_1 = \dfrac{2}{x}$. Следовательно, можем сделать замену $$y = \dfrac{2}{x} + \dfrac{1}{z}\quad \Rightarrow\quad z = \dfrac{1}{y - \frac2x},\quad y' = -\dfrac{2}{x^2} - \dfrac{z'}{z^2}.$$ 
+	Подставим замену в исходное уравнение и получим
+	$$ -\dfrac{2}{x^2} - \dfrac{z'}{z^2} = \Big(\dfrac{2}{x} + \dfrac{1}{z}\Big)^2 - \dfrac{5}{x}\Big(\dfrac{2}{x} + \dfrac{1}{z}\Big) + \dfrac{4}{x^2} =  \dfrac{4}{x^2} + \dfrac{1}{z^2} + \dfrac{4}{xz} - \dfrac{10}{x^2} - \dfrac{5}{xz} + \dfrac{4}{x^2}.$$
+	Приведем уравнение к виду разрешенному относительно производной
+	$$z' = -1 + \dfrac{z}{x}.$$
+	Данное уравнение является линейным относительно $z$, следовательно $$z' - \dfrac{z}{x} = -1\quad\Rightarrow\quad z = Cx - x\ln x.$$
+	Сделаем обратную замену
+	$$\dfrac{1}{y - \frac2x}=Cx - x\ln x\quad\Rightarrow\quad y = \dfrac{2}{x} + \dfrac{1}{x(C-\ln x)}.$$
+	Тогда полным решением исходного уравнения будет система функций $$y = \dfrac{2}{x} + \dfrac{1}{x(C-\ln x)},\quad y_1 = \dfrac{2}{x}.$$
+	\textbf{Ответ:} $y = \dfrac{2}{x} + \dfrac{1}{x(C-\ln x)},\quad y_1 = \dfrac{2}{x}.$\\\\
+	\textbf{Пример 4.} Проинтегировать уравнение $$y' = 2\cdot\dfrac{y^2}{x^2} + \dfrac{1}{2}\cdot \dfrac{y}{x} + \dfrac{2}{x}.$$
+	\textbf{Решение.} Данное уравнение соответствует случаю 2(а). Следовательно, сделаем замену $y = z\sqrt{x}$ и подставим (причем $y' = z'\sqrt x + \dfrac{z}{2\sqrt x}$, $z = \dfrac{y}{\sqrt x}$) $$z'\sqrt{x} +  \dfrac{z}{2\sqrt x} = \dfrac{2z^2}{x} +  \dfrac{z}{2\sqrt x} + \dfrac{2}{x}.$$
+	$$z'\sqrt x = \dfrac{2z^2 + 2}{x}.$$
+	Получили УРП. Приведем его к более привычному виду $$\dfrac{dz}{2z ^ 2 + 2} - \dfrac{dx}{x^\frac32} = 0.$$
+	Проинтегрируем и получим $$2\arctg z + \dfrac{2}{\sqrt x} = C.$$
+	Сделаем обратную замену и получим $$\arctg \dfrac{y}{\sqrt x} + \dfrac{1}{\sqrt x} = C.$$
+	Отсюда $$y = \sqrt x \tg\Big(C - \dfrac{1}{\sqrt x}\Big).$$
+	\textbf{Ответ:} $y = \sqrt x \tg\Big(C - \dfrac{1}{\sqrt x}\Big).$\\\\
+	\textbf{Пример 5.} Проинтегрировать уравнение $$y' - 2xy + y^2 = 5-x^2,$$ если оно имеет частное решение $y_ 1 = x + 2$.\\\\
+	\textbf{Решение.} Условие соответствует случаю 4. Тогда можем применить замену $$y = x + 2 + \dfrac{1}{z}\quad\Rightarrow\quad y' = 1 -\dfrac{z'}{z^2},\quad z = \dfrac{1}{y - x - 2}.$$
+	Подставим это в уравнение: $$1 - \dfrac{z'}{z^2} - 2x^2 - 4x - \dfrac{2x}{z} + x^2 + 4 + \dfrac{1}{z^2} + 4x + \dfrac{2x}{z} + \dfrac{4}{z} = 5 - x^2.$$
+	Сократим подобные слагаемые и получим ЛУ
+	$$z' + 4z = -1.$$
+	Тогда его общее решение имеет вид $$z = Ce^{-4x}  - \dfrac{1}{4}.$$
+	Сделаем обратную замену $$\dfrac{1}{y - x - 2} = Ce^{-4x}  - \dfrac{1}{4}.$$
+	Тогда $$y = x + 2 + \dfrac{4}{4Ce^{-4x} - 1}.$$
+	Значит полное решение исходного уравнения составляет система функций $$y = x + 2 + \dfrac{4}{4Ce^{-4x} - 1},\quad y_1 = x+2.$$
+	\textbf{Ответ:} $y = x + 2 + \dfrac{4}{4Ce^{-4x} - 1},\quad y_1 = x+2.$
+\end{document}

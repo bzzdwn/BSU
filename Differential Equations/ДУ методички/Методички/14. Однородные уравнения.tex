@@ -1,0 +1,127 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\section*{Однородные уравнения.}
+	$\bullet$ \textit{Уравнение $$P(x,y)dx + Q(x,y)dy = 0$$
+	называется \textbf{однородным (ОУ)}, если $P(tx,ty) = t^k\cdot P(x,y)$ и $Q(tx,ty) = t^k\cdot  Q(x,y)$, $(tx,ty)\in D$.}\\\\
+Алгоритм решения таких уравнений следующий: \begin{itemize}
+	\item приводим уравнение к виду $y' = f\Big(\dfrac{y}{x}\Big)$ (к виду разрешенному относительно производной);
+	\item делаем подстановку $y = ux$;
+	\item отсюда $xu' = f(u) - u$;
+	\item получившееся уравнение будет являться УРП и останется лишь проинтегрировать уравнение $$\dfrac{du}{f(u) - u} = \dfrac{dx}{x}.$$
+\end{itemize}
+\textbf{Пример 1.} Найти общий интеграл уравнения $$(x + 2y)dx - xdy = 0.$$
+\textbf{Решение.} Проверим, является ли данное уравнение ОУ: $$P(x,y) = x+2y \quad \Rightarrow\quad P(tx,ty) = t(x + 2y),\qquad Q(x,y) = -x\quad \Rightarrow\quad Q(tx,ty) = -tx.$$
+Следовательно, данное уравнение является ОУ. Приведем уравнение к виду разрешенному относительно производной от $y$:
+$$y' = \dfrac{x + 2y}{x} = 1 + \dfrac{2y}{x}.$$
+Применяем подстановку $y = ux$. Тогда $y'_x = u'_x x + u$ (или просто $y' = u'x + u$). Отсюда $u'x = y' - u$, а $y'$ мы только что выразили. Соответственно подставим $y'$ и получим $$xu' = 1 + 2u - u = 1 + u.$$
+Перенесём всё в левую часть и домножим на $dx$:
+$$xdu - (1+u)dx = 0.$$
+А данное уравнение является УРП. Домножим его на интегрирующий множитель $\mu(x,u) = \dfrac{1}{x(1+u)}$ и получим $$\dfrac{du}{(1+u)} - \dfrac{dx}{x} = 0.$$
+Найдем решение этого уравнения, как решение уравнения с разделенными переменными и получим $$\int\limits_{0}^u\dfrac{du}{(1+u)} - \int\limits_{1}^x\dfrac{dx}{x} = \ln |1+u|\Big|_{0}^u -\ln |x|\Big|_{1}^x  = \ln(1+u) - \ln x = \ln\dfrac{1+u}{x} = C.$$
+Отсюда $$\dfrac{1 + u}{x} = C \quad \Rightarrow\quad 1+u = Cx \quad\Rightarrow\quad 1 + \dfrac{y}{x}= Cx \quad\Rightarrow\quad x + y = Cx^2.$$
+\textbf{Ответ:} $x+y = Cx^2$.\\\\
+Все такие уравнения решаются только по одному алгоритму, поэтому для закрепления рассмотрим ещё одно такое уравнение и будем двигаться дальше.\\\\
+\textbf{Пример 2.} Найти общий интеграл уравнения $$xdy - \Big(y + x\tg \dfrac{y}{x}\Big)dx = 0.$$
+\textbf{Решение.} Проверим, является ли уравнение однородным:
+$$P(tx,ty) = tx,\qquad Q(tx,ty) = -t\Big(y + x\tg t\dfrac{y}{x}\Big).$$
+То есть уравнение является однородным. Приведем его к виду разрешенному относительно производной $y'$:
+$$y' = \dfrac{y}{x} + \tg \dfrac{y}{x}.$$
+Применим подстановку $y = ux$. Тогда $$xu' = u + \tg u - u = \tg u.$$
+Приведем это уравнение к УРП и найдем его полный интеграл:
+$$xdu - \tg u dx = 0\quad\Rightarrow\quad = \dfrac{du}{\tg u} - \dfrac{dx}{x} = 0.$$
+\begin{multline*}
+	\int\limits_{\pi / 4}^{u}\dfrac{du}{\tg u} - \int\limits_{1}^{x}\dfrac{dx}{x} = \int\limits_{\pi / 4}^{u}\dfrac{(\cos u)du}{\sin u} - \ln |x|\Big|_{1}^x  =  \int\limits_{\pi / 4}^{u}\dfrac{d(\sin u)}{\sin u} - \ln x=\\ = \ln |\sin u|\Big|_{\pi / 4}^u - \ln x = \ln (\sin u) - \ln x = \ln \dfrac{\sin u}{x} = C.
+\end{multline*}
+Тогда $$\dfrac{\sin u}{x} = C\quad\Rightarrow\quad \sin u = Cx \quad \Rightarrow\quad \sin \dfrac{y}{x} = Cx.$$
+\textbf{Ответ:} $\sin \dfrac{y}{x} = Cx$.\\\\
+Далеко не все элементарные уравнения являются однородными. Но некоторые из них можно привести к однородным уравнениям.\\\\
+Уравнение $$\varphi_1(a_1x + b_1 y + c_1)dx + \varphi_2(a_2x + b_2 y + c_2)dy = 0$$ или $$y '= \varphi\Big(\dfrac{a_2x + b_2 y + c_2}{a_1x + b_1 y + c_1}\Big),$$ где \begin{enumerate}
+	\item $a_1b_2 \ne a_2b_1$, можно привести к ОУ с помощью подстановки $x = x_1 + \alpha$, $y = y_1 + \beta$, где $x_1, y_1$ --- функции, а $\alpha,\beta$ --- постоянные, удовлетворяющие СЛАУ $$\begin{cases}
+		\alpha a_1 + \beta b_1 + c_1 = 0,\\
+		\alpha a_2 + \beta b_2 + c_2 = 0.
+	\end{cases}\eqno(1)$$
+\item $a_1b_2 = a_2b_1$, можно привести к УРП с помощью подстановки $a_2 x + b_2 y = u$ (т.к. в таком случае система (1) несовместна).
+\end{enumerate}
+\textbf{Пример 3.} Проинтегрировать уравнение $$x-y-1 + (-x + y + 2)\cdot y' = 0.$$
+\textbf{Решение.} Домножим уравнение на $dx$, тогда $$(x-y-1)dx + (-x + y + 2) dy = 0.$$
+В нашем случае коэффициенты $a_1 = 1$, $b_1 = -1$, $a_2 = -1$, $b_2 = 1$. Тогда $a_1b_2 = a_2b_1$. Значит применим подстановку $$a_2x + b_2y = -x + y = u.$$
+Отсюда же $du = dy - dx$, и пусть переменную $u$ возьмем вместо $y$. Тогда, подставляя в исходное уравнение, получим $$(-u-1)dx + (u+2)(du + dx) = 0.$$
+Раскроем скобочки, тогда $$dx + (u+2)du = 0.$$
+Полученное уравнение является уравнением с разделенными переменными. А его интегрировать мы уже умеем. Тогда его общий интегарл будет иметь вид $$x + \dfrac{u^2}{2} + 2u = C.$$
+Сделаем обратную замену и домножим на 2:
+$$2x + (y - x)^2 - 4y - 4x  = -2x - 4y + (y-x)^2 = C.$$
+При желании можно раксрыть скобочки и попытаться собрать всё в полный квадрат.\\\\
+\textbf{Ответ:} $-2x - 4y + (y-x)^2 = C.$\\\\
+\textbf{Пример 4.} Проинтегрировать уравнение $$(2x - y -1)dx + (-x + 2y +1)dy = 0.$$
+\textbf{Решение.} Введем подстановку $x = x_1 + \alpha$, $y = y_1 + \beta$, причем коэффициенты $\alpha$ и $\beta$ найдем из системы (1):
+$$\begin{cases}
+	2\alpha - \beta - 1 = 0,\\
+	-\alpha + 2\beta +1 = 0
+\end{cases}\Rightarrow\quad \begin{pmatrix}
+2 & -1 & \vline & 1\\
+-1 & 2 & \vline & -1
+\end{pmatrix}\sim \begin{pmatrix}
+1 & 0 & \vline & 1/3\\
+0 & 1 & \vline & -1/3
+\end{pmatrix}.$$
+Отсюда $\alpha = 1/3$, $\beta = -1/3$. Тогда $x = x_1 + 1/3$, $y = y_1 -1/3$. Подставим в исходное уравнение (причем $dx = dx_1$, $dy = dy_1$)
+$$(2x_1 -y_1)dx_1 + (-x_1 + 2y_1)dy_1 = 0.$$
+Проверить, правильно ли были найдены $\alpha$ и $\beta$ можно так: исходные коэффициенты $c_1$ и $c_2$ в уравнении с подставленной заменой должны сократиться.\\\\
+Получившееся уравнение является ОУ, а его интегрировать мы уже умеем. Для начала приведем уравнение к виду разрешенному относительно производной:
+$$y_1' = \dfrac{y_1 - 2x_1}{2y_1 - x_1}.$$
+Тогда сделаем замену $y_1 = ux_1$:
+$$u'x_1 = \dfrac{ux_1 - 2x_1}{2ux_1 - x_1} - u = \dfrac{u - 2}{2u  -1} - u = \dfrac{-2u^2 + 2u - 2}{2u - 1}.$$
+Получили УРП:
+$$-\dfrac{1}{2}\cdot\dfrac{(2u-1)du}{u^2 - u +1} - \dfrac{dx_1}{x_1} = 0.$$
+$$-\dfrac{1}{2}\int\limits_{u_0}^u\dfrac{(2u-1)du}{u^2 - u +1} - \int\limits_{x_{1_0}}^{x_1}\dfrac{dx_1}{x_1} = C.$$
+$$-\dfrac{1}{2}\ln(u^2 - u + 1) - \ln x_1 = C.$$
+Домноижм уравнение на -2 и воспользуемся свойствами логарифма$$\ln (x_1^2\cdot (u^2 - u + 1)) = C.$$
+Так как $u = y_1/x_1$, то $$\ln(y_1^2 - y_1x_1 + x_1^2) = C \Rightarrow y_1^2 - y_1x_1 + x_1^2 = C.$$
+Тогда, учитывая, что $x_1 = x-1/3$, $y_1 = y + 1/3$, сделаем обратную замену и получим общее решение исходного уравнения $$y^2 + y - xy - x + x^2 = C.$$
+\textbf{Ответ:} $y^2 + y - xy - x + x^2 = C.$
+\end{document}

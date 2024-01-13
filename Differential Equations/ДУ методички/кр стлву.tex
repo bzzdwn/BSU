@@ -1,0 +1,94 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{}} % команды для \begin
+{\hfill$\scriptstyle$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newtheorem*{thrm}{Теорема}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\section*{Пробная контрольная работа по СтЛВУ.}
+	\begin{enumerate}
+		\item Найти общее решение уравнения методом сведения к уравнению высшего порядка
+		$$\begin{cases}
+			Dx_1 = -x_1 - 2x_2,\\
+			Dx_2 = 3x_1+4x_2-t.
+		\end{cases}$$
+		\item Найти общее решение уравнения матричным методом
+		$$\begin{cases}
+			Dx = 2x + y - z,\\
+			Dy = -x + z,\\
+			Dz = x + y.
+		\end{cases}\quad \lambda_1 = 0,\ \lambda_2 = 1, k_2 = 2.$$
+	\item Найти методом Коши решение нулевой задачи Коши при $t = 1$ для уравнения 
+	$$\begin{cases}
+		Dx = 4x +2y - 2z,\\
+		Dy = x + 3y - z,\\
+		Dz = 3x + 3y - z + 4e^{2t}.
+	\end{cases},\quad \lambda_1 = 2, k_1 = 3.$$
+\item Найти методом Лагранжа общее решение уравнения $DX = AX + f(t)$, где 
+$$A = \begin{pmatrix}
+	-2 & 2\\
+	-1 & 1
+\end{pmatrix},\quad f(t) = \begin{pmatrix}
+t^2 + 1\\
+t^2
+\end{pmatrix},\quad \I = \Rm.$$
+	\end{enumerate}
+	\newpage\section*{Ответы}\begin{enumerate}
+		\item $X(t) = \begin{pmatrix}
+			C_1e^t+C_2e^{2t}+t+3/2\\
+			-C_1e^t-3/2C_2e^{2t}-t/2-5/4
+		\end{pmatrix}$.
+		\item Для матриц $e^{Jt} = \begin{pmatrix}
+			1 & 0 & 0\\
+			0 & e^t & 0\\
+			0 & 0 & e^t
+		\end{pmatrix}$ и $S = \begin{pmatrix}
+			1 & 1 & 1\\
+			-1 & -1 & 0\\
+			1 & 0 & 1
+		\end{pmatrix}$ решение $X(t)=\begin{pmatrix}
+		C_1 + C_2e^t + C_3e^t\\
+		-C_1-C_2e^t\\
+		C_1+C_3e^t
+	\end{pmatrix}$
+\item Для матриц $e^{Jt} = e^{2t}\begin{pmatrix}
+	1 & t & 0\\
+	0 & 1 & 0\\
+	0 & 0 & 1
+\end{pmatrix}$ и $S = \begin{pmatrix}
+	1 & -1 & 1\\
+	-1 & 0 & 0\\
+	0 & 0 & 1
+\end{pmatrix}$ решение $X(t)=\begin{pmatrix}
+	2e^{2t}(t-1)^2\\-2e^{2t}(t-1)^2\\4e^{2t}(t-1)
+\end{pmatrix}$
+\item Для матриц $e^{Jt} = \begin{pmatrix}
+	e^{-t} & 0\\
+	0 & 1
+\end{pmatrix}$ и $S = \begin{pmatrix}
+2 & 1\\
+1 & 1
+\end{pmatrix}$ решение $X(t) = \begin{pmatrix}
+	2C_1e^{-t} + C_2 + 2 - 2e^{-t} + t^3/3 - t\\
+	C_1e^{-t} + C_2 + 1 - e^{-t} + t^3/3 - t
+\end{pmatrix}.$
+	\end{enumerate}
+\end{document}

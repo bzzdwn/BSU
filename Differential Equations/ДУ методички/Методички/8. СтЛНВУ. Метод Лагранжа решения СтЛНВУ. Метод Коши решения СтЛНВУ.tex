@@ -1,0 +1,598 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\newcommand{\FI}{\text{Ф}}
+\renewcommand{\tau}{\uptau}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\section*{СтЛНВУ. Метод Лагранжа решения СтЛНВУ. Метод Коши решения СтЛНВУ.}
+	Рассмотрим уравнение $$DX = AX + f(t),\quad t \in \I\eqno(1)$$
+	с непрерывной на $\I$ векторной функцией $f(t)$ и соответствующее ему однородное уравнение $$DX = AX.\eqno(2)$$
+	Все решения неоднородного уравнения можно получить, прибавив к некоторому частному решению все решения соответствующего однородного уравнения, то есть $$X_\text{OH} = X_\text{OO} + X_\text{ЧН}.$$
+	\textbf{Замечание.} \textit{Нахождение решения СтЛНВУ методом Лагранжа предусматривает умение находить решение СтЛВУ методом Эйлера. Нахождение решения СтЛНВУ методом Коши предусматривает умение находить решение СтЛВУ матричным методом. Если Вы пропустили, то лучше вернуться и повторить прошлые уроки, иначе могут возникнуть трудности с пониманием материала в данном уроке.}
+	\subsection*{Метод Лагранжа решения СтЛНВУ.}
+	Частное решение неоднородного уравнения может быть найдено \textbf{методом вариации произвольной постоянной (методом Лагранжа)}.\\\\
+	Пусть $\FI(t) = [X_1(t),\ldots,X_n(t)]$ --- ФМ. Частное решение уравнения (1) будем искать в виде $$X(t) = \FI(t)\cdot U(t), \quad U(t) = \begin{pmatrix}
+		u_1(t) \\ \vdots \\ u_n(t)
+	\end{pmatrix}.$$
+	Подставим функцию $X(t)$ в уравнение (1) и получим
+	$$DXU + XDU = AX + f(t)\Rightarrow\FI(t)\cdot DU(t) = f(t).$$
+	$\det \FI(t) \ne 0$ $\forall t \Rightarrow \exists \FI^{-1}(t) : DU(t) = \FI^{-1}(t) f(t)$. Тогда в качестве $U(t)$ можно выбрать $$U(t) = \int\limits_{t_0}^t\FI^{-1}(\uptau) f(\uptau)d\uptau,\quad t, t_0 \in \I.$$
+	Следовательно, общее решение неоднородного уравнения имеет вид $$
+	\boxed{X_{\text{он}} = \FI(t)\cdot C + \FI(t) \int\limits_{t_0}^t\FI^{-1}(\uptau) f(\uptau)d\uptau.}\eqno (3)$$
+	\textbf{Пример 1.} Методом Лагранжа найти общее решение уравнения $DX = AX + f(t)$, $t \in \I = \Rm$, где $$A = \begin{pmatrix}
+		0 & 1\\
+		-2 & -3
+	\end{pmatrix}, \quad f(t) =\begin{pmatrix}
+	t\\
+	-t
+\end{pmatrix}.$$
+\textbf{Решение.} Воспользуемся формулой (3). Для нахождения общего решения СтЛНВУ нам необходимо найти ФМ $\FI(t)$. Вычислим ее методом Эйлера.\\
+Матрица $A$ имеет собственные значения $\lambda_1 = -2$, $\lambda_2 = -1$. Найдем собственные векторы, соответствующие этим собственным значениям и сразу же найдем решения уравнения:
+$$A + 2E = \begin{pmatrix}
+	2 & 1\\
+	-2 & -1
+\end{pmatrix}\Rightarrow x_1 = e^{-2t}(1,-2).$$
+$$A + E = \begin{pmatrix}
+	1 & 1\\
+	-2 & -2
+\end{pmatrix}\Rightarrow x_2 = e^{-t}(1,-1).$$
+Тогда составим фундаментальную матрицу
+$$\FI(t) = \begin{pmatrix}
+	e^{-2t} & e^{-t}\\
+	-2e^{-2t} & -e^{-t}
+\end{pmatrix}.$$
+Также матрицу $\FI(t)$ можно составить с помощью матричного метода:
+$$\FI(t) = Se^{Jt} = \begin{pmatrix}
+	1 & 1\\
+	-2 & -1
+\end{pmatrix}\begin{pmatrix}
+e^{-2t} & 0\\
+0 & e^{-t}
+\end{pmatrix} = \begin{pmatrix}
+e^{-2t} & e^{-t}\\
+-2e^{-2t} & -e^{-t}
+\end{pmatrix}.$$
+Теперь мы можем найти общее решение соответствующего однородного СтЛВУ:
+$$X_{\text{оо}}(t) = \FI(t)\cdot C = 
+	\begin{pmatrix}
+			e^{-2t} & e^{-t}\\
+		-2e^{-2t} & -e^{-t}
+	\end{pmatrix}\begin{pmatrix}
+	C_1\\C_2
+\end{pmatrix} = \begin{pmatrix}
+C_1e^{-2t} + C_2e^{-t}\\
+-2C_1e^{-2t} - C_2e^{-t}
+\end{pmatrix}.$$
+Теперь найдем частное решение СтЛНВУ по формуле $$X_{\text{чн}}(t) =\FI(t) \int\limits_{t_0}^t\FI^{-1}(\uptau) f(\uptau)d\uptau. $$
+Для этого вычислим $\FI^{-1}(\uptau)f(\uptau)$:
+$$\FI^{-1}(\uptau)f(\uptau) = \begin{pmatrix}
+	-e^{2\uptau} & -e^{2\uptau}\\
+	2e^{\uptau} & e^{\uptau}
+\end{pmatrix}\begin{pmatrix}
+\tau\\-\tau
+\end{pmatrix} = \begin{pmatrix}
+0 \\ \tau e^{\tau}
+\end{pmatrix}.$$
+Подставим в формулу частного решения. Тогда нам необходимо найти интеграл от этой матрицы по $\tau$. Вычислим его, проинтегрировав каждую строку полученного столбца по отдельности при $t_0 = 0$:
+$$\int\limits_{0}^t \begin{pmatrix}
+	0 \\ \tau e^{\tau}
+\end{pmatrix}d\tau = \begin{pmatrix}
+0\\
+te^t - e^t + 1
+\end{pmatrix}.$$
+Теперь умножим фундаментальную матрицу на полученный столбец. Это и будет частное решение нашего СтЛНВУ:
+$$X_{\text{чн}}(t) = \begin{pmatrix}
+	e^{-2t} & e^{-t}\\
+-2e^{-2t} & -e^{-t}
+\end{pmatrix}\begin{pmatrix}
+0\\
+te^t - e^t + 1
+\end{pmatrix} = \begin{pmatrix}
+t - 1 + e^{-t}\\
+-t + 1 - e^{-t}
+\end{pmatrix}.$$
+Осталось сложить общее и частное решения и получить общее решение исходного СтЛНВУ:
+$$X(t) = \begin{pmatrix}
+C_1e^{-2t} + C_2e^{-t}\\
+-2C_1e^{-2t} - C_2e^{-t}
+\end{pmatrix} + \begin{pmatrix}
+t - 1 + e^{-t}\\
+-t + 1 - e^{-t}
+\end{pmatrix} = \begin{pmatrix}
+C_1e^{-2t} + C_2e^{-t} + t - 1 + e^{-t}\\
+-2C_1e^{-2t} - C_2e^{-t} -t + 1 - e^{-t}
+\end{pmatrix}.$$
+\textbf{Ответ:} $X(t) = \begin{pmatrix}
+C_1e^{-2t} + C_2e^{-t} + t - 1 + e^{-t}\\
+-2C_1e^{-2t} - C_2e^{-t} -t + 1 - e^{-t}
+\end{pmatrix}.$\\\\
+\textbf{Пример 2.} Методом Лагранжа найти общее решение уравнения $DX = AX + f(t)$, $t \in \I = \Rm$, где $$A = \begin{pmatrix}
+	3 & 1 & -1\\
+	0 & 2 & 0\\
+	1 & 1 & 1
+\end{pmatrix}, \quad f(t) =\begin{pmatrix}
+	e^{2t}\\
+	6te^{2t}\\
+	e^{2t}
+\end{pmatrix}.$$
+\textbf{Решение}. Матрица $A$ имеет собственное значение $\lambda = 2$, $k = 3$. 
+$$A - 2E = \begin{pmatrix}
+	1 & 1 & -1\\
+	0 & 0 & 0\\
+	1 & 1 & -1
+\end{pmatrix}\sim \begin{pmatrix}
+1 & 1 & -1
+\end{pmatrix}.$$
+Следовательно, геометрическая кратность $r = 2$. Собственные векторы соответствующие собственному значению равны $(1,0,1)^T$, $(1,-1,0)^T$. Тогда линейно независимые решения равны, соответствующего однородного уравнения равны
+$$x_1 = e^{2t}(1,0,1),\quad x_2 = e^{2t}(1,-1,0).$$
+Дополним совокупность линейно независимым решением $x_3 = e^{2t}(\alpha_0 + \alpha_1t)$, где $\alpha_1 = (1,0,1)^T$, $\alpha_0 = (1,0,0)^T$. Тогда $$x_3 = e^{2t}(t+1, 0, t)^T.$$
+Построим фундаментальную матрицу
+$$\FI(t) = e^{2t}\begin{pmatrix}
+	1 & 1 & t+1\\
+	0 & -1 & 0\\
+	1 & 0 & t
+\end{pmatrix},\quad \FI^{-1}(t) = e^{-2t}\begin{pmatrix}
+-t & -t & t+1\\
+0 & -1 & 0\\
+1 & 1 & -1
+\end{pmatrix}.$$
+Тогда общее решение соответствующего однородного уравнения имеет вид
+$$X_{\text{oo}}(t) = e^{2t}\begin{pmatrix}
+	C_1 + C_2 + C_3t + C_3\\
+	-C_2\\
+	C_1 + C_3t
+\end{pmatrix}.$$
+Перейдем к поиску частного решения. Вычислим $\FI^{-1}(\uptau)f(\uptau)$:
+$$\FI^{-1}(\uptau)f(\uptau) = e^{-2\tau}\begin{pmatrix}
+	-\tau & -\tau & \tau+1\\
+	0 & -1 & 0\\
+	1 & 1 & -1
+\end{pmatrix}\begin{pmatrix}
+	e^{2\tau}\\
+	6\tau e^{2\tau}\\
+	e^{2\tau}
+\end{pmatrix} = \begin{pmatrix}
+	-6\tau^2 + 1\\
+	-6\tau\\
+	6\tau
+\end{pmatrix}.$$
+Проинтегрируем полученный столбец, взяв $t_0 = 0$:
+$$\int\limits_{0}^t\begin{pmatrix}
+	-2\tau^2 + 1\\
+	-2\tau\\
+	2\tau
+\end{pmatrix}d\tau = \begin{pmatrix}
+-2t^3 + t\\
+-3t^2\\
+3t^2
+\end{pmatrix}.$$
+Домножим слева на фундаментальную матрицу и получим
+$$X_{\text{чн}}(t) = e^{2t}\begin{pmatrix}
+	1 & 1 & t+1\\
+	0 & -1 & 0\\
+	1 & 0 & t
+\end{pmatrix}\begin{pmatrix}
+-2t^3 + t\\
+-3t^2\\
+3t^2
+\end{pmatrix} = e^{2t}\begin{pmatrix}
+t^3 + t\\
+3t^2\\
+t^3 + t
+\end{pmatrix}.$$
+Сложим общее и частное решения и получим общее решение СтЛНВУ
+$$X(t) =e^{2t}\begin{pmatrix}
+	C_1 + C_2 + C_3t + C_3\\
+	-C_2\\
+	C_1 + C_3t
+\end{pmatrix} + e^{2t}\begin{pmatrix}
+t^3 + t\\
+3t^2\\
+t^3 + t
+\end{pmatrix} = e^{2t}\begin{pmatrix}
+C_1 + C_2 + C_3t + C_3 + t^3 + t\\
+-C_2 + 3t^2\\
+C_1 + C_3t + t^3 + t
+\end{pmatrix}.$$
+\textbf{Ответ:}$X(t) = e^{2t}\begin{pmatrix}
+	C_1 + C_2 + C_3t + C_3 + t^3 + t\\
+	-C_2 + 3t^2\\
+	C_1 + C_3t + t^3 + t
+\end{pmatrix}.$
+\subsection*{Метод Коши решения СтЛНВУ.}
+Используя формулу (3), найдем решение задачи Коши $DX = AX + f(t)$, $X|_{t=t_0} = \xi$. Для этого подставим в (3) начальные условия:
+	$X|_{t=t_0} = \FI(t_0)\cdot C = \xi \Rightarrow C = \FI^{-1}(t_0)\xi.$
+	Следовательно, решение задачи Коши имеет вид $$X(t) = \FI(t)\cdot \FI^{-1}(t_0)\xi + \FI(t)\int\limits_{t_0}^t\FI^{-1}(\uptau) f(\uptau)d\uptau.\eqno(4)$$
+	Возьмем $\FI(t) = e^{At}$. Тогда решение задачи Коши примет вид $$X(t) = e^{A(t-t_0)}\xi + \int\limits_{t_0}^te^{A(t-\uptau)} f(\uptau)d\uptau.\eqno (5)$$
+	Задача Коши для уравнения (1) с нулевыми начальными условиями ($\xi = 0$) имеет вид $$X(t) = \int\limits_{t_0}^te^{A(t-\uptau)} f(\uptau)d\uptau.$$
+	Эта является частным решением уравнения (1).\\\\
+	$\bullet$ \textit{Полученная функция называется \textbf{методом Коши} отыскания частного решения неоднородного уравнения.}\\\\
+	Следовательно, общее решение уравнения (1) можно записать в виде $$\boxed{X_{\text{он}}(t) = e^{A(t-t_0)}C + \int\limits_{t_0}^te^{A(t-\uptau)} f(\uptau)d\uptau.}\eqno(6)$$
+\textbf{Пример 3.} Методом Коши найти общее решение уравнения $DX = AX + f(t)$, $t \in \I$, где
+$$A = \begin{pmatrix}
+	2 & 0 & 0\\
+	1 & 2 & 0\\
+	0 & 0 & -1
+\end{pmatrix},\quad f(t)=\begin{pmatrix}
+0\\ e^{2t} \\ 1
+\end{pmatrix}.$$
+\textbf{Решение.} Для нахождения решения воспользуемся формулой (6). И для нахождения общего решения, и для частного нам необходимо найти матричную экспоненту $e^{A(t-t_0)}$. Матрица $A$ имеет собственные значения $\lambda_1 = -1$, $k_1 = 1$; $\lambda_2 = 2$, $k_2=2$.\\
+Рассмотрим $\lambda_1 = -1$:
+$$A + E = \begin{pmatrix}
+	3 & 0 & 0\\
+	1 & 3 & 0\\
+	0 & 0 & 0
+\end{pmatrix}\sim \begin{pmatrix}
+1 & 0 &\vline & 0\\
+0 & 1 & \vline & 0
+\end{pmatrix}.$$
+Тогда данному собственному значению соответствует собственный вектор $$a_1(0,0,1).$$
+Рассмотрим $\lambda_2 = 2$:
+$$A - 2E = \begin{pmatrix}
+	0 & 0 & 0\\
+	1 & 0 & 0\\
+	0 & 0 & -3
+\end{pmatrix}\sim \begin{pmatrix}
+1 & \vline & 0 & \vline & 0\\
+0 & \vline & 0 & \vline & 1
+\end{pmatrix}.$$
+Таким образом, геометрическая кратность $r = n - rank(A-2E) = 1$. Найдем собственный вектор, соответствующий данному собственному значению $$a_2(0,1,0).$$
+Найдем присоединенный к нему вектор $$(A-2E\ |\ a_2) = \begin{pmatrix}
+	0 & 0 & 0 & \vline & 0\\
+	1 & 0 & 0 & \vline & 1\\
+	0 & 0 & -3 & \vline & 0
+\end{pmatrix}\Rightarrow a_3(1,0,0).$$
+Теперь можем построить трансформирующую матрицу и матричную экспоненту ЖНФ:
+$$S = S^{-1} = \begin{pmatrix}
+	0 & 0 & 1\\
+	0 & 1 & 0\\
+	1 & 0 & 0
+\end{pmatrix},\quad e^{Jt} = \begin{pmatrix}
+e^{-t} & 0 & 0\\
+0 & e^{2t} & te^{2t}\\
+0 & 0 & e^{2t}
+\end{pmatrix}.$$
+$$e^{A(t-t_0)} =Se^{J(t-t_0)}S^{-1}= \begin{pmatrix}
+	e^{2(t-t_0)} & 0 & 0\\
+	(t-t_0) e^{2(t-t_0)} & e^{2(t-t_0)} & 0\\
+	0 & 0 & e^{-(t-t_0)}
+\end{pmatrix}.$$
+Теперь можем найти общее решение соответствующего СтЛОВУ, приняв $t_0 = 0$: $$X_{\text{oo}}(t) = \begin{pmatrix}
+	e^{2t} & 0 & 0\\
+	t e^{2t} & e^{2t} & 0\\
+	0 & 0 & e^{-t}
+\end{pmatrix}\begin{pmatrix}
+C_1\\C_2\\C_3
+\end{pmatrix} = \begin{pmatrix}
+C_1e^{2t}\\
+C_1te^{2t} + C_2e^{2t}\\
+C_3e^{-t}
+\end{pmatrix}.$$
+Но общее решение можно искать и другим способом. Например, необязательно умножать $Se^{Jt}$ на $S^{-1}$:
+$$X(t) = Se^{Jt}C = \begin{pmatrix}
+	0 & 0 & 1\\
+	0 & 1 & 0\\
+	1 & 0 & 0
+\end{pmatrix}\begin{pmatrix}
+e^{-t} & 0 & 0\\
+0 & e^{2t} & te^{2t}\\
+0 & 0 & e^{2t}
+\end{pmatrix}\begin{pmatrix}
+C_1\\C_2\\C_3
+\end{pmatrix}= \begin{pmatrix}
+C_3e^{2t}\\
+C_3te^{2t} + C_2e^{2t}\\
+C_1e^{-t}
+\end{pmatrix}.$$
+Такое решение отличается от полученного ранее, однако также является общим. На мой взгляд, разница между двумя этими вариантами в данном случае невелика, так как мы все равно должны вычислять матрицу $S^{-1}$ для нахождения частного решения.\\\\
+Осталось найти частное решение $\int\limits_{t_0}^te^{A(t-\uptau)}f(\uptau)d\uptau.$
+Так как $t \in \I = \Rm$, можем взять $t_0 = 0$. Найдем $e^{A(t-\uptau)}f(\uptau)$:
+$$e^{A(t-\uptau)}f(\uptau) =  \begin{pmatrix}
+	e^{2(t-\uptau)} & 0 & 0\\
+	(t-\uptau) e^{2(t-\uptau)} & e^{2(t-\uptau)} & 0\\
+	0 & 0 & e^{-(t-\uptau)}
+\end{pmatrix}\begin{pmatrix}
+0\\e^{2\uptau}\\1
+\end{pmatrix} = \begin{pmatrix}
+0\\e^{2t}\\e^{-(t-\uptau)}
+\end{pmatrix}.$$
+Полученный столбец необходимо проинтегрировать. Для этого проинтегрируем каждую строку по отдельности:
+$$\int\limits_{0}^t\begin{pmatrix}
+	0\\e^{2t}\\e^{-(t-\uptau)}
+\end{pmatrix}d\uptau = \begin{pmatrix}
+0\\te^{2t}\\1-e^{-t}
+\end{pmatrix}.$$
+Полученный столбец является столбцом частных решений. Остается лишь сложить полученные общие решения и частные решения (причем в качестве общего решения возьмем столбец $Se^{Jt}S^{-1}C$) и получить матрицу, которая является общим решением СтЛВНУ:
+$$X_{\text{oн}}(t) = \begin{pmatrix}
+	C_1e^{2t}\\
+	C_1te^{2t} + C_2e^{2t} + te^{2t}\\
+	C_3e^{-t} + 1 - e^{-t}
+\end{pmatrix}.$$
+\textbf{Ответ:} $X_{\text{oн}}(t) = \begin{pmatrix}
+	C_1e^{2t}\\
+	C_1te^{2t} + C_2e^{2t} + te^{2t}\\
+	C_3e^{-t} + 1 - e^{-t}
+\end{pmatrix}.$\\\\
+\textbf{Пример 4.} Методом Коши найти общее решение уравнения $DX = AX + f(t)$, $t \in \I$, где
+$$A = \begin{pmatrix}
+	1 & 0 & 1\\
+	0 & 1 & 1\\
+	1 & -1 & 1
+\end{pmatrix},\quad f(t)=\begin{pmatrix}
+	1\\ 1\\ e^{t}
+\end{pmatrix}.$$
+\textbf{Решение.} Матрица $A$ имеет собственное значение $\lambda = 1$, $k = 3$. 
+$$A - E = \begin{pmatrix}
+	0 & 0 & 1\\
+	0 & 0 & 1\\
+	1 & -1 & 0
+\end{pmatrix}\sim \begin{pmatrix}
+1 & \vline & -1 & \vline& 0\\
+0 & \vline & 0 & \vline& 1
+\end{pmatrix}.$$
+Следовательно, геометрическая кратность $r = 1$, и собственному значению соответствует собственный вектор $$a_1(1,1,0).$$
+Найдем присоединенные векторы:
+$$(A-E\ |\ a_1) = \begin{pmatrix}
+		0 & 0 & 1 & \vline & 1\\
+	0 & 0 & 1 & \vline & 1\\
+	1 & -1 & 0 & \vline & 0
+\end{pmatrix}\sim \begin{pmatrix}
+0 & 0 & 1  & \vline & 1\\
+1 & -1 & 0  & \vline & 0
+\end{pmatrix}\Rightarrow a_2(0,0,1).$$
+$$(A-E\ |\ a_2) = \begin{pmatrix}
+	0 & 0 & 1 & \vline & 0\\
+	0 & 0 & 1 & \vline & 0\\
+	1 & -1 & 0 & \vline & 1
+\end{pmatrix}\sim \begin{pmatrix}
+	0 & 0 & 1  & \vline & 0\\
+	1 & -1 & 0  & \vline & 1
+\end{pmatrix}\Rightarrow a_3(1,0,0).$$
+Построим трансформирующую матрицу и матричную экспоненту ЖНФ:
+$$S = \begin{pmatrix}
+	1 & 0 & 1\\
+	1 & 0 & 0\\
+	0 & 1 & 0
+\end{pmatrix},\quad e^{Jt} = e^t\begin{pmatrix}
+1 & t & \frac{t^2}{2}\\
+0 & 1 & t\\
+0 & 0 & 1
+\end{pmatrix},\quad S^{-1} = \begin{pmatrix}
+0 & 1 & 0\\
+0 & 0 & 1\\
+1 & -1 & 0
+\end{pmatrix}.$$
+Тогда $$e^{A(t-t_0)} = e^t\begin{pmatrix}
+	\frac{(t-t_0)^2}{2} + 1 & \frac{(t-t_0)^2}{2} & (t-t_0)\\
+	\frac{(t-t_0)^2}{2} & 1 - \frac{(t-t_0)^2}{2} & (t-t_0)\\
+	(t-t_0) & -(t-t_0) & 1
+\end{pmatrix}.$$
+Примем $t_0 = 0$ и найдем общее решение СтЛВУ
+$$X_{\text{oo}}(t) = e^t\begin{pmatrix}
+	\frac{t^2}{2} + 1 & \frac{t^2}{2} &t\\
+	\frac{t^2}{2} & 1 - \frac{t^2}{2} & t\\
+	t & -t & 1
+\end{pmatrix}\begin{pmatrix}
+C_1\\C_2\\C_3
+\end{pmatrix} = e^t\begin{pmatrix}
+\frac{1}{2}C_1t^2 + C_1 + \frac{1}{2}C_2t^2 + C_3t\\
+\frac{1}{2}C_1t^2 + C_2 - \frac{1}{2}C_2t^2 + C_3t\\
+C_1t - C_2t + C_3
+\end{pmatrix}.$$
+Переходим к нахождению частного решения. Аналогично берем $t_0 =0$ и ищем $e^{A(t-\uptau)}f(\uptau)$:
+$$e^{A(t-\uptau)}f(\uptau) =e^{t-\uptau}
+	\begin{pmatrix}
+		\frac{(t-\uptau)^2}{2} + 1 & \frac{(t-\uptau)^2}{2} & (t-\uptau)\\
+		\frac{(t-\uptau)^2}{2} & 1 - \frac{(t-\uptau)^2}{2} & (t-\uptau)\\
+		(t-\uptau) & -(t-\uptau) & 1
+	\end{pmatrix}\begin{pmatrix}
+	1\\-1\\e^{\uptau}
+\end{pmatrix} = \begin{pmatrix}
+e^{t-\uptau} + (t-\uptau)e^t\\
+e^{t-\uptau} + (t-\uptau)e^t\\
+2e^{t-\uptau}(t-\uptau) + e^{t}\\
+\end{pmatrix}.$$
+Проинтегрируем полученный столбец, взяв $t_0 = 0$:
+$$X_{\text{чн}}(t) = \int\limits_{0}^{t} \begin{pmatrix}
+	e^{t-\uptau} + (t-\uptau)e^t\\
+	e^{t-\uptau} + (t-\uptau)e^t\\
+	2e^{t-\uptau}(t-\uptau) + e^{t}\\
+\end{pmatrix} d\uptau = \begin{pmatrix}
+1/2t^2e^t + e^t - 1\\
+1/2t^2e^t + e^t - 1\\
+3te^t - 2e^t + 2
+\end{pmatrix}.$$
+Сложим общее и частное решения и получим общее решение СтЛНВУ
+$$X_{\text{oн}}(t) = \begin{pmatrix}
+	1/2C_1t^2 + C_1 + 1/2C_2t^2 + C_3t + 1/2t^2e^t + e^t - 1\\
+	1/2C_1t^2 + C_2 - 1/2C_2t^2 + C_3t + 1/2t^2e^t + e^t - 1\\
+	C_1t - C_2t + C_3 + 3te^t - 2e^t + 2
+\end{pmatrix}.$$
+\textbf{Ответ:} $X_{\text{oн}}(t) = \begin{pmatrix}
+	1/2C_1t^2 + C_1 + 1/2C_2t^2 + C_3t + 1/2t^2e^t + e^t - 1\\
+	1/2C_1t^2 + C_2 - 1/2C_2t^2 + C_3t + 1/2t^2e^t + e^t - 1\\
+	C_1t - C_2t + C_3 + 3te^t - 2e^t + 2
+\end{pmatrix}.$\\\\
+\textbf{Пример 5.} Методом Коши решить задачу Коши $DX = AX + f(t)$, $t \in \I$, $X_{t=t_0} = \xi$, где
+$$A = \begin{pmatrix}
+5 & 4 & 6\\
+4 & 5 & 6\\
+-4 & -4 & -5
+\end{pmatrix},\quad f(t)=\begin{pmatrix}
+1\\-1\\0
+\end{pmatrix},\quad t_0 = 1,\quad \xi = \begin{pmatrix}
+0\\\frac{1}{2}\\0
+\end{pmatrix}.$$
+\textbf{Решение.} Вспользуемся формулой (5). Метод решения аналогичен предудыщим примерам, но после вычисления $e^{A(t-t_0)}$ мы не находим общее решение, а сразу подставляем начальные условия.\\\\
+Матрица $A$ имеет собственные значения $\lambda_1 = 1$, $k_1 = 2$; $\lambda_2 = 3$, $k_2 = 1$. Рассмотрим $\lambda_1$:
+$$A - E = \begin{pmatrix}
+	4 & 4 & 6\\
+	4 & 4 & 6\\
+	-4 & -4 & -6
+\end{pmatrix}\sim \begin{pmatrix}
+2 & 2 & 3
+\end{pmatrix}.$$
+Следовательно, геометрическая кратность $r_1 = 2$, а собственные вектора соответствующие собственному значению равны $$a_1(1, -1, 0),\quad a_2(3,0,-2).$$
+Рассмотрим $\lambda_2$:
+$$A - 3E = \begin{pmatrix}
+	2 & 4 & 6\\
+	4 & 2 & 6\\
+	-4 & -4 & -2
+\end{pmatrix}\sim \begin{pmatrix}
+1 & 0 & 1\\
+0 & 1 & 1
+\end{pmatrix}\Rightarrow a_3(1,1,-1).$$
+Вычислим матричную экспоненту:
+$$e^{A(t-t_0)} = \begin{pmatrix}
+	1 & 3 & 1\\
+	-1 & 0 & 1\\
+	0 & -2 & -1
+\end{pmatrix}\begin{pmatrix}
+e^{t-t_0} & 0 & 0\\
+0 & e^{t-t_0} & 0\\
+0 & 0 & e^{3(t-t_0)}
+\end{pmatrix}\begin{pmatrix}
+2 & 1 & 3\\
+-1 & -1 & -2\\
+2 & 2 & 3
+\end{pmatrix}=$$ $$=\begin{pmatrix}
+2e^{3(t-t_0)} - e^{(t-t_0)} & 2e^{3(t-t_0)} - 2e^{(t-t_0)} & 3e^{3(t-t_0)} - 3 e^{(t-t_0)}\\
+2e^{3(t-t_0)} - 2e^{(t-t_0)} & 2e^{3(t-t_0)} - e^{(t-t_0)} & 3e^{3(t-t_0)} - 3e^{(t-t_0)}\\
+2e^{(t-t_0)} - 2e^{3(t-t_0)} & 2e^{(t-t_0)} - 2e^{3(t-t_0)}& 4e^{(t-t_0)} - 3e^{3(t-t_0)} 
+\end{pmatrix}.$$
+Вычислим $e^{A(t-t_0)}\xi$:
+$$e^{A(t-t_0)}\xi = \begin{pmatrix}
+	2e^{3(t-1)} - e^{(t-1)} & 2e^{3(t-1)} - 2e^{(t-1)} & 3e^{3(t-1)} - 3 e^{(t-1)}\\
+	2e^{3(t-1)} - 2e^{(t-1)} & 2e^{3(t-1)} - e^{(t-1)} & 3e^{3(t-1)} - 3e^{(t-1)}\\
+	2e^{(t-1)} - 2e^{3(t-1)} & 2e^{(t-1)} - 2e^{3(t-1)}& 4e^{(t-1)} - 3e^{3(t-1)} 
+\end{pmatrix}\begin{pmatrix}
+0\\\frac{1}{2}\\0
+\end{pmatrix}=\begin{pmatrix}
+e^{3(t-1)} - e^{t-1}\\
+e^{3(t-1)} - 1/2e^{t-1}\\
+ e^{t-1} - e^{3(t-1)}
+\end{pmatrix}.$$
+Теперь найдем частное решение. Вычисляется оно абсолютно аналогично прошлым примерам. Только в интеграле принимаем $t_0 = 1$ в соответствии с нашими начальными условиями.
+$$e^{A(t-\uptau)}f(\uptau) = \begin{pmatrix}
+	2e^{3(t-\uptau)} - e^{(t-\uptau)} & 2e^{3(t-\uptau)} - 2e^{(t-\uptau)} & 3e^{3(t-\uptau)} - 3 e^{(t-\uptau)}\\
+	2e^{3(t-\uptau)} - 2e^{(t-\uptau)} & 2e^{3(t-\uptau)} - e^{(t-\uptau)} & 3e^{3(t-\uptau)} - 3e^{(t-\uptau)}\\
+	2e^{(t-\uptau)} - 2e^{3(t-\uptau)} & 2e^{(t-\uptau)} - 2e^{3(t-\uptau)}& 4e^{(t-\uptau)} - 3e^{3(t-\uptau)} 
+\end{pmatrix}\begin{pmatrix}1\\-1\\0
+\end{pmatrix} = \begin{pmatrix}
+e^{t-\uptau}\\
+-e^{t-\uptau}\\
+0
+\end{pmatrix}.$$
+Тогда 
+$$X_{\text{чн}}(t) = \int\limits_{1}^{t} \begin{pmatrix}
+	e^{t-\uptau}\\
+	-e^{t-\uptau}\\
+	0
+\end{pmatrix} d\uptau = \begin{pmatrix}
+e^{t-1} - 1\\
+1 - e^{t-1}\\
+0
+\end{pmatrix}.$$
+Полученные решения как всегда складываем и получим решение исходной задачи Коши:
+$$X(t) = \begin{pmatrix}
+	e^{3(t-1)} - e^{t-1}\\
+	e^{3(t-1)} - 1/2e^{t-1}\\
+	e^{t-1} - e^{3(t-1)}
+\end{pmatrix} + \begin{pmatrix}
+e^{t-1} - 1\\
+1 - e^{t-1}\\
+0
+\end{pmatrix} = \begin{pmatrix}
+	e^{3(t-1)} - 1\\
+	e^{3(t-1)} - 3/2e^{t-1} + 1\\
+	e^{t-1} - e^{3(t-1)}
+\end{pmatrix}.$$
+\textbf{Ответ:} $X(t) = \begin{pmatrix}
+	e^{3(t-1)} - 1\\
+	e^{3(t-1)} - 3/2e^{t-1} + 1\\
+	e^{t-1} - e^{3(t-1)}
+\end{pmatrix}.$\\\\
+\textbf{Замечание.} \textit{Искать решение задачи Коши мы также можем методом Лагранжа по формуле $(4)$, но, в отличие от метода Лагранжа, вычисляя в методе Коши $e^{A(t-t_0)}$, мы сразу находим ФСР нормированную в точке $t=t_0$. Поэтому после нахождения $e^{A(t-t_0)}$ мы сразу же можем подставить начальные условия.} 
+\subsection*{Задачи для самостоятельного решения.}
+Методом Лагранжа найти общее решение уравнения $DX = AX + f(t)$, $t \in \I = \Rm$, где \begin{enumerate}
+	\item $$A = \begin{pmatrix}
+		0 & 1\\
+		-1 & 0
+	\end{pmatrix},\quad f(t) = \begin{pmatrix}
+	\tg^2 - 1\\
+	\tg t
+\end{pmatrix},\quad \I = (-\pi/2; \pi/2);$$
+\item $$A = \begin{pmatrix}
+	-2 & 2\\
+	-1 & 1
+\end{pmatrix},\quad f(t) = \begin{pmatrix}
+e^{-2t}\\6e^{6t}
+\end{pmatrix},\quad \I = \Rm;$$
+\item $$A = \begin{pmatrix}
+	0 & 1\\
+	-2 & 3
+\end{pmatrix},\quad f(t) = \begin{pmatrix}
+	0\\1/(e^t + 1)
+\end{pmatrix},\quad \I = \Rm;$$
+\item $$A = \begin{pmatrix}
+	3 & 1 & -1\\
+	0 & 2 & 0\\
+	1 & 1 & 1
+\end{pmatrix}, \quad f(t) =\begin{pmatrix}
+	e^{2t}\cos t\\
+		e^{2t}\sin t\\
+	e^{2t}
+\end{pmatrix},\quad \I = \Rm;$$
+\item $$A = \begin{pmatrix}
+	3 & -1 & 1\\
+	-1 & 5 & -1\\
+	1 & -1 & 3
+\end{pmatrix}, \quad f(t) =\begin{pmatrix}
+	e^{2t}\\
+	e^{5t}\\
+	1
+\end{pmatrix},\quad \I = \Rm.$$
+\end{enumerate}
+Методом Коши найти общее решение уравнения $DX = AX + f(t)$, $t \in \I$, где
+$$A = \begin{pmatrix}
+	0 & 1 & 0\\
+	-1 & 0 & 0\\
+	1 & 0 & 0
+\end{pmatrix},$$
+\begin{enumerate}
+	\item $ f(t)=(0, e^t, 0)^T;$
+	\item $f(t) = (\cos t, \sin t, 1)^T$.
+\end{enumerate}
+Методом Коши решить задачу Коши $DX = AX + f(t)$, $t \in \I$, $X_{t=t_0} = \xi$, где
+$$A = \begin{pmatrix}
+	3 & -1 & -1\\
+	12 &-3 & -12\\
+	-4 & 1 & 6
+\end{pmatrix},$$
+\begin{enumerate}
+	\item $f(t) = (t, 0 ,1)^T, t_0 = 2, \xi = (1,0,0)^T;$
+	\item $f(t) = (e^{-t}, e^{2t} ,0)^T, t_0 = 0, \xi = (1,0,0)^T;$
+\end{enumerate}
+\end{document}

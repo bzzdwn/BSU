@@ -1,0 +1,59 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{}} % команды для \begin
+{\hfill$\scriptstyle$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newtheorem*{thrm}{Теорема}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\section*{Контрольный тест по СтЛУ.}
+	\begin{enumerate}
+		\item Построить общее решение уравнения
+		$$D^3x - 5D^2x + 2Dx - 10x = 0.$$
+		\item Построить общее решение уравнения
+		$$D^4x + 5D^2x + 4x = 0.$$
+		\item Построить общее решение уравнения
+		$$L_8x = 0,\ L_8 = D(D-(2+3i)D^0)^2(D+(2+3i)D^0)^2(D + 2D^0)(D - 8D^0)^2$$
+		\item Применить правило Коши для решения уравнения
+		$$D^2x + 8x = sin(t).$$
+		\item Применить метод Лагранжа для решения уравнения
+		$$D^2x - 2Dx + x = \dfrac{e^t}{t^2 + 1}.$$
+		\item Применить метод Эйлера для решения уравнения
+		$$D^2x - 4Dx + 8x = e^{2t} + sin(2t).$$
+		\item Исследовать уравнения 1-2, 4-6 на асимптотическую и неасимптотическую устойчивость.
+		\item Определить тип точки покоя для уравнений 4-6.
+		\item Исследовать на асимптотическую и неасимптотическую устойчивость уравнение
+		$$D^4x + 4D^3x + 7D^2x + 6Dx + 2x = cos(3t).$$
+		\item С помощью критерия Гурвица исследовать асимптотическую устойчивость уравнения в зависимости от параметров $a$ и $b$
+		$$D^3x + 3D^2x + aDx + bx = 0.$$
+	\end{enumerate}
+	\newpage\section*{Ответы}\begin{enumerate}
+		\item $x(t) = C_1e^{5t} + C_2cos(\sqrt{2}t) + C_3sin(\sqrt{2}t)$.
+		\item $x(t) = C_1cos(2t) + C_2sin(2t) + C_3sin(t) + C_4cos(t)$.
+		\item $x(t) = C_1te^{2t}cos(3t) + C_2e^{2t}cos(3t) + C_3te^{2t}sin(3t) + C_4e^{2t}sin(3t) + C_5e^{-2t} + C_6te^{8t} + C_7e^{8t} + C_8$.
+		\item $x(t) = C_1cos(2\sqrt{2}t) + C_2sin(2\sqrt{2}t) + \dfrac{sin(t)}{7}.$
+		\item $x(t) = C_1te^t + C_2e^t + te^t \arctg(t) - \dfrac{1}{2} e^t ln|t^2 + 1|$.
+		\item $x(t) = C_1e^{2t}cos(2t) + C_2e^{2t}sin(2t) + \dfrac{e^{2t}}{4} + \dfrac{1}{20} sin(2t) + \dfrac{1}{10}cos(2t).$
+		\item 1) Неустойчиво; 2) Не асимптотическая (двусторонняя) устойчивость; 4) Не асимптотическая (двусторонняя) устойчивость; 5) Неустойчиво; 6) Неустойчиво.
+		\item 4) Центр; 5) Монокритический неустойчивый узел; 6) Фокус.
+		\item Асимптотически устойчиво.
+		\item Асимптотически устойчиво при $a > b/3$ и $3ab - b^2 > 0$.
+	\end{enumerate}
+\end{document}

@@ -1,0 +1,69 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\begin{center}
+		\Large{Лабораторная работа: $"$Дифференциальные уравнения первого порядка$"$}
+	\end{center}
+\begin{center}
+		\large{Вариант 1}
+\end{center}
+\begin{enumerate}
+	\item Проинтегрировать уравнение, приняв $\mu = \mu(x)$ или $\mu = \mu (y)$. %УПД ИМ
+	$$(x+ y^2)dy - ydx = 0.$$
+	\item  %УРП
+	\\Найти общий интеграл уравнений, приведя уравнения к виду $y' = f(x,y)$ или \\$x' = f(x,y)$: \item также найти решение задачи Коши $$ydx + (x + y^3x^2)dy = 0,\quad y|_{x = 1} = 4.$$ %УБ
+	\item $$ydx - (x + y\cdot \tg \dfrac{x}{y})dy = 0.$$ %ОУ
+	\item$$(x^2y^2 + 2xy + 2)dx - x^2dy = 0.$$ %УР
+	\item Найти общее и особое (если оно есть) решения уравнения $$2y^2dx - xdy = 0.$$
+	\item Путем приведения к нормальной дифференциальной форме, найти полное решение уравнения $$(y')^3 -( y')^2 + xyy'\cdot(1 - y' - yy' + y + xy^2) - x^2y^3 = 0.$$\\
+	 Найти полное решение уравнений методом введения параметра
+	\item $$(y')^2-2xy' -x^2 + 4y = 0.$$
+	\item $$y'(y+xy') = 2.$$
+	\item $$y + e^{y'} = xy'.$$
+\end{enumerate}
+
+\end{document}

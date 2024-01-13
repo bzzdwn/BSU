@@ -1,0 +1,98 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document} 
+	\section*{Особые решения. Решения подозрительные на особые.}
+	Мы не будем останавливаться на всей теории особых решений. Даже не будем их искать. Мы ограничиваемся лишь поиском решений подозрительных на особые. Далее мы будем искать только подозрительные на особые решения, но будем называть их $"$особыми решениями$"$. Для этого существует 2 метода:\begin{enumerate}
+		\item Особые решения могут появиться при поиске общего решения (в основном в УРП). Нагляднее рассмотрим в примерах.
+		\item Если, получив общее решение уравнения в виде $F(x,y,C) = 0$, имеем $F'^2_x + F'^2_y \ne 0$, то из системы $$\begin{cases}
+			F(x,y,C) = 0,\\
+			F'_C(x,y,C) = 0;
+		\end{cases}$$ возможно (но не вседа) также найти такие решения.
+	\end{enumerate}
+\textbf{Пример 1.} Найти общее и особые (если они есть) решения уравнения $$y(1-y)dx - xydy = 0.$$
+\textbf{Решение.} Разделим уравнение на $y$ и получим $$(1-y)dx - xdy = 0.$$ Однако при делении у нас теряется решение $y = 0$. Оно в нашем случае будет особым.\\\\
+Теперь полученное нами уравнение является УРП. Разделим его на $x(y-1)$ и получим $$\dfrac{dx}{x} - \dfrac{dy}{1-y} = 0.$$
+При делении у нас опять же теряются решения $x = 0$ и $y = 1$. Они также будут особыми. Осталось найти общее решение получившегося уравнения. Оно имеет вид $$\ln x + \ln (1-y) = C.$$ Или $$y = 1-C/x.$$
+Тогда полное решение исходного уравнения будут составлять общее решение и все особые решения уравнения (причем $y=1$ можно получить из общего при $C= 0$, поэтому его не записываем) $$\left[\begin{aligned}
+	&y = 1-C/x,\\
+	&y = 0,\\
+	&x = 0.
+\end{aligned}\right.$$
+\textbf{Ответ:} $\left[\begin{aligned}
+	&y = 1-C/x,\\
+	&y = 0,\\
+	&x = 0.
+\end{aligned}\right.$\\\\
+\textbf{Пример 2.} Найти особые решения уравнения $y = xy' + y' - y'^2$, зная, что его общее решение имеет вид $$y = C(x+1) - C^2.$$
+\textbf{Решение.} В нашем случае общее решение $$F(x,y,C) = y - C(x+1) + C^2 = 0.$$
+Тогда $$F'_x = -C,\ F'_y = 1 \Rightarrow F'^2_x + F'^2_y \ne 0.$$
+Таким образом, мы можем найти особые решения из системы $$\begin{cases}
+	F(x,y,C) = 0,\\
+	F'_C(x,y,C) = 0;
+\end{cases}\Rightarrow \begin{cases}
+	y - C(x+1) + C^2 = 0,\\
+	-(x+1) + 2C = 0.
+\end{cases} \Rightarrow\begin{cases}
+y - C(x+1) + C^2 = 0,\\
+C = \dfrac{x+1}{2}.
+\end{cases}\Rightarrow$$ $$\begin{cases}
+C = \dfrac{x+1}{2},\\
+y = (x+1)\dfrac{x+1}{2} - \dfrac{(x+1)^2}{4}.
+\end{cases}\Rightarrow \begin{cases}
+C = \dfrac{x+1}{2},\\
+y = \dfrac{(x+1)^2}{4}.
+\end{cases} $$
+Отсюда получаем, что решение $y = \dfrac{(x+1)^2}{4}$ является особым решением. Тогда полное решение исходного уравнения имеет вид $$\left[\begin{aligned}
+	&y = C(x+1) - C^2,\\
+	&y = \dfrac{(x+1)^2}{4}.
+\end{aligned}\right.$$
+\textbf{Ответ:} $\left[\begin{aligned}
+	&y = C(x+1) - C^2,\\
+	&y = \dfrac{(x+1)^2}{4}.
+\end{aligned}\right.$\\\\
+(Поиском общего решения уравнения из примера 2 мы займемся в 18 уроке)
+\end{document}

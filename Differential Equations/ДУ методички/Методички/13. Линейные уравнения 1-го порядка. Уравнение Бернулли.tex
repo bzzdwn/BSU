@@ -1,0 +1,130 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\section*{Линейные уравнения первого порядка. Уравнение Бернулли.}
+	$\bullet$ \textit{Уравнение $$P(x,y)dx + Q(x,y)dy = 0$$ будем называть \textbf{линейным уравнением первого порядка (ЛУ-1)}, если оно линейно относительно неизвестной функции.}\\\\
+	Возьмем в качестве неизвестной функции $y = y(x)$. Тогда уравнение $$(p(x)\cdot y + q(x))dx + r(x)dy = 0,\eqno (1)$$ где функции $p(x), q(x), r(x)$ непрерывны на промежутке $\I$,
+	будет \textit{линейным относительно} $y$.\\\\
+	Разберемся, как вообще решаются линейные уравнения. Рассмотрим ЛОУ-1 $$x' + a(t)\cdot x = 0.$$ В теме СтЛОУ мы аналогично выводили формулу, считая, что $a(t) = const$ (подробнее в уроке 1). Теперь выведем формулу для общего решения, взяв $a(t)$ в качестве непрерывной на $\I$ функции.
+	$$x' + a(t)\cdot x = 0\ \Big| \cdot e^{\int a(t)dt};$$ 
+	$$x' \cdot e^{\int a(t)dt} + a(t)\cdot x \cdot e^{\int a(t)dt} = 0;$$
+	$$(x\cdot e^{\int a(t)dt})' = 0;$$
+	$$x\cdot e^{\int a(t)dt} = C \quad \Rightarrow\quad x = Ce^{\int a(t)dt}.$$
+	Такой вид имеет общее решение ЛОУ-1.\\\\
+	Теперь перед нами цель аналогичными действиями вывести общее решение уравнения (1). Разделим уравнение (1) на $dx$:
+	$$r(x)\cdot y' + p(x)\cdot y + q(x) = 0.$$
+	Полученное уравнение разделим на $r(x)$ (очевидно, что $r(x)\ne 0$):
+	$$y' + \dfrac{p(x)}{r(x)}\cdot y + \dfrac{q(x)}{r(x)} = 0.$$
+	Для избежания громоздкости в формулах сделаем замену $$\dfrac{p(x)}{r(x)} = P(x),\quad -\dfrac{q(x)}{r(x)} = Q(x).$$
+	Очевидно, что $P$ и $Q$ также являются непрерывными на $\I$ функциями.
+	Таким образом, получаем уравнение вида $$y' + P(x)\cdot y - Q(x) = 0,\eqno (2)$$
+	которое также называют ЛУ-1 относительно $y$ (и чаще всего записывают ЛУ-1 именно в таком виде).
+	Теперь из уравнения (2) выведем формулу, для нахождения общего решения ЛУ-1:
+	$$y' + P(x)\cdot y - Q(x) = 0\ \Big| \cdot e^{\int\limits_{x_0}^xP(\tau)d\tau}.$$
+	$$y' \cdot e^{\int\limits_{x_0}^xP(\tau)d\tau} + P(x)\cdot y\cdot e^{\int\limits_{x_0}^xP(\tau)d\tau} - Q(x)\cdot e^{\int\limits_{x_0}^xP(\tau)d\tau} = 0.$$
+	$$\Big(y\cdot e^{\int\limits_{x_0}^xP(\tau)d\tau}\Big)'_x- Q(x)\cdot e^{\int\limits_{x_0}^xP(\tau)d\tau} = 0.$$
+	Проинтегрируем по $x$ получившееся уравнение:
+	$$y\cdot e^{\int\limits_{x_0}^xP(\tau)d\tau} - \int\limits_{x_0}^x Q(t)\cdot e^{\int\limits_{t_0}^tP(\tau)d\tau} dt = C.$$
+	Тогда отсюда получаем формулу для нахождения общего решения
+	$$y = Ce^{-\int\limits_{x_0}^xP(\tau)d\tau} + e^{-\int\limits_{x_0}^xP(\tau)d\tau}\int\limits_{x_0}^x Q(t)\cdot e^{\int\limits_{t_0}^tP(\tau)d\tau} dt.\eqno(3)$$
+	Или
+	$$y =  e^{-\int\limits_{x_0}^xP(\tau)d\tau}\cdot \Big(C +\int\limits_{x_0}^x Q(t)\cdot e^{\int\limits_{t_0}^tP(\tau)d\tau} dt \Big).\eqno(4)$$
+	Для решения задач мы будем использовать только формулы (3) или (4).\\\\
+	Также можно немного классифицировать ЛУ-1:
+	\begin{center}
+		$\underbrace{y' + P(x)\cdot y = 0}_{\text{однородное ЛУ-1 (ЛОУ-1)}}$\qquad$\underbrace{y' + P(x)\cdot y = Q(x)}_{\text{неоднородное ЛУ-1 (ЛНУ-1)}}$
+	\end{center}
+Тогда из (3) общее решение ЛОУ-1 будет иметь вид $$y_{\text{oo}} = Ce^{-\int\limits_{x_0}^xP(\tau)d\tau}.\eqno(5)$$
+Следовательно, мы можем определить частное решение ЛУ-1 как   $$y_{\text{чн}} = e^{-\int\limits_{x_0}^xP(\tau)d\tau}\int\limits_{x_0}^x Q(t)\cdot e^{\int\limits_{t_0}^tP(\tau)d\tau} dt.\eqno(6)$$
+Значит формулу (3) (или (4)) можно определить в виде $$y_\text{он} = y_\text{oo} + y_\text{чн}.$$
+\textbf{Замечание.} \textit{Если в уравнении (2) взять $P$ в качестве постоянной, то мы получим СтЛНУ-1, причем формула (6) будет являться методом Коши для нахождения частного решения СтЛНУ-1.}\\\\
+Наконец можно переходить к решению задач.\\\\
+\textbf{Пример 1.} Решить уравнение $$y' - \dfrac{y}{x} = 0.$$
+\textbf{Решение.} Данное нам уравнение является ЛОУ-1, решение которого мы можем вычислить по формуле (5). Тогда, поскольку $P(x) = -\dfrac{1}{x}$, подставим это в формулу (5), положив $x_0=1$ (как всегда произвольное значение из $D$):
+$$y = Ce^{-\int\limits_{1}^x(-\frac{1}{\tau})d\tau} = Ce^{\ln|\tau|\big|_1^x} = Ce^{\ln x - \ln 1} = Ce^{\ln x} = Cx.$$
+\textbf{Ответ:} $y = Cx$.\\\\
+\textbf{Пример 2.} Решить уравнение $$y' + 2xy = e^{-x^2}.$$
+\textbf{Решение.} Данное уравнение нам сразу дано в виде ЛУ-1 (в виде (2)). Нахождение решения разобъем на 3 этапа, как в СтЛНУ, т.е. найдем сначала общее решение соответствующего ЛОУ-1 по формуле (5), затем частное решение ЛНУ-1 по формуле (6) и в конце сложим получившееся решения.\begin{enumerate}
+	\item Найдем общее решение соответствующего ЛОУ-1 $$y' + 2xy = 0.$$ Из условия выпишем $P(x) = 2x$. Тогда воспользуемся формулой (5), взяв $x_0 = 0$:
+	$$y_\text{oo} = Ce^{-\int\limits_{0}^x(2\tau)d\tau} = Ce^{-x^2}.$$
+	\item Найдем частное решение ЛНУ-1 $$y' + 2xy = e^{-x^2}.$$ По условию у нас $Q(x) = e^{-x^2}$. А также из предыдущего этапа нам известно, что $e^{-\int\limits_{x_0}^xP(\tau)d\tau} = e^{-x^2}$. Воспользуемся формулой (6), положив $x_0 = 0$:
+	$$y_\text{чн} = e^{-x^2}\int\limits_0^xe^{-t^2}e^{t^2}dt = e^{-x^2}\int\limits_0^xdt = xe^{-x^2}.$$
+	\item Найдем решение исходного уравнения. Оно равно
+	$$y = y_\text{oo} + y_\text{чн} = Ce^{-x^2} + xe^{-x^2}.$$
+\end{enumerate}
+\textbf{Ответ:} $y = Ce^{-x^2} + xe^{-x^2}$.\\\\
+\textbf{Пример 3.} Решить уравнение $$(2x+y)dy = ydx + 4\ln y dy.$$
+\textbf{Решение.} Такое уравнение уже слегка сложнее, чем предыдущие. Для приведем уравнение к виду (2). Для этого разделим его на $dx$:
+$$(2x + y)y' = y + 4y'\ln y = 0\quad \Rightarrow\quad y' - \dfrac{y}{2x + y - 4\ln y} = 0.$$
+К виду (2) мы не смогли привести, следовательно, данное уравнение не является линейным относительно $y$. Но мы можем проверить, будет ли оно линейным относительно $x$. Для этого вернемся к исходному виду и разделим его уже на $dy$:
+$$2x + y = yx' + 4\ln y = 0\quad \Rightarrow \quad x' - \dfrac{2x}{y} = 1 - \dfrac{4\ln y}{y}.$$
+Относительно $x$ мы получили ЛУ-1. Опять же разобъем поиск его решения на 3 этапа.\begin{enumerate}
+	\item Найдем общее решение ЛОУ-1 $$x' - \dfrac{2x}{y} = 0.$$ То есть $P(y) = -\dfrac{2}{y}$.
+	По формуле (5), приняв $y_0 = 1$, получим $$x_\text{oo} = Ce^{-\int\limits_1^y (-\frac2\tau)d\tau} = Ce^{2\ln y} = Cy^2.$$
+	\item Найдем частное решение ЛНУ-1 $$x' - \dfrac{2x}{y} = 1 - \dfrac{4\ln y}{y}.$$ Так как $Q(y) = 1 - \dfrac{4\ln y}{y}$, а $e^{-\int\limits_{x_0}^xP(\tau)d\tau} = y^2$, то по формуле (6) имеем \begin{multline*}
+		x_\text{чн} = y^2\int\limits_1^y\Big(1 - \dfrac{4\ln t}{t}\Big)\cdot\dfrac{1}{t^2}dt=y^2\Big(\int\limits_1^y\dfrac{dt}{t^2} - 4\int\limits_1^y\dfrac{\ln t}{t^3}dt\Big) =\\= y^2\Big(-\dfrac{1}{t}\Big|_1^y - 4\Big(-\dfrac{\ln t}{2t^2}\Big|_1^y + \int\limits_1^y\dfrac{dt}{2t^3}dt\Big)\Big) = y^2\Big(-\dfrac{1}{y} + 1 + 4\cdot\dfrac{\ln y}{2y^2} - 4\cdot\dfrac{\ln 1}{2} + \dfrac{1}{y^2} - 1\Big)=\\=-y + y^2 +2\ln y + 1 - y^2.
+	\end{multline*}
+\item Найдем полное решение уравнения (все слагаемые с $y^2$ уходят к константе $C$):
+$$x = Cy^2 + -y + y^2 +2\ln y + 1 - y^2 = Cy^2 - y + 2\ln y + 1.$$
+\end{enumerate}
+\textbf{Ответ:} $x = Cy^2 - y + 2\ln y + 1.$\\\\
+Как и со всеми ранее пройденными типами уравнений рассмотрим задачу Коши и для ЛУ-1. Если $y|_{x = \nu} = \xi$, $\nu \in \I$, $\xi \in \Rm$ --- задача Коши, то ее решением будет	$$y =  e^{-\int\limits_{\nu}^xP(\tau)d\tau}\cdot \Big(\xi +\int\limits_{\nu}^x Q(t)\cdot e^{\int\limits_{\nu}^tP(\tau)d\tau} dt \Big).\eqno(7)$$
+То есть во все крайние нижние точки подставляем $\nu$, а вместо $C$ подставляем $\xi$. Аналогично можно ввести решение задачи Коши с начальными условиями $x|_{y = \xi} = \nu$.\\\\
+\textbf{Пример 4.} Решить задачу Коши $$(x + y^2) dy = ydx,\quad x|_{y = 1} = 2.$$
+\textbf{Решение.} В начальном условии для нас уже есть подсказка, что лучше будет рассмотреть ЛУ-1 относительно $x$. Тогда разделим исходное уравнение на $dy$:
+$$yx' = x + y^2 \quad\Rightarrow\quad x' - \dfrac{x}{y} = y.$$
+Перепишем формулу (7) для нашего случая, подставив начальные условия:
+	$$x =  e^{-\int\limits_{1}^yP(\tau)d\tau}\cdot \Big(2 +\int\limits_{1}^y Q(t)\cdot e^{\int\limits_{1}^tP(\tau)d\tau} dt \Big) = e^{\int\limits_{1}^y\frac{d\tau}{\tau}}\cdot \Big(2 +\int\limits_{1}^yt\cdot e^{-\int\limits_{1}^t\frac{d\tau}{\tau}} dt \Big) = y \Big(2 + \int\limits_1^yt\cdot \dfrac{1}{t}dt\Big) = y + y^2.$$
+	\textbf{Ответ:} $x = y + y^2.$
+	\subsection*{Уравнение Бернулли.}
+	К теме ЛУ-1 можно также отнести \textbf{уравнение Бернулли}, которое имеет вид $$y' + P(x)\cdot y = Q(x)\cdot y^m,\quad x  \in \I.\eqno(8)$$
+	Для его решения заменим $u = y^{1-m}$. Тогда, подставив, получим $$u' + (1-m)\cdot P(x)\cdot u = (1-m)\cdot Q(x).$$
+	\textbf{Пример 5.} Решить уравнение $$y' + 2y=y^2e^x.$$
+	\textbf{Решение.} Данное уравнение сразу имеет вид (8). Воспользуемся заменой $u = y^{-1} = \dfrac{1}{y}$. Тогда $u'_x = -\dfrac{y'_x}{y^2}.$ Тогда для того, чтобы сразу подставить $u'$, домножим исходное уравнение на $-\dfrac{1}{y^2}$:
+	$$-\dfrac{y'}{y^2} - \dfrac{2}{y} = -e^x.$$
+	Теперь подставим нашу замену и получим
+	$$u' - 2u = -e^x.$$
+	А это уже ЛУ-1 относительно $u$, причем СтЛУ-1. Найдем его решение, взяв $x_0 = 0$ $$u = Ce^{2x} + e^{2x}\int\limits_0^x (-e^t)\cdot e^{-2t}dt = Ce^{2x} + e^{2x}\int\limits_0^x e^{-t}d(-t) = Ce^{2x} + e^x.$$
+	Сделаем обратную замену и получим $$\dfrac{1}{y} = Ce^{2x} + e^x.$$
+	\textbf{Ответ:} $y(Ce^{2x} + e^x) = 1.$\\\\
+	\textbf{Пример 6.} Решить задачу Коши $$y' + xy = xy^3,\quad y|_{x=0} = 1.$$
+	\textbf{Решение.} Данное уравнение снова является уравнением Бернулли, поэтому введем замену $$u = y^{-2} = \dfrac{1}{y^2},\quad u' = -\dfrac{2y'}{y^3}.$$
+	Для того, чтобы подставить замену, преобразуем исходное уравнение. Домножим всё уравнение на $-\dfrac{2}{y^3}$, тогда $$-\dfrac{2y'}{y^3} - \dfrac{2x}{y^2} = -2x.$$
+	Тогда, заменяя, получим $$u' - 2xu = -2x.$$
+	Полученное уравнение является ЛУ-1, для его нахождения решения применим формулу (3), взяв $x_0 = 0$ (причем мы не будем сразу решать задачу Коши),
+	$$u = Ce^{x^2} + e^{x^2}\int\limits_0^x (-2t)\cdot e^{-t^2} dt = Ce^{x^2} + e^{x^2}\int\limits_0^xe^{-t^2}d(-t^2) = Ce^{x^2} + e^{x^2}(e^{-x^2} - 1) = Ce^{x^2} + 1 - e^{x^2} = Ce^{x^2} + 1.$$
+	Сделаем обратную замену и получим $$\dfrac{1}{y^2} = Ce^{x^2} + 1.$$
+	Это полное решение исходного уравнения. Теперь найдем решение задачи Коши. Для этого подставим в получившееся уравнение начальные условия $$1 = C + 1 \quad\Rightarrow\quad C = 0.$$
+	Тогда, подставляя $C = 0$, получим решение задачи Коши $$\dfrac{1}{y^2} = 1 \quad \Rightarrow\quad y = 1.$$
+	$y = -1$ не подходит, так как не соответствует начальным условиям.\\\\
+	\textbf{Ответ:} $y = 1$.
+\end{document}

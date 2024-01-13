@@ -1,0 +1,169 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+\section*{Уравнения в полных диффренециалах. Интегрирующий множитель.}
+$\bullet$ \textit{Уравнение вида $$P(x,y)dx + Q(x,y)dy = 0,$$ где функции $P(x,y)$ и $Q(x,y)$ непрерывны в односвязной области (на компакте) $D$ и $P^2 + Q^2 \ne 0$ будем называть \textbf{уравнением в полных дифференциалах (УПД)}, если на $D$ выполняются следующие условия:}\begin{enumerate}
+	\item \textit{существует непрерывно дифференцируемая на $D$ функция $u(x,y)$ такая, что}
+	$$du(x,y) = P(x,y)dx + Q(x,y)dy,\quad (x,y)\in D;$$
+	\item ф\textit{ункции $P(x,y)$ и $Q(x,y)$ удовлетворяют условию Эйлера:}
+	$$\dfrac{\d P}{\d y} = \dfrac{\d Q}{\d x}.$$
+\end{enumerate}
+Также из курса математического анализа эти свойства можно называть $"$условиями независимости КРИ-2 от пути интегрирования$"$.\\\\
+Таким образом, мы решаем дифференциальное уравнение $du(x,y) = 0$, и его решение (общий интеграл, полное решение) имеет вид $$u(x,y) = C.$$
+Разберемся с тем, как найти это самое решение.\\\\
+\textbf{Первый способ.} Для нахождения первообразной функции $u(x,y)$ воспользуемся известной из курса матанализа формулой $$u(x,y) = \int\limits^{(x,y)}_{(x_0,y_0)}P(x,y)dx + Q(x,y)dy = \int\limits_{x_0}^xP(x,y_0)dx + \int\limits_{y_0}^yQ(x,y)dy\eqno (1)$$
+или
+$$u(x,y) = \int\limits^{(x,y)}_{(x_0,y_0)}P(x,y)dx + Q(x,y)dy = \int\limits_{x_0}^xP(x,y)dx + \int\limits_{y_0}^yQ(x_0,y)dy.\eqno (2)$$
+Разница лишь в том, что при разбиении КРИ-2 на собственные интегралы точку $x_0$ или $y_0$ мы подставляем \textbf{только в один} из собственных интегралов.\\\\
+\textbf{Пример 1.} Проверить, является ли уравнение уравнением в полных дифференциалах, найти общий интеграл и указать область $D$:
+$$(x+y)dx + (x-y)dy = 0.$$
+\textbf{Решение.} Пойдем по пунктам из условия.\begin{enumerate}
+	\item Укажем множество допустимых значений $D$. Поскольку $P(x,y) = x+y$ непрерывна на $\Rm$, $Q(x,y) = x-y$ непрерывна на $\Rm$, то \begin{center}
+		$D = \Rm^2$ или $D = \{(x,y)\ |\ x\in\Rm, y\in\Rm\}$. 
+	\end{center}
+\item Выясним, является ли наше уравнение УПД. Для этого проверим, выполняется ли условие Эйлера:\begin{center}
+	$\dfrac{\d P}{\d y} =1$, $\dfrac{\d Q}{\d x} = 1$ $\Rightarrow \dfrac{\d P}{\d y} = \dfrac{\d Q}{\d x}$.
+\end{center}
+Таким образом, уравнение является УПД, и мы можем проинтегрировать его.
+\item Найдем общее решение уравнения. Для этого воспользуемся формулами (1) или (2). В качестве $x_0$ и $y_0$ можем взять любые значения из $D$, т. е. любые значения из $\Rm^2$. Пусть $x_0 = y_0 = 0$. Тогда по формуле (1)
+\begin{multline*}
+	u(x,y) = \int\limits^{(x,y)}_{(0,0)} (x+y)dx + (x-y)dy = \int\limits^x_0 xdx + \int\limits^y_0 (x-y)dy =\\= \int\limits^x_0 xdx + x\int\limits^y_0dy - \int\limits^y_0ydy  = \dfrac{x^2}{2}\Big|_0^x + xy \Big|_0^y - \dfrac{y^2}{2}\Big|_0^y = \dfrac{x^2}{2} + xy - \dfrac{y^2}{2} = C.
+\end{multline*}
+Последнее равенство домножим на 2 (от этого справа всё равно останется константа) и получим общее решение $$x^2 + 2xy - y^2 = C.$$
+\end{enumerate}
+Для того, чтобы убедиться, верно ли мы нашли общее решение уравнения, продифференцируем получившееся уравнения.
+$$du(x,y) = u^\prime_xdx + u^\prime_ydy= (2x + 2y)dx + (2x - 2y)dy = 0.$$
+Заметим, что в качестве $x_0$ и $y_0$ лучше брать как насколько это возможно минимальные числа. Но вообще можно брать любые числа из $D$. Например, если бы мы взяли \begin{multline*}
+	u(x,y) = \int\limits^{(x,y)}_{(\ln2,0)} (x+y)dx + (x-y)dy = \dfrac{x^2}{2}\Big|_{\ln 2}^x + xy \Big|_{0}^y - \dfrac{y^2}{2}\Big|_{0}^y=\dfrac{x^2}{2} - \dfrac{\ln^22}{2}  + xy- \dfrac{y^2}{2} = C.
+\end{multline*}
+	В получившемся уравнении все постоянные можем перенести вправо, а затем домножить на 2. Тогда все равно получаем решение $$x^2 + 2xy - y^2 = C.$$
+\textbf{Ответ:} $x^2 + 2xy - y^2 = C.$\\\\
+\textbf{Второй способ.} Для отыскания функции можно использовать соотношения \begin{center}
+	$\dfrac{\d u(x,y)}{\d x} = u^\prime_x = P(x,y)$,\quad $\dfrac{\d u(x,y)}{\d y} = u^\prime_y = Q(x,y)$.
+\end{center}
+Тогда если $\dfrac{\d u(x,y)}{\d x} = P(x,y)$, то $$u(x,y) = \int\limits_{x_0}^xP(x,y)dx + \phi(y) = C.\eqno(3)$$
+Отсюда \begin{multline*}
+	\dfrac{\partial u}{\partial y} = \int\limits^x_{x_0}\dfrac{\partial P}{\partial y}dx + \varphi^\prime(y) = \dfrac{\partial u}{\partial y} = \int\limits^x_{x_0}\dfrac{\partial Q}{\partial x}dx + \varphi^\prime(y) =\\= Q(x,y)\Big|_{x_0}^x + \varphi^\prime(y) = Q(x,y) - Q(x_0,y) + \varphi^\prime(y) = Q(x,y).
+\end{multline*}
+Получаем $$\varphi^\prime(y) = Q(x_0,y).$$
+Из получившегося уравнения найдем $$\varphi(y) = \int\limits^y_{y_0}Q(x_0,y)dy + C.$$
+Подставим его в (3) и получим
+$$u(x,y) = \int\limits_{x_0}^xP(x,y)dx +\int\limits^y_{y_0}Q(x_0,y)dy = C.$$
+Таким образом и выглядит алгоритм для второго способа. Он может сначала показаться сложным, однако при решении всё становится интуитивно понятно.\\\\
+\textbf{Замечание.} \textit{Поскольку УПД имеет вид $$P(x,y)dx + Q(x,y)dy = 0,$$ то мы можем разделить все уравнение на $dx$ и получить $$P(x,y) + Q(x,y)\dfrac{dy}{dx} = P(x,y) + y^\prime\cdot  Q(x,y) = 0.$$
+Аналогично УПД может иметь вид $$x^\prime \cdot P(x,y) + Q(x,y) = 0.$$ Независимо от вида записи, методы нахождения решения остаются неизменными.}\\\\
+\textbf{Пример 2.} Проверить, является ли уравнение уравнением в полных дифференциалах, найти общий интеграл и указать область $D$:
+$$2x^3 + xy^2 +  (x^2y + 2y^3)\cdot y^\prime = 0.$$ 
+\textbf{Решение.} Приведем уравнение к более привычному для нас виду, домножив его на $dx$: $$x(2x^2+y^2)dx + y(x^2+2y^2)dy = 0.$$ Снова разобъем решение уравнения на 3 этапа.\begin{enumerate}
+	\item Найдем множество допустимых значений $D$. Так как $P(x,y) =  x(2x^2+y^2)$ непрерывна на $\Rm$ и $Q(x,y) = y(x^2+2y^2)dy$ непрерывна на $\Rm$, то $D = \Rm^2$.
+	\item Проверим, является ли уравнение УПД. \begin{center}
+		$\dfrac{\d P}{\d y} =2xy$, $\dfrac{\d Q}{\d x} = 2xy$ $\Rightarrow \dfrac{\d P}{\d y} = \dfrac{\d Q}{\d x}$.
+	\end{center}
+\item Найдем общее решение вторым способом и пусть $x_0 = y_0 = 0$. Возьмем $$\dfrac{\d u(x,y)}{\d x} = P(x,y) = 2x^3 + xy^2.$$
+Отсюда $$u(x,y) = \int\limits_{x_0}^xP(x,y)dx + \phi(y) = \int\limits_{0}^x(2x^3 + xy^2)dx + \phi(y) = \dfrac{x^4}{2} + \dfrac{x^2y^2}{2} + \phi(y) = C.\eqno(4)$$
+Тогда $$\dfrac{\d u(x,y)}{\d y} = Q(x,y) \Rightarrow \Big(\dfrac{x^4}{2} + \dfrac{x^2y^2}{2} + \phi(y)\Big)^\prime_y = x^2y + \phi^\prime(y)  = x^2y + 2y^3.$$
+Следовательно, $\phi^\prime(y) = 2y^3$, а $\phi(y) = \dfrac{y^4}{2}$.
+Подставим полученное $\phi(y)$ в (4). Тогда $$u(x,y) = \dfrac{x^4}{2} + \dfrac{x^2y^2}{2} + \dfrac{y^4}{2} = C.$$
+Наконец домножим последнее уравнение на 2 и получим общий интеграл исходного уравнения $$x^4 + x^2y^2 + y^4 = C.$$
+\end{enumerate}
+\textbf{Ответ:} $x^4 + x^2y^2 + y^4 = C.$\\\\
+Уравнение вида $$P(x)dx + Q(y)dy = 0$$ с непрерывными на $D$ и не обращающимися в 0 одновременно функциями $P$ и $Q$ мы также будем считать уравнением в полных дифференциалах (иногда его еще называют \textbf{уравнением с разделенными переменными}). И его общее решение будет иметь вид $$u(x,y) = \int\limits_{x_0}^xP(x)dx + \int\limits_{y_0}^yQ(y)dy = C.\eqno(5)$$
+\textbf{Пример 3.}  Проверить, является ли уравнение уравнением в полных дифференциалах, найти общее решение и указать область $D$:
+$$\dfrac{xdx}{1+x^2} + \dfrac{dy}{y} = 0.$$
+\textbf{Решение.} \begin{enumerate}
+	\item Найдем множество допустимых значений. $P(x,y) = \dfrac{x}{1+x^2}$ непрерывна на $\Rm$, $Q(x,y) =~\dfrac{1}{y}$ непрерывна на $\Rm \backslash \{0\}$ и для уточнения возьмем множество $(0; +\infty)$. Тогда $$D = \{(x,y)\ |\ x\in \Rm, y > 0\}.$$
+	\item Так как это УПД с разделенными переменными, то очевидно, что $$P^\prime_y = Q^\prime _x = 0.$$
+	\item Для нахождения общего решения воспользуемся формулой (5). Пусть $x_0 = 0$, $y_0 = 1$.
+	\begin{multline*}
+		u(x,y) = \int\limits_0^x\dfrac{xdx}{1+x^2} + \int\limits_1^y\dfrac{dy}{y} = \dfrac{1}{2}\ln(1+x^2)\Big|_0^x + \ln|y|\Big|_1^y =\\= \dfrac{1}{2}\ln(1+x^2) - \dfrac{1}{2}\ln1 + \ln y - \ln1 = \dfrac{1}{2}\ln(1+x^2) + \ln y = C.
+	\end{multline*}
+Домножим на 2 и преобразуем $$\ln(1+x^2) + 2\ln y = \ln (y^2(1+ x^2)) = C.$$
+\end{enumerate}
+\textbf{Ответ:} $\ln (y^2(1+ x^2)) = C.$\\\\
+Иногда в задачах может стоять вопрос о поиске решения задачи Коши для УПД. Например, если $$P(x,y)dx + Q(x,y)dy = 0,\quad y|_{x=\upnu} = \upxi\ \lor\ x|_{y=\upxi}=\upnu,$$
+то решение задачи Коши определяется формулой $$u(x,y) = \int\limits^{(x,y)}_{(\upnu,\upxi)}P(x,y)dx + Q(x,y)dy = 0.$$
+То есть, в отличие от общего решения, начальные точки нам уже даны и $u(x,y) = 0$ (а не $u(x,y) = C$).\\\\
+\textbf{Пример 4.} Решить задачу Коши:
+$$\dfrac{2x}{y^3}dx + \dfrac{y^2 - 3x^2}{y^4}dy = 0,\quad y|_{x=1} = 1.$$
+\textbf{Решение.} Проверим, является ли уравнение УПД\begin{center}
+	$\dfrac{\d P}{\d y} = -\dfrac{6x}{y^4}$, $\dfrac{\d Q}{\d x} = -\dfrac{6x}{y^4} \Rightarrow \dfrac{\d P}{\d y} = \dfrac{\d Q}{\d x}$.\end{center}
+	Условие Эйлера выполняется, значит можем применить формулу (2)
+	\begin{multline*}
+	u(x,y) = \int\limits^{(x,y)}_{(1,1)} \dfrac{2x}{y^3}dx + \dfrac{y^2 - 3x^2}{y^4}dy = \dfrac{2}{y^3}\int\limits_1^xxdx + \int\limits_1^y\dfrac{dy}{y^2} - 3 \int\limits_1^y\dfrac{dy}{y^4} =\\= \dfrac{x^2}{y^3}\Big|_1^x - \dfrac{1}{y}\Big|_1^y + \dfrac{1}{y^3}\Big|_1^y =\dfrac{x^2}{y^3} - \dfrac{1}{y^3} - \dfrac{1}{y} + 1 + \dfrac{1}{y^3} - 1 = \dfrac{x^2}{y^3} - \dfrac{1}{y} = 0.
+\end{multline*}
+Отсюда $$x^2 = y^2 \Rightarrow x = y.$$
+Проверить, правильным ли является найденное решение, можно подстановкой начальных условий (получим 1 = 1).\\\\
+\textbf{Ответ:} $x = y.$
+\subsection*{Интегрирующий множитель.}
+Рассмотрим уравнение  $$P(x,y)dx + Q(x,y)dy = 0,$$ где функции $P(x,y)$ и $Q(x,y)$ непрерывны в односвязной области $D$ и $P^2 + Q^2 \ne 0$. И пусть оно не является УПД.\\\\
+$\bullet$ \textit{Непрерывную на $G \subset D$ функцию $\upmu(x,y)$ будем называть \textbf{интегрирующим множителем}, если уравнение $$\mu(x,y)P(x,y)dx +\mu(x,y) Q(x,y)dy = 0\eqno(6)$$ является уравнением в полных дифференциалах.}\\\\
+Выведем формулу для нахождения интегрирующего множителя. Возьмем функцию $\upomega = \upomega(x,y)$ такую, что $\mu (\upomega)$ --- интегрирующий множитель.\\\\
+Если уравнение (6) является УПД, то $$(\mu(\upomega)P(x,y))^\prime_y = (\mu(\upomega) Q(x,y) )^\prime_x.$$
+По формуле производной сложной функции нескольких переменных получим $$\mu^\prime_\omega \omega^\prime_y P(x,y) + \mu(\omega)P^\prime_y =\mu^\prime_\omega \omega^\prime_x Q(x,y) + \mu(\omega)Q^\prime_x. $$
+Отсюда $$\dfrac{P^\prime_y - Q^\prime_x}{Q\omega^\prime_x - P\omega^\prime_y} = \dfrac{\mu^\prime(\omega)}{\mu(\omega)} = \psi(\omega).$$
+Мы получили линейное ДУ-1 (подробнее мы рассмотрим их через 1 урок) $$\mu^\prime(\omega) - \mu(\omega)\cdot \psi(\omega) = 0.$$ Найдем его решение $$\mu^\prime(\omega) - \mu(\omega)\cdot \psi(\omega) = 0\ \Big| \cdot e^{-\int\limits_{\omega_0}^\omega\psi(\tau)d\tau}.$$
+ $$\mu^\prime(\omega)\cdot e^{-\int\limits_{\omega_0}^\omega\psi(\tau)d\tau} - \mu(\omega)\cdot \psi(\omega)\cdot e^{-\int\limits_{\omega_0}^\omega\psi(\tau)d\tau} = 0.$$
+ $$\Big(\mu(\omega) e^{-\int\limits_{\omega_0}^\omega\psi(\tau)d\tau}\Big)^\prime_\omega = 0.$$
+ $$\mu(\omega) e^{-\int\limits_{\omega_0}^\omega\psi(\tau)d\tau} = C.$$
+ $$\mu(\omega) = Ce^{\int\limits_{\omega_0}^\omega\psi(\tau)d\tau}.$$
+ Причем так как при подстановке $C$ сократится, то можно записать $$\mu(\omega) = e^{\int\limits_{\omega_0}^\omega\psi(\tau)d\tau}.$$
+ Отсюда следует, что если $\mu(\omega)$ --- интегрирующий множитель, то и $C\mu(\omega)$ также является интегрирующим множителем.\\\\
+ Из всех вычислений для решения задачи нам пригодятся лишь формулы (6), $$\dfrac{P^\prime_y - Q^\prime_x}{Q\omega^\prime_x - P\omega^\prime_y} = \psi(\omega)\eqno(7)$$
+ и
+ $$\mu(\omega) = e^{\int\limits_{\omega_0}^\omega\psi(\tau)d\tau}.\eqno (8)$$
+ Обычно функция $\omega(x,y)$ будет задана в условии, и ее не нужно подбирать.\\\\
+ \textbf{Пример 5.} Найти общее решение уравнения, найдя интегрирующий множитель указанного вида:
+ $$2xy\ln y dx + (x^2 + y^2\sqrt{y^2 + 1})dy = 0,\quad \mu = \mu(x)\quad \text{или} \quad \mu = \mu (y).$$
+ \textbf{Решение.} Проверим, является ли исходное уравнение УПД.
+ \begin{center}
+ 	$P^\prime_y = 2x\ln y + 2x$, $Q^\prime_x = 2x$, то есть $P^\prime_y \ne Q^\prime_x.$
+ \end{center}
+Таким образом, не выполняется условие Эйлера, следовательно, мы не сможем решить данное уравнение как УПД. Найдем интегрирующий множитель для того, чтобы привести его к УПД.\\\\
+В условии нам предложено взять в качестве функции $\omega$ переменные $x$ или $y$. Возьмем $\omega = x$. Тогда по формуле (7) мы должны получить функцию $\psi(x)$ (функцию \textbf{одной переменной}). Причем $\omega^\prime_x = x^\prime_x= 1$, $\omega^\prime_y = x^\prime_y= 0$.
+$$\dfrac{P^\prime_y - Q^\prime_x}{Q\omega^\prime_x - P\omega^\prime_y} =\dfrac{P^\prime_y - Q^\prime_x}{Q}= \dfrac{2x\ln y + 2x - 2x}{x^2 + y^2\sqrt{y^2 + 1}} = \psi(x,y)\ne \psi(x).$$
+Мы получили несоответствие. Значит подстановка $\omega = x$ не подходит нам. Попробуем взять $\omega = y$, и получить мы должны функцию $\psi(y)$. Тогда
+$$\dfrac{P^\prime_y - Q^\prime_x}{Q\omega^\prime_x - P\omega^\prime_y} =\dfrac{P^\prime_y - Q^\prime_x}{- P}= \dfrac{2x\ln y + 2x - 2x}{-2xy\ln y} = -\dfrac{2x\ln y}{2xy\ln y} = -\dfrac{1}{y}= \psi(y).$$
+Теперь мы можем применить формулу (8) для нахождения интегрирующего множителя
+$$\mu(\omega) = e^{\int\limits_{\omega_0}^\omega\psi(\tau)d\tau}=e^{-\int\limits_{y_0}^y\frac{d\tau}{\tau}} = e^{-(\ln y - \ln y_0)} = e^{-\ln\frac{y}{y_0}} = -\dfrac{y_0}{y}.$$
+Так как $\mu(y) = -\dfrac{y_0}{y}$ --- интегрирующий множитель, то функция $\mu(y) = \dfrac{1}{y}$ также будет являться интегрирующим множителем.
+\\\\
+Воспользуемся формулой (6), то есть домножим исходное уравнение на $\mu(y)$
+$$2x\ln ydx + \Big(\dfrac{x^2}{y} + y\sqrt{y^2 + 1}\Big)dy = 0.$$
+Данное уравнение является УПД. Убедимся в этом:\begin{center}
+	$P^\prime_y = 2x/y$, $Q^\prime_x = 2x/y$, то есть $P^\prime_y = Q^\prime_x.$
+\end{center}
+А УПД мы уже научились решать. Возьмем $x_0 = 0$ и $y_0 = 1$. Тогда \begin{multline*}
+	u(x,y) = \int\limits^{(x,y)}_{(0,1)} 2x\ln ydx + \Big(\dfrac{x^2}{y} + y\sqrt{y^2 + 1}\Big)dy = 2\ln y\int\limits^x_0xdx + \int\limits_1^yy\sqrt{y^2 + 1}dy =\\ = 2\ln y \cdot \dfrac{x^2}{2}\Big|_0^x + \dfrac{1}{2}\int\limits_1^y(y^2 + 1)^{\frac{1}{2}}d(y^2 + 1) = x^2\ln y +\dfrac{1}{3}(y^2 + 1)^{\frac{3}{2}}\Big|_1^x =  x^2\ln y +\dfrac{1}{3}(y^2 + 1)^{\frac{3}{2}} - \dfrac{2^\frac{3}{2}}{3} = C.
+\end{multline*}
+Перенесем последнее слагаемое к константе, а затем домножим всё уравнение на 3 и получим общее решение $$3x^2\ln y +(y^2 + 1)^{\frac{3}{2}} = C.$$
+\textbf{Ответ:} $3x^2\ln y +(y^2 + 1)^{\frac{3}{2}} = C.$
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Ln}{L_n = D^n + a_{n-1}D^{n-1} + \ldots + a_1D + a_0D^0}
+\begin{document}
+	\subsection*{Уравнение в полных дифференциалах (УПД).}
+	\textbf{Условие.} $P(x,y)dx + Q(x,y)dy = 0$ и $P'_y = Q'_x$.\\\\
+	\textbf{Решение.} $$\int\limits_{(x_0,y_0)}^{(x,y)}P(x,y)dx + Q(x,y)dy = \int\limits_{x_0}^xP(x,y)dx + \int\limits_{y_0}^yQ(x_0,y)dy = \int\limits_{x_0}^xP(x,y_0)dx + \int\limits_{y_0}^yQ(x,y)dy = C.$$
+	\subsection*{Уравнение с разделенными переменными.}
+	\textbf{Условие.} $P(x)dx + Q(y)dy = 0$.\\\\
+	\textbf{Решение.} $$\int\limits_{x_0}^xP(x)dx + \int\limits_{y_0}^yQ(y)dy = C.$$
+	\subsection*{Интегрирующий множитель.}
+	\textbf{Условие.} $P(x,y)dx + Q(x,y)dy = 0$ и $P'_y \ne Q'_x$.\\\\
+	\textbf{Решение.} $$\dfrac{P'_y - Q'_x}{Q\omega'_x - P\omega'_y} = \psi(\omega)\quad\Rightarrow\quad \mu(\omega) = e^{\int\limits_{\omega_0}^\omega \psi(\tau)d\tau}\quad\Rightarrow\quad \mu(\omega)\cdot P(x,y)dx +\mu(\omega)\cdot Q(x,y)dy = 0 \text{ --- УПД}.$$
+	\subsection*{Уравнения с разделяющимися переменными (УРП).}
+	\textbf{Условие.} $P_1(x)Q_1(y)dx + P_2(x)Q_2(y)dy = 0.$\\\\
+	\textbf{Решение.} $$\dfrac{P_1(x)}{P_2(x)}dx + \dfrac{Q_2(y)}{Q_1(y)}dy = 0 \quad\Rightarrow\quad \int\limits_{x_0}^x\dfrac{P_1(x)}{P_2(x)}dx + \int\limits_{y_0}^y\dfrac{Q_2(y)}{Q_1(y)}dy = C. $$
+	\subsection*{Линейные уравнения первого порядка (ЛУ-1).}
+	\textbf{Условие.} $y' + P(x)\cdot y = Q(x)$.\\\\
+	\textbf{Решение.} $$y =  e^{-\int\limits_{x_0}^xP(\tau)d\tau}\cdot \Big(C +\int\limits_{x_0}^x Q(t)\cdot e^{\int\limits_{t_0}^tP(\tau)d\tau} dt \Big).$$
+	\subsection*{Уравнение Бернулли.}
+	\textbf{Условие.} $y' + P(x)\cdot y = Q(x)\cdot y^m$.\\\\
+	\textbf{Решение.} $$u = y^{1-m}\quad\Rightarrow\quad u' + (1-m)\cdot P(x)\cdot u = (1-m)\cdot Q(x) \text{ --- ЛУ-1}.$$
+	$$y^{1-m} = e^{(m-1)\int\limits_{x_0}^xP(\tau)d\tau}\cdot \Big(C +(1-m)\int\limits_{x_0}^x Q(t)\cdot e^{(1-m)\int\limits_{t_0}^tP(\tau)d\tau} dt \Big).$$
+\end{document}

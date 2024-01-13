@@ -1,0 +1,32 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap} % поиск в PDF
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % пакеты AMS
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{ upgreek }
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\def\asys{A(a_1,\dots,a_n)}
+\def\bsys{B(b_1,\dots,b_n)}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\epsilon}{\upvarepsilon}
+\usepackage{textcomp}
