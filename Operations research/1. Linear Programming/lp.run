@@ -1,0 +1,7 @@
+reset;
+model model.mod;
+option solver cplex;
+solve;
+display cost;
+display carrot;
+display apple;
