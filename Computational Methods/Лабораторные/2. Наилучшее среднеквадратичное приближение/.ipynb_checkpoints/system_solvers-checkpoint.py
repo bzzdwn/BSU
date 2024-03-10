@@ -8,9 +8,11 @@ def gaussian_column(matrix, column):
         matrix = np.asarray(matrix)
     if isinstance(column, list):
         column = np.asarray(column)
+    
     insertions = 0 # Число перестановок
     A = matrix.copy() # Сохраняем переданную матрицу в локальную переменную
     b = column.copy() # Сохраняем переданный столбец в локальную переменную
+    
     for k in range(A.shape[0]):
         leading_row = k # Столбец, в котором ведущий элемент, считаем равным номеру шага
         for i in range(k, A.shape[0]): # находим максимальный по модулю элемент в столбце
@@ -52,7 +54,12 @@ def gaussian_column(matrix, column):
     
     return x.tolist(), r.tolist(), determinant;
 
-def gaussian_row(matrix_, inhomogeneity):
+def gaussian_row(matrix_, inhomogeneity_):
+    if isinstance(matrix_, list):
+        matrix_ = np.asarray(matrix_)
+    if isinstance(inhomogeneity_, list):
+        inhomogeneity_ = np.asarray(inhomogeneity_)
+    inhomogeneity = inhomogeneity_.copy()
     matrix = matrix_.copy() # Копируем исходную матрицу в локальную переменную
     insertions = 0 # Число перестановок
     indexes = [i for i in range (matrix.shape[0])] # Вектор индексов
@@ -100,17 +107,22 @@ def gaussian_row(matrix_, inhomogeneity):
     discrepancy_vector = np.zeros(matrix.shape[0]) # Создаем вектор заполненный нулями
     for i in range(matrix.shape[0]):
         for j in range(matrix.shape[0]):
-            discrepancy_vector[i] += matrix[i][j]*results[j]; # r += Ax
-        discrepancy_vector[i] -= inhomogeneity[i] # r -= b
+            discrepancy_vector[i] += matrix_[i][j]*results[j]; # r += Ax
+        discrepancy_vector[i] -= inhomogeneity_[i] # r -= b
     
     # Вычисление определителя
     determinant = (-1)**insertions # Создаем переменную, в которой содержится (-1) в степени числа перестановок
     for k in range(matrix.shape[0]):
         determinant *= matrix[k][k] # Перемножаем все диагональные элементы получившейся треугольной матрицы
         
-    return results, discrepancy_vector, determinant; # Возвращаем значения решения, невязки и определителя
+    return results.tolist(), discrepancy_vector.tolist(), determinant; # Возвращаем значения решения, невязки и определителя
 
 def reflection_method(A, b):
+    if isinstance(A, list):
+        A = np.asarray(A)
+    if isinstance(b, list):
+        b = np.asarray(b)
+        
     E = np.eye(A.shape[0]) # Единичная матрица
     for k in range(A.shape[0] - 1): # Цикл шагов алгоритма
         s = np.zeros(A.shape[0]) # Создаем нулевой вектор s
@@ -145,7 +157,7 @@ def reflection_method(A, b):
                 r[i] += A[i][j]*x[j]; # r+=Ax
             r[i] -= b[i] #r-=b
         
-        return x, r, det # Возвращаем значения решения, вектора невязки и определителя матрицы
+        return x.tolist(), r.tolist(), det # Возвращаем значения решения, вектора невязки и определителя матрицы
     
     else: # Если решаем систему AX=E
         x = np.zeros((A.shape[0], A.shape[0])) # Заводим нулевую матрицу для хранения будущей обратной матрицы
@@ -157,9 +169,14 @@ def reflection_method(A, b):
             for j in range(A.shape[0]):
                 x[i][j] = (b[i][j] - summary) / A[i][i]
         
-        return x # Возвращаем значение обратной матрицы
+        return x.tolist() # Возвращаем значение обратной матрицы
 
 def rotation_method(A, b):
+    if isinstance(A, list):
+        A = np.asarray(A)
+    if isinstance(b, list):
+        b = np.asarray(b)
+    
     E = np.eye(A.shape[0]) # Единичная матрица
     for k in range(A.shape[0] - 1): # Цикл шагов алгоритма
         T_k = np.eye(A.shape[0]) # Инициализируем матрицу T_k, на которую мы умножаем матрицу A на k-ом шаге
@@ -202,7 +219,7 @@ def rotation_method(A, b):
                 r[i] += A[i][j]*x[j]; # r+=Ax
             r[i] -= b[i] #r-=b
         
-        return x, r, det # Возвращаем значения решения, вектора невязки и определителя матрицы
+        return x.tolist(), r.tolist(), det # Возвращаем значения решения, вектора невязки и определителя матрицы
     
     else: # Если решаем систему AX=E
         x = np.zeros((A.shape[0], A.shape[0])) # Заводим нулевую матрицу для хранения будущей обратной матрицы
@@ -214,9 +231,14 @@ def rotation_method(A, b):
             for j in range(A.shape[0]):
                 x[i][j] = (b[i][j] - summary) / A[i][i]
         
-        return x # Возвращаем значение обратной матрицы
+        return x.tolist() # Возвращаем значение обратной матрицы
     
 def seidel_method(B, g, epsilon):
+    if isinstance(B, list):
+        B = np.asarray(B)
+    if isinstance(g, list):
+        g = np.asarray(g)
+    
     x_k = np.copy(g) # Начальное приближение x_0 = g
     H, F = np.zeros((B.shape[0], B.shape[0])), np.zeros((B.shape[0], B.shape[0])) # Матрицы H и F инициализируем нулями
     x_k1 = np.zeros(x_k.shape[0]) # Столбец, отвечающий за k+1-ый шаг
@@ -238,9 +260,14 @@ def seidel_method(B, g, epsilon):
             break # Прерываем цикл
         x_k = np.copy(x_k1) # Переносим значение из (k+1)-ой итерации в k-ую
         
-    return x_k1, iterations # Возвращаем значения k+1-ого шага и числа итераций
+    return x_k1.tolist(), iterations # Возвращаем значения k+1-ого шага и числа итераций
 
 def gradient_descent(A, b, epsilon):
+    if isinstance(A, list):
+        A = np.asarray(A)
+    if isinstance(b, list):
+        b = np.asarray(b)
+    
     x_k = np.copy(b) # Начальное приближение x_0 = g
     r_k = np.dot(A, x_k) - b # Вектор невязки
     x_k1 = np.zeros(x_k.shape[0]) # Переменная для хранения (k+1)-ой итерации
@@ -256,7 +283,7 @@ def gradient_descent(A, b, epsilon):
         r_k = np.dot(A, x_k) - b # Считаем значение невязки для k-ой итерации
     x = x_k1 # Сохраняем результат для возвращения из функции
         
-    return x, k # Возвращаем значение текущего приближения и числа итераций
+    return x.tolist(), k # Возвращаем значение текущего приближения и числа итераций
 
 def relaxation_method(A, b, w, epsilon):
     n = A.shape[0] # Размерность матрицы
