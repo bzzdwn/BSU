@@ -1,0 +1,8 @@
+reset;
+model model.mod;
+data data.dat;
+option solver cplex;
+solve;
+display z;
+display x;
+display y;
