@@ -1,0 +1,124 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Сходящийся метод простой итерации}
+	\subsubsection*{Условие}
+	Отделив корень и приведя к виду, удобному для итераций, выбрать начальное приближение, обеспечивающее выполнение условий теоремы о сходимости метода простой итерации уравнения $$2\sin3x = x^2 - 4x + 3.$$
+	\subsubsection*{Алгоритм решения}
+	Для решения задачи нам понадобятся следующие утверждения:
+	\begin{enumerate}
+		\item \textbf{Теорема 2.}
+		(о сходимости метода простой итерации)
+		Пусть выполняются следующие условия:\begin{enumerate}
+			\item функция $\varphi(x)$ определена на отрезке \begin{eqnarray}
+				|x - x_0| \leq \delta,
+			\end{eqnarray} непрерывна на нем и удовлетворяет условию Липшица с постоянным коэффициентом меньше единицы, то есть $\forall x, \widetilde{x}$ $$|\varphi(x) - \varphi(\widetilde{x})| \leq q |x - \widetilde{x}| ,\quad 0 \leq q < 1;$$
+			\item для начального приближения $x_0$ верно неравенство \begin{eqnarray}
+				|x_0 - \varphi(x_0)| \leq m;
+			\end{eqnarray}
+			\item числа $\delta, q, m$ удовлетворяют условию 
+			\begin{eqnarray}
+				\dfrac{m}{1-q}\leq \delta.
+			\end{eqnarray}
+		\end{enumerate}
+		Тогда \begin{enumerate}
+			\item уравнение $x = \varphi(x)$ в области $(1)$ имеет решение;
+			\item последовательность $x_k$ построенная по правилу $x_{k+1} = \varphi(x_k)$ принадлежит отрезку $[x_0 - \delta, x_0 + \delta]$, является сходящейся и ее предел удовлетворяет уравнению $x = \varphi(x)$.
+		\end{enumerate}
+		\item Выполнение условия Липшица можно заменить более строгим условием 
+		\begin{eqnarray}
+		|\varphi'(x)| \leq q < 1,\quad x \in [x_0-\delta, x_0 + \delta].
+		\end{eqnarray}
+	\end{enumerate}
+	Алгоритм решения следующий: отделяется корень, выбирается канонический вид и начальное приближение, при котором выполняется теорема 2.\\\\
+	\textit{Здесь идет этап отделения корней. В данном файле он пропускается, так как этот этап уже разобран в другом файле}.\\\\
+	Из задачи отделения корней уравнения мы имеем, что на отрезке $d = \left[0, \dfrac\pi6\right]$ существует единственный корень уравнения. Приведем исходное уравнение к виду $f(x) = 0$: $$\underbrace{2\sin 3x - (x^2 - 4x+3)}_{f(x)} = 0.$$
+	Область определения функции $f(x)$ совпадает с $\Rm$.\\\\
+	Нам необходимо задать формулу канонического вида для итерационного процесса $x = \varphi(x)$. Будем строить ее следующим образом. Возьмем наше уравнение $$f(x) = 0,$$ домножим с двух сторон на постоянную $\lambda$ и прибавим с двух сторон $x$, то есть $$x = \underbrace{x + \lambda f(x)}_{\varphi(x)}.$$ Тогда проверим выполнение условия $$|\varphi'(x)| = |1 + \lambda f'(x)| < 1.$$
+	Отсюда $$-2< \lambda f'(x)< 0.$$ Нам известно, что на отрезке $d$ производная имеет положительный знак. Тогда $$-\dfrac{2}{M} < \lambda < 0,\quad M = \max_{[0; \frac\pi6]}|f'(x)|.$$
+	Оценим значение $M$ аналитически. Вычислим первую производную функции $f(x)$:
+	$$f'(x) = 6\cos 3x - 2x + 4.$$
+	Разобъем производную на две элементарные функции
+	$$f'(x) = \underbrace{6\cos3x}_{z_1(x)} \underbrace{- 2x + 4}_{z_2(x)}.$$
+	Берем отрезок $d = \Big[0; \dfrac\pi6\Big]$. 
+	\\\\
+	Функция $z_1(x) = 6\cos3x$ является на этом отрезке убывающей функцией по свойствам косинуса. Наибольшее значение $$y_1(0)= 6\cos0 = 6,$$ а наименьшее $$y_2\Big(\dfrac\pi6\Big) = 6\cos\dfrac\pi2 = 0.$$
+	Таким образом, $z_1(x)$ является строго положительной функцией на отрезке $d$. 
+	\\\\
+	Рассмотрим функцию $z_2(x) = -2x + 4$. Она также является убывающей на отрезке $d$ функцией по свойствам линейной функции. Ее наибольшее значение $$z_2(0) = 4,$$ а наименьшее $$z_2\Big(\dfrac\pi6\Big) = -\dfrac\pi3 + 4\approx 3.$$
+	То есть эта функция также является строго положительной на отрезке $d$. 
+	\\\\
+	В итоге функция $f'(x)$ состоит из суммы двух строго положительных на отрезке $d$ функций, а следовательно $$3 \leq f'(x) \leq 10 \Rightarrow f'(x) > 0\quad \forall x \in d=\Big[0; \dfrac\pi6\Big].$$
+	А тогда $$M = 10.$$
+	Тогда мы можем выбрать $$\lambda \in (-0.2; 0).$$ Тогда возьмем, к примеру, $\lambda = -0.05$ (можно выбрать и другое, но лучше выбирать середину полученного интервала).\\\\
+	Таким образом, мы можем задать функцию для канонического вида: $$\varphi(x) = x - 0.05 \cdot (2\sin 3x - x^2 + 4x - 3).$$
+	Исследуем сходимость построенного итерационного процесса по теореме 2 по соответствующим пунктам:
+	\begin{enumerate}
+		\item Возьмем $$\Delta = [0; 0.5]\subset d$$ (для удобства вычислений $\Delta$ короче отрезка $d$, но в ином случае лучше брать $\Delta$ не шире $d$).\\\\
+		Сперва зададим начальное приближение как середину рассматриваемого отрезка $x_0 = 0.25$. Очевидно на этом отрезке функция определена, непрерывна и дифференцируема (мы показали это ранее). А тогда $\delta = 0.25$.\\\\
+		Проверим выполнение условия (4). Для этого продифференцируем функцию $\varphi(x)$:
+		$$\varphi'(x) = 1+\lambda f'(x) = 1 - 0.05 \cdot (6\cos 3x - 2x + 4).$$ Ранее мы показали, что $f'(x) > 3$, тогда $$\varphi'(x) < 1 - 0.05 \cdot 3 \leq 0.85 = q.$$
+		\item покажем, что выполняется (2):
+		Попробуем вычислить значение $m$ аналитически:
+		\begin{multline*}
+			| 0.25 - (0.25 - 0.05(2\sin0.75 - 0.0625 + 1 -3 ) | = |0.05(2\sin0.75 -1.9375)|\leq\\ \leq |0.05(2\sin\dfrac\pi4 -1.9375)|=|0.05(\sqrt2 - 1.9375)| \approx0.026
+		\end{multline*}
+		То есть $$m = 0.026.$$
+		\item покажем выполнение (3):
+		$$\dfrac{0.026}{(1-0.85)}=0.17(3) \leq 0.25$$
+	\end{enumerate}
+	В итоге мы построили канонический вид для итераций $$x = x - 0.05 \cdot (2\sin 3x - x^2 + 4x - 3)$$
+	и выбрали начальное приближение $x_0=0.25$, при котором метод простой итерации будет сходиться.
+\end{document}

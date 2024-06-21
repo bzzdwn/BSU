@@ -1,0 +1,115 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Сходящийся метод Ньютона}
+	\subsubsection*{Условие}
+	Отделив корень, выбрать начальное приближение, обеспечивающее выполнение условий теоремы о сходимости метода Ньютона для уравнения $$2\sin3x = x^2 - 4x + 3.$$
+	\subsubsection*{Алгоритм решения}
+	Для решения задачи нам понадобятся следующие утверждения:
+	\begin{enumerate}
+		\item \textbf{Теорема 2.}
+		(о сходимости метода Ньютона)
+		Выберем начальное приближение так $x^0$, чтобы выполнялись условия сходимости итерационного процесса:
+		\begin{enumerate}
+			\item Функция $f(x)$ определена и дважды непрерывно дифференцируема на отрезке $$s_0 = [x^0; x^0 + 2h_0],\quad h_0 =- \dfrac{f(x^0)}{f'(x^0)}.$$ При этом на концах отрезка $f(x)f'(x)\ne 0$.
+			\item Для начального приближения $x^0$ выполняется неравенство $$2|h_0|M \leq |f'(x_0)|,\quad M = \underset{x\in s_0}{\max}|f''(x)|.$$
+		\end{enumerate}
+		Тогда справедливы следующие утверждения:
+		\begin{enumerate}
+			\item Внутри отрезка $s_0$ уравнение $f(x) = 0$ имеет корень $x^*$ и при этом этот корень единственный.
+			\item Последовательность приближений $x^k$, $k=1,2,\ldots$ может быть построена по указанной выше формуле с заданным приближением $x^0$.
+			\item Последовательность $x^k$ сходится к корню $x^*$, то есть $x^k \xrightarrow[k\to\infty]{}x^*$.
+		\end{enumerate} 
+	\end{enumerate}
+	Алгоритм решения следующий: отделяется корень, выбирается начальное приближение, при котором выполняется теорема 2.\\\\
+	\textit{Здесь идет этап отделения корней. В данном файле он пропускается, так как этот этап уже разобран в другом файле}.\\\\
+	Из задачи отделения корней уравнения мы имеем, что на отрезке $d = \left[0, \dfrac\pi6\right]$ существует единственный корень уравнения. Приведем исходное уравнение к виду $f(x) = 0$: $$\underbrace{2\sin 3x - (x^2 - 4x+3)}_{f(x)} = 0.$$
+	Область определения функции $f(x)$ совпадает с $\Rm$.\\\\
+	Вычислим значение производной $$f'(x) = 6\cos 3x - 2x +4.$$	
+	Проверим выполнение условий теоремы 2.
+	\begin{enumerate}
+		\item Выберем отрезок $s_0 = [x_0, x_0 + 2h_0] = \left[0, \dfrac\pi6\right]$. Тогда $$x_0 = 0,\quad h_0 = \dfrac{\pi }{12}.$$
+		На этом отрезке функция $f(x)$ непрерывна и дважды непрерывно дифференцируема (это проверяется еще на этапе отделения корней).\\\\
+		Проверим, не обращаются ли в ноль значения функции и ее производной на концах отрезка:
+		$$f(0) = -3,\quad f'(0) = 10\Rightarrow f(0)f'(0) = -30\ne 0;$$
+		$$f\left(\dfrac\pi6\right) = 2-\dfrac{\pi^2}{36} + \dfrac{4\pi}{6} - 3\approx \dfrac34,\quad f'\left(\dfrac\pi6\right) = -\dfrac{2\pi}{6} + 4\approx 3\Rightarrow f\left(\dfrac\pi6\right)f'\left(\dfrac\pi6\right) \approx \dfrac94\ne 0;$$
+		То есть первое условие выполнено.
+		\item Для проверки условия $2|h_0|M \leq |f'(x_0)|$, $M = \underset{x\in s_0}{\max}|f''(x)|$ необходимо вычислить вторую производную исходной функции:
+		$$f''(x) = -18\sin 3x - 2.$$
+		Попытаемся оценить максимум модуля второй производной на отрезке аналитически. На отрезке $s_0 = \left[0, \dfrac\pi6\right]$ функия $\sin3x$ является строго возрастающей. Соответственно наибольшее значение она примет на правом конце отрезка $\sin \left(\dfrac\pi2\right) =1$. Тогда наименьшее значение (но по модулю наибольшее) второй производной $$f''\left(\dfrac\pi6\right)=-20.$$
+		Тогда $$M = 20.$$
+		Проверим, выполнено ли неравенство $2|h_0|M \leq |f'(x_0)|$:
+		$$2\cdot \dfrac{\pi}{12} \cdot 20 \not\leq 10.$$
+	\end{enumerate}
+		То есть \textbf{метод не сходится}, соответственно нужно выбрать другой отрезок $s_0$.\\\\
+		Для выбора нового отрезка $s_0$ воспользуемся методом дихотомии, то есть поделим отрезок пополам и выясним, на какой из половинок остался корень, проверив значения на концах отрезка (они должны быть различны):
+		$$f(0) = -3 < 0,\quad f\left(\dfrac{\pi}{12}\right) = \sqrt2 - \dfrac{\pi^2}{144} + \dfrac{4\pi}{12} -3\approx -0.6 < 0,\quad f\left(\dfrac{\pi}{6}\right)\approx 0.75 > 0.$$
+		Таким образом, корень лежит на отрезке $\left[\dfrac{\pi}{12}, \dfrac{\pi}{6}\right]$ (на монотонность функции мы не проверяем, т.к. от уменьшения отрезка количество корней увеличиться не могло).\\\\
+		Снова проверяем условия теоремы о сходимости.
+		\begin{enumerate}
+			\item Выберем отрезок $s_0 = [x_0, x_0 + 2h_0] = \left[\dfrac{\pi}{12}, \dfrac{\pi}{6}\right]$. Тогда $$x_0 = \dfrac{\pi}{12},\quad h_0 = \dfrac{\pi }{24}.$$
+			На этом отрезке функция $f(x)$ непрерывна и дважды непрерывно дифференцируема (это проверяется еще на этапе отделения корней).\\\\
+			Проверим, не обращаются ли в ноль значения функции и ее производной на концах отрезка (проверяем только для левого конца)
+			$$f\left(\dfrac{\pi}{12}\right) \approx -0.6,\quad f'\left(\dfrac{\pi}{12}\right) = 3\sqrt 2 - \dfrac{\pi}{6} + 4\approx 7.73\Rightarrow f\left(\dfrac{\pi}{12}\right)f'\left(\dfrac{\pi}{12}\right)\ne 0;$$
+			То есть первое условие выполнено.
+			\item проверим условие $2|h_0|M \leq |f'(x_0)|$, $M = \underset{x\in s_0}{\max}|f''(x)|$.\\\\
+			На отрезке $s_0 = \left[\dfrac{\pi}{12}, \dfrac\pi6\right]$ функия $\sin3x$ является строго возрастающей. Соответственно наибольшее значение она примет на правом конце отрезка $\sin \left(\dfrac\pi2\right) =1$. Тогда наименьшее значение (но по модулю наибольшее) второй производной $$f''\left(\dfrac\pi6\right)=-20.$$
+			Тогда $$M = 20.$$
+			Проверим, выполнено ли неравенство $2|h_0|M \leq |f'(x_0)|$:
+			$$2\cdot \dfrac{\pi}{24} \cdot 20 \leq 7.73.$$
+			Неравенство выполняется.
+		\end{enumerate}
+		Таким образом, начальное приближение для сходящегося метода Ньютона равно $x_0 = \dfrac{\pi}{12}$.
+\end{document}

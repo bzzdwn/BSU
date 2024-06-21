@@ -1,0 +1,103 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Задачи с экзамена ЧМ}
+	\begin{enumerate}
+		\item Методом наименьших квадратов в пространстве $L_2(p)[a,b]$, где $p(x) = 2$, $[a,b] = \left[-1, \dfrac72\right]$, построить многочлен наилучшего приближения второй степени для функции $f(x)$, заданной таблично
+		\begin{center}\begin{tabular}[t]{|c|c|c|c|}
+				\hline
+				$x$ & 0 & 1 & 3 \\
+				\hline
+				$f(x)$ & 7 & 3 & 1 \\
+				\hline
+		\end{tabular}\end{center}
+		\item Методом механических квадратур решить интегральное уравнение (использовать составную формулу трапеций с $h=0.5$)
+		$$u(x) - \dfrac12 \int\limits_0^x x s u(s)ds = x+1,\ 0\leq x \leq 1.$$
+		\item Выбрать параметр из условия сходимости итерационного процесса $$x^{k+1} = x^k + \tau f(x^k), \ k=0,1,\ldots$$
+		решения нелинейного уравнения $f(x) = 0$, если $f(x)=x^2-5x+6$.
+		\item Пусть $P_n(x)$ --- интерполяционный многочлен для функции $f(x)=x^{n+1}$, построенный по сетке узлов $x_0 < x_1 < \ldots < x_n$. Вычислить $P_n(0)$.
+		\item Исследовать на устойчивость метод
+		$$\begin{dcases}
+			y_{j+1} = y_j + hf\left(x_j + \dfrac h2, y_{j+\frac12}\right),\\
+			y_{j+\frac12} = y_{j+1} - \dfrac h2 f(x_j+h,y_{j+1}).
+		\end{dcases}$$
+		\item Найти приближенную погрешность при $f(x)=0$. Методом хорд найти корень $f(x) = e^{-x}-\ln x$, выбрать $х_0$, $х_1$, отрезок, проделать одну итерацию метода хорд.
+		\item Для многочлена $x^3 - 6x^2 + 11x - 6 = 0$ сделать одну итерацию метода Лобачевского.
+		\item Для функции $f(x)=0$ построить итерационный метод кубического порядка сходимости. Взять начальное приближение и провести одну итерацию. В качестве $f(x)$ взять $f(x) = e^{-x}-\ln x$.
+		\item Функцию $f(x) = x^3$ приблизить полиномом первой степени на $[0,4]$ по наилучшим узлам, оценить погрешность приближения.
+		\item Методом средних найти приближенное значение функции $$\iint\limits_{|x| + |y| \leq 1} \sqrt{x^2 + y^2} dxdy.$$
+		\item Применить метод Ньютона к решению системы $$\begin{cases}
+		x_1^3 -x_2^2=1,\\
+		x_2(x_1 x_2^2 - 1) = 4.
+		\end{cases}$$
+		Выбрав в качестве начального приближения вектор $\left(\dfrac 32, \dfrac 32\right)$, вычислить первую итерацию.
+		\item Методом Галеркина и базиса алгебраических функций построить $u_1(x)$ для задачи
+		$$u'' + xu' - u = -2,\ 
+		u(0) = 0,\
+		u(1) = 0,\ 0\leq x\leq 1.$$
+		\item Методом Ритца и базиса алгебраических функций построить $u_1(x)$ для задачи
+		$$(xu'(x))'-u(x)=2x,\
+		u(1)=0,\
+		u(2)=0,\
+		1\leq x\leq 2.$$
+		\item Методом механических квадратур решить интегральное уравнение (использовать формулу наивысшей алгебраической степени точности с одним узлом)
+		$$u(x) - 2\int\limits_0^1 \dfrac{u(s)}{2+x+s}ds=1.$$
+		\item Для функции $f(x) = e^x+x^2$, $x\in [0,2]$ на равномерной сетке из трех узлов методом моментов построить интерполяционный кубический сплайн, на концах которого заданы наклоны. Построить систему для определения моментов и записать формулу для приближенного вычисления функции $f(x)$ при $x\in [x_0, x_1]$.
+		\item В комплексной области исследовать устойчивость неявного метода трапеций.
+		\item Построить аналог простейшей формулы трапеций для вычисления интеграла $$\int\limits_{-1}^1 \dfrac{f(x)}{\sqrt{1-x^2}}dx.$$
+	\end{enumerate}
+	
+\end{document} 

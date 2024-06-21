@@ -1,0 +1,116 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Метод Ритца}
+	\subsubsection*{Условие}
+	Методом Ритца при $n=2$ найти решение следующей задачи
+	$$\begin{cases}
+		u''(x) - xu(x) = x,\ 0\leq x \leq 1,\\
+		u(0) = 0,\\
+		u(1) = 1.
+	\end{cases}$$
+	\subsubsection*{Решение}
+	Решение задачи ищем в виде 
+	$$u_n(x) = \varphi_0(x) + \sum_{i=1}^{n}a_i \varphi_i(x).$$
+	Поскольку $n=2$, то имеем $$u_2(x) = \varphi_0(x) + a_1 \varphi_1(x) + a_2 \varphi_2(x).$$
+	В качестве системы функций $\{\varphi_i(x)\}$ будем использовать алгебраический базис, но со смещением, чтобы эти функции удовлетворяли граничным условиям. \\\\
+	Так как граничные условия первого рода, но неоднородные, то функцию $\varphi_0(x)$ мы выбираем таким образом, чтобы она «вобрала» в себя неоднородность. Строим эту функцию в виде $$\varphi_0(x) = C_0 x + C_1,$$ где $C_0$, $C_1$ --- некоторые константы. Эта функция должна удовлетворять граничным условиям. Тогда подставим ее в граничные условия и получим
+	$$\begin{cases}
+		\varphi_0(0) = C_0 \cdot 0 + C_1 = 0,\\
+		\varphi_0(1) = C_0 + C_1 = 1;
+	\end{cases}\Rightarrow \begin{cases}
+	C_0 = 1,\\
+	C_1 = 0.
+	\end{cases}$$
+	Таким образом, построили функцию $$\varphi_0(x) = x.$$
+	Остальные функции строим в виде $$\varphi_i(x) = (x-a)^i (x-b).$$
+	Тогда 
+	$$\varphi_1(x) = x(x-1),\ \varphi_2(x) = x^2 (x-1).$$
+	Для отыскания коэффициентов $a_{ij}$ строим систему вида 
+	$$\sum_{j=1}^{n}c_{ij}a_j = d_i,\ i = \overline {1,n},$$
+	$$c_{ij} = \int\limits_a^b (k(x)\varphi_j ' \varphi _i ' + q(x) \varphi_j \varphi_i)dx,\ d_i = -\int_a^b (f\varphi_i + k(x)\varphi_0' \varphi_i' + q(x)\varphi_0 \varphi_i)dx.$$
+	В нашем случае эту систему образуют 2 уравнения
+	$$\begin{cases}
+		c_{11} a_1 + c_{12} a_2 = d_1,\\
+		c_{21} a_2 + c_{22} a_2 = d_2.
+	\end{cases}$$
+	Для вычисления значений $c_{ij}$, $d_i$ нам требуется информация о $k(x), q(x), f(x)$ и $\varphi'_i(x)$. Определим эти значения.\\\\
+	Исходная задача ставится для дифференциального оператора 
+	$$Lu \equiv -(k(x) u'(x))' + q(x)u)x = -f(x).$$
+	Таким образом, из исходного уравнения имеем 
+	$$k(x) = 1,\ q(x) = x,\ f(x) = x.$$
+	Найдем производные от базисных функций:
+	$$\varphi_0'(x) = 0,$$
+	$$\varphi_1'(x) = 2x - 1,$$
+	$$\varphi_2'(x) = x(3x - 2).$$
+	Также вычислим следующие значения:
+	$$\varphi_1'(x)\cdot \varphi_2'(x) = (2x-1)x(3x-2) = 6x^3 - 7x^2 + 2x.$$
+	Таким образом, коэффициенты для системы получаем следующие:
+	$$c_{11} = \int\limits_0^1 \left[(2x-1)^2 + x^3 (x-1)^2\right]dx = \dfrac{7}{20},$$
+	$$c_{12} = c_{21} = \int\limits_0^1 \left[(2x-1)(3x-2)x + x^4 (x-1)^2\right]dx =\dfrac{37}{210},$$
+	$$c_{22} = \int\limits_0^1 \left[x^2(3x-2)^2 + x^5 (x-1)^2\right]dx = \dfrac{39}{280},$$
+	$$d_1 = -\int\limits_0^1 \left[x^2(x-1) + 2x-1+ x^3(x-1)\right]dx = \dfrac{2}{15},$$
+	$$d_2 = -\int\limits_0^1 \left[x^3(x-1) + x(3x-2)+ x^4(x-1)\right]dx = \dfrac{1}{12}.$$
+	В итоге, подставляя эти значения в систему для отыскания $a_i$, получим
+	$$\begin{dcases}
+		\dfrac{7}{20} a_1 + \dfrac{37}{210} a_2 = \dfrac{2}{15},\\
+		\dfrac{37}{210} a_1 + \dfrac{39}{280} a_2 = \dfrac{1}{12}.
+	\end{dcases}$$
+	Решая эту систему точным или приближенным методом, получим 
+	$$a_1 = \dfrac{1372}{6247}\approx 0.2196,\ a_2 = \dfrac{2002}{6247} \approx 0.3204.$$
+	Таким образом, приближенное решение поставленной задачи имеет вид
+	$$u_2(x) = x + 0.2196 x(x-1) + 0.3204 x^2(x-1).$$
+\end{document} 

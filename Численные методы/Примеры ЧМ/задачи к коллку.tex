@@ -1,0 +1,86 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\date{}
+\begin{document}
+	\section*{Задачи с коллоквиума.}
+	\begin{enumerate}
+		\item Среди всех многочленов вида $3x^2+a_1x+a_0$ найти наименее отклоняющийся от нуля на отрезке $[1,2]$.
+		\item Применяя метод градиентного спуска к решению системы $$\begin{cases}
+		x_1+x_2 = 2,\\
+		x_1x_2 = 1,
+		\end{cases}$$
+		записать условие минимума функционала, т.е. уравнение $\varphi'(t)=0$.
+		\item Используя таблицу разделенных разностей, найти сумму конечного ряда нечетных чисел $S(p) = 1+3+5+\ldots + (2p-1)$.
+		\item Построить составную кубатурную формулу средних для вычисления интеграла $$\iint\limits_A f(x,y) dxdy$$ используя триагуляцию области $A$. Вычислить значение интеграла при $А=[-1,1]\times[-1,1]$ и $f(x,y) = x^2+y^2$, разбивая $A$ на два треугольника.
+		\item Построить интерполяционное приближение таблично заданной функции $f(x)$ системой функций $\phi_i(x)=e^{ix}$, $i=0,1,\ldots$ по таблице \begin{center}\begin{tabular}[t]{|c|c|c|}
+				\hline
+				$x$ & 0 & 1 \\
+				\hline
+				$f(x)$ & 2 & 3 \\
+				\hline
+		\end{tabular}\end{center}
+	\item Методом Лобачевского найти корни уравнения $x^2-5x+4=0$ с точностью $\epsilon=10^{-2}$.
+	\item Вывести формулу аналогичную формуле простейших трапеций для интеграла $$\int\limits_{-1}^1\dfrac{f(x)}{\sqrt{1-x^2}}dx.$$
+	\item Методом простой итерации решить система 
+	$$\begin{cases} 
+		x+2\sin y=3,\\
+		x^2+2y^2=6.
+	\end{cases}$$
+	\item Определить степень многочлена Лагранжа для сетки равноотстоящих узлов, обеспечивающую точность приближения функции $e^x$ на отрезке $[0; 1]$ не хуже $\epsilon=10^{-3}$.
+	\item Построить квадратурную формулу максимально возможной алгебраической степени точности вида $$I(f) = \int\limits_1^2 p(x)f(x)dx\approx A_0f(x_0) + A_1f(x_1).$$
+	\item Построить среднеквадратичное приближение функции $f(x) = |x|$ на отрезке $[-1, 1]$ с помощью функции $\varphi(x)=ax^2 + b$.
+	\end{enumerate}
+\end{document}
+
+

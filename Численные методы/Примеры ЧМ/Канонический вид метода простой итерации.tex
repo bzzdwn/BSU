@@ -1,0 +1,90 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Канонический вид метода простой итерации}
+	\subsubsection*{Условие}
+	Привести к каноническому виду, обеспечивающему сходимость метода итераций, уравнение $$x^7 - 2x - 2=0.$$ Проверить выполнение условий теоремы о сходимости.
+	\subsubsection*{Алгоритм решения}
+	Для решения задачи нам понадобятся следующие утверждения:
+	\begin{enumerate}
+		\item \textbf{Теорема 1.} Если функция $f(x)\in C[a,b]$ и принимает на его концах значения разных знаков, то на этом отрезке существует по крайней мере один корень уравнения $f(x) = 0$.
+		Если при этом функция $f(x)$ будет монотонной на отрезке $[a,b]$, то она может иметь только один корень.
+		\item для канонического вида метода простой итерации $x = \varphi(x)$ функция $\varphi(x)$ определена на отрезке \begin{eqnarray}
+			|x - x_0| \leq \delta,
+		\end{eqnarray} непрерывна на нем и удовлетворяет условию \begin{eqnarray}
+		|\varphi'(x)| \leq q < 1,\quad x \in [x_0-\delta, x_0 + \delta],
+		\end{eqnarray}
+		где $x_0$ --- начальное приближение.
+		Тогда метод простой итерации при правильном выборе начального приближения $x_0$ будет сходящимся.
+	\end{enumerate}
+	Алгоритм следующий: отделяем корень, выводим формулу для канонического вида, который будет удовлетворять условию теоремы о сходимости.
+	\\\\
+	Мы имеем $$f(x) = x^7 -2x-2 = 0.$$
+	Попытаемся подбором найти отрезок, на котором находится единственный корень уравнения. Начнем с нуля:
+	$$f(0) = -2 < 0,$$
+	то есть нужно найти точку, в которой $f(x)>0$. Причем уже из формулы $f(x)$ можно заметить, что эта функция будет очень быстро возрастать, то есть мы быстро обнаружим нужную точку. Возьмем единицу:
+	$$f(1) = 1-2-2=-3 < 0,$$
+	то есть единица не подходит. Возьмем двойку:
+	$$f(2) = 2^7 - 4 - 2 > 0,$$
+	эта точка подходит.\\\\
+	Таким образом на отрезке $[1, 2]$ по теореме 1 существует хотя бы один корень уравнения. Докажем единственность, для этого вычислим производную $$f'(x) = 7x^6 - 2,\quad x \in [1,2].$$
+	Из известных свойств функции $x^6=0$, мы можем утверждать, что функция $f'(x)$ на отрезке $[1,2]$ будет возрастающей. Тогда $$f'(1) = 2 \leq f'(x) \leq 7\cdot 2^6 -2 = f'(2),\quad x \in [1,2].$$
+	Теперь необходимо задать формулу канонического вида для итерационного процесса $x = \varphi(x)$. Будем строить ее следующим образом. Возьмем наше уравнение $$f(x) = 0,$$ домножим с двух сторон на постоянную $\lambda$ и прибавим с двух сторон $x$, то есть $$x = \underbrace{x + \lambda f(x)}_{\varphi(x)}.$$ Для сходимости необходимо выполнение условия (2) $$|\varphi'(x)| = |1 + \lambda f'(x)| < 1,\quad x \in [1,2].$$
+	Отсюда $$-2< \lambda f'(x)< 0.$$ Нам известно, что на отрезке $d$ производная имеет положительный знак. Тогда $$-\dfrac{2}{M} < \lambda < 0,\quad M = \max_{[1; 2]}|f'(x)|.$$
+	Причем ранее мы выяснили, что $f'(x) \leq 7\cdot 2^6 - 2 = 446$. Тогда $M = 446.$
+	Тогда мы можем выбрать $$\lambda \in (-\dfrac{1}{223}; 0) \approx (-0.00448, 0).$$ Тогда возьмем, к примеру, $\lambda = -0.00224$ (можно выбрать и другое, но лучше выбирать середину полученного интервала).\\\\
+	Таким образом, мы можем задать функцию для канонического вида: $$\varphi(x) = x -0.00224 \cdot (x^7 - 2x - 2).$$
+	Тогда канонический вид для сходящегося метода итераций задается формулой $$x =  x -0.00224 \cdot (x^7 - 2x - 2).$$
+\end{document}

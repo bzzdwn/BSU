@@ -1,0 +1,104 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Решение СНУ}
+	Рассмотрим СНУ при $n=2$ вида $$f(x) = 0,\quad f=(f_1, f_2)^T,\ x=(x_1,x_2)^T.$$
+	$$\begin{cases}
+		f_1(x_1,x_2) = 2x_1 - \sin \dfrac{x_1-x_2}{2} = 0,\\
+		f_2(x_1,x_2) = 2x_2 - \cos\dfrac{x_1+x_2}{2} = 0.
+	\end{cases}$$
+	\begin{itemize}
+		\item \textbf{Отделение корней.}
+		\begin{itemize}
+			\item \textbf{Графический метод.}
+			$x^* \in [-1, 0]\times[0, 1]$, берем середину отрезка $x^0 = (-0.5, 0.5)$.
+			\item \textbf{"Перемена знака".}
+			Аналог метода дихотомии. Мы выбираем множетсво точек, в которых одна из функции обращается в ноль. Одну из этих точек подставляем во вторую функцию. Легко видеть, что
+			
+			$x^* \in [-\pi ,\pi ]\times 0$, $x^0 = (0,0)$.
+			
+		\end{itemize}
+		\item Построение итерационной последовательности. 
+		\begin{itemize}
+			\item \textbf{Метод простой итерации.}
+			Этот метод требует приведения системы к каноническому виду
+			$$\begin{cases}
+				x_1 = \varphi_1(x_1,x_2),
+				x_2 = \varphi_2(x_1,x_2).
+			\end{cases}$$
+			а затем использование формулы метода простых итераций $x^{k+1} = \varphi(x^k)$. В данном случае мы можем взять $$\begin{cases}
+			\varphi_1 = \dfrac{1}{2}\sin \dfrac{x_1-x_2}{2},\\
+			\varphi_2 = \dfrac{1}{2}\cos \dfrac{x_1+x_2}{2}.
+			\end{cases}$$
+			Необходимо проверить достаточное условие сходимости:
+			$$\underset{1\leq i \leq 2}{\max}\underset{|x-x^0|\leq \delta }{\max}\{\Big|\dfrac{\d \phi_i}{\d x_1}\Big| + \Big|\dfrac{\d \phi_i}{\d x_2}\Big|\}\leq q = \dfrac{1}{2}< 1$$
+			В случае $x_0 = (-0.5, 0.5)$ получим $\delta = \dfrac{1}{2}$.
+			\item \textbf{Метод Ньютона.}
+			$$\Big(\dfrac{\d f(x^k)}{\d x}\Big)(x^{k+1} - x^k) = -f(x^k).$$
+			Необходимым условием реализации данного метода является существование обратной матрицы $$J_k = \begin{vmatrix}
+			\frac{\d f_1^k}{\d x_1} & \frac{\d f_1^k}{\d x_2}\\
+			\frac{\d f_2^k}{\d x_1} & \frac{\d f_2^k}{\d x_2}			\end{vmatrix}\ne 0.$$
+			$$x_1^{k+1} = x_1^k - \dfrac{\begin{vmatrix}
+					f_1^k & \frac{\d f_1^k}{\d x_2} \\ f_2^k& \frac{\d f_2^k}{\d x_2} 
+			\end{vmatrix}}{J_k}$$
+		$$x_2^{k+1} = x_2^k - \dfrac{\begin{vmatrix}
+				\frac{\d f_1^k}{\d x_1}&f_1^k  \\ \frac{\d f_2^k}{\d x_1} &f_2^k
+		\end{vmatrix}}{J_k}$$
+		\end{itemize}
+		\item \textbf{Контроль сходимости}
+		$$\Delta ^k = \Norm {x^{k+1} - x^k} \leq \epsilon$$
+		Оценка невязки:
+		$$\Norm{r^k} = \Norm {f^k} \leq \epsilon.$$
+	\end{itemize}
+	Возьмем случай $\epsilon = 10^{-2}$, $x^0 = \Big(-\dfrac{1}{2}; \dfrac{1}{2}\Big)$.
+\end{document}

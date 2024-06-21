@@ -1,0 +1,85 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Определить АСТ}
+	\subsubsection*{Условие}
+	Определить алгебраическую степень точности указанной квадратурной формулы
+	$$\int\limits_a^b f(x)dx \approx \dfrac{b-a}{4}\left(f(a) + 3f\left(\dfrac{a+2b}{3}\right)\right)$$
+	\subsubsection*{Алгоритм решения}
+	Для построения для решения понадобятся следующие соотношения. Если \begin{eqnarray}
+		\begin{cases}
+			\int\limits_a^b \rho(x) x^idx = \sum\limits_{k=0}^{n}A_kx^i_k,\quad i=\overline{0,m},\\
+			\int\limits_a^b \rho(x) x^{m+1}dx \ne \sum\limits_{k=0}^{n}A_kx^i_k;
+		\end{cases}
+	\end{eqnarray}
+	то в этом случае говорят, что квадратурная формула \textbf{имеет алгебраическую степень точности равную \textit{m}}.\\\\
+	Таким образом, для решения задачи необходимо строить по одному уравнению из соотношений (1) до тех пор, пока мы не получим неравенство.\\\\
+	Теперь обратим внимание на составляющие элементы формулы (1), а именно $\rho(x), A_k, x_k$. Квадратурная формула записывается в общем случае в виде $$I(f) = \int\limits_a^b\rho(x)f(x)dx \approx A_0f(x_0) + A_1 f(x_1).$$
+	Из условия следует, что $\rho(x) = 1$. Также из условия можно сделать вывод, что $$A_0 = \dfrac{b-a}{4},\quad A_1 = 3\cdot \dfrac{b-a}{4};\quad x_0 = a,\quad x_1 = \dfrac{a+2b}{3}.$$
+	Начнем записывать соотношения из (1). Возьмем $i=0$, тогда $$x^0 : \int\limits_a^b dx = A_0 + A_1.$$
+	Вычислим интеграл и подставим значения $A_k, x_k$ $$x^0 : b-a \overset{?}{=} \dfrac{b-a}{4} + 3\cdot \dfrac{b-a}{4} =4\cdot \dfrac{ b-a}{4}.$$
+	Равенство выполняется. Далее по аналогии берем $i=1$:
+	$$x^1 : \int\limits_a^bx dx = A_0x_0 + A_1x_1.$$
+	Вычисляем значение интеграла и подставляем неизвестные:
+	$$x^1 : \dfrac{b^2-a^2}{2} \overset{?}{=} \dfrac{b-a}{4}\left(a + 3\cdot \dfrac{a+2b}{3}\right) = 2\dfrac{b^2-a^2}{4}.$$
+	Равенство выполняется. Берем $i=2$:
+	$$x^2 : \int\limits_a^bx^2 dx = A_0x_0^2 + A_1x_1^2.$$
+	$$x^2 : \dfrac{b^3-a^3}{3} \overset{?}{=} \dfrac{b-a}{4}\left(a^2 + 3\cdot \dfrac{(a+2b)^2}{9}\right) = \dfrac{b-a}{4}\cdot\left( \dfrac{4a^2 + 4ab + 4b^2}{3}\right) = \dfrac{b^3-a^3}{3}.$$
+	Равенство выполняется. Берем $i=3$:
+	$$x^3 : \int\limits_a^bx^3 dx = A_0x_0^3 + A_1x_1^3.$$
+	$$x^2 : \dfrac{b^4-a^4}{4} \overset{?}{=} \dfrac{b-a}{4}\left(a^3 + 3\cdot \dfrac{(a+2b)^3}{27}\right) = \dfrac{b-a}{4}\cdot\left( \dfrac{10a^3+6a^2b + 12ab^2 + 8b^3}{9}\right).$$
+	Отсюда уже видно, что равенство не выполняется, так как справа мы не получим как минимум $-\dfrac14 a^4$.\\\\
+	Таким образом, берем последнюю степень, на которой выполнялось равенство. Это $i=2$. Тогда же и АСТ = 2.
+\end{document}

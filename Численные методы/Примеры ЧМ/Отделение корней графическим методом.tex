@@ -1,0 +1,109 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Отделение корней графическим методом}
+	\subsubsection*{Условие}
+	Отделить один корень уравнения $$2\sin3x = x^2 - 4x + 3.$$
+	\subsubsection*{Алгоритм решения}
+	Для решения задачи нам понадобятся утверждения:
+	\begin{enumerate}
+		\item \textbf{Теорема 1.} Если функция $f(x)\in C[a,b]$ и принимает на его концах значения разных знаков, то на этом отрезке существует по крайней мере один корень уравнения $f(x) = 0$.
+			Если при этом функция $f(x)$ будет монотонной на отрезке $[a,b]$, то она может иметь только один корень.
+	\end{enumerate}
+	Алгоритм решения следующий: с помощью графического метода отделяется корень, проверяется выполнение теоремы 1.\\\\
+	Для начала построим графики для данного уравнения, так как в данном случае это легко сделать. Определим две функции $$y_1(x) = 2\sin 3x,\quad y_2(x) = x^2 - 4x+3$$ и построим их графики.
+	\begin{center}\begin{tikzpicture}
+			\begin{axis}[
+				legend pos = north west,
+				xlabel = {$x$},
+				ylabel = {$y$},
+				minor tick num = 2,
+				samples=1000,
+				xmin = -4,
+				xmax = 4,
+				ymin = -4,
+				ymax = 4,
+				grid = major,
+				scatter/classes={%
+					a={mark=o,draw=black}}
+				]
+				\legend{$y_1(x)$, $y_2(x)$}
+				\addplot[blue] {x^2 - 4*x + 3};
+				\addplot[orange] {2*sin(deg(3*x))};
+			\end{axis}
+	\end{tikzpicture}\end{center}
+	Приведем исходное уравнение к виду $f(x) = 0$: $$\underbrace{2\sin 3x - (x^2 - 4x+3)}_{f(x)} = 0.$$
+	Область определения функции $f(x)$ совпадает с $\Rm$.
+	Таким образом, уравнение $f(x)=0$ имеет 4 корня на отрезке $[-4,4]$ (и на всей числовой прямой). \\\\
+	Пусть корнем, для которого мы будем искать приближение, будет корень, лежащий слева (однако по аналогии можно найти приближенное значение любого из остальных корней). Этот корень лежит на отрезке $[0; 1]$. Причем из графика видно, что он располагается до точки, в которой функция $y_1(x) = 2\sin3x$ достигает значения $y_1(x) = 2$, то есть до точки $x = \dfrac\pi6$.
+	Таким образом, в качестве отрезка, на котором предположительно располагается исследуемый корень, мы можем взять отрезок $$d = \Big[0; \dfrac\pi6\Big].$$
+	Проверим выполнение условий теоремы 1 корня уравнения на отрезке $d$, для этого вычислим значения функции $f(x)$ на концах отрезка $d = \Big[0; \dfrac\pi6\Big]$:
+	$$f(0) =2\sin0 - 0^2 + 4\cdot 0 -3 = -3 < 0.$$
+	$$f\Big(\dfrac\pi6\Big) = 2\sin \dfrac\pi2 - \dfrac{\pi^2}{36} + 4\dfrac\pi6 - 3 \approx 2 - 0.25 +2-3 = 0.75 > 0.$$
+	Функция на концах отрезка меняет знак, значит хотя бы один корень уравнения $f(x) = 0$ лежит в этом отрезке.\\\\
+	Исследуем функцию на монотонность. Для этого нам нужно оценить значение производной на отрезке. Определим первую производную исследуемой функции: $$f'(x) = 6\cos3x - 2x + 4.$$ Причем эта функция непрерывна на отрезке $d$, то есть $f\in C\Big[0; \dfrac\pi6\Big]$, так как является результатом сложения непрерывных на этом отрезке функций.\\\\
+	Тот факт, что производная не изменяет знак на отрезке докажем аналитически. Разобъем производную на две элементарные функции
+	$$f'(x) = \underbrace{6\cos3x}_{z_1(x)} \underbrace{- 2x + 4}_{z_2(x)}.$$
+	Берем отрезок $d = \Big[0; \dfrac\pi6\Big]$. 
+	\\\\
+	Функция $z_1(x) = 6\cos3x$ является на этом отрезке убывающей функцией по свойствам косинуса. Наибольшее значение $$y_1(0)= 6\cos0 = 6,$$ а наименьшее $$y_2\Big(\dfrac\pi6\Big) = 6\cos\dfrac\pi2 = 0.$$
+	Таким образом, $z_1(x)$ является строго положительной функцией на отрезке $d$. 
+	\\\\
+	Рассмотрим функцию $z_2(x) = -2x + 4$. Она также является убывающей на отрезке $d$ функцией по свойствам линейной функции. Ее наибольшее значение $$z_2(0) = 4,$$ а наименьшее $$z_2\Big(\dfrac\pi6\Big) = -\dfrac\pi3 + 4\approx 3.$$
+	То есть эта функция также является строго положительной на отрезке $d$. 
+	\\\\
+	В итоге функция $f'(x)$ состоит из суммы двух строго положительных на отрезке $d$ функций, а следовательно $$3 \leq f'(x) \leq 10 \Rightarrow f'(x) > 0\quad \forall x \in d=\Big[0; \dfrac\pi6\Big].$$ 
+	Таким образом, мы доказали, что выбранный нами отрезок числовой прямой содержит ровно один корень исследуемого уравнения. На этом решение задачи отделения корней можно закончить и переходить к отысканию приближенных значений корней, лежащих в этих отрезках с помощью указанных методов.
+\end{document}

@@ -1,0 +1,94 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Минимальная степень интерполяционного многочлена}
+	\subsubsection*{Условие}
+	Определить минимальную степень интерполяционного многочлена, гарантирующего при оптимальном распределении узлов на отрезке $[2;5]$ для интерполяционной функции $f(x) = \cos 2x$ величину погрешности $\epsilon \leq 10^{-5}$. Указать соответствующее распределение узлов.
+	\subsubsection*{Алгоритм решения}
+	Для решения данной задачи потребуются следующие формулы:
+	\begin{enumerate}
+		\item пусть функция $f(x)\in C^{n+1}[a,b]$ и для нее выполняется неравенство $$|f^{(n+1)}(x)|\leq M, \quad x\in [a,b],$$
+		тогда погрешность интерполирования может быть оценена сверху следующим образом
+		\begin{eqnarray}
+			|r_n(x)| \leq \dfrac{M}{(n+1)!}\cdot \dfrac{(b-a)^{n+1}}{2^{2n+1}}.
+		\end{eqnarray}
+		\item значения узлов при оптимальном распределении на отрезке $[a,b]$
+		\begin{eqnarray}
+			x_k = \dfrac{a+b}{2} + \dfrac{b-a}{2}\cos \dfrac{(2k+1)\pi}{2(n+1)},\ k=\overline{0,n}.
+		\end{eqnarray}
+	\end{enumerate}
+	Для отыскания степени $n$ многочлена интерполирования, будем решать неравенство $$|r_n(x)| \leq \dfrac{M}{(n+1)!}\cdot \dfrac{(b-a)^{n+1}}{2^{2n+1}}\leq \epsilon.$$
+	Из-за того, что $n$ фигурирует и в качестве факториального значения, и в качестве степени, то решать уравнение придется подбором.\\\\
+	Пусть $n=2$, тогда 
+	$$|r_2(x)| \leq \dfrac{M}{3!}\cdot \dfrac{(5-2)^{3}}{2^{5}}\leq 10^{-5},\quad |f^{(3)}(x)|\leq M,\quad x\in [2,5]$$
+	Оценим значение третьей производной от исходной функции:
+	$$f'(x) = -2\sin 2x,\quad f''(x) =-4\cos2x ,\quad f'''(x) = 8\cos2x.$$
+	Сделаем грубую оценку производной: $$|f'''(x)| = |8\cos2x| \leq 8 = M,\quad x\in [2;5].$$
+	Тогда проверим, верное ли равенство:
+	$$\dfrac{8}{6}\cdot \dfrac{27}{32}\leq 10^{-5}.$$
+	Очевидно равенство не выполняется.\\\\
+	Пусть $n=3$:
+	$$|r_3(x)| \leq \dfrac{M}{4!}\cdot \dfrac{(5-2)^{4}}{2^{7}}\leq 10^{-5},\quad |f^{(4)}(x)|\leq M,\quad x\in [2,5]$$
+	$$|f^{(4)}(x)| = |-16\sin2x| \leq 16 = M,\quad x\in [2;5].$$
+	$$\dfrac{16}{24}\cdot \dfrac{81}{128}\leq 10^{-5}.$$
+	Равенство не выполняется.
+	\\\\
+	Далее избежим оценки производной, считая, что $$|f^{(n+1)}(x)|\leq 2^{n+1}.$$
+	Тогда $$|r_n(x)| \leq \dfrac{2^{n+1}}{(n+1)!}\cdot \dfrac{3^{n+1}}{2^{2n+1}} = \dfrac{1}{(n+1)!}\cdot \dfrac{3^{n+1}}{2^{n}}\leq \epsilon.$$
+	И так далее подставляем $n=4,5,...,9$. При $n=11$ имеем $$|r_{10}(x)| \leq \dfrac{1}{11!}\cdot \dfrac{3^{11}}{2^{10}}\approx 4.33\cdot 10^{-6}.$$
+	Таким образом, минимальная степень интерполяционного многочлена равна $10$.\\\\
+	Укажем при этом распределение узлов по формуле (2):
+	$$	x_k = \dfrac{7}{2} + \dfrac{3}{2}\cos \dfrac{(2k+1)\pi}{22},\ k=\overline{0,11}.$$
+\end{document} 

@@ -1,0 +1,66 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Дифференциальное уравнение для многочленов Чебышева}
+	\subsubsection*{Условие}
+	Доказать, что многочлены Чебышева удовлетворяют уравнению $$(1-x^2)T''_n(x) - xT'_n(x) + n^2 T_n(x)=0.$$
+	\subsubsection*{Алгоритм решения}
+	Многочлены Чебышева задаются формулой $$T_n(x) = \cos (n\arccos x).$$
+	Чтобы функции являлись решениями дифференциального уравнения, они должны при подстановке в уравнение давать верное равенство. \\\\
+	Вычислим первую и вторую производные от многочленов Чебышева:
+	$$T'_n(x) = \dfrac{n \sin (n\arccos x)}{\sqrt{1-x^2}};$$
+	$$T''_n(x) = \dfrac{n^2\cos (n\arccos x) \cdot (-\frac{1}{\sqrt{1-x^2}})\cdot \sqrt{1-x^2} + \frac{2x}{2\sqrt{1-x^2}} \cdot n \sin (n\arccos x)}{1-x^2}.$$
+	Подставим найденные производные в данное по условию дифференциальное уравнение:
+	$$(1-x^2)\cdot \dfrac{-n^2\cos (n\arccos x) + \frac{x}{\sqrt{1-x^2}} \cdot n \sin (n\arccos x)}{1-x^2} -x\cdot \dfrac{n \sin (n\arccos x)}{\sqrt{1-x^2}} + n^2 \cos(n\arccos x) = 0.$$
+	Равенство выполняется, следовательно, многочлены Чебышева являются решениями данного дифференциального уравнения.
+\end{document}

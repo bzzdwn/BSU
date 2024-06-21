@@ -1,0 +1,126 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Наилучшее среднеквадратичное приближение многочленом первой степени}
+	\subsubsection*{Условие}
+	Построить наилучшее среднеквадратичное приближение к аналитически заданной функции с помощью алгебраического многочлена первой степени: $$f(x) = x^2,\quad x \in [1,2].$$ Оценить величину наилучшего приближения.
+	\subsubsection*{Алгоритм решения}
+	Наилучшее среднеквадратичное приближение алгебраическим многочленом строится в виде \begin{eqnarray}
+	\varphi(x) = c_0 + c_1x + \ldots +c_nx^n,
+	\end{eqnarray} где коэффициенты являются решениями СЛАУ
+	\begin{eqnarray}
+		\begin{cases}
+			c_0s_0 + c_1s_1 + \ldots + c_ns_n = m_0,\\
+			c_0s_1 + c_1s_2 + \ldots + c_ns_{n+1} = m_1,\\
+			\dotfill\\
+			c_0s_n + c_1s_{n+1} + \ldots + c_ns_{2n} = m_n.
+		\end{cases}
+	\end{eqnarray}
+	\begin{eqnarray}
+		s_i = \int\limits_a^b p(x) x^i dx,\quad m_j= \int\limits_a^b p(x) f(x) x^j dx,\quad i=\overline{0,2n}, j=\overline{0,n}.
+	\end{eqnarray}
+	В нашем случае формулы принимают вид \begin{eqnarray}
+		\varphi(x) = c_0 + c_1x,
+	\end{eqnarray}
+	\begin{eqnarray}
+			\begin{cases}
+			c_0\int\limits_a^b p(x) dx+ c_1\int\limits_a^b p(x) x dx= \int\limits_a^b p(x)f(x)dx,\\
+			c_0\int\limits_a^b p(x)x dx+ c_1\int\limits_a^b p(x) x^2 dx= \int\limits_a^b p(x)f(x)xdx.
+		\end{cases}
+	\end{eqnarray}
+	По условию ничего не сказано про весовую функцию $p(x)$, поэтому принимаем $p(x) = 1$. Тогда, подставляя известные значения в (5), получаем систему вида 
+	$$\begin{cases}
+		c_0\int\limits_1^2  dx+ c_1\int\limits_1^2 x dx= \int\limits_1^2 x^2dx,\\
+		c_0\int\limits_1^2 x dx+ c_1\int\limits_1^2 x^2 dx= \int\limits_1^2 x^3dx.
+	\end{cases}$$
+	Вычислим все необходимые интегралы $$\int\limits_1^2  dx = 1,\quad \int\limits_1^2 xdx = \dfrac32,\quad \int\limits_1^2 x^2 dx = \dfrac73,\quad \int\limits_1^2 x^3 dx = \dfrac{15}{4}.$$
+	Подставим найденные значения в систему:
+	$$\begin{cases}
+		c_0+ \dfrac32c_1= \dfrac73,\\
+		\dfrac32c_0+ c_1\dfrac73= \dfrac{15}{4}.
+	\end{cases}$$
+	Запишем СЛАУ в виде матрицы и применим метод Гаусса $$\begin{pmatrix}
+	1 & \dfrac32 & \vline & \dfrac73\\\\
+	\dfrac32 & \dfrac73 & \vline & \dfrac{15}{4}
+	\end{pmatrix}
+	\sim
+	\begin{pmatrix}
+		1 & 0 & \vline & -\dfrac{13}{6}\\
+		0 & 1 & \vline & 3
+	\end{pmatrix}
+	$$
+	Таким образом, $c_0 = 3$, $c_1 = -\dfrac{13}{6}$. Тогда приближающий многочлен первой степени имеет вид $$\varphi(x) = 3x - \dfrac{13}{6}.$$
+	Величину наилучшего приближения оценим по формуле $$\Norm{f(x) - \varphi(x)} = \left(\int\limits_a^b(f(x) - \varphi(x))^2dx\right)^{\frac12}.$$
+	Подставим наши функции и получим \begin{multline*}
+		\left(\int\limits_1^2\left(x^2 - 3x + \dfrac{13}{6}\right)^2dx\right)^{\frac12} = \left(\int\limits_1^2x^4 + 9x^2+\dfrac{169}{36} - 6x^3 + \dfrac{13}{3}x^2 - 13xdx\right)^{\frac12} =\\= \left(\dfrac{x^5}{5}\Big|_1^2 -6\cdot \dfrac{x^4}{4}\Big|_1^2+ \dfrac{40}{3}\cdot\dfrac{x^3}{3}\Big|_1^2 - 13\cdot \dfrac{x^2}{2}\Big|_1^2 + \dfrac{169}{36}x\Big|_1^2\right)^{\frac12} = \left(\dfrac{1}{180}\right)^{\frac12} \approx 0.0745.
+	\end{multline*}
+	Графически это будет выглядеть следующим образом:
+	\begin{center}\begin{tikzpicture}
+			\begin{axis}[
+				title = Function Approximation,
+				legend pos = north west,
+				xlabel = {$x$},
+				ylabel = {$y$},
+				minor tick num = 2,
+				xmin = 1,
+				xmax = 2,
+				grid = major
+				]
+				\legend{$x^2$, $\varphi(x)$}
+				\addplot[blue] {x^2};
+				\addplot[orange] {3*x - 13/6};
+			\end{axis}
+	\end{tikzpicture}\end{center}
+\end{document}

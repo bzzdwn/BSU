@@ -1,0 +1,97 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Погрешность интерполирования при равноотстоящих узлах}
+	\subsubsection*{Условие}
+	Определить погрешность квадратичной интерполяции функции $f(x) = \ln(x+2)$ на равномерной сетке узлов $x_i \in [-1; 1]$ с шагом $h = 0.1$.
+	\subsubsection*{Алгоритм решения}
+	Для оценки погрешности интерполирования функции нам понадобятся следующие формулы:
+	\begin{enumerate}
+		\item остаток интерполирования при равноотстоящих узлах в начале таблицы \begin{eqnarray}
+			r_k(x) =h^{k+1} \dfrac{t(t-1)\ldots (t-k)}{(k+1)!}f^{(k+1)}(\xi),\ \xi \in [x_0, x_0 + kh],\ t\in [0,1].
+		\end{eqnarray}
+		\item остаток интерполирования при равноотстоящих узлах в конце таблицы
+		\begin{eqnarray}
+			r_k(x) = h^{k+1}\dfrac{t(t+1)\ldots (t+k)}{(k+1)!}f^{(k+1)}(\xi),\ \xi \in [x_n, x_{n}-kh],\ t\in [-1,0].
+		\end{eqnarray}
+	\end{enumerate}
+	Мы построим оценки для остатка интерполирования в начале таблицы и в конце таблицы и сравним полученные результаты.\\\\
+	Сперва выпишем все данные, которые нам известны:\begin{itemize}
+		\item интерполируемая функция $f(x) = \ln(x+2)$;
+		\item сетка узлов на отрезке $[a,b] = [-1, 1]$;
+		\item шаг $h = 0.1$;
+		\item степень интерполяционного полинома $k=2$ (по условию квадратичная интерполяция).
+	\end{itemize}
+	Оценим остаток из формулы (1) при $k=2$:
+	$$|r_2(x)| =\left|h^{3} \dfrac{t(t-1)(t-2)}{3!}f^{(3)}(\xi)\right|\leq h^{3}\left|\dfrac{t(t-1)(t-2)}{3!}\right|\cdot \underset{x\in[a,b]}{\max}|f^{(3)}(x)|,\ t\in [0,1].$$
+	Оценим максимальное значение третьей производной на отрезке. Для этого вычислим третью производную от исходной функции $$f'(x) = \dfrac{1}{x+2},\quad f''(x) = -\dfrac{1}{(x+2)^2},\quad f'''(x) = \dfrac{2}{(x+2)^3}.$$
+	Функция $\dfrac{2}{(x+2)^3}$ убывающая, следовательно, ее наибольшее значение в точке $x=-1$: $$\underset{x\in[-1,1]}{\max}|f^{(3)}(x)|= |f'''(-1)|= 2.$$
+	Тогда, подставляя полученное значение и известное значение $h$ в формулу для оценки остатка, имеем $$|r_2(x)| \leq \dfrac{1}{3}\cdot10^{-3}\left|t(t-1)(t-2)\right|,\ t\in [0,1].$$
+	Оценим значение выражения $\left|t(t-1)(t-2)\right|$. Для этого с помощью производной найдем точку максимума. Но сразу учтем, что $t\in [0,1]$ и при подстановке в это выражение точек $0$ и $1$ значение будет равно нулю, поэтому эти значения нас не интересуют. Рассмотрим функцию $$f(t) = t(t-1)(t-2) = t^3 - 3t^2 + 2t.$$
+	Тогда $$f'(t) = 3t^2 - 6t + 2=0.$$
+	Отсюда точки подозрительные на экстремумы $$t = 1\pm \dfrac{1}{\sqrt 3}.$$
+	Но, так как $0<t<1$, то точка $1 + \dfrac{1}{\sqrt3}$ не подходит.
+	Найдем значения в оставшейся точке
+	$$f\left(1- \dfrac{1}{\sqrt 3}\right) = -\left(1- \dfrac{1}{\sqrt 3}\right)\cdot \dfrac{1}{\sqrt 3} \cdot \left(-1- \dfrac{1}{\sqrt 3}\right) = -\dfrac{2}{3\sqrt3}.$$
+	Таким образом, $$\left|t(t-1)(t-2)\right|\leq \dfrac{2}{3\sqrt3}.$$
+	Тогда мы можем вычислить оценку остатка интерполирования:
+	$$|r_2(x)| \leq \dfrac{1}{3}\cdot \dfrac{2}{3\sqrt3}\cdot10^{-3}=\dfrac{2}{9\sqrt3}\cdot10^{-3}.$$
+	Проделаем все то же самое для остатка интерполирования в конце таблицы из формулы (2): $$|r_2(x)| \leq \dfrac{1}{3}\cdot10^{-3}\left|t(t+1)(t+2)\right|,\ t\in [-1,0].$$
+	То есть, нужно лишь оценить значение множителя с $t$. Снова точки $-1$, $0$ не рассматриваем. Рассмотрим функцию $$f(t) = t(t+1)(t+2) = t^3 + 3t^2 + 2t.$$
+	Тогда $$f'(t) = 3t^2 + 6t + 2.$$
+	Отсюда $$t = -1 \pm \dfrac{1}{\sqrt3}.$$
+	Точка $-1 - \dfrac{1}{\sqrt3}$ не подходит. Вычислим значение в оставшейся точке: $$f\left(-1 + \dfrac{1}{\sqrt3}\right) = \left(-1 + \dfrac{1}{\sqrt3}\right)\cdot \dfrac{1}{\sqrt3}\cdot \left(1 + \dfrac{1}{\sqrt3}\right) = -\dfrac{2}{9\sqrt3}\cdot10^{-3}.$$
+	То есть значение оценки остатка интерполирования будет таким же, что и в предыдущем случае.
+\end{document} 

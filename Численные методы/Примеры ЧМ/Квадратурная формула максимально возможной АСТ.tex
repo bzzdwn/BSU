@@ -1,0 +1,106 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Квадратурная формула максимально возможной АСТ}
+	\subsubsection*{Условие}
+	Построить квадратурную формулу максимально возможной алгебраической степени точности вида $$I(f) = \int\limits_{-1}^{1}\rho (x) f(x)dx \approx A_0 f(x_0) + A_1 f(x_1),$$
+	приняв $\rho(x) = 1$.
+	\subsubsection*{Алгоритм решения}
+	Для построения квадратурной формулы понадобятся соотношения \begin{eqnarray}
+	\begin{cases}
+		\int\limits_a^b \rho(x) x^idx = \sum\limits_{k=0}^{n}A_kx^i_k,\quad i=\overline{0,m},\\
+		\int\limits_a^b \rho(x) x^{m+1}dx \ne \sum\limits_{k=0}^{n}A_kx^i_k;
+	\end{cases}
+	\end{eqnarray}
+	причем в этом случае говорят, что квадратурная формула \textbf{имеет алгебраическую степень точности равную \textit{m}}.\\\\
+	Соответственно для построения квадратурной формулы необходимо построить систему из соотношений (1), по которой мы найдем неизвестные. Затем найти следующее выражение, при котором равенство нарушается.\\\\
+	Из условия следует, что неизвестными значениями являются $A_0, A_1$, $x_0, x_1$. Итого 4 неизвестных. Для их отыскания следует построить систему из 4-ех уравнений по формуле (1). Тогда в соответствии со степенями $x^i$ получаем систему $$\begin{cases}
+	x^0 : \int\limits_{-1}^1 dx = A_0 + A_1,\\
+	x^1 : \int\limits_{-1}^1 xdx = A_0x_0 + A_1x_1,\\
+	x^2 : \int\limits_{-1}^1 x^2dx = A_0x_0^2 + A_1x_1^2,\\
+	x^3 : \int\limits_{-1}^1 x^3dx = A_0x_0^3 + A_1x_1^3.\\
+	\end{cases}$$ 
+	Поменяем местами значения относительно равенства, заодно вычислив значения интегралов:
+	$$\begin{cases}
+	A_0 + A_1 = 2,\\
+	A_0x_0 + A_1x_1 = 0,\\
+	A_0x_0^2 + A_1x_1^2 = \frac23,\\
+	A_0x_0^3 + A_1x_1^3 = 0.\\
+	\end{cases}$$ 
+	Итого имеем нелинейную систему из 4-ех уравнений. Для ее решения будем применять эвристики. Заметим, что можно домножить 2-ое уравнение на $x_1^3$ и вычесть из него 4-ое:
+	$$A_1x_1(x_1^2 - x_0^2) = 0.$$
+	Причем ни $A_1$, ни $x_1$ не обращаются в ноль, иначе тогда либо $A_0=0$, либо $x_0$ = 0. Значит $$(x_1-x_0)(x_1+x_0) = 0.$$
+	В предположении, что узлы не совпадают, имеем $$x_1 = -x_0.$$
+	Тогда подставляем это во 2-ое уравнение и имеем 
+	$$-A_0x_1 + A_1x_1 = x_1(A_1 - A_0) = 0.$$
+	Отсюда $$A_0 = A_1.$$
+	А из первого уравнения тогда будет следовать, что $$A_0 = A_1 = 1.$$
+	Подставим это в третье уравнение и получим $$x_0^2 + x_1^2 = \dfrac23.$$
+	Учитывая, что $x_1 = -x_0$, а тогда $x_1^2 = x_0^2$. А значит $$x_0^2 = x_1^2 = \dfrac{1}{3}\Rightarrow x_0 = -\dfrac{1}{\sqrt3},\ x_1 = \dfrac{1}{\sqrt3}.$$
+	В итоге система решена и $$\begin{cases}
+		A_0 = A_1 = 1,\\
+		x_0 = -\dfrac{1}{\sqrt3},\\
+		x_1 = \dfrac{1}{\sqrt3}.
+	\end{cases}$$
+	Таким образом, система имеет единственное решение. Отсюда можно сделать вывод, что \textbf{для всей квадратурной формулы АСТ $\geq 3$.}\\\\
+	Теперь нужно показать, что АСТ $= 3$. Для этого необходимо добавить еще одно уравнение и посмотреть, будет ли выполняться равенство:
+	$$x^4 : \int\limits_{-1}^1 x^4dx = A_0x_0^4 + A_1x_1^4.$$
+	Вычисляя значение интеграла, получим $$A_0x_0^4 + A_1x_1^4 = \dfrac25.$$
+	Подставим теперь известные нам значения $A_0,A_1$, $x_0,x_1$:
+	$$\dfrac{1}{9} + \dfrac{1}{9} = \dfrac29\ne \dfrac25.$$ 
+	Равенство не выполняется, а значит АСТ = 3 является максимально возможностей АСТ.\\\\
+	Сама квадратурная формула будет иметь в таком случае вид
+	$$I = \int\limits_{-1}^{1} f(x)dx \approx f\left(-\dfrac{1}{\sqrt3}\right) + f\left(\dfrac{1}{\sqrt3}\right).$$
+\end{document}
