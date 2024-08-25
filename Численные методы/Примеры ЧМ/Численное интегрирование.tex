@@ -1,0 +1,268 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\usepackage{moreverb}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Численное интегрирование}
+	\subsubsection*{Условия}
+	\begin{enumerate}
+		\item Определить алгебраическую степень точности указанной квадратурной формулы
+		$$\int\limits_a^b f(x)dx \approx \dfrac{b-a}{4}\left(f(a) + 3f\left(\dfrac{a+2b}{3}\right)\right)$$ (\hyperlink{t1}{Решение})
+		\item Построить квадратурную формулу максимально возможной алгебраической степени точности вида $$I(f) = \int\limits_{-1}^{1}\rho (x) f(x)dx \approx A_0 f(x_0) + A_1 f(x_1),$$
+		приняв $\rho(x) = 1$. (\hyperlink{t2}{Решение})
+		\item Построить квадратурную формулу максимально возможной степени точности вида $$\int\limits_0^1 \dfrac{f(x)}{\sqrt{1-x}} \approx A_0 f(x_0) + A_1 f(x_1).$$ (\hyperlink{t3}{Решение})
+		\item Определить алгебраическую степень точности указанной квадратурной формулы $$\int\limits_0^{+\infty} e^{-x} f(x)dx\approx \dfrac{2+\sqrt2}{4} f(2-\sqrt2) + \dfrac{2-\sqrt2}{4}f(2+\sqrt2).$$ (\hyperlink{t4}{Решение})
+	\end{enumerate}
+	
+	\newpage
+	\subsubsection*{Решения}
+	\begin{enumerate}
+		\item \hypertarget{t1}{}
+		Для построения для решения понадобятся следующие соотношения. Если \begin{eqnarray}
+			\begin{cases}
+				\int\limits_a^b \rho(x) x^idx = \sum\limits_{k=0}^{n}A_kx^i_k,\quad i=\overline{0,m},\\
+				\int\limits_a^b \rho(x) x^{m+1}dx \ne \sum\limits_{k=0}^{n}A_kx^i_k;
+			\end{cases}
+		\end{eqnarray}
+		то в этом случае говорят, что квадратурная формула \textbf{имеет алгебраическую степень точности равную \textit{m}}.\\\\
+		Таким образом, для решения задачи необходимо строить по одному уравнению из соотношений (1) до тех пор, пока мы не получим неравенство.\\\\
+		Теперь обратим внимание на составляющие элементы формулы (1), а именно $\rho(x), A_k, x_k$. Квадратурная формула записывается в общем случае в виде $$I(f) = \int\limits_a^b\rho(x)f(x)dx \approx A_0f(x_0) + A_1 f(x_1).$$
+		Из условия следует, что $\rho(x) = 1$. Также из условия можно сделать вывод, что $$A_0 = \dfrac{b-a}{4},\quad A_1 = 3\cdot \dfrac{b-a}{4};\quad x_0 = a,\quad x_1 = \dfrac{a+2b}{3}.$$
+		Начнем записывать соотношения из (1). Возьмем $i=0$, тогда $$x^0 : \int\limits_a^b dx = A_0 + A_1.$$
+		Вычислим интеграл и подставим значения $A_k, x_k$ $$x^0 : b-a \overset{?}{=} \dfrac{b-a}{4} + 3\cdot \dfrac{b-a}{4} =4\cdot \dfrac{ b-a}{4}.$$
+		Равенство выполняется. Далее по аналогии берем $i=1$:
+		$$x^1 : \int\limits_a^bx dx = A_0x_0 + A_1x_1.$$
+		Вычисляем значение интеграла и подставляем неизвестные:
+		$$x^1 : \dfrac{b^2-a^2}{2} \overset{?}{=} \dfrac{b-a}{4}\left(a + 3\cdot \dfrac{a+2b}{3}\right) = 2\dfrac{b^2-a^2}{4}.$$
+		Равенство выполняется. Берем $i=2$:
+		$$x^2 : \int\limits_a^bx^2 dx = A_0x_0^2 + A_1x_1^2.$$
+		$$x^2 : \dfrac{b^3-a^3}{3} \overset{?}{=} \dfrac{b-a}{4}\left(a^2 + 3\cdot \dfrac{(a+2b)^2}{9}\right) = \dfrac{b-a}{4}\cdot\left( \dfrac{4a^2 + 4ab + 4b^2}{3}\right) = \dfrac{b^3-a^3}{3}.$$
+		Равенство выполняется. Берем $i=3$:
+		$$x^3 : \int\limits_a^bx^3 dx = A_0x_0^3 + A_1x_1^3.$$
+		$$x^2 : \dfrac{b^4-a^4}{4} \overset{?}{=} \dfrac{b-a}{4}\left(a^3 + 3\cdot \dfrac{(a+2b)^3}{27}\right) = \dfrac{b-a}{4}\cdot\left( \dfrac{10a^3+6a^2b + 12ab^2 + 8b^3}{9}\right).$$
+		Отсюда уже видно, что равенство не выполняется, так как справа мы не получим как минимум $-\dfrac14 a^4$.\\\\
+		Таким образом, берем последнюю степень, на которой выполнялось равенство. Это $i=2$. Тогда же и АСТ = 2.
+		
+		\newpage
+		\item 
+		\hypertarget{t2}{}
+		Для построения квадратурной формулы понадобятся соотношения \begin{eqnarray}
+			\begin{cases}
+				\int\limits_a^b \rho(x) x^idx = \sum\limits_{k=0}^{n}A_kx^i_k,\quad i=\overline{0,m},\\
+				\int\limits_a^b \rho(x) x^{m+1}dx \ne \sum\limits_{k=0}^{n}A_kx^i_k;
+			\end{cases}
+		\end{eqnarray}
+		причем в этом случае говорят, что квадратурная формула \textbf{имеет алгебраическую степень точности равную \textit{m}}.\\\\
+		Соответственно для построения квадратурной формулы необходимо построить систему из соотношений (1), по которой мы найдем неизвестные. Затем найти следующее выражение, при котором равенство нарушается.\\\\
+		Из условия следует, что неизвестными значениями являются $A_0, A_1$, $x_0, x_1$. Итого 4 неизвестных. Для их отыскания следует построить систему из 4-ех уравнений по формуле (1). Тогда в соответствии со степенями $x^i$ получаем систему $$\begin{cases}
+			x^0 : \int\limits_{-1}^1 dx = A_0 + A_1,\\
+			x^1 : \int\limits_{-1}^1 xdx = A_0x_0 + A_1x_1,\\
+			x^2 : \int\limits_{-1}^1 x^2dx = A_0x_0^2 + A_1x_1^2,\\
+			x^3 : \int\limits_{-1}^1 x^3dx = A_0x_0^3 + A_1x_1^3.\\
+		\end{cases}$$ 
+		Поменяем местами значения относительно равенства, заодно вычислив значения интегралов:
+		$$\begin{cases}
+			A_0 + A_1 = 2,\\
+			A_0x_0 + A_1x_1 = 0,\\
+			A_0x_0^2 + A_1x_1^2 = \frac23,\\
+			A_0x_0^3 + A_1x_1^3 = 0.\\
+		\end{cases}$$ 
+		Итого имеем нелинейную систему из 4-ех уравнений. Для ее решения будем применять эвристики. Заметим, что можно домножить 2-ое уравнение на $x_1^3$ и вычесть из него 4-ое:
+		$$A_1x_1(x_1^2 - x_0^2) = 0.$$
+		Причем ни $A_1$, ни $x_1$ не обращаются в ноль, иначе тогда либо $A_0=0$, либо $x_0$ = 0. Значит $$(x_1-x_0)(x_1+x_0) = 0.$$
+		В предположении, что узлы не совпадают, имеем $$x_1 = -x_0.$$
+		Тогда подставляем это во 2-ое уравнение и имеем 
+		$$-A_0x_1 + A_1x_1 = x_1(A_1 - A_0) = 0.$$
+		Отсюда $$A_0 = A_1.$$
+		А из первого уравнения тогда будет следовать, что $$A_0 = A_1 = 1.$$
+		Подставим это в третье уравнение и получим $$x_0^2 + x_1^2 = \dfrac23.$$
+		Учитывая, что $x_1 = -x_0$, а тогда $x_1^2 = x_0^2$. А значит $$x_0^2 = x_1^2 = \dfrac{1}{3}\Rightarrow x_0 = -\dfrac{1}{\sqrt3},\ x_1 = \dfrac{1}{\sqrt3}.$$
+		В итоге система решена и $$\begin{cases}
+			A_0 = A_1 = 1,\\
+			x_0 = -\dfrac{1}{\sqrt3},\\
+			x_1 = \dfrac{1}{\sqrt3}.
+		\end{cases}$$
+		Таким образом, система имеет единственное решение. Отсюда можно сделать вывод, что \textbf{для всей квадратурной формулы АСТ $\geq 3$.}\\\\
+		Теперь нужно показать, что АСТ $= 3$. Для этого необходимо добавить еще одно уравнение и посмотреть, будет ли выполняться равенство:
+		$$x^4 : \int\limits_{-1}^1 x^4dx = A_0x_0^4 + A_1x_1^4.$$
+		Вычисляя значение интеграла, получим $$A_0x_0^4 + A_1x_1^4 = \dfrac25.$$
+		Подставим теперь известные нам значения $A_0,A_1$, $x_0,x_1$:
+		$$\dfrac{1}{9} + \dfrac{1}{9} = \dfrac29\ne \dfrac25.$$ 
+		Равенство не выполняется, а значит АСТ = 3 является максимально возможностей АСТ.\\\\
+		Сама квадратурная формула будет иметь в таком случае вид
+		$$I = \int\limits_{-1}^{1} f(x)dx \approx f\left(-\dfrac{1}{\sqrt3}\right) + f\left(\dfrac{1}{\sqrt3}\right).$$
+		
+		\newpage
+		\item 
+		\hypertarget{t3}{}
+		Для построения квадратурной формулы понадобятся соотношения \begin{eqnarray}
+			\begin{cases}
+				\int\limits_a^b \rho(x) x^idx = \sum\limits_{k=0}^{n}A_kx^i_k,\quad i=\overline{0,m},\\
+				\int\limits_a^b \rho(x) x^{m+1}dx \ne \sum\limits_{k=0}^{n}A_kx^i_k;
+			\end{cases}
+		\end{eqnarray}
+		причем в этом случае говорят, что квадратурная формула **имеет алгебраическую степень точности равную m**.
+		
+		Соответственно для построения квадратурной формулы необходимо построить систему из соотношений (1), по которой мы найдем неизвестные. Затем найти следующее выражение, при котором равенство нарушается.
+		
+		Из условия следует, что неизвестными значениями являются $A_0, A_1$, $x_0, x_1$. Итого 4 неизвестных. Для их отыскания следует построить систему из 4-ех уравнений по формуле (1). Тогда в соответствии со степенями $x^i$ запишем систему
+		$$\begin{cases}
+			x^0 : \int\limits_{0}^1 \dfrac{1}{\sqrt{1-x}} dx = A_0 + A_1,\\
+			x^1 : \int\limits_{0}^1 \dfrac{x}{\sqrt{1-x}} dx = A_0x_0 + A_1x_1,\\
+			x^2 : \int\limits_{0}^1 \dfrac{x^2}{\sqrt{1-x}} dx = A_0x_0^2 + A_1x_1^2,\\
+			x^3 : \int\limits_{0}^1 \dfrac{x^3}{\sqrt{1-x}} dx = A_0x_0^3 + A_1x_1^3.\\
+		\end{cases}$$ 
+		Вычислим значения интегралов из левой части уравнений:
+		$$\int\limits_{0}^1 \dfrac{1}{\sqrt{1-x}} dx = -\int\limits_0^1 (1-x)^{-\frac12} d(1-x) = -2(1-x)^{\frac12}\Big|_0^1 = 2.$$
+		\begin{multline*}\int\limits_{0}^1 \dfrac{x}{\sqrt{1-x}} dx = \left[\begin{matrix}\sqrt{1-x} = t, & x = 1-t^2, \\ x=1 \to t=0, & x=0 \to t = 1, \\ dx = -2tdt\end{matrix}\right] =\\= \int\limits_1^0\dfrac{1-t^2}{t} \cdot (-2t)dt = -2\int\limits_1^0 1-t^2 dt = -2 \left(t\Big|_ 1^0 - \dfrac{t^3}{3}\Big|_ 1^0\right) = \dfrac43.\end{multline*}
+		В последующих интегралах приводится аналогичная замена.
+		$$\int\limits_{0}^1 \dfrac{x^2}{\sqrt{1-x}} dx = -2\int\limits_1^0 (1-t^2)^2 dt =-2\int\limits_1^0 1 - 2t^2 + t^4 dt= -2 \left(t\Big|_ 1^0 - \dfrac{2t^3}{3}\Big|_ 1^0 + \dfrac{t^5}{5}\Big|_ 1^0\right) = \dfrac{16}{15}.$$
+		\begin{multline*}
+			\int\limits_{0}^1 \dfrac{x^3}{\sqrt{1-x}} dx = -2\int\limits_1^0 (1-t^2)^3 dt =-2\int\limits_1^0 1 - 3t^2 + 3t^4 -t^6 dt=\\= -2 \left(t\Big|_ 1^0 - \dfrac{3t^3}{3}\Big|_ 1^0 + \dfrac{3t^5}{5}\Big|_ 1^0 - \dfrac{t^7}{7}\Big|_ 1^0\right) = \dfrac{32}{35}.
+		\end{multline*}
+		
+		В итоге имеем систему нелинейных уравнений $$\begin{cases} A_0 + A_1 = 2, \\ A_0x_0 + A_1x_1 = \dfrac43,\\ A_0x_0^2 + A_1x_1^2 = \dfrac{16}{15}, \\ A_0x_0^3 + A_1x_1^3 = \dfrac{32}{35}. \end{cases}$$
+		Первое, второе и третье уравнения домножим на $-x_0$ и прибавим ко второму, третьему и четвертому соответственно. Тогда будем иметь систему с тремя неизвестными 
+		$$
+		\begin{cases}
+			A_1x_1 - A_1x_0 = \dfrac43 - 2x_0,\\
+			A_1x_1^2 - A_1x_1x_0 = \dfrac{16}{15} - \dfrac43x_0,\\
+			A_1x_1^3 - A_1x_1^2x_0 = \dfrac{32}{35} - \dfrac{16}{15}x_0.
+		\end{cases}
+		$$
+		Поступаем аналогично, но умножим первое и второе уравнения на $-x_1$ и прибавим к второму и третьему соответственно. Тогда имеем более простую нелинейную систему из 2-ух уравнений 
+		$$
+		\begin{cases}
+			x_0 + x_1 - \dfrac32 x_0x_1 = \dfrac45,\\
+			x_0 + x_1 - \dfrac54 x_0x_1 = \dfrac67.
+		\end{cases}
+		$$
+		Вычтем из первого уравнения второе и получим $$\dfrac{x_0x_1}{4} = \dfrac{2}{35}\Rightarrow x_0x_1 = \dfrac{8}{35}.$$
+		В предположении, что $x_1\ne 0$ (подстановкой в исходную систему можно проверить, что это действительно так), выражаем $x_0$:
+		$$x_0 = \dfrac{8}{35x_1}.$$
+		Подставляя это выражение в первое уравнение, получим $$\dfrac{8}{35x_1} + x_1 - \dfrac{3}{2}\cdot \dfrac{8}{35x_1} = \dfrac45.$$
+		Отсюда получаем квадратное уравнение $$x_1^2 - \dfrac{8}{7} x_1 + \dfrac{8}{35} = 0.$$
+		Корнями которого являются значения $$x_1 = \dfrac47 + \dfrac{2\sqrt{30}}{35},\quad x_1 = \dfrac47 - \dfrac{2\sqrt{30}}{35}.$$
+		Подстановкой каждого из значений в выражение $x_0 = \dfrac{8}{35x_1}$ можно получить, что $$x_0 = \dfrac47 - \dfrac{2\sqrt{30}}{35},\quad x_0 = \dfrac47 +\dfrac{2\sqrt{30}}{35}.$$
+		Таким образом, мы можем выбрать любое из двух значений. Обусловимся тем, что узлы мы строим в порядке возрастания. Поэтому в итоге выберем $$x_0 = \dfrac47 - \dfrac{2\sqrt{30}}{35},\quad x_1 = \dfrac47 +\dfrac{2\sqrt{30}}{35}.$$
+		Теперь, используя полученные значения, мы можем из первых двух уравнений исходной системы вычислить $A_0$ и $A_1$. Выпишем эти уравнения, подставив $x_0$, $x_1$:
+		$$\begin{cases}
+			A_0 + A_1 = 2,\\
+			\dfrac{(20-2\sqrt{30})A_0 + (20+2\sqrt{30})A_1}{35}=\dfrac43.
+		\end{cases}$$
+		Выразим из первого уравнения $A_1 = 2 - A_0$ и подставим во второе:
+		$$\dfrac{20A_0-2\sqrt{30}A_0 + 2(20+2\sqrt{30}) - 20A_0 - 4\sqrt{30}A_0}{35}=\dfrac43.$$
+		Преобразуем уравнение 
+		$$\dfrac{-4\sqrt{30}A_0}{35} = \dfrac43 - \dfrac{40}{35} - \dfrac{2\sqrt{30}}{35}.$$
+		$$A_0 = -\dfrac{35}{3\sqrt{30}} + \dfrac{10}{\sqrt{30}} + 1 = -\dfrac{7\sqrt{30}}{18} + \dfrac{\sqrt{30}}{3} + 1=1 - \dfrac{\sqrt{30}}{18}.$$
+		Тогда $$A_1 = 1 + \dfrac{\sqrt{30}}{18}.$$
+		Итого имеем $$A_0 = 1-\dfrac{\sqrt{30}}{18},\quad A_1 = 1+\dfrac{\sqrt{30}}{18},\quad x_0 = \dfrac47 - \dfrac{2\sqrt{30}}{35},\quad x_0 = \dfrac47 +\dfrac{2\sqrt{30}}{35}.$$
+		В итоге получаем квадратурную формулу, имеющую алгебраическую степень точности не ниже 3. Для уточнения построим еще одно уравнение и проверим, удовлетворяют ли полученные нами данные этому уравнению:
+		$$x^4 : \int\limits_{0}^1 \dfrac{x^4}{\sqrt{1-x}} dx = A_0x_0^4 + A_1x_1^4.$$
+		Как и прежде, вычисляем интеграл с помощью замены:
+		\begin{multline*}
+			\int\limits_{0}^1 \dfrac{x^4}{\sqrt{1-x}} dx = -2\int\limits_1^0 (1-t^2)^4dx = -2\int\limits_1^0 1 - 4 t^2 + 6 t^4 - 4 t^6 + t^8dt = \\= -2 \left(t\Big|_ 1^0 - \dfrac{4t^3}{3}\Big|_ 1^0 + \dfrac{6t^5}{5}\Big|_ 1^0 - \dfrac{4t^7}{7}\Big|_ 1^0 + \dfrac{t^9}{9}\Big|_ 1^0\right) = \dfrac{256}{315}.\end{multline*}
+		Тогда $$A_0x_0^4 + A_1x_1^4 = \dfrac{256}{315}.$$
+		
+		С помощью компьютерных вычислений посчитаем значение слева.
+		\begin{listingcont}
+import math
+A_0 = (18 - math.sqrt(30)) / 18
+A_1 = (18 + math.sqrt(30)) / 18
+x_0 = (20 - 2*math.sqrt(30)) / 35
+x_1 = (20 + 2*math.sqrt(30)) / 35
+
+A_0 * x_0**4 + A_1 * x_1**4 == 256/315\end{listingcont}
+Программа вернула False. \\\\
+Таким образом, при степени 4 точность нарушается. Следовательно, мы построили квадратурную формулу с АСТ = 3 вида $$\int\limits_0^1 \dfrac{f(x)}{\sqrt{1-x}}dx = \dfrac{18 - \sqrt{30}}{18}\cdot f\left(\dfrac{20 - 2\sqrt{30}}{35}\right) + \dfrac{18 + \sqrt{30}}{18}\cdot f\left(\dfrac{20 + 2\sqrt{30}}{35}\right).$$
+\newpage
+\item 
+\hypertarget{t4}{}
+Для решения задачи понадбятся соотношения (1). Таким образом необходимо строить по одному уравнению из соотношений (1) до тех пор, пока мы не получим неравенство.
+
+Теперь обратим внимание на составляющие элементы формулы (1), а именно $\rho(x), A_k, x_k$. Квадратурная формула для нашей задачи записывается в общем случае в виде
+$$I(f) = \int\limits_a^b \rho(x)f(x)dx \approx A_0 f(x_0) + A_1 f(x_1).$$
+Из постановки задачи мы выделяем, что $$\rho(x) = e^{-x},\quad A_0 =\dfrac{2+\sqrt2}{4},\quad x_0 =2-\sqrt2,\quad A_1 = \dfrac{2-\sqrt2}{4},\quad x_1 = 2+\sqrt2.$$
+Остается лишь записывать соотношения из (1) последовательно, повышая степень $i$ на каждом шаге.
+
+Причем заметим, что по формуле (1) слева мы будем получать интегралы вида $$\int\limits_0^{+\infty} x^i e^{-x} dx = \Gamma(i+1) = i!,$$ что позволяет нам уменьшить количество вычислений.
+
+Берем $i=0$:
+$$x^0 : \int\limits_0^{+\infty} e^{-x}dx=0! \overset{?}{=}  A_0 + A_1ю$$
+Тогда $$1 \overset{?}{=} A_0 + A_1 = \dfrac{2+\sqrt2}{4} + \dfrac{2-\sqrt2}{4} = 1.$$
+Равенство выполняется.
+
+Берем $i=1$:
+$$x^1 : \int\limits_0^{+\infty} xe^{-x}dx = 1!\overset{?}{=}  A_0x_0 + A_1x_1ю$$
+Тогда $$1 \overset{?}{=} A_0x_0 + A_1x_1 = \dfrac{2+\sqrt2}{4}\cdot (2-\sqrt2) + \dfrac{2-\sqrt2}{4}\cdot (2+\sqrt2) = 1.$$
+Равенство выполняется.
+
+Берем $i=2$:
+$$x^2 : \int\limits_0^{+\infty} x^2e^{-x}dx=2! \overset{?}{=}  A_0x_0^2 + A_1x_1^2,$$
+Тогда $$2 \overset{?}{=} A_0x_0^2 + A_1x_1^2 = \dfrac{2+\sqrt2}{4}\cdot (2-\sqrt2)^2 + \dfrac{2-\sqrt2}{4}\cdot (2+\sqrt2)^2 = 2.$$
+Равенство выполняется.
+
+Берем $i=3$:
+$$x^3 : \int\limits_0^{+\infty} x^3e^{-x}dx =3!\overset{?}{=}  A_0x_0^3 + A_1x_1^3ю$$
+Тогда $$6 \overset{?}{=} A_0x_0^3 + A_1x_1^3 = \dfrac{2+\sqrt2}{4}\cdot (2-\sqrt2)^3 + \dfrac{2-\sqrt2}{4}\cdot (2+\sqrt2)^3 = \dfrac12(4-4\sqrt2 + 2) +\dfrac12(4+4\sqrt2 + 2) = 6.$$
+Равенство выполняется.
+
+Берем $i=4$:
+$$x^3 : \int\limits_0^{+\infty} x^4e^{-x}dx=4! \overset{?}{=}  A_0x_0^4 + A_1x_1^4.$$
+Тогда $$24 \overset{?}{=} A_0x_0^4 + A_1x_1^4 = \dfrac{2+\sqrt2}{4}\cdot (2-\sqrt2)^4 + \dfrac{2-\sqrt2}{4}\cdot (2+\sqrt2)^4 = \dfrac12(4\cdot (6-4\sqrt2 - 2 + 6+4\sqrt2) = 20.$$
+Равенство не выполняется.
+
+Таким образом, квадратурная формула имеет АСТ = 3.
+	\end{enumerate}
+\end{document} 
