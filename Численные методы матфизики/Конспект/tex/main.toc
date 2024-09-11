@@ -1,3 +1,0 @@
-\babel@toc {russian}{}\relax 
-\contentsline {chapter}{\numberline {1}Способы построения и исследования разностных схем.}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Сетки и сеточные функции.}{3}{section.1.1}%

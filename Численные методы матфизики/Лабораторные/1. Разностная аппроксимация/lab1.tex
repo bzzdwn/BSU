@@ -199,7 +199,7 @@
 	$$
 		\includegraphics[scale=0.3]{images/lab1_3}
 	$$
-	\textbf{Решение.} У нас задана сетка узлов $\overline \omega _{h\tau}$. На данном шаблоне мы заменим дифференциальные операторы разностными. Для этого дифференциальному оператору $Lu = \dfrac{\d}{\d x} \left(k(x,t) \dfrac{\d u}{\d x}\right)$ поставим в соответствие разностный оператор $$L_hu = \left(k\left(x+\dfrac h2, t\right)u_{\overline x}\right)_x.$$
+	\textbf{Решение.} У нас задана сетка узлов $\overline \omega _{h\tau}$. На данном шаблоне мы заменим дифференциальные операторы разностными. Для этого дифференциальному оператору $Lu = \dfrac{\d}{\d x} \left(k(x,t) \dfrac{\d u}{\d x}\right)$ поставим в соответствие разностный оператор $$L_hu = \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x.$$
 	Или же в другой записи 
 	\begin{multline*}
 		L_hu = \\= \dfrac{k\left(x+\dfrac h2, t\right)u(x+h, t) - k\left(x+\dfrac h2,t\right) u(x,t) - k\left(x-\dfrac h2,t\right)u(x,t) + k\left(x-\dfrac h2,t\right)u(x-h,t)}{h^2}.
@@ -210,7 +210,7 @@
 	\end{multline*}
 	Итак, заменив дифференциальные операторы на разностные, получим разностную схему вида
 	$$\begin{cases}
-		u_{\overline t} = \left(k\left(x+\dfrac h2, t\right)u_{\overline x}\right)_x + f(x,t),\ (x,t) \in \overline \omega_{h\tau},\\
+		u_{\overline t} = \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x + f(x,t),\ (x,t) \in \overline \omega_{h\tau},\\
 		u(x, 0) = u_0(x),\ x \in \overline \omega_{h},\\
 		u_x(0, t) = \mu_0(t),\ t \in \overline \omega_{\tau},\\
 		u(1, t) = \mu_1(t),\ t \in \overline \omega_{\tau},
@@ -218,9 +218,9 @@
 	где $$u_{\overline t} = \dfrac{u(t) - u(t-\tau)}{\tau},\ u_{x} = \dfrac{u(x+h) - u(x)}{h}.$$
 	Оценим погрешность аппроксимации дифференциального уравнения разностным
 	$$
-		\psi(x,t) = u_{\overline t} - \left(k\left(x+\dfrac h2, t\right)u_{\overline x}\right)_x - f(x,t) 
+		\psi(x,t) = u_{\overline t} - \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x - f(x,t) 
 	$$
-	Зная, что $$u_{\overline t} = \dfrac{\d u}{\d t} + \dfrac{\tau}{2} \dfrac{\d^2 u}{\d t^2}+ O(\tau),\ \left(k\left(x+\dfrac h2, t\right)u_{\overline x}\right)_x = \dfrac{\d}{\d x} \left(k(x,t) \dfrac{\d u}{\d x}\right) - \dfrac{h^2}{8}k''u'' + O(h^3),$$
+	Зная, что $$u_{\overline t} = \dfrac{\d u}{\d t} + \dfrac{\tau}{2} \dfrac{\d^2 u}{\d t^2}+ O(\tau),\ \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x = \dfrac{\d}{\d x} \left(k(x,t) \dfrac{\d u}{\d x}\right) - \dfrac{h^2}{8}k''u'' + O(h^3),$$
 	подставим в уравнение для погрешности и получим
 	$$
 	\psi(x,t) = \dfrac{\tau}{2} \dfrac{\d^2 u}{\d t^2}+ \dfrac{h^2}{8}k''u'' + O(\tau^2 + h^3) = O(\tau + h^2). 
@@ -234,6 +234,8 @@
 	Таким образом, левое граничное условие аппроксимируется с первым порядком по $x$.\\\\
 	Правое граничное условие аппроксимируем точно.\\\\
 	В итоге построенная разностная схема аппроксимирует дифференциальную задачу с первым порядком по $t$ и по $x$.
+	\\\\
+	\textbf{Замечание.} Также мы могли бы взять аппроксимацию $L_hu = \left(k\left(x, t\right)u_{\overline x}\right)_x.$ Но в таком случае мы бы получили погрешность $O(h)$, то есть аппроксимация по $x$ была бы также первого порядка.
 	\section*{Задача 4}
 	\textbf{Постановка задачи.}
 	Повысить порядок аппроксимации разностной схем на минимальном шаблоне, используя вид дифференциальной задачи.
@@ -246,5 +248,28 @@
 	$$
 	\includegraphics[scale=0.3]{images/lab1_3}
 	$$
-	
+	\textbf{Решение.} Из предыдущей задачи известно, что дифференциальная задача аппроксимируется разностной схемой на выбранном шаблоне с погрешностями $\psi(x,t) = O(\tau + h^2)$ для уравнения и $\nu(0,t) = O(h)$ для краевого условия.
+	Задача ставится следующим образом: за счет повышения порядка аппроксимации граничного условия требуется повысить порядок аппроксимации задачи с $O(\tau + h)$ до $O(\tau + h^2)$.
+	Разностную аппроксимацию граничного условия будем искать в следующем виде
+	$$u_x(0,t) = \overline \mu_0(t),$$
+	где сеточная функция $\overline \mu_0(t)$ подлежит определению. Определим погрешность аппроксимации граничного условия:
+	\begin{multline*}
+		\nu( 0,t) = u_x(0,t) - \overline\mu_0(t) = \dfrac{\d u(0,t)}{\d x} +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \overline\mu_0(t) = \\ =\mu_0(t) +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \overline\mu_0(t).
+	\end{multline*}
+	Таким образом, мы должны выбрать
+	$$\overline \mu_0(t) = \mu_0(t) +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2}.$$
+	Из исходного уравнения поставленной дифференциальной задачи $$\dfrac{\d u(x,t)}{\d t}= \dfrac{\d k(x,t)}{\d x}  \dfrac{\d u(x,t)}{\d x} +  k(x,t)   \dfrac{\d^2 u(x,t)}{\d x^2} + f(x,t)$$ мы можем выразить
+	$$  \dfrac{\d^2 u(x,t)}{\d x^2}=\dfrac{1}{k(x,t)}\left(\dfrac{\d u(x,t)}{\d t}- \dfrac{\d k(x,t)}{\d x}  \dfrac{\d u(x,t)}{\d x}   - f(x,t)\right).$$
+	Принимая $x=0$, имеем
+	$$  \dfrac{\d^2 u(0,t)}{\d x^2}=\dfrac{1}{k(0,t)}\left(\dfrac{\d u(0,t)}{\d t}- \dfrac{\d k(0,t)}{\d x}  \dfrac{\d u(0,t)}{\d x}   - f(0,t)\right).$$
+	Из самого граничного условия мы можем взять $\dfrac{\d u(0,t)}{\d x} = \mu_0(t)$. А частные производные $\dfrac{\d u(0,t)}{\d t}, \dfrac{\d k(0,t)}{\d x}$ в рамках аппроксимации уместно заменить на разностные производные $u_{\overline{t}} (0,t), k_{\overline{x}} (0,t)$ соответственно. Тогда в итоге мы получим
+	$$\overline \mu_0(t) = \mu_0(t) +\dfrac{h}{2}\dfrac{1}{k(0,t)}\left(u_{\overline{t}} (0,t)- k_{\overline{x}} (0,t)\cdot  \mu_0(t)   - f(0,t)\right).$$
+	Таким образом, мы получаем разностную схему повышенного порядка аппроксимации
+	$$\begin{cases}
+		u_{\overline t} = \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x + f(x,t),\ (x,t) \in \overline \omega_{h\tau},\\
+		u(x, 0) = u_0(x),\ x \in \overline \omega_{h},\\
+		u_x(0, t) = \mu_0(t) +\dfrac{h}{2}\dfrac{1}{k(0,t)}\left(u_{\overline{t}} (0,t)- k_{\overline{x}} (0,t)\cdot  \mu_0(t)   - f(0,t)\right),\ t \in \overline \omega_{\tau},\\
+		u(1, t) = \mu_1(t),\ t \in \overline \omega_{\tau},
+	\end{cases}$$
+	в частности она аппроксимирует дифференциальную задачу с первым порядком по $t$ и по $x$. 
 \end{document} 
