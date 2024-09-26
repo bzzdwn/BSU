@@ -1,0 +1,222 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{mathtools}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext}
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} 
+{\par\noindent{$\blacklozenge$}} 
+{\hfill$\scriptstyle\square$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\theta}{\uptheta}
+\renewcommand{\eta}{\upeta}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\sigma}{\upsigma}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\varepsilon}{\upvarepsilon}
+
+\renewcommand{\d}{\partial}
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand{\intl}{\int\limits_{0}^l}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=1}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=1}^\infty}
+
+\date{}
+\begin{document}
+	\section*{Колебание тонкой струны.}
+	\textbf{Постановка задачи.}
+	Методом разделения переменных найти решение смешанной задачи
+	\begin{equation}
+		\begin{dcases}
+			\dfrac{\d^2 u}{\d t^2} - \dfrac{\d^2 u}{\d x^2} = 1 + \dfrac{2x}{1-hl},\ 0<x<l,\ t>0,\\
+			u|_{t=0} = x,\ 0\leq x\leq l,\\
+			\dfrac{\d u}{\d t}\Big|_{t=0} = 0,\ 0\leq x\leq l,\\
+			u|_{x=0} = 0,\ t\geq 0,\\
+			\dfrac{\d u}{\d x} - hu\Big|_{x=l} = t^2,\ t \geq 0,
+		\end{dcases}
+	\end{equation}
+	где $h>0$, $l > 0$.\\\\
+	\textbf{Решение задачи.}
+	Поставленная дифференциальная задача для является \textit{смешанной задачей для уравнения гиперболического типа с неоднородными граничными условиями третьего рода}. Для решения этой задачи приведем ее к смешанной задаче с \textit{однородными} граничными условиями. Будем искать решение задачи (1) в виде
+	\begin{equation}
+		u(x,t) = v(x,t) + w(x,t).
+	\end{equation}
+	Функцию $w(x,t)$ мы будем задавать таким образом, чтобы граничные условия стали однородными. Пусть
+	\begin{equation}
+		w(x,t) = a(t)x^2 + b(t)x + c(t),
+	\end{equation}
+	где функции $a(t), b(t), c(t)$ подлежат определению. Чтобы добиться однородности в граничных условиях, функция $w(x,t)$ должна удовлетворять граничным условиям задачи (1), то есть
+	$$\begin{dcases}
+		w|_{x=0} = 0, \\
+		\dfrac{\d w}{\d x} - hw\Big|_{x=l} = t^2.
+	\end{dcases}$$
+	Подставим первое условие в общий вид (3):
+	$$w|_{x=0} = c(t) = 0.$$
+	Таким образом, $c(t) = 0$. Подставим второе условие в общий вид (3):
+	\begin{multline*}
+		\dfrac{\d w}{\d x} - hw\Big|_{x=l} = 2a(t)x + b(t) - ha(t)x^2 - hb(t)x - hc(t)\Big|_{x=l}  =\\= [x=l,\ c(t)=0] = (2l - hl^2)a(t) +(1-hl)b(t) =t^2.
+	\end{multline*}
+	Пусть для простоты $a(t) = 0$, тогда
+	$$(1-hl)b(t) =t^2.$$
+	Отсюда
+	$$b(t) = \dfrac{t^2}{1-hl}.$$
+	В итоге получим
+	$$w(x,t) = \dfrac{xt^2}{1-hl}.$$
+	Подставляя это выражение в вид (2), получим новый вид
+	\begin{equation}
+		u(x,t) = v(x,t) + \dfrac{xt^2}{1-hl}.
+	\end{equation}
+	Для получения новой дифференциальной задачи с однородными граничными условиями, подставим общий вид решения (4) в задачу (1):
+	\begin{equation*}
+		\begin{dcases}
+			\dfrac{\d^2 v}{\d t^2} - \dfrac{\d^2 v}{\d x^2} = 1 + \dfrac{2x}{1-hl} - \dfrac{\d^2 w}{\d t^2} + \dfrac{\d^2 w}{\d x^2},\ 0<x<l,\ t>0,\\
+			v|_{t=0} = x - w|_{t=0},\ 0\leq x\leq l,\\
+			\dfrac{\d u}{\d t}\Big|_{t=0} = 0 - \dfrac{\d w}{\d t}\Big|_{t=0},\ 0\leq x\leq l,\\
+			v|_{x=0} = 0,\ t\geq 0,\\
+			\dfrac{\d v}{\d x} - hu\Big|_{x=l} = 0,\ t \geq 0,
+		\end{dcases}
+	\end{equation*}
+	Подставляя известное значение $w(x,t)$, получим
+	\begin{equation}
+		\begin{dcases}
+			\dfrac{\d^2 v}{\d t^2} - \dfrac{\d^2 v}{\d x^2} = 1,\ 0<x<l,\ t>0,\\
+			v|_{t=0} = x ,\ 0\leq x\leq l,\\
+			\dfrac{\d u}{\d t}\Big|_{t=0} = 0,\ 0\leq x\leq l,\\
+			v|_{x=0} = 0,\ t\geq 0,\\
+			\dfrac{\d v}{\d x} - hu\Big|_{x=l} = 0,\ t \geq 0,
+		\end{dcases}
+	\end{equation}
+	Полученная задача (5) является \textit{смешанной задачей для уравнения гиперболического типа с однородными граничными условиями третьего рода и неоднородным уравнением}. По методу разделения переменных необходимо искать решение задачи (5) в виде функции
+	\begin{equation}
+		v(x,t) = \sumk T_k(t) X_k(x),
+	\end{equation}
+	где функции $X_k(x)$ -- это собственные функции дифференциального оператора, которые можно найти как решения соответствующей задачи Штурма-Лиувилля (которую мы получили бы в случае однородного уравнения)
+	\begin{equation}
+		\begin{cases}
+			X''(x) + \lambda^2 X(x) = 0,\\
+			X(0) = 0,\\
+			X'(l) - hX(l) = 0.
+		\end{cases}
+	\end{equation}
+	Найдем решение обыкновенного дифференциального уравнения задачи (7). Для этого запишем соответствующее ему характеристическое уравнение
+	$$\nu^2 + \lambda ^2 = 0.$$
+	Найдем корни этого характеристического уравнения
+	$$\nu_{1,2} = \pm i \lambda.$$ Тогда общее решение данного обыкновенного дифференциального уравнения имеет вид
+	$$X(x) = C_1\cos \lambda x + C_2 \sin \lambda x.$$
+	Подставим в нее краевые условия. Сперва подставим первое условие:
+	$$X(0) = C_1 = 0.$$
+	Таким образом, $C_1 = 0$. Подставим второе условие:
+	$$X'(l) - hX(l) = [C_1 = 0] = \lambda C_2 \cos \lambda l - h C_2\sin \lambda l = 0.$$
+	Отсюда
+	$$C_2 ( \lambda \cos \lambda l  - h \sin \lambda l) = 0.$$
+	Так как тривиальное решение нас не интересует, то $C_2 \ne 0$. Тогда
+	$$\lambda \cos \lambda l  - h \sin \lambda l = 0.$$
+	Отсюда получаем нелинейное уравнение
+	\begin{equation}
+		\dfrac{\lambda}{h} = \tg \lambda l,
+	\end{equation}
+	решения $\lambda_k$ которого можно найти численными методами. Эти решения и будут являться собственными значениями дифференциального оператора. Тогда собственные функции оператора имеют вид
+	$$X_k(x) = C_2\sin \lambda_k x,$$
+	но так как собственные функции определены с точностью до постоянного множителя, то мы можем отбросить $C_2$ и получить собственные функции
+	$$X_k(x) = \sin \lambda_k x.$$
+	Подставим эти функции в общий вид решения (6), тогда
+	\begin{equation}
+		v(x,t) = \sumk T_k(t) \sin \lambda_k x.
+	\end{equation}
+	Теперь нужно определить вид функций $T_k(t)$. Для этого подставим общий вид решения (9) в уравнение и начальные условия задачи (5). Сперва подставим в уравнение:
+	$$\sumk T_k''(t) \sin \lambda_k x + \lambda_k^2\sumk T_k(t) \sin \lambda_k x = 1 = \sumk f_k \sin \lambda_k x.$$
+	Мы разложим неоднородность $f(x,t) = 1$ в ряд Фурье по собственным функциям, чтобы можно было приравнять коэффициенты степенных рядов
+	$$T''_k(t) + \lambda_k^2 T_k(t) = f_k,$$
+	где
+	\begin{equation}
+		f_k = \dfrac{\intl1\cdot \sin \lambda_k x\ dx}{\intl \sin^2 \lambda_k x\ dx} = \dfrac{1 - \cos \lambda_k l}{\lambda_k \left(\dfrac l 2 - \dfrac{\sin 2 \lambda_k l}{4\lambda _k}\right)}
+	\end{equation}
+	 Аналогично подставляя вид решения (9) в первое начальное условие, получим
+	 $$\sumk T_k(0) \sin \lambda_k x = x = \sumk \varphi_k\sin \lambda_k x .$$
+	 Тогда $$T_k (0) = \varphi_k,$$
+	 где
+	 \begin{equation}
+	 	\varphi_k = \dfrac{\intl x\cdot \sin \lambda_k x\ dx}{\intl \sin^2 \lambda_k x\ dx} = \dfrac{\sin \lambda_k l - \lambda_k l\cos \lambda_k l}{\lambda_k^2 \left(\dfrac l 2 - \dfrac{\sin 2 \lambda_k l}{4\lambda _k}\right)}
+	 \end{equation}
+	 Подставим вид решения (9) во второе начальное условие и получим
+	 $$\sumk T_k'(0) \sin \lambda_k x = 0 .$$
+	 Таким образом, $$T_k'(0) = 0.$$
+	 В итоге, собрав воедино получившиеся результаты, получим задачу Коши 
+	 \begin{equation}
+	 	\begin{cases}
+	 		T''_k(t) + \lambda_k^2 T_k(t) = f_k,\\
+	 		T_k (0) = \varphi_k,\\
+	 		T_k'(0) = 0.
+	 	\end{cases}
+	 \end{equation}
+	 Найдем решение обыкновенного дифференциального уравнения. Поскольку это линейное неоднородное уравнение, то его полное решение можно записать в виде суммы общего решения однородного уравнения и частного решения неоднородного $$T_k(t) = T^{\text{oo}}_k(t) + T^{\text{чн}}_k(t).$$
+	 Найдем общее решение однородного уравнения. Для этого запишем соответствующее ему характеристическое уравнение
+	 $$\nu^2 + \lambda_k ^2 = 0.$$
+	 Найдем корни этого характеристического уравнения
+	 $$\nu_{1,2} = \pm i \lambda_k.$$
+	 Тогда общее решение однородного уравнения имеет вид
+	 \begin{equation*}
+	 	T^{\text{oo}}_k(t) = C_1 \cos \lambda_k t + C_2 \sin \lambda_k t
+	 \end{equation*}
+	 Частное решение уравнения можно найти методами Коши, Лагранжа или Эйлера (см. курс ОДУ). Но мы же найдем его подбором. Наше частное решение должно удовлетворять условию $$T''_k(t) + \lambda_k^2 T_k(t) = f_k,$$
+	 Если предположим, что $T^{\text{чн}}_k(t) = A\in \Rm$, то есть частное решение -- это какое-то число, то, подставляя его в наше условие, получим
+	 $$0+\lambda ^2_k A = f_k.$$
+	 Отсюда легко увидеть, что $$A = \dfrac{f_k}{\lambda_k^2} = T^{\text{чн}}_k(t).$$ 
+	 Таким образом, полное решение дифференциального уравнения задачи (12) имеет вид
+	 \begin{equation}
+	 	T_k(t) = C_1 \cos \lambda_k t + C_2 \sin \lambda_k t + \dfrac{f_k}{\lambda_k^2}.
+	 \end{equation}
+	 Подставим в него первое начальное условие
+	 $$T_k(0) = C_1 + \dfrac{f_k}{\lambda_k^2} = \varphi_k.$$
+	 Тогда $$C_1 = \varphi_k - \dfrac{f_k}{\lambda_k^2}.$$
+	 Подставим в общее решение второе начальное условие и получим
+	 $$T_k'(0) = \lambda_k C_2 = 0.$$
+	 Тогда $$C_2 = 0.$$
+	 Подставим найденные коэффициенты $C_1$, $C_2$ в решение (13) и получившееся выражение подставим в вид функции (9). Следовательно, подставляя получившееся в вид (4), можем сразу записать решение исходной дифференциальной задачи
+	 \begin{equation}
+	 	u(x,t) =\dfrac{xt^2}{1-hl} + \sumk \left[\left(\varphi_k - \dfrac{f_k}{\lambda_k^2}\right) \cos \lambda_k t + \dfrac{f_k}{\lambda_k^2}\right]\sin \lambda_k x,
+	 \end{equation}
+	 где функции $f_k$ и $\varphi_k$ определяются из выражений (10) и (11) соответственно.
+\end{document}

@@ -1,0 +1,173 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Разностная аппроксимация и повышение порядка дифференциальных задач для ДУ с ЧП}
+	\subsubsection*{Условия}
+	\begin{enumerate}
+		\item Построить разностную схему в индексной и безиндексной форме для дифференциальной задачи для уравнения теплопроводности
+		$$\begin{dcases}
+			\dfrac{\d u}{\d t} = \dfrac{\d ^2 u}{\d x^2} + f(x,t),\ 0<x<1,\ t>0\\
+			u(x,0) = u_0(x),\ 0 \leq x \leq 1,\\
+			\dfrac{\d u(0,t)}{\d x} = \sigma_0 u(0,t) - \mu_0(t),\ t\geq 0\\
+			u(1,t) = \mu_1(t),\ t\geq 0,
+		\end{dcases}$$
+		на шаблоне
+		$$
+			\includegraphics[scale=0.25]{images/img005}
+		$$
+		Определить порядок аппроксимации разностной схемой. Повысить порядок аппроксимации, не изменяя шаблон. (\hyperlink{t1}{Решение})
+	\end{enumerate}
+	
+	\newpage
+	\subsubsection*{Решения}
+	\begin{enumerate}
+		\item \hypertarget{t1}{}
+		Решение задачи будем проводить в три этапа.\\\\ 
+		\textbf{Первый этап}. Сначала задаем сетку узлов, на которой будем строить аппроксимацию исходной задачи. Зададим равномерную двумерную сетку
+		$$\overline \omega_{h\tau} = \overline \omega_h \times \omega_\tau,$$
+		где
+		$$\overline \omega_h =\left\{x_i = ih,\ i = \overline{0,N},\ h=\dfrac1N\right\},$$
+		$$\omega_\tau =\left\{t_j = j\tau,\ j = 0,1,\ldots\right\}.$$
+		Графически это можно изобразить как
+		$$
+			\includegraphics[scale=0.25]{images/img006}
+		$$
+		где внутренние точки обозначены  через точки, а граничные точки -- через крестики. Также заметим, что из-за того, что нет ограничения сверху на $t$, то сетка без верхней "крышки".\\\\
+		На этой сетке мы определяем сеточную функцию $y = y(x,t),\ (x,t)\in \overline\omega _{h\tau}$, которая будет являться дискретным аналогом (аппроксимацией) решения $u(x,t)$.\\\\
+		\textbf{Второй этап.} Заменяя в исходном дифференциальном уравнении производные от функции на разностные аналоги, можем построить разностное уравнение
+		$$y_t = y_{\overline x x} + f(x,t),\ (x,t)\in \omega_{h\tau}$$
+		то есть такая аппроксимация будет на всех внутренних узлах сетки (все точки, обозначенные кружочками). Заметим, что производную по $t$ мы заменяем именно правой разностной производной. Это все происходит из-за специфики заданного шаблона $\text{Ш}(x)$: по переменной $t$ мы можем продвинуться только вверх (в одномерном случае вправо). \\\\
+		Начальное условие мы аппроксимируем как
+		$$y(x,0) = u_0(x),\ x\in \overline\omega_h.$$ В краевых точках мы также заменяем исходную функцию на сеточную и получаем
+		$$\begin{cases}
+			y_x(0,t) = \sigma_0 y(0,t) - \mu_0(t),\ t \in \omega_\tau,\\
+			y(1, t) = \mu_1(t),\ t \in \omega_\tau.
+		\end{cases}$$
+		Левое граничное условие заменяем правой разностной производной, потому что можем двигаться от границы только вправо.\\\\
+		Тогда, собрав вместе аппроксимацию уравнения и граничных условий, получим \textit{разностную аппроксимацию дифференциальной задачи в безиндексной форме}
+		$$\begin{cases}
+			y_t(x,t) = y_{\overline x x} (x,t)+ f(x,t),\ (x,t)\in \omega_{h\tau},\\
+			y(x,0) = u_0(x),\ x\in \overline\omega_h,\\
+			y_x(0,t) = \sigma_0 y(0,t) - \mu_0(t),\ t \in \omega_\tau,\\
+			y(1, t) = \mu_1(t),\ t \in \omega_\tau.
+		\end{cases}$$
+		Чтобы записать эту задачу в индексной форме, распишем разностные производные, считая $y(x_i, t_j) = y_i^{j}$. Тогда получим \textit{разностную аппроксимацию дифференциальной задачи в индексной форме}
+		$$\begin{dcases}
+			\dfrac{y_i^{j+1} - y_i^j}{\tau} = \dfrac{y^j_{i-1}-2y^j_i + y^j_{i+1}}{h^2} +f(x_i,t_j),\ i = \overline{1,N-1},\ j=0,1,\ldots,\\
+			y_i^0 = u_0(x_i),\ i=\overline{0, N},\\
+			\dfrac{y_0^{j+1} - y_0^j}{h} = \sigma_0 y_0^j - \mu_0(t_j),\ j=0,1,\ldots,\\
+			y_N^j = \mu_1(t_j),\ j=0,1,\ldots.
+		\end{dcases}$$
+		Далее нам нужно исследовать порядок аппроксимации задачи разностной схемой. Для этого рассмотрим поведение погрешности аппроксимации для уравнения, а затем для граничных условий:
+		\begin{equation*}
+			\psi_{h\tau}(x,t) = u_{t}(x,t) -u_{\overline x x}(x,t) -f(x,t).
+		\end{equation*}
+		Поскольку мы можем записать
+		$$u_{\overline x x}(x,t) = \dfrac{\d^2 u(x,t)}{\d x^2} + \dfrac{h^2}{12}\dfrac{\d^4 u(x,t)}{\d x^4} + O(h^3),$$
+		$$u_{t}(x,t) = \dfrac{\d u(x,t)}{\d t} + \dfrac{\tau}{2}\dfrac{\d^2 u(x,t)}{\d t^2} + O(\tau^2),$$
+		то
+		\begin{multline*}
+			\psi_{h\tau}(x,t) = \dfrac{\d u(x,t)}{\d t} + \dfrac{\tau}{2}\dfrac{\d^2 u(x,t)}{\d t^2} + O(\tau^2) - \dfrac{\d^2 u(x,t)}{\d x^2} - \dfrac{h^2}{12}\dfrac{\d^4 u(x,t)}{\d x^4} + O(h^3) - f(x,t)=\\=
+			\left[ \dfrac{\d u}{\d t} = \dfrac{\d ^2 u}{\d x^2} + f(x,t)\right] = \dfrac{\tau}{2}\dfrac{\d^2 u(x,t)}{\d t^2} + O(\tau^2)- \dfrac{h^2}{12}\dfrac{\d^4 u(x,t)}{\d x^4} + O(h^3) = O(\tau + h^2)
+		\end{multline*}
+		То есть разностное уравнение аппроксимирует исходное дифференциальное уравнение с первым порядком по $t$ и со вторым порядком по $x$.\\\\
+		Рассмотрим погрешность аппроксимации дополнительных условий
+		$$\nu_{h\tau}(x,0) = u(x,0) - u_0(x) = 0,$$
+		\begin{multline*}
+			\nu_{h\tau} (0,t) = u_x(0,t) - \sigma_0 u(0,t) + \mu_0(t) = \dfrac{\d u(0,t)}{\d x} + \dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \sigma_0 u(0,t) + \mu_0(t) =\\=\left[\dfrac{\d u(0,t)}{\d x} = \sigma_0 u(0,t) - \mu_0(t) \right] = \dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) = O(h),
+		\end{multline*}
+		$$\nu_{h\tau}(1, t) = u(1,t) - \mu_1(t) = 0,$$
+		то есть точность аппроксимации дополнительных условий $$\nu_{h\tau}(x,t) = \nu_{h\tau}(x,0) + \nu_{h\tau}(0,t) + \nu_{h\tau}(1,t)=O(h).$$
+		Таким образом, общий порядок аппроксимации $$\Psi_{h\tau}(x) = \psi_{h\tau}(x,t) + \nu_{h\tau}(x,t) = O(\tau + h),$$ то есть разностная схема аппроксимирует поставленную дифференциальную задачу с первым порядком точности по $t$ и первым порядком по $x$. \\\\
+		\textbf{Третий этап.} 
+		Мы выяснили, что погрешность аппроксимации равна $\Psi_{h\tau}(x,t) = O(\tau + h)$. Причем, проанализировав ход исследования погрешности, можно заметить, что левое граничное условие понижает нам порядок аппроксимации по $x$. Следовательно, мы можем получить аппроксимацию $\Psi_{h\tau}(x,t) = O(\tau + h^2)$, если будет $\nu_{h\tau} (0,t) = O(h^2)$. При этом при повышении порядка шаблон должен остаться минимальным, потому что иначе изменится матрица, по которой мы будем вычислять приближенное решение (сейчас она трехдиагональная, но при изменении шаблона она может измениться). Мы же преследуем цель оставить матрицу без изменений.\\\\\
+		Рассмотрим аппроксимацию левого граничного условия
+		$$y_x(0,t) = \sigma_0 y(0,t) - \mu_0(t),\ t \in \omega_\tau.$$
+		Для повышения порядка аппроксимации введем параметр $\overline \mu_0(t)$, который подлежит определению, такой, что теперь $$y_x(0,t) = \sigma_0 y(0,t) - \overline\mu_0(t),\ t \in \omega_\tau.$$
+		Нам нужно определить значение параметра $\overline \mu _0(t)$. Для этого рассмотрим погрешность -- невязку точного решения над разностным 
+		\begin{multline*}
+			\nu_{h\tau} (0,t) = 
+			u_x(0,t) - \sigma_0 u(0,t) + \overline \mu_0(t) = 
+			\dfrac{\d u(0,t)}{\d x} + \dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \sigma_0 u(0,t) + \overline \mu_0(t) =\\
+			=\left[\dfrac{\d u(0,t)}{\d x} = \sigma_0 u(0,t) - \mu_0(t) \right] =
+			\overline \mu_0(t) - \mu_0(t) + \dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2).
+		\end{multline*}
+		Заметим, что выбирая 
+		$$\overline \mu_0(t) = \mu_0(t) - \dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2},$$
+		мы получим
+		$$\nu_{h\tau} (0,t) = O(h^2).$$
+		Но в формуле для параметра должны отсутствовать производные реальных функций. Поэтому производную нужно заменить на другое выражение. Если мы возьмем вместо нее сразу разностную аппроксимацию, то у нас может сломаться уравнение. Поэтому мы пойдем другим путем.\\\\
+		Предположим, что исходное уравнение выполняется на левой границе, то есть
+		$$\dfrac{\d u(0,t)}{\d t} = \dfrac{\d ^2 u(0,t)}{\d x^2} + f(0,t),$$
+		тогда
+		$$\dfrac{\d ^2 u(0,t)}{\d x^2} = \dfrac{\d u(0,t)}{\d t} - f(0,t).$$
+		Таким образом, подставляя это выражение в $\overline \mu_0(t)$, получим
+		$$\overline \mu_0(t) = \mu_0(t) - \dfrac{h}{2}\left(\dfrac{\d u(0,t)}{\d t} - f(0,t)\right).$$
+		А вот теперь мы можем заменить производные разностными и получить
+		$$\overline \mu_0(t) = \mu_0(t) + \dfrac{h}{2}f(0,t) - \dfrac h2 y_t(0,t).$$
+		Теперь мы можем построить новую разностную аппроксимацию левого граничного условия
+		$$y_x(0,t) = \sigma_0 y(0,t) - \mu_0(t) - \dfrac{h}{2}f(0,t) + \dfrac h2 y_t(0,t),\ t \in \omega_\tau.$$
+		Таким образом, новая разностная схема повышенного порядка аппроксимации имеет вид
+		$$\begin{cases}
+			y_t(x,t) = y_{\overline x x} (x,t)+ f(x,t),\ (x,t)\in \omega_{h\tau},\\
+			y(x,0) = u_0(x),\ x\in \overline\omega_h,\\
+			y_x(0,t) = \sigma_0 y(0,t) - \mu_0(t) - \dfrac{h}{2}f(0,t) + \dfrac h2 y_t(0,t),\ t \in \omega_\tau,\\
+			y(1, t) = \mu_1(t),\ t \in \omega_\tau.
+		\end{cases}$$
+		Данная схема имеет общий порядок погрешности $\Psi_{h\tau}(x,t) = O(\tau + h^2)$.
+	\end{enumerate}
+	
+\end{document} 

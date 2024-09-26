@@ -3,3 +3,8 @@
 \contentsline {section}{\numberline {1.1}Сетки и сеточные функции.}{3}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Разностная аппроксимация дифференциальных операторов.}{7}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Локальная аппроксимация.}{7}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}}{13}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Разностная аппроксимация дифференциальных задач.}{15}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Постановка разностной задачи.}{15}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Сходимость и точность разностных схем.}{16}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Повышения порядка аппроксимации разностных схем.}{18}{subsection.1.3.3}%

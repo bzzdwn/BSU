@@ -2,9 +2,10 @@
 \usepackage{cmap}
 \usepackage{amssymb}
 \usepackage{amsmath}
- \setcounter{MaxMatrixCols}{11}
+\setcounter{MaxMatrixCols}{11}
 \usepackage{graphicx}
 \usepackage{amsthm}
+\usepackage{mathtools}
 \usepackage{upgreek}
 \usepackage{setspace}
 \usepackage{color}
@@ -122,7 +123,7 @@
 	Отсюда $$a_2 = \dfrac{1}{h^2}.$$
 	Тогда из второго уравнения $$a_1 = -\dfrac{2}{h^2},$$ а из первого уравнения $$a_0 = \dfrac{1}{h^2}.$$
 	Таким образом, мы можем построить разностную аппроксимацию дифференциального оператора, подставив найденные коэффициенты в записанный ранее общий вид,
-	$$L_h u(x) = \dfrac{u(x)  -2 u(x-h) +  u(x-2h)}{h^2}.$$ 
+	$$L_h u(x) = \dfrac{u(x)  -2 u(x-h) +  u(x-2h)}{h^2}=u_{\overline x \overline x}.$$ 
 	Остается лишь определить порядок аппроксимации и главный член погрешности. Для этого найденные коэффициенты подставляем в нашу крайнюю запись для погрешности аппроксимации (учитываем, что первые три слагаемых обращаются в ноль при подстановке)
 	$$
 	\psi(x) = \left(-\dfrac{h^3}{6}\cdot \dfrac{2}{h^2} +\dfrac{8h^3}{6} \cdot \dfrac{1}{h^2}\right)\cdot u'''(x) +O(h^4) = h u'''(x) + O(h^4) = O(h).
@@ -134,7 +135,6 @@
 	$$
 		\includegraphics[scale=0.3]{images/lab1_2}
 	$$
-	
 	\textbf{Решение.}
 	Пусть у нас имеется равномерная сетка узлов.
 	Разностную аппроксимацию будем искать в виде линейной комбинации значений функции $u$ в точках шаблона, то есть \begin{multline*}
@@ -144,15 +144,15 @@
 	\psi(x) = a_0 u(x_1, x_2) + a_1 u(x_1-h, x_2-h) + a_2 u(x_1-h, x_2) + a_3u(x_1-h, x_2 + h) + a_4 u(x_1, x_2-h) + \\+ a_5 u (x_1, x_2+h) + a_6 u(x_1 + h, x_2 - h) + a_7 u(x_1+h, x_2) + a_8u(x_1 + h, x_2+h) - \dfrac{\d^2 u(x_1, x_2)}{\d x_1^2}.
 \end{multline*}
 	Разложим правую часть этого уравнения в ряд Тейлора, используя формулу разложения функции двух переменных \begin{multline*}
-		u(x,y) = u(x_0, y_0) + \dfrac{1}{1!}\left(\dfrac{\d }{\d x}(x-x_0) +\dfrac{\d }{\d y}(y-y_0)\right)u(x_0, y_0) +\\+  \dfrac{1}{2!}\left(\dfrac{\d }{\d x}(x-x_0) +\dfrac{\d }{\d y}(y-y_0)\right)^2u(x_0, y_0) + \ldots,
+		u(x,y) = u(x_0, y_0) + \dfrac{1}{1!}\left(\dfrac{\d }{\d x}(x-x_0) +\dfrac{\d }{\d y}(y-y_0)\right)^2u(x_0, y_0) +\\+  \dfrac{1}{2!}\left(\dfrac{\d }{\d x}(x-x_0) +\dfrac{\d }{\d y}(y-y_0)\right)^2u(x_0, y_0) + \ldots,
 	\end{multline*} в окрестности точек $x_1, x_2$ по степеням $h$. Для упрощения записи, сразу же будем выносить общие множители за скобки, тогда
 	\begin{multline*}
-		\psi(x) = u\cdot (a_0 + a_1 + a_2 + a_3 + a_4 + a_5 + a_6 + a_7 + a_8 + a_9) + \\ + h\dfrac{\d u}{\d x_1} (-a_1 -a_2 -a_3 + a_6 + a_7 + a_8) + h\dfrac{\d u}{\d x_2} (-a_1 +a_3 - a_4 + a_5 - a_6 + a_8) + \\ + \dfrac{h^2}{2}\dfrac{\d^2 u}{\d x_1^2} \left(a_1 + a_2 + a_3 + a_6 + a_7 + a_8 - \dfrac{2}{h^2}\right) + \dfrac{h^2}{2}\dfrac{\d^2 u}{\d x_2^2} \left(a_1 + a_3 + a_4 + a_5 + a_6 + a_8\right) + \\ + h^2\dfrac{\d^2 u}{\d x_1 \d x_2} \left(a_1 - a_3 - a_6 + a_8\right) + \\ + \dfrac{h^3}{6} \dfrac{\d^3 u}{\d x_1^3} ( -a_1 -a_2 - a_3 + a_6 + a_7 + a_8) + \dfrac{h^3}{6} \dfrac{\d^3 u}{\d x_2^3} ( -a_1 + a_3 - a_4 + a_5 - a_6 + a_8) + \\ + \dfrac{h^3}{2} \dfrac{\d^3 u}{\d x_1^2 x_2} ( -a_1 +a_3 - a_6 + a_8) + \dfrac{h^3}{2} \dfrac{\d^3 u}{\d x_1 \d x_2^2} ( -a_1 -a_3 + a_6 + a_8) + \\ + \dfrac{h^4}{24} \dfrac{\d^4 u}{\d x_1^4} ( a_1 + a_2 + a_3 + a_6 + a_7 + a_8) +   \dfrac{h^4}{24} \dfrac{\d^4 u}{\d x_2^4} (a_1 + a_3 + a_4 + a_5 + a_6 + a_8) + \\ + \dfrac{h^4}{6} \dfrac{\d^4 u}{\d x_1^3 \d x_2} (a_1 - a_3 - a_6 + a_8) + \dfrac{h^4}{6} \dfrac{\d^4 u}{\d x_1 \d x_2^3} (a_1 - a_3 - a_6 + a_8) + \\ + \dfrac{h^4}{3} \dfrac{\d^4 u}{\d x_1^2\d x_2^2}(a_1 + a_3 + a_6 + a_8) + O(h^5).  
+		\psi(x) = u\cdot (a_0 + a_1 + a_2 + a_3 + a_4 + a_5 + a_6 + a_7 + a_8) + \\ + h\dfrac{\d u}{\d x_1} (-a_1 -a_2 -a_3 + a_6 + a_7 + a_8) + h\dfrac{\d u}{\d x_2} (-a_1 +a_3 - a_4 + a_5 - a_6 + a_8) + \\ + \dfrac{h^2}{2}\dfrac{\d^2 u}{\d x_1^2} \left(a_1 + a_2 + a_3 + a_6 + a_7 + a_8 - \dfrac{2}{h^2}\right) + \dfrac{h^2}{2}\dfrac{\d^2 u}{\d x_2^2} \left(a_1 + a_3 + a_4 + a_5 + a_6 + a_8\right) + \\ + h^2\dfrac{\d^2 u}{\d x_1 \d x_2} \left(a_1 - a_3 - a_6 + a_8\right) + \\ + \dfrac{h^3}{6} \dfrac{\d^3 u}{\d x_1^3} ( -a_1 -a_2 - a_3 + a_6 + a_7 + a_8) + \dfrac{h^3}{6} \dfrac{\d^3 u}{\d x_2^3} ( -a_1 + a_3 - a_4 + a_5 - a_6 + a_8) + \\ + \dfrac{h^3}{2} \dfrac{\d^3 u}{\d x_1^2 x_2} ( -a_1 +a_3 - a_6 + a_8) + \dfrac{h^3}{2} \dfrac{\d^3 u}{\d x_1 \d x_2^2} ( -a_1 -a_3 + a_6 + a_8) + \\ + \dfrac{h^4}{24} \dfrac{\d^4 u}{\d x_1^4} ( a_1 + a_2 + a_3 + a_6 + a_7 + a_8) +   \dfrac{h^4}{24} \dfrac{\d^4 u}{\d x_2^4} (a_1 + a_3 + a_4 + a_5 + a_6 + a_8) + \\ + \dfrac{h^4}{6} \dfrac{\d^4 u}{\d x_1^3 \d x_2} (a_1 - a_3 - a_6 + a_8) + \dfrac{h^4}{6} \dfrac{\d^4 u}{\d x_1 \d x_2^3} (a_1 - a_3 - a_6 + a_8) + \\ + \dfrac{h^4}{3} \dfrac{\d^4 u}{\d x_1^2\d x_2^2}(a_1 + a_3 + a_6 + a_8) + O(h^5).  
 	\end{multline*}
 	При необходимости можно записать и больше членов разложения.
 	Нас интересует возможность найти неизвестные коэффициенты $a_k$ такими, чтобы погрешность аппроксимации была минимальной. Для этого нам нужно построить систему из 9 уравнений. Очевидно, что приравнивая сейчас все коэффициенты при производных от функции $u$, мы получим сильно больше уравнений. Заметим, что некоторые из этих коэффициентов повторяются. Подчеркнем все уникальные коэффициенты:
 	\begin{multline*}
-		\psi(x) = u\cdot \underline{(a_0 + a_1 + a_2 + a_3 + a_4 + a_5 + a_6 + a_7 + a_8 + a_9)} + \\ + h\dfrac{\d u}{\d x_1} \underline{(-a_1 -a_2 -a_3 + a_6 + a_7 + a_8)} + h\dfrac{\d u}{\d x_2} \underline{(-a_1 +a_3 - a_4 + a_5 - a_6 + a_8)} + \\ + \dfrac{h^2}{2}\dfrac{\d^2 u}{\d x_1^2} \underline{\left(a_1 + a_2 + a_3 + a_6 + a_7 + a_8 - \dfrac{2}{h^2}\right)} + \dfrac{h^2}{2}\dfrac{\d^2 u}{\d x_2^2} \underline{\left(a_1 + a_3 + a_4 + a_5 + a_6 + a_8\right)} + \\ + h^2\dfrac{\d^2 u}{\d x_1 \d x_2} \underline{\left(a_1 - a_3 - a_6 + a_8\right)} + \\ + \dfrac{h^3}{6} \dfrac{\d^3 u}{\d x_1^3} ( -a_1 -a_2 - a_3 + a_6 + a_7 + a_8) + \dfrac{h^3}{6} \dfrac{\d^3 u}{\d x_2^3} ( -a_1 + a_3 - a_4 + a_5 - a_6 + a_8) + \\ + \dfrac{h^3}{2} \dfrac{\d^3 u}{\d x_1^2 x_2} \underline{( -a_1 +a_3 - a_6 + a_8)} + \dfrac{h^3}{2} \dfrac{\d^3 u}{\d x_1 \d x_2^2} \underline{( -a_1 -a_3 + a_6 + a_8)} + \\ + \dfrac{h^4}{24} \dfrac{\d^4 u}{\d x_1^4} ( a_1 + a_2 + a_3 + a_6 + a_7 + a_8) +   \dfrac{h^4}{24} \dfrac{\d^4 u}{\d x_2^4} (a_1 + a_3 + a_4 + a_5 + a_6 + a_8) + \\ + \dfrac{h^4}{6} \dfrac{\d^4 u}{\d x_1^3 \d x_2} (a_1 - a_3 - a_6 + a_8) + \dfrac{h^4}{6} \dfrac{\d^4 u}{\d x_1 \d x_2^3} (a_1 - a_3 - a_6 + a_8) + \\ + \dfrac{h^4}{3} \dfrac{\d^4 u}{\d x_1^2\d x_2^2}\underline{(a_1 + a_3 + a_6 + a_8)} + O(h^5).  
+		\psi(x) = u\cdot \underline{(a_0 + a_1 + a_2 + a_3 + a_4 + a_5 + a_6 + a_7 + a_8)} + \\ + h\dfrac{\d u}{\d x_1} \underline{(-a_1 -a_2 -a_3 + a_6 + a_7 + a_8)} + h\dfrac{\d u}{\d x_2} \underline{(-a_1 +a_3 - a_4 + a_5 - a_6 + a_8)} + \\ + \dfrac{h^2}{2}\dfrac{\d^2 u}{\d x_1^2} \underline{\left(a_1 + a_2 + a_3 + a_6 + a_7 + a_8 - \dfrac{2}{h^2}\right)} + \dfrac{h^2}{2}\dfrac{\d^2 u}{\d x_2^2} \underline{\left(a_1 + a_3 + a_4 + a_5 + a_6 + a_8\right)} + \\ + h^2\dfrac{\d^2 u}{\d x_1 \d x_2} \underline{\left(a_1 - a_3 - a_6 + a_8\right)} + \\ + \dfrac{h^3}{6} \dfrac{\d^3 u}{\d x_1^3} ( -a_1 -a_2 - a_3 + a_6 + a_7 + a_8) + \dfrac{h^3}{6} \dfrac{\d^3 u}{\d x_2^3} ( -a_1 + a_3 - a_4 + a_5 - a_6 + a_8) + \\ + \dfrac{h^3}{2} \dfrac{\d^3 u}{\d x_1^2 x_2} \underline{( -a_1 +a_3 - a_6 + a_8)} + \dfrac{h^3}{2} \dfrac{\d^3 u}{\d x_1 \d x_2^2} \underline{( -a_1 -a_3 + a_6 + a_8)} + \\ + \dfrac{h^4}{24} \dfrac{\d^4 u}{\d x_1^4} ( a_1 + a_2 + a_3 + a_6 + a_7 + a_8) +   \dfrac{h^4}{24} \dfrac{\d^4 u}{\d x_2^4} (a_1 + a_3 + a_4 + a_5 + a_6 + a_8) + \\ + \dfrac{h^4}{6} \dfrac{\d^4 u}{\d x_1^3 \d x_2} (a_1 - a_3 - a_6 + a_8) + \dfrac{h^4}{6} \dfrac{\d^4 u}{\d x_1 \d x_2^3} (a_1 - a_3 - a_6 + a_8) + \\ + \dfrac{h^4}{3} \dfrac{\d^4 u}{\d x_1^2\d x_2^2}\underline{(a_1 + a_3 + a_6 + a_8)} + O(h^5).  
 	\end{multline*}
 	Итого мы имеем 9 уникальных коэффициентов, которые позволяют нам построить СЛАУ для отыскания неизвестных $a_k$, если мы приравняем их к нулю (заметим, что коэффициент при $ \dfrac{\d^4 u}{\d x_1^4}$ мы не считаем уникальным, потому что в таком случае матрица системы будет иметь линейно независимые строки).
 	Итак, выпишем расширенную матрицу получившейся системы уравнений
@@ -186,7 +186,7 @@
 	$$
 	\psi(x) = \dfrac{h^2}{12} \dfrac{\d^4 u}{\d x_1^4} +O(h^4) = O(h^2).
 	$$
-	То есть мы получаем аппроксимацию первого порядка, а главный член погрешности это $\dfrac{h^2}{12} \dfrac{\d^4 u}{\d x_1^4}$.
+	То есть мы получаем аппроксимацию второго порядка, а главный член погрешности это $\dfrac{h^2}{12} \dfrac{\d^4 u}{\d x_1^4}$.
 	\section*{Задача 3}
 	\textbf{Постановка задачи.}
 	Аппроксимировать дифференциальную задачу разностной схемой на заданном шаблоне. Определить погрешность аппроксимации.
@@ -199,7 +199,15 @@
 	$$
 		\includegraphics[scale=0.3]{images/lab1_3}
 	$$
-	\textbf{Решение.} У нас задана сетка узлов $\overline \omega _{h\tau}$. На данном шаблоне мы заменим дифференциальные операторы разностными. Для этого дифференциальному оператору $Lu = \dfrac{\d}{\d x} \left(k(x,t) \dfrac{\d u}{\d x}\right)$ поставим в соответствие разностный оператор $$L_hu = \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x.$$
+	\textbf{Решение.} Сперва зададим равномерную сетку узлов $\overline \omega _{h\tau}$ такую, что 
+	$$\overline \omega _{h\tau} = \overline \omega _h \times \omega _\tau,$$
+	$$\overline \omega _h = \left\{x_i = ih,\ i = \overline{0,N},\ h = \dfrac 1 N\right\},$$
+	$$\omega_{\tau} = \left\{t_j = j\tau,\ j = 0,1,\ldots\right\}.$$
+	$$
+		\includegraphics[scale=0.25]{images/lab1_4}
+	$$
+	На этой сетке определяем дискретную функцию $y(x,t)$, которая является аппроксимацией  решения исходной задачи $u(x,t)$.
+	Далее на сетке мы заменяем дифференциальные операторы разностными. Для этого дифференциальному оператору $Lu = \dfrac{\d}{\d x} \left(k(x,t) \dfrac{\d u}{\d x}\right)$ поставим в соответствие разностный оператор $$L_hu = \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x.$$
 	Или же в другой записи 
 	\begin{multline*}
 		L_hu = \\= \dfrac{k\left(x+\dfrac h2, t\right)u(x+h, t) - k\left(x+\dfrac h2,t\right) u(x,t) - k\left(x-\dfrac h2,t\right)u(x,t) + k\left(x-\dfrac h2,t\right)u(x-h,t)}{h^2}.
@@ -208,33 +216,45 @@
 	\begin{multline*}
 		\psi(x) = \dfrac{1}{h^2} \Big[\left(k + \dfrac{h}{2}k' + \dfrac{h^2}{4}\dfrac{1}{2}k''\right)\left(u + hu' + \dfrac{h^2}{2}u''\right) -\left(k + \dfrac{h}{2}k' + \dfrac{h^2}{4}\dfrac{1}{2}k''\right)u -\\- \left(k - \dfrac{h}{2}k' + \dfrac{h^2}{4}\dfrac{1}{2}k''\right) u + \left(k - \dfrac{h}{2}k' + \dfrac{h^2}{4}\dfrac{1}{2}k''\right)\left(u - hu' + \dfrac{h^2}{2}u''\right) \Big] + O(h^3) - (ku')' = \\ = \dfrac{h^2}{8}k''u'' + O(h^3).
 	\end{multline*}
-	Итак, заменив дифференциальные операторы на разностные, получим разностную схему вида
-	$$\begin{cases}
-		u_{\overline t} = \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x + f(x,t),\ (x,t) \in \overline \omega_{h\tau},\\
-		u(x, 0) = u_0(x),\ x \in \overline \omega_{h},\\
-		u_x(0, t) = \mu_0(t),\ t \in \overline \omega_{\tau},\\
-		u(1, t) = \mu_1(t),\ t \in \overline \omega_{\tau},
-	\end{cases}$$
-	где $$u_{\overline t} = \dfrac{u(t) - u(t-\tau)}{\tau},\ u_{x} = \dfrac{u(x+h) - u(x)}{h}.$$
+	Итак, заменив дифференциальные операторы на разностные, а реальную функцию $u(x,t)$ дискретной $y(x,t)$, получим разностную схему вида в безнидексной форме
+	$$\begin{dcases}
+		y_{\overline t}(x,t) = \left(k\left(x-\dfrac h2, t\right)y_{\overline x}(x,t)\right)_x + f(x,t),\ (x,t) \in \omega_{h\tau},\\
+		y(x, 0) = u_0(x),\ x \in \overline \omega_{h},\\
+		y_x(0, t) = \mu_0(t),\ t \in  \omega_{\tau},\\
+		y(1, t) = \mu_1(t),\ t \in  \omega_{\tau},
+	\end{dcases}$$
+	где $$y_{\overline t} = \dfrac{y(x,t) - y(x,t-\tau)}{\tau},\ y_{x} = \dfrac{y(x+h,t) - y(x,t)}{h}.$$
+	По $t$ мы берем левую производную в соответствии со спецификой минимального шаблона.\\\\
+	Построим эту же схему в индексной форме, заменяя $y(x_i, t_j) = y_i^j$, $k(x_i, t_j) = k_i^j$,
+	$$\begin{dcases}
+		\dfrac{y_i^{j+1} - y_i^j}{\tau} = \dfrac{k_{i+\frac12}^jy_{i+1}^j - k_{i+\frac12}^jy_i^j-k_{i-\frac12}^jy_i^j + k_{i-\frac12}^jy_{i-1}^j}{h^2} + f(x_i, t_j),\ i=\overline{1,N-1},\ j=1,2\ldots,\\
+		y_i^0 = u_0(x_i),\ i = \overline{0,N},\\
+		\dfrac{y_0^{j+1}-y_0^j}{h} = \mu_0(t_j),\ j=0,1\,\ldots,\\
+		y_N^j = \mu_1(t_j),\ j=0,1,\ldots.r
+	\end{dcases}$$
 	Оценим погрешность аппроксимации дифференциального уравнения разностным
 	$$
-		\psi(x,t) = u_{\overline t} - \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x - f(x,t) 
+		\psi_{h\tau}(x,t) = u_{\overline t} - \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x - f(x,t) 
 	$$
-	Зная, что $$u_{\overline t} = \dfrac{\d u}{\d t} - \dfrac{\tau}{2} \dfrac{\d^2 u}{\d t^2}+ O(\tau),\ \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x = \dfrac{\d}{\d x} \left(k(x,t) \dfrac{\d u}{\d x}\right) - \dfrac{h^2}{8}k''u'' + O(h^3),$$
+	Зная, что $$u_{\overline t} = \dfrac{\d u(x,t)}{\d t} - \dfrac{\tau}{2} \dfrac{\d^2 u(x,t)}{\d t^2}+ O(\tau),$$
+	$$\left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x = \dfrac{\d}{\d x} \left(k(x,t) \dfrac{\d u(x,t)}{\d x}\right) - \dfrac{h^2}{8}\dfrac{\d^2 k(x,t)}{\d x^2}\dfrac{\d^2 u(x,t)}{\d x^2} + O(h^3),$$
 	подставим в уравнение для погрешности и получим
 	$$
-	\psi(x,t) = -\dfrac{\tau}{2} \dfrac{\d^2 u}{\d t^2}+ \dfrac{h^2}{8}k''u'' + O(\tau^2 + h^3) = O(\tau + h^2). 
+	\psi(x,t) = -\dfrac{\tau}{2} \dfrac{\d^2 u(x,t)}{\d t^2}+ \dfrac{h^2}{8}\dfrac{\d^2 k(x,t)}{\d x^2}\dfrac{\d^2 u(x,t)}{\d x^2} + O(\tau^2 + h^3) = O(\tau + h^2). 
 	$$
 	Таким образом, дифференциальное уравнение аппроксимируется на шаблоне с первым порядком по $t$ и вторым порядком по $x$.\\\\
-	Начальное условие аппроксимируется точно. \\\\
-	Определим значение погрешности для аппроксимации левого граничного условия, аналогично раскладывая разностный оператор в ряд Тейлора, а также используя тот факт, что $\dfrac{\d u(0,t)}{\d x} = \mu_0(t)$,
+	Начальное условие аппроксимируется точно $$\nu_{h\tau} (x,0) = u(x,0) - u_0(x) = 0.$$ 
+	Определим значение погрешности для аппроксимации левого граничного условия, аналогично раскладывая разностный оператор в ряд Тейлора,
 	\begin{multline*}
-		\nu( 0,t) = u_x(0,t) - \mu_0(t) = \dfrac{u(h,t) - u(0,t)}{h} - \mu _0(t) = \dfrac{\d u(0,t)}{\d x} +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \mu_0(t) = \\ = \dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) = O(h).
+		\nu_{h\tau}( 0,t) = u_x(0,t) - \mu_0(t) = \dfrac{u(h,t) - u(0,t)}{h} - \mu _0(t) = \dfrac{\d u(0,t)}{\d x} +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \mu_0(t) = \\ =\left[\dfrac{\d u(0,t)}{\d x} = \mu_0(t)\right] = \dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) = O(h).
 	\end{multline*}
 	Таким образом, левое граничное условие аппроксимируется с первым порядком по $x$.\\\\
-	Правое граничное условие аппроксимируем точно.\\\\
-	В итоге построенная разностная схема аппроксимирует дифференциальную задачу с первым порядком по $t$ и по $x$.
-	\\\\
+	Правое граничное условие аппроксимируем точно
+	$$\nu_{h\tau}(1,t)= u(1,t) - \mu_1(t) = 0.$$
+	Значит аппроксимация дополнительных условий 
+	$$\nu_{h\tau}(x,t) = \nu_{h\tau} (x,0)+ \nu_{h\tau}( 0,t)+\nu_{h\tau}(1,t) = O(h).$$
+	В итоге построенная разностная схема аппроксимирует дифференциальную задачу с первым порядком по $t$ и по $x$, то есть общая погрешность аппроксимации равна
+	$$\Psi_{h\tau}(x,t) = \psi_{h\tau}(x,t) +\nu_{h\tau}(x,t) = O(\tau+h).$$
 	\textbf{Замечание.} Также мы могли бы взять аппроксимацию $L_hu = \left(k\left(x, t\right)u_{\overline x}\right)_x.$ Но в таком случае мы бы получили погрешность $O(h)$, то есть аппроксимация по $x$ была бы также первого порядка.
 	\section*{Задача 4}
 	\textbf{Постановка задачи.}
@@ -248,28 +268,29 @@
 	$$
 	\includegraphics[scale=0.3]{images/lab1_3}
 	$$
-	\textbf{Решение.} Из предыдущей задачи известно, что дифференциальная задача аппроксимируется разностной схемой на выбранном шаблоне с погрешностями $\psi(x,t) = O(\tau + h^2)$ для уравнения и $\nu(0,t) = O(h)$ для краевого условия.
-	Задача ставится следующим образом: за счет повышения порядка аппроксимации граничного условия требуется повысить порядок аппроксимации задачи с $O(\tau + h)$ до $O(\tau + h^2)$.
+	\textbf{Решение.} Из предыдущей задачи известно, что дифференциальная задача аппроксимируется разностной схемой на выбранном шаблоне с погрешностями $\psi_{h\tau}(x,t) = O(\tau + h^2)$ для уравнения и $\nu_{h\tau}(0,t) = O(h)$ для краевого условия.
+	Задача ставится следующим образом: за счет повышения порядка аппроксимации граничного условия требуется повысить общий порядок аппроксимации задачи с $O(\tau + h)$ до $O(\tau + h^2)$.
 	Разностную аппроксимацию граничного условия будем искать в следующем виде
-	$$u_x(0,t) = \overline \mu_0(t),$$
+	$$y_x(0,t) = \overline \mu_0(t),$$
 	где сеточная функция $\overline \mu_0(t)$ подлежит определению. Определим погрешность аппроксимации граничного условия:
 	\begin{multline*}
-		\nu( 0,t) = u_x(0,t) - \overline\mu_0(t) = \dfrac{\d u(0,t)}{\d x} +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \overline\mu_0(t) = \\ =\mu_0(t) +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \overline\mu_0(t).
+		\nu_{h\tau}( 0,t) = u_x(0,t) - \overline\mu_0(t) = \dfrac{\d u(0,t)}{\d x} +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \overline\mu_0(t) = \\ =\left[\dfrac{\d u(0,t)}{\d x} = \mu_0(t)\right]=\mu_0(t) +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2} + O(h^2) - \overline\mu_0(t).
 	\end{multline*}
 	Таким образом, мы должны выбрать
 	$$\overline \mu_0(t) = \mu_0(t) +\dfrac{h}{2}\dfrac{\d^2 u(0,t)}{\d x^2}.$$
+	Но для записи мы не можем использовать эту производную неизвестной функции, поэтому заменим ее.
 	Из исходного уравнения поставленной дифференциальной задачи $$\dfrac{\d u(x,t)}{\d t}= \dfrac{\d k(x,t)}{\d x}  \dfrac{\d u(x,t)}{\d x} +  k(x,t)   \dfrac{\d^2 u(x,t)}{\d x^2} + f(x,t)$$ мы можем выразить
 	$$  \dfrac{\d^2 u(x,t)}{\d x^2}=\dfrac{1}{k(x,t)}\left(\dfrac{\d u(x,t)}{\d t}- \dfrac{\d k(x,t)}{\d x}  \dfrac{\d u(x,t)}{\d x}   - f(x,t)\right).$$
-	Принимая $x=0$, имеем
+	Предполагая, что оно верно для $x=0$, имеем
 	$$  \dfrac{\d^2 u(0,t)}{\d x^2}=\dfrac{1}{k(0,t)}\left(\dfrac{\d u(0,t)}{\d t}- \dfrac{\d k(0,t)}{\d x}  \dfrac{\d u(0,t)}{\d x}   - f(0,t)\right).$$
-	Из самого граничного условия мы можем взять $\dfrac{\d u(0,t)}{\d x} = \mu_0(t)$. А частные производные $\dfrac{\d u(0,t)}{\d t}, \dfrac{\d k(0,t)}{\d x}$ в рамках аппроксимации уместно заменить на разностные производные $u_{\overline{t}} (0,t), k_{\overline{x}} (0,t)$ соответственно. Тогда в итоге мы получим
+	Из самого граничного условия мы можем взять $\dfrac{\d u(0,t)}{\d x} = \mu_0(t)$. А частные производные $\dfrac{\d u(0,t)}{\d t}, \dfrac{\d k(0,t)}{\d x}$ в рамках аппроксимации (так как $\overline \mu_0(t)$ -- сеточная функция) уместно заменить на разностные производные $u_{\overline{t}} (0,t), k_{\overline{x}} (0,t)$ соответственно. Тогда в итоге мы получим
 	$$\overline \mu_0(t) = \mu_0(t) +\dfrac{h}{2}\dfrac{1}{k(0,t)}\left(u_{\overline{t}} (0,t)- k_{\overline{x}} (0,t)\cdot  \mu_0(t)   - f(0,t)\right).$$
 	Таким образом, мы получаем разностную схему повышенного порядка аппроксимации
 	$$\begin{cases}
-		u_{\overline t} = \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x + f(x,t),\ (x,t) \in \overline \omega_{h\tau},\\
+		u_{\overline t} = \left(k\left(x-\dfrac h2, t\right)u_{\overline x}\right)_x + f(x,t),\ (x,t) \in \omega_{h\tau},\\
 		u(x, 0) = u_0(x),\ x \in \overline \omega_{h},\\
-		u_x(0, t) = \mu_0(t) +\dfrac{h}{2}\dfrac{1}{k(0,t)}\left(u_{\overline{t}} (0,t)- k_{\overline{x}} (0,t)\cdot  \mu_0(t)   - f(0,t)\right),\ t \in \overline \omega_{\tau},\\
-		u(1, t) = \mu_1(t),\ t \in \overline \omega_{\tau},
+		u_x(0, t) = \mu_0(t) +\dfrac{h}{2}\dfrac{1}{k(0,t)}\left(u_{\overline{t}} (0,t)- k_{\overline{x}} (0,t)\cdot  \mu_0(t)   - f(0,t)\right),\ t \in \omega_{\tau},\\
+		u(1, t) = \mu_1(t),\ t \in \omega_{\tau},
 	\end{cases}$$
 	в частности она аппроксимирует дифференциальную задачу с первым порядком по $t$ и вторым порядком по $x$. 
 \end{document} 
