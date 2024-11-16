@@ -1,0 +1,348 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\setcounter{MaxMatrixCols}{11}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	% Оформление титульного листа
+	\begin{titlepage}
+		\begin{center}
+			\textsc{МИНИСТЕРСТВО ОБРАЗОВАНИЯ РЕСПУБЛИКИ БЕЛАРУСЬ БЕЛОРУССКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ
+				\\[5mm]
+				Факультет прикладной математики и информатики\\[2mm]
+				Кафедра вычислительной математики
+			}
+			
+			\vfill
+			
+			\textbf{Лабораторная работа №2
+				\\[3mm]
+				«Разностные схемы для обыкновенного дифференциального уравнения второго порядка»\\[6mm]
+				Вариант 2
+				\\[20mm]
+			}
+		\end{center}
+		
+		\hfill
+		\begin{minipage}{.4\textwidth}
+			Выполнил:\\[2mm] 
+			Бовт Тимофей Анатольевич\\
+			студент 4 курса 7 группы\\[5mm]
+			
+			Преподаватель:\\[2mm] 
+			Репников Василий Иванович
+		\end{minipage}%
+		\vfill
+		\begin{center}
+			Минск, 2024\ г.
+		\end{center}
+	\end{titlepage}
+	
+	\newpage
+	\section*{Постановка задачи}
+	Поставлена дифференциальная задача, описывающая процесс стационарного распределения тепла в стержне единичной длины
+	\begin{equation}
+		\begin{cases}
+			(k(x)u'(x))' - q(x)u(x) = -f(x),\ 0 < x<1,\\
+			u(0) = \mu_1,\\
+			-u'(1) = \sigma_2 u(1),
+		\end{cases}
+	\end{equation}
+	где 
+	\begin{itemize}
+		\item $k(x) = 4-x^2$ -- это коэффициент теплопроводности материала стержня;
+		\item $q(x) = x^2$ отвечает за мощность стоков или источников тепла;
+		\item $f(x)=4\cos x - 2 x\sin x$ -- это плотность распределения внешних источников или стоков тепла;
+		\item $\mu_1 = 1$;
+		\item $\sigma_2 = \tg 1$;
+		\item $u(x) = \cos x$ -- температура стержня (точное решение).
+	\end{itemize}
+	\begin{enumerate}
+		\item Построить разностную схему, заменяя дифференциальные производные разностными;
+		\item Методом баланса построить консервативную схему, составив уравнение баланса и проведя интегрирование по $[x_{i-1}, x_i]$;
+		\item Построить вариацинно-разностную схему методом Ритца;
+		\item Используя метод разностной прогонки, составить программу решения исходной задачи с помощью разностных схем п.п. 1-2, выполнить контрольные расчеты на ЭВМ и провести сравнительный анализ результатов.
+	\end{enumerate}
+	\section{Построение разностной схемы}
+	Зададим равномерную сетку узлов на отрезке $[0,1]$, на котором поставлена наша задача, следующим образом
+	\begin{equation}
+		\overline\omega_h = \left\{x_i = ih,\ i = \overline{0, N},\ h = \dfrac{1}N\right\}.
+	\end{equation}
+	$$
+	\includegraphics[scale=0.25]{images/img001}
+	$$
+	На этой сетке определим сеточную функцию $y = y(x)$, которая будет являться приближенным решением поставленной задачи (1), то есть это будет сеточное приближение функции $u = u(x)$.
+	\\\\
+	Заменяя дифференциальные производные разностными, можем построить разностную схему в безиндексной форме
+	\begin{equation}
+		\begin{dcases}
+		\left(k\left(x - \dfrac h2\right) y(x)_{\overline x}\right)_x - q(x) y(x) = -f(x),\ x \in \omega_h,\\
+		y(0) = \mu_1,\\
+		-y_{\overline x}(1) = \sigma_2 y(1).
+		\end{dcases}
+	\end{equation}
+	Если мы распишем все разностные производные, то получим разностную схему в индексной форме
+	\begin{equation}
+		\begin{dcases}
+			\dfrac{k_{i+\frac12}y_{i+1} - k_{i+\frac12} y_i -k_{i-\frac12} y_i + k_{i-\frac12} y_{i-1} }{h^2} - q(x_i) y_i = -f(x_i),\ i = \overline{1, N-1},\\
+			y_0 = \mu_1,\\
+			- \dfrac{y_N - y_{N-1}}{h} = \sigma_2 y_N
+		\end{dcases}
+	\end{equation}
+	Исследуем порядок аппроксимации дифференциальной задачи построенной разностной схемой. Сперва рассмотрим погрешность аппроксимации дифференциального уравнения
+	$$
+	\psi_{h}(x) = \left(k\left(x-\dfrac h2\right)u_{\overline x}\right)_x - q(x)u(x) + f(x)
+	$$
+	Учитывая, что
+	$$\left(k\left(x-\dfrac h2\right)u_{\overline x}\right)_x = (k(x)u'(x))' - \dfrac{h^2}{8}k''(x)u''(x) + O(h^3),$$
+	подставим в уравнение для погрешности и получим
+	$$
+	\psi_h(x) = (k(x)u'(x))' - \dfrac{h^2}{8}k''(x)u''(x) + O(h^3)- q(x)u(x) + f(x) = - \dfrac{h^2}{8}k''(x)u''(x) + O(h^3) = O(h^2).
+	$$
+	Таким образом, дифференциальное уравнение аппроксимируется на шаблоне со вторым порядком. \\\\
+	Рассмотрим погрешность аппроксимации левого граничного условия. Так как на левой границе у нас отсутствует аппроксимация производной, то левое граничное условие аппроксимируется точно, то есть
+	$$\nu_h(0) = u(0) - \mu_1 = 0.$$
+	Рассмотрим погрешность аппроксимации правого граничного условия
+	$$\nu_h(1) = -u_{\overline x}(1) - \sigma_2 u(1).$$
+	Так как $$u_{\overline x}(x) = u'(x) - \dfrac h 2u''(x) + O(h^2),$$
+	то
+	$$\nu_h(1) = -u'(1) + \dfrac h 2u''(1) + O(h^2) - \sigma_2 u(1) = \dfrac h2 u''(1) + O(h^2) = O(h).$$
+	Таким образом, правое граничное условие аппроксимируется с первым порядком. Тогда общий порядок аппроксимации дифференциальной задачи разностной схемой равен
+	$$\Psi_h(x) = \psi_h(x) + \nu_h(0) + \nu_h(1) = O(h),$$
+	то есть получили аппроксимацию первого порядка.\\\\
+	Повысим порядок аппроксимации разностной схемы, не изменяя минимального шаблона. Поскольку мы получаем аппроксимацию первого порядка именно из-за правого граничного условия, то представим его в другом виде
+	$$-y_{\overline x}(1) = \overline \sigma_2 y(1) + \overline \mu_2,$$
+	где $\overline \sigma_2, \overline \mu _2$ -- это сеточные параметры, которые подлежат определению. Рассмотрим невязку над точным решением, чтобы определить вид введенных параметров
+	$$\nu _h (1) = -u_{\overline x}(1) - \overline \sigma_2 u(1) - \overline \mu_2 = -u'(1) + \dfrac h 2 u''(1)+ O(h^2) - \overline \sigma_2 u(1)- \overline \mu_2.$$
+	Предположим, что дифференциальное уравнение поставленной задачи (1) выполняется на правой границе, то есть
+	$$(k(1)u'(1))' - q(1)u(1) = -f(1),$$
+	тогда получим
+	$$k'(1)u'(1) + k(1) u''(1) - q(1)u(1) = -f(1).$$
+	Отсюда можем получить
+	$$u''(1) = \dfrac {q(1)u(1) - f(1) - k'(1)u'(1)}{k(1)}.$$
+	Таким образом, учитывая, что $-u'(1) = \sigma_2 u(1)$, получим
+	$$\nu _h (1) = \sigma_2 u(1) + \dfrac h 2 \cdot\dfrac {q(1)u(1) - f(1) + k'(1)\sigma_2 u(1)}{k(1)} + O(h^2) - \overline \sigma_2 u(1)- \overline \mu_2.$$
+	Тогда можно выбрать
+	$$\begin{dcases}
+		\overline \sigma_2 = \sigma_2\cdot \left(1 + \dfrac h2 \cdot\dfrac { k'(1)}{ k(1)}\right) + \dfrac h 2 \cdot \dfrac {q(1)}{k(1)} ,\\
+		\overline \mu_2 = -\dfrac h 2 \cdot \dfrac {f(1)}{k(1)}.
+	\end{dcases}$$
+	При таком выборе мы получим аппроксимацию правого граничного условия со вторым порядком. Следовательно, вся дифференциальная задача будет аппроксимироваться со вторым порядком разностной схемой вида
+	\begin{equation}
+		\begin{dcases}
+			\left(k\left(x - \dfrac h2\right) y(x)_{\overline x}\right)_x - q(x) y(x) = -f(x),\ x \in \omega_h,\\
+			y(0) = \mu_1,\\
+			-y_{\overline x}(1) =\left[\sigma_2\cdot \left(1 + \dfrac h2 \cdot\dfrac { k'(1)}{ k(1)}\right) + \dfrac h 2 \cdot \dfrac {q(1)}{k(1)} \right] y(1) - \dfrac h 2 \cdot \dfrac {f(1)}{k(1)}.
+		\end{dcases}
+	\end{equation}
+	Но для реализации разностной схемы нам нужна индексная форма записи
+	\begin{equation}
+		\begin{dcases}
+			\dfrac{k_{i+\frac12}y_{i+1} - k_{i+\frac12} y_i -k_{i-\frac12} y_i + k_{i-\frac12} y_{i-1} }{h^2} - q(x_i) y_i = -f(x_i),\ i = \overline{1, N-1},\\
+			y_0 = \mu_1,\\
+			- \dfrac{y_N - y_{N-1}}{h} = \left[\sigma_2\cdot \left(1 + \dfrac h2 \cdot\dfrac { k'(1)}{ k(1)}\right) + \dfrac h 2 \cdot \dfrac {q(1)}{k(1)} \right] y_N - \dfrac h 2 \cdot \dfrac {f(1)}{k(1)}
+		\end{dcases}
+	\end{equation}
+	Чтобы применить к разностной схеме метод прогонки, выпишем коэффициенты, которые будут образовывать трехдиагональную матрицу. Если мы задаем трехдиагональную матрицу в виде
+	\begin{equation}
+		\begin{pmatrix} 
+			\gamma_0 & \beta_0 & 0 & \ldots & 0 & 0 & \vrule & g_0 \\ 
+			\alpha_1 & \gamma_1 & \beta_1 & \ldots & 0 & 0 & \vrule & g_1\\ 
+			0 & \alpha_1 & \gamma_2 & \ldots & 0 & 0 & \vrule & g_2\\ 
+			\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vrule & \vdots\\ 
+			0 & 0 & 0 & \ldots& \gamma_{N-1} & \beta_{N-1} & \vrule & g_{N-1} \\ 
+			0 & 0 & 0 & \ldots& \alpha_N& \gamma_N & \vrule & g_N\\\end{pmatrix}
+	\end{equation}
+	то
+	в соответствии с нашей разностной схемой (6) имеем
+	$$\gamma_0 = 1,\ \beta_0 = 0,\ g_0 = \mu_1,$$
+	$$\alpha_i = \dfrac{k(x_i - \frac h2)}{h^2},\ \gamma_i = -\dfrac{k(x_i - \frac h2) + k(x_i + \frac h2)}{h^2} - q(x_i), \ \beta_i =\dfrac{k(x_i + \frac h2)}{h^2},\ g_i = -f(x_i),$$
+	$$\alpha_N = \dfrac 1 h,\ \gamma_N = -\left[\dfrac 1h + \sigma_2\cdot \left(1 + \dfrac h2 \cdot\dfrac { k'(1)}{ k(1)}\right) + \dfrac h 2 \cdot \dfrac {q(1)}{k(1)}\right],\ g_N = - \dfrac h 2 \cdot \dfrac {f(1)}{k(1)}.$$
+	Покажем, что в данном случае метод прогонки сходится. Для сходимости метода необходимо выполнение следующих условий:
+	$$|\beta_0| \leq |\gamma _0|,\ |\alpha_i| + |\beta_i|\leq |\gamma_i|,\ |\alpha_N|\leq |\gamma_N|.$$
+	Действительно,
+	$$|\beta_0| \leq |\gamma _0| \Rightarrow 0 < 1,$$
+	то есть первое условие верно, причем равенство строгое;
+	$$|\alpha_i| + |\beta_i|\leq |\gamma_i|\Rightarrow \left|\dfrac{k(x_i - \frac h2)}{h^2} \right| + \left| \dfrac{k(x_i + \frac h2)}{h^2}\right|\leq \left|-\dfrac{k(x_i - \frac h2) + k(x_i + \frac h2)}{h^2} - q(x_i) \right|,$$
+	оба выражения под модулями слева неотрицательны, так как являются сеточными функциями, а справа при раскрытии модуля меняем знак
+	$$\dfrac{k(x_i - \frac h2)}{h^2}  +  \dfrac{k(x_i + \frac h2)}{h^2}\leq \dfrac{k(x_i - \frac h2) + k(x_i + \frac h2)}{h^2} + q(x_i),$$
+	отсюда
+	$$q(x_i)\geq 0,$$
+	что верно для каждого $x_i$ из сетки;
+	$$|\alpha_N|\leq |\gamma_N| \Rightarrow \left|\dfrac 1 h\right|\leq \left| -\left[\dfrac 1h + \sigma_2\cdot \left(1 + \dfrac h2 \cdot\dfrac { k'(1)}{ k(1)}\right) + \dfrac h 2 \cdot \dfrac {q(1)}{k(1)}\right]\right|,$$
+	где при раскрытии модулей очевидно неравенство будет выполняться, так как справа мы прибавляем положительное число к $\dfrac 1 h$. Таким образом, метод прогони для реализации разностной схемы сходится.
+	\section{Построение консервативной разностной схемы методом баланса}
+	Для построения разностной схемы нам нужно привести поставленную задачу (1) к подходящему виду. В общем случае разностная схема по методу баланса строится для задачи вида 
+	$$
+	\begin{cases}
+		(k(x) u'(x))' - q(x)u(x) = -f(x), \ 0<x<1,\\
+		k(0) u'(0) = \sigma_1 u(0) - \mu_1,\\
+		- k(1) u'(1) = \sigma_2 u(1) - \mu_2.
+	\end{cases}
+	$$
+	В нашей задаче граничные условия имеют другой вид, поэтому приведем их к нужному виду. Рассмотрим левое граничное условие. Если мы полагаем, что наше решение $u'(0) = 0$ и $\sigma_1 = 1$, то как раз получим левое граничное условие задачи (1):
+	$$0 = u(0) - \mu_1 \Rightarrow u(0) = \mu_1,$$
+	поэтому в левом граничном условии мы ничего менять не будем. В задаче у правого граничного условия есть множитель $k(1)$, который в нашем случае равен 
+	$$k(1) = 4 - 1^2 = 3.$$
+	Таким образом, мы должны домножить на это значение правое граничное условие, тогда
+	$$-3 u'(1) = 3 \sigma_2 u(1).$$
+	Таким образом, метод баланса мы будем применять к дифференциальной задаче
+	\begin{equation}
+		\begin{cases}
+			(k(x)u'(x))' - q(x)u(x) = -f(x),\ 0 < x<1,\\
+			u(0) = \mu_1,\\
+			-3u'(1) = 3\sigma_2 u(1),
+		\end{cases}
+	\end{equation}
+	Из предыдущего пункта мы возьмем заданную равномерную сетку узлов $\overline \omega_h$ и заданную на ней сеточную функцию $y = y(x)$.
+	\\\\
+	По методу баланса можно построить разностную схему в безиндексном виде
+	\begin{equation}
+		\begin{dcases}
+		(a y_{\overline x})_x - dy = -\varphi,\ x \in \omega_h, \\
+		a_1 y_{x,0} = \left(\sigma_0 + \dfrac h2 d_0\right)y_0 - \left(\mu_0 + \dfrac h2 \varphi_0\right),\\
+		-a_N y_{\overline x, N} = \left(\sigma_1 + \dfrac h2 d_N\right)y_N - \left(\mu_1 + \dfrac h2 \varphi_N\right);
+	\end{dcases}
+	\end{equation}
+	где 
+	\begin{equation}
+		a_i = \left[ \dfrac 1h \int\limits_{x_{i-1}}^{x_i} \dfrac{1}{k(x)}dx\right]^{-1},\
+		d_i =\dfrac 1h \int\limits_{x_{i-\frac12}}^{x_{i+\frac12}} q(x) dx,\
+		\varphi_i = \dfrac{1}{h} \int\limits_{x_{i-\frac12}}^{x_{i+\frac12}}f(x)dx,
+	\end{equation}
+	\begin{equation}
+		d_0 = \dfrac2h \int\limits_0^{\frac h2}q(x)dx,\ \varphi_0 = \dfrac 2h \int\limits_0^{\frac h2}f(x)dx,
+	\end{equation}
+	\begin{equation}
+		d_N = \dfrac2h \int\limits_{1-\frac h2}^1 q(x)dx,\ \varphi_N = \dfrac 2h \int\limits_{1-\frac h2}^1f(x)dx.
+	\end{equation}
+	Или, что то же самое, в индексном виде
+	\begin{equation}
+		\begin{dcases}
+			\dfrac{1}{h}\left(a_{i+1}\dfrac{y_{i+1} - y_i}{h} - a_i \dfrac{y_i - y_{i-1}}{h}\right)-d_iy_i = -\varphi_i,\ i=\overline {1,N-1}\\
+			a_1 y_{x,0} = \left(\sigma_0 + \dfrac h2 d_0\right)y_0 - \left(\mu_0 + \dfrac h2 \varphi_0\right),\\
+			-a_N y_{\overline x, N} = \left(\sigma_1 + \dfrac h2 d_N\right)y_N - \left(\mu_1 + \dfrac h2 \varphi_N\right);
+		\end{dcases}
+	\end{equation}
+	Для того, чтобы явно записать консервативную разностную схему для поставленной задачи (1), нам необходимо подогнать схему вида (11) под вид дифференциальной задачи (6) и вычислить коэффициенты по формулам (8), (9), (10). Причем будем строить наилучшую консервативную разностную схему, а значит интегралы будем вычислять точно.
+	Итак, учитывая вид граничных условий задачи (6), получим разностную схему
+	\begin{equation}
+		\begin{dcases}
+			\dfrac{1}{h}\left(a_{i+1}\dfrac{y_{i+1} - y_i}{h} - a_i \dfrac{y_i - y_{i-1}}{h}\right)-d_iy_i = -\varphi_i,\ i=\overline {1,N-1}\\
+			y_0 = \mu_1,\\
+			-a_N \dfrac{y_N - y_{N-1}}{h} = \left(3\sigma_2 + \dfrac h2 d_N\right)y_N - \dfrac h2 \varphi_N;
+		\end{dcases}
+	\end{equation}
+	в которой мы исключили аппроксимацию левого граничного условия, поскольку оно вычисляется точно. Определим коэффициенты, используя входные данные, 
+	$$a_i = \left[ \dfrac 1h \int\limits_{x_{i-1}}^{x_i} \dfrac{dx}{4-x^2}\right]^{-1} = \left[ \dfrac 1h\cdot \dfrac 12 \ln \dfrac{2+x}{2-x}\Big|_{x_{i-1}}^{x_i}\right]^{-1} = \dfrac{2h}{\ln \dfrac{(2+x_i)(2-x_{i-1})}{(2-x_i)(2+x_{i-1})}},$$
+	$$d_i=\dfrac 1h \int\limits_{x_{i-\frac12}}^{x_{i+\frac12}} x^2 dx = \dfrac 1 h\cdot \dfrac {x^3}{3}\Big | _{x_{i-\frac12}}^{x_{i+\frac12}}=\dfrac 1h\cdot \dfrac{(x_{i+\frac12}^3 - x_{i - \frac 12}^3)}{3},$$
+	$$\varphi_i = \dfrac{1}{h} \int\limits_{x_{i-\frac12}}^{x_{i+\frac12}}[4\cos x - 2 x \sin x]dx = \dfrac 2 h (\sin x  + x \cos x)\Big | _{x_{i-\frac12}}^{x_{i+\frac12}}=$$ $$= \dfrac 2 h (\sin x_{i+\frac 12} - \sin x_{i-\frac 12} + x_{i+\frac 12}\cos x_{i+\frac 12} - x_{i-\frac 12}\cos x_{i-\frac 12}),$$
+	$$d_N = \dfrac 2 h\cdot \dfrac {x^3}{3}\Big | _{1-\frac h 2}^{1} = \dfrac {2}{3h} - \dfrac{2 \left(1 - \frac h2\right)^3}{3h},$$ $$\varphi_N = \dfrac 4 h (\sin x  + x \cos x)\Big | _{1-\frac h2}^{1} = \dfrac 4 h \left(\sin 1 + \cos 1 - \sin \left(1-\dfrac h 2\right)- \left(1-\dfrac h 2\right) \cos \left(1-\dfrac h 2\right)\right).$$
+	Таким образом, мы имеем общую формулу (12) для итераций и явные выражения для всех коэффициентов из этой разностной схемы. \\\\
+	Полученная таким образом разностная схема обладает вторым порядком аппроксимации, а также для нее сходится метод прогонки.
+	Запишем в соответствии с матрицей (7) вид коэффициентов для метода прогонки
+	$$\gamma_0 = 1,\ \beta_0 = 0,\ g_0 = \mu_1,$$
+	$$\alpha_i = \dfrac{a_i}{h^2},\ \gamma_i = -\dfrac{a_{i} + a_{i+1}}{h^2} - d_i, \ \beta_i =\dfrac{a_{i+1}}{h^2},\ g_i = -\varphi_i,$$
+	$$\alpha_N = \dfrac{a_N} h,\ \gamma_N = -\left[\dfrac{a_N}{h} + 3\sigma_2 + \dfrac h2 d_N\right],\ g_N = - \dfrac h 2 \varphi_N.$$
+	\section{Построение вариационно-разностной схемы методом Ритца}
+	Из первого пункта мы возьмем заданную равномерную сетку узлов $\overline \omega_h$ и заданную на ней сеточную функцию $y = y(x)$.
+	\\\\
+	По методу Ритца мы можем построить трехдиагональную систему вида
+	\begin{equation}
+		\begin{cases}
+			\alpha_{ii-1} y_{i-1} + \alpha_{ii} y_i + \alpha_{i i+1} y_{i+1} = \beta_i,\ i = \overline {1, N -1},\\
+			\alpha_{00} y_0 + \alpha_{01}y_1 = \beta_0,\\
+			\alpha_{NN-1} y_{N-1} + \alpha_{NN}y_N = \beta_N,
+		\end{cases}
+	\end{equation}
+	где $$\alpha_{ii} = \dfrac{1}{h^2}\left[ \int\limits_{x_{i-1}}^{x_{i+1}} k(x)dx +\int\limits_{x_{i-1}}^{x_i}q(x)(x-x_{i-1})^2dx + \int\limits_{x_i}^{x_{i+1}}q(x)(x_{i+1}-x)^2dx \right],\ i = \overline{1, N-1},$$
+	$$\alpha_{ii+1} = \dfrac{1}{h^2} \left[-\int\limits_{x_i}^{x_{i+1}}k(x)dx + \int\limits_{x_i}^{x_{i+1}}q(x)(x-x_i)(x_{i+1} - x)dx\right],\ i = \overline {0, N-1},$$
+	причем $\alpha_{ii+1} = \alpha_{i+1i}$. Тогда можно вычислить
+	$$\beta_i = \dfrac{1}{h} \left[\int\limits_{x_{i-1}}^{x_i}f(x)(x-x_{i-1})dx + \int\limits_{x_i}^{x_{i+1}}f(x)(x_{i+1}-x)dx\right],\ i = \overline{1, N-1},$$
+	$$\alpha_{00} = \dfrac{1}{h^2}\left[\int\limits_0^h k(x)dx + \int\limits_0^h q(x)(x-h)^2dx\right] + \sigma_1,$$
+	$$\alpha_{NN} = \dfrac{1}{h^2}\left[\int\limits_{1-h}^1 k(x)dx + \int\limits_{1-h}^1 q(x)(x-1+h)^2dx\right] + \sigma_2,$$
+	$$\beta_0 = \dfrac 1h \left[\int\limits_0^h f(x)(h-x)dx + \mu_1\right],\ \beta_N =  \dfrac{1}{h} \left[\int\limits_{1-h}^1 f(x)(x-1+h)dx + \mu_2\right].$$
+	Нас интересуют граничные условия другого вида, поэтому мы будем вычислять
+	$$a_i = -h\alpha_{ii-1},\ \varphi_i = \dfrac 1 h \beta_i,\ d_i = \dfrac 1h(\alpha_{ii-1} +\alpha_{ii} + \alpha_{ii+1}),$$
+	$$d_0 = \dfrac{2}{h^2}\int\limits_0^h q(x)(h-x)dx,\ d_N = \dfrac{2}{h^2}\int\limits_{1-h}^1 q(x)(x-1+h)dx,$$
+	$$\varphi_0 = \dfrac{2}{h^2}\int\limits_0^h f(x)(x-h)dx,\ \varphi_N=\dfrac{2}{h^2}\int\limits_{1-h}^1 f(x)(x-1+h)dx,$$
+	откуда
+	разностная схема будет иметь вид	
+		\begin{equation*}
+		\begin{dcases}
+			\dfrac{a_i}{h^2}y_{i-1} - \left(\dfrac{a_i +a_{i+1}}{h}+d_i\right)y_i + \dfrac{a_{i+1}}{h^2}y_{i+1} = -\varphi_i,\ i=\overline {1,N-1}\\
+			a_1 y_{x,0} = \left(\sigma_0 + \dfrac h2 d_0\right)y_0 - \left(\mu_0 + \dfrac h2 \varphi_0\right),\\
+			-a_N y_{\overline x, N} = \left(\sigma_1 + \dfrac h2 d_N\right)y_N - \left(\mu_1 + \dfrac h2 \varphi_N\right);
+		\end{dcases}
+	\end{equation*}
+	но в нашем случае (по аналогии с методом баланса)
+		\begin{equation}
+		\begin{dcases}
+			\dfrac{a_i}{h^2}y_{i-1} - \left(\dfrac{a_i +a_{i+1}}{h}+d_i\right)y_i + \dfrac{a_{i+1}}{h^2}y_{i+1} = -\varphi_i,\ i=\overline {1,N-1}\\
+			y_0 = \mu_1,\\
+			-a_N \dfrac{y_N - y_{N-1}}{h} = \left(3\sigma_2 + \dfrac h2 d_N\right)y_N - \dfrac h2 \varphi_N;
+		\end{dcases}
+	\end{equation}
+	Тогда, подставляя известные значения, получим
+	$$\alpha_{ii} = \dfrac {1}{h^2}\left[ \left(4 x- \dfrac{x}{3}\right) \Big|_{x_{i-1}}^{x_{i+1}} + \left(\dfrac{x^5}{5} - \dfrac{x^4 x_{i-1}}{2} + \dfrac{x^3 x_{i-1}^2}{3}\right)\Big|_{x_{i-1}}^{x_i} + \left(\dfrac{x^5}{5} - \dfrac{x^4 x_{i+1}}{2} + \dfrac{x^3 x_{i+1}^2}{3}\right)\Big|_{x_{i}}^{x_{i+1}}\right],$$
+	$$\alpha_{ii+1} = \dfrac{1}{h^2}\left[-\left(4 x- \dfrac{x}{3}\right) \Big|_{x_{i}}^{x_{i+1}} + \left(\dfrac{x^4(x_i + x_{i+1})}{4}-\dfrac 1 3 x_i x_{i+1}x^3 - \dfrac{x^5}{5}\right)\Big|_{x_{i}}^{x_{i+1}}\right],$$
+	$$\alpha_{ii-1} = \dfrac{1}{h^2}\left[-\left(4 x- \dfrac{x}{3}\right) \Big|_{x_{i-1}}^{x_{i}} + \left(\dfrac{x^4(x_{i-1} + x_{i})}{4}-\dfrac 1 3 x_{i-1} x_{i}x^3 - \dfrac{x^5}{5}\right)\Big|_{x_{i-1}}^{x_{i}}\right],$$
+	$$\beta_i = \dfrac 1 h \left[-2(x_{i-1}\sin x - x (x - x_{i-1})\cos x)\Big|_{x_{i-1}}^{x_i} + 2(x_{i+1}\sin x + x (x_{i+1} - x)\cos x)\Big|_{x_{i}}^{x_{i+1}}\right],$$
+	$$ d_N = \dfrac{2}{12h^2}\left[x^3\cdot (4h+3x-4) \right]\Big|_{1-h}^{1},$$
+	$$\varphi_N = \dfrac{2}{h^2} \left[2(h-1)\sin x + 2x(h+x-1)\cos x\right]\Big|_{1-h}^{1}.$$
+	Полученная таким образом разностная схема обладает вторым порядком аппроксимации, а также для нее сходится метод прогонки.\\\\
+	Для нее коэффициенты метода прогонки возьмем такие же, как и в предыдущем случае, поскольку мы привели разностную схему к такому же виду, как для метода баланса.
+
+	
+\end{document} 

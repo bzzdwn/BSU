@@ -1,0 +1,88 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{empheq}
+\usepackage{mathtools}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\theta}{\uptheta}
+\renewcommand{\eta}{\upeta}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\sigma}{\upsigma}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\varepsilon}{\upvarepsilon}
+
+\renewcommand{\d}{\partial}
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumn}{\sum\limits_{n=1}^\infty}
+\newcommand{\summ}{\sum\limits_{m=1}^\infty}
+\newcommand{\sumnz}{\sum\limits_{n=0}^\infty}
+\newcommand{\summz}{\sum\limits_{m=0}^\infty}
+
+\begin{document}
+	\section*{Пример решения варианта контрольной работы}
+	\begin{enumerate}
+		\item Исследовать сходимость ряда
+		$$\sum_{n=2}^\infty \dfrac{n}{(n^2+5)\sqrt {\ln n}}.$$
+		Нам дан положительный числовой ряд. Рассмотрим $n$-ый член ряда
+		$$a_n = \dfrac{n}{(n^2+5)\sqrt {\ln n}}.$$
+		Его можно ограничить сверху следующим образом
+		$$a_n = \dfrac{n}{(n^2+5)\sqrt {\ln n}} \leq \dfrac{n}{n^2\cdot \sqrt n} = \dfrac{1}{n^{3/2}} = b_n.$$
+		По признаку сравнения, если числовой ряд
+		$\sum \limits_{n=2}^\infty \dfrac{1}{n^{3/2}}$ сходится, то и исходный ряд будет сходящимся. А это ряд вида $\sum \limits_{n=1}^\infty \dfrac{1}{n^\alpha}$, где в данном случае $\alpha = 3/2 > 1$. Следовательно, ряд $\sum \limits_{n=2}^\infty \dfrac{1}{n^{3/2}}$ сходится по степенному признаку. Таким образом, исходный ряд сходится по признаку сравнения.
+		\item Исследовать сходимость ряда
+		$$\sum_{n=1}^{\infty} \dfrac{(-1)^n (n+4)}{\sqrt{n^3 + 4n^2 - 1}}.$$
+		Нам дан знакочередующийся числовой ряд. Для него мы можем применить признак Лейбница. По признаку Лейбница, если $a_n = \dfrac{n+4}{\sqrt{n^3 + 4n^2 - 1}}$ монотонно стремится к нулю, то исходный числовой ряд сходится.\\\\
+		Проверим стремление к нулю
+		$$a_n = \dfrac{n+4}{\sqrt{n^3 + 4n^2 - 1}} = \dfrac{\dfrac{1}{\sqrt n}+ \dfrac{4}{n\sqrt n}}{\sqrt{1 + \dfrac 4 n - \dfrac {1}{n^3}}}\xrightarrow[n\to\infty ]{}0.$$
+		Проверим монотонность. Рассмотрим $(n+1)$-ый член ряда и сравним его с $n$-ым членом:
+		$$a_n = \dfrac{n+5}{\sqrt{n^3 + 7n^2 + 11 n + 4}}.$$ Легко видеть, что при $n\to\infty$ числитель будет возрастать медленнее, чем знаменатель, а тогда
+		$$a_{n+1} < a_n,\ \forall n.$$
+		Таким образом, монотонность доказана. Следовательно, числовой ряд сходится по признаку Лейбница.
+		\item Исследовать на абсолютную и неабсолютную сходимость
+		$$\sum_{n=1}^\infty \dfrac{(-1)^{n-1}(2n+1)!!}{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3n-1).}$$
+	\end{enumerate}
+\end{document}

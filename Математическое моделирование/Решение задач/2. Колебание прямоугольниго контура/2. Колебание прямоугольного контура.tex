@@ -1,0 +1,187 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{mathtools}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext}
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} 
+{\par\noindent{$\blacklozenge$}} 
+{\hfill$\scriptstyle\square$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\theta}{\uptheta}
+\renewcommand{\eta}{\upeta}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\sigma}{\upsigma}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\varepsilon}{\upvarepsilon}
+
+\renewcommand{\d}{\partial}
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand{\intl}{\int\limits_{0}^l}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=1}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=1}^\infty}
+
+\date{}
+\begin{document}
+	\section*{Колебание прямоугольного контура.}
+	\textbf{Постановка задачи.}
+	Методом разделения переменных найти решение задачи
+	\begin{equation}
+		\begin{dcases}
+			u_{tt} = a^2\Delta u,\ 0<x<l_1,\ 0<y<l_2,\ t>0,\\
+			u_x|_{x=0} = u|_{x=l_1} = 0,\\
+			u|_{y=0} = u_y|_{y=l_2} = 0,\\
+			u|_{t=0} = 1,\\
+			u_t|_{t=0} = xy.
+		\end{dcases}
+	\end{equation}
+	где $l_1, l_2 >0$, $a$ -- параметр.\\\\
+	\textbf{Решение задачи.}
+	Мы имеем \textit{смешанную задачу для гиперболического уравнения на плоскости с однородными граничными условиями с однородным уравнением}. Будем искать решение этой задачи в виде
+	\begin{equation}
+		u(x,y,t) = T(t)\cdot V(x,y),\ T\not \equiv 0, V \not \equiv 0.
+	\end{equation}
+	Подставляем этот вид решения в дифференциальное уравнение задачи (1)
+	$$T''(t) V(x,y) = a^2 T(t) V(x,y).$$
+	Разделяем переменные и получаем
+	\begin{equation}
+		\dfrac{T''(t)}{a^2 T(t)} = \dfrac{\Delta V(x,y)}{V(x,y)} = -\lambda^2,
+	\end{equation}
+	справа константа $\lambda^2$, так как обе части равенства являются функциями различных переменных.
+	Используя правое равенство, мы можем построить дифференциальное уравнение
+	$$\Delta V + \lambda ^2 V = 0,$$
+	и, подставляя выражение (2) в граничные условия и комбинируя получившиеся условия с уравнением выше, получим задачу двумерную Штурма-Лиувилля
+	\begin{equation}
+		\begin{cases}
+			\Delta V + \lambda ^2 V = 0,\\
+			V_x|_{x=0} = V|_{x=l_1} = 0,\\
+			V|_{y=0} = V_y|_{y=l_2} = 0.
+		\end{cases}
+	\end{equation}
+	Упростим эту задачу. Для этого будем искать ее решение в виде
+	\begin{equation}
+		V(x,y) = X(x)\cdot Y(y),\ X\not \equiv 0,\ Y\not \equiv 0.
+	\end{equation}
+	Подставим это выражение в дифференциальное уравнение задачи (4) и получим
+	$$X'' Y + X Y'' + \lambda ^2 XY = 0.$$
+	Преобразуем это выражение следующим образом:
+	\begin{equation}
+		\dfrac{X''(x)}{X(x)} = - \dfrac{Y''(y)}{Y(y)} - \lambda^2 = - \mu^2,
+	\end{equation}
+	то есть мы снова разделяем переменные и получаем справа константу $\mu^2$.
+	Введем еще одну константу $\nu ^2$ такую, что 
+	$$\lambda^2 = \mu^2 + \nu^2.$$
+	Тогда при добавлении дополнительных условий задачи (4) к выражению (6), мы можем сформулировать две одномерных задачи Штурма-Лиувилля 
+	\begin{equation}
+		\begin{cases}
+			X''(x) + \mu^2 X(x) = 0,\\
+			X'(0) = 0,\\
+			X(l_1) = 0.
+		\end{cases}
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			Y''(y) + \nu^2 Y(y) = 0,\\
+			Y(0) = 0,\\
+			Y'(l_2) = 0.
+		\end{cases}
+	\end{equation}
+	Найдем собственные значения и собственные функции из задачи (7). Общее решение задачи (7) имеет вид
+	$$X(x) = C_1 \cos \lambda x + C_2 \sin \lambda x.$$
+	Подставим первое краевое условие
+	$$X'(0) = \lambda C_2  = 0.$$
+	Отсюда $C_2 = 0$. Подставим второе краевое условие
+	$$X(l_1) = C_1 \cos \mu l_1=0.$$
+	Тогда 
+	$$\mu l_1 = \dfrac{\pi}{2} + \pi n,$$
+	а отсюда собственные значения и собственные функции равны соответственно
+	\begin{equation}
+		\mu_n = \dfrac{\pi + 2\pi n}{2l_1},\ X_n(x) = \cos \dfrac{\pi + 2\pi n}{2l_1}x,\ n=0,1,\ldots.
+	\end{equation}
+	Аналогично решим задачу (8). Общее решение имеет вид
+	$$Y(y) = C_1 \cos \nu y + C_2 \sin \nu y,$$
+	подставим первое краевое условие и получим
+	$$Y(0) = C_1 = 0.$$
+	Подставим второе краевое условие и получим
+	$$Y'(l_2) = \nu C_2 \cos \nu l_2 =0,$$
+	отсюда собственные значения и собственные функции равны
+	\begin{equation}
+		\nu_m = \dfrac{\pi + 2\pi m}{2l_2},\ Y_m(y) = \sin \dfrac{\pi + 2\pi m}{2l_2}y,\ m=0,1,\ldots.
+	\end{equation}
+	Таким образом, мы можем построить искомые функции
+	\begin{equation}
+		\lambda_{nm}^2 = \left(\dfrac{\pi + 2\pi n}{2l_1}\right)^2 + \left(\dfrac{\pi + 2\pi m}{2l_2}\right)^2, \ V_{nm}(x,y) = \cos \dfrac{\pi + 2\pi n}{2l_1}x\sin \dfrac{\pi + 2\pi m}{2l_2}y.
+	\end{equation}
+	Тогда, подставляя это в (2), мы можем представить решение исходной задачи в виде суммы
+	\begin{equation}
+		u(x,y,t) = \sum_{n=0}^{\infty}\sum_{m=0}^{\infty}T_{nm}(t)\cos \dfrac{\pi + 2\pi n}{2l_1}x\sin \dfrac{\pi + 2\pi m}{2l_2}y.
+	\end{equation}
+	Вид $T_{nm}(t)$ мы можем определить из второго уравнения, которые мы получили из разделения переменных (3), а именно
+	$$T_{nm}''(t) + a^2 \lambda_{nm}^2 T_{nm}(t) = 0.$$
+	Это обыкновенное дифференциальное уравнение, общее решение которого мы можем построить в виде
+	$$T_{nm}(t) = A_{nm} \cos \lambda_{nm} a t + B_{nm}\sin \lambda_{nm} a t,$$
+	где коэффициенты $A_{nm}$, $B_{nm}$ подлежат определению.
+	Подставим этот вид общего решения в (12) и получим
+	\begin{equation}
+		u(x,y,t) = \sum_{n=0}^{\infty}\sum_{m=0}^{\infty}\Big[A_{nm} \cos \lambda_{nm} a t + B_{nm}\sin \lambda_{nm} a t\Big]\cos \dfrac{\pi + 2\pi n}{2l_1}x\sin \dfrac{\pi + 2\pi m}{2l_2}y.
+	\end{equation}
+	Неизвестные коэффициенты мы можем определить, подставляя в (13) начальные условия исходной задачи. В частности, подставив первое условие, мы получим
+	$$u|_{t=0} = \sum_{n=0}^{\infty}\sum_{m=0}^{\infty} A_{nm}  \cos \dfrac{\pi + 2\pi n}{2l_1}x\sin \dfrac{\pi + 2\pi m}{2l_2}y = 1.$$
+	Представим выражение справа в виде ряда Фурье по собственным функциям
+	$$1 = \sum_{n=0}^{\infty}\sum_{m=0}^{\infty} \varphi_{nm}  \cos \dfrac{\pi + 2\pi n}{2l_1}x\sin \dfrac{\pi + 2\pi m}{2l_2}y,$$
+	а тогда 
+	\begin{equation}
+		A_{nm} = \varphi_{nm} = \dfrac{\int\limits_0^{l_1}\int\limits_0^{l_2}1\cdot \cos \dfrac{\pi + 2\pi n}{2l_1}x\ \sin \dfrac{\pi + 2\pi m}{2l_2}y\ dxdy}{\int\limits_0^{l_1}\int\limits_0^{l_2}\cos^2 \dfrac{\pi + 2\pi n}{2l_1}x\ \sin^2 \dfrac{\pi + 2\pi m}{2l_2}y\ dxdy}
+	\end{equation}
+	Подставляя второе начальное условие, получим
+	$$u_t|_{t=0} = \sum_{n=0}^{\infty}\sum_{m=0}^{\infty} a\lambda_{nm} B_{nm}  \cos \dfrac{\pi + 2\pi n}{2l_1}x\sin \dfrac{\pi + 2\pi m}{2l_2}y = xy.$$
+	Представим выражение справа в виде ряда Фурье по собственным функциям
+	$$xy = \sum_{n=0}^{\infty}\sum_{m=0}^{\infty} \psi_{nm}  \cos \dfrac{\pi + 2\pi n}{2l_1}x\sin \dfrac{\pi + 2\pi m}{2l_2}y,$$
+	а тогда 
+	\begin{equation}
+		B_{nm} = \dfrac{1}{a\lambda_{nm}}\psi_{nm} =\dfrac{1}{a\lambda_{nm}}\cdot \dfrac{\int\limits_0^{l_1}\int\limits_0^{l_2}xy\cdot \cos \dfrac{\pi + 2\pi n}{2l_1}x\ \sin \dfrac{\pi + 2\pi m}{2l_2}y\ dxdy}{\int\limits_0^{l_1}\int\limits_0^{l_2}\cos^2 \dfrac{\pi + 2\pi n}{2l_1}x\ \sin^2 \dfrac{\pi + 2\pi m}{2l_2}y\ dxdy}.
+	\end{equation}
+	Таким образом, вычисляя коэффициенты из (14) и (15) мы можем построить решение исходной дифференциальной задачи по формуле (13).
+\end{document}

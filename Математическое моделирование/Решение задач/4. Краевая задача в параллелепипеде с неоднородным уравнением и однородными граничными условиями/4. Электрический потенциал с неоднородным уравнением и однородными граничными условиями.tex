@@ -1,0 +1,230 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{mathtools}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext}
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} 
+{\par\noindent{$\blacklozenge$}} 
+{\hfill$\scriptstyle\square$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\theta}{\uptheta}
+\renewcommand{\eta}{\upeta}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\sigma}{\upsigma}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\varepsilon}{\upvarepsilon}
+
+\renewcommand{\d}{\partial}
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand{\intl}{\int\limits_{0}^l}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=1}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=1}^\infty}
+
+\date{}
+\begin{document}
+	\section*{Электрический потенциал для неоднородного уравнения Максвелла с однородными граничными условиями.}
+	\textbf{Постановка задачи.}
+	Найти электрический потенциал для краевой задачи внутри параллелепипеда с диэлектрической проницаемостью $\epsilon = -1$, заданных условиях на потенциал на гранях, если распределение зарядов меняется по закону $\rho(x,y,z) = 0$.
+	\begin{equation}
+		\begin{dcases}
+			\Delta u = 0,\ 0<x<a,\ 0<y<b,\ 0<z<c,\\
+			u|_{x=0} = u|_{x=a} = 0,\\
+			u|_{y=0} = u|_{y=b} = 0,\\
+			u|_{z=0} = x+y,\\
+			u|_{z=c} = x-y.
+		\end{dcases}
+	\end{equation}
+	где $a, b, c>0$ -- параметры.\\\\
+	\textbf{Решение задачи.}
+	По методу разделения переменных будем искать решение этой задачи в виде
+	\begin{equation}
+		u(x,y,z) = X(x)\cdot Y(y)\cdot Z(z),\ X, Y, Z \not \equiv 0.
+	\end{equation}
+	Подставляем этот вид решения в дифференциальное уравнение задачи (1)
+	$$X''(x) Y(y)Z(z) + X(x) Y''(y)Z(z) + X(x)Y(y)Z''(z) = 0.$$
+	Разделяем переменные путем деления уравнения на $XYZ$ и получаем
+	$$\dfrac{X''(x)}{X(x)} + \dfrac{Y''(y)}{Y(y)} + \dfrac{Z''(z)}{Z(z)} = 0.$$
+	Оставим слева только первое слагаемое, а остальное перенесем в правую часть. Получим слева функцию, зависящую от $x$, а справа -- функцию, зависящую от $(y,z)$, поэтому обе части уравнения могут быть равны только константе. Пусть эта константа $-\lambda^2$:
+	\begin{equation}
+		\dfrac{X''(x)}{X(x)} =- \dfrac{Y''(y)}{Y(y)} -\dfrac{Z''(z)}{Z(z)} = -\lambda^2,
+	\end{equation}
+	Используя равенство $$\dfrac{X''(x)}{X(x)} = -\lambda^2,$$ мы можем построить обыкновенное дифференциальное уравнение
+	$$X''(x) + \lambda^2 X(x) = 0.$$
+	Подставляя выражение (2) в первые граничные условия задачи (1), получим
+	$$X(0) Y(y) Z(z) = X(a) Y(y) Z(z) = 0,$$
+	но $Y, Z \not \equiv 0$ по определению. Поэтому 
+	$$X(0) = X(a) = 0.$$
+	Взяв построенное обыкновенное дифференциальное уравнение и полученные условия, можем построить задачу Штурма-Лиувилля
+	\begin{equation}
+		\begin{cases}
+			X''(x) + \lambda^2 X(x) = 0,\\
+			X(0) = 0,\\
+			X(a) = 0.
+		\end{cases}
+	\end{equation}
+	Найдем собственные значения и собственные функции из задачи (4). Общее решение задачи (4) имеет вид
+	$$X(x) = C_1 \cos \lambda x + C_2 \sin \lambda x.$$
+	Подставим первое краевое условие
+	$$X(0) = C_1  = 0.$$
+	Отсюда $C_1 = 0$. Подставим второе краевое условие
+	$$X(a) = C_2 \sin \lambda a=0.$$
+	Тогда 
+	$$\lambda_n a = \pi n,$$
+	а отсюда собственные значения и собственные функции равны соответственно
+	\begin{equation}
+		\lambda_n = \dfrac{\pi n}{a},\ X_n(x) = \sin \left(\dfrac{\pi n}{a}x\right),\ n=1,2\ldots.
+	\end{equation}
+	Вернемся к равенствам (3). Рассмотрим уравнение
+	\begin{equation*}
+		- \dfrac{Y''(y)}{Y(y)} -\dfrac{Z''(z)}{Z(z)} = -\lambda^2.
+	\end{equation*}
+	Можем оставить слева только первое слагаемое, а все остальное перенести в правую часть, тогда
+	\begin{equation}
+		\dfrac{Y''(y)}{Y(y)} =\lambda^2 - \dfrac{Z''(z)}{Z(z)} = - \mu^2,
+	\end{equation}
+	то есть слева функция зависит от $y$, а справа -- от $z$, соответственно это равно константе $-\mu^2$.
+	Используя равенство
+	$$\dfrac{Y''(y)}{Y(y)} = - \mu^2,$$
+	и вторые граничные условия задачи (1)
+	$$X(x)Y(0)Z(z) = X(x)Y(b)Z(z) = 0,$$
+	аналогично задаче (4) можем построить задачу Штурма-Лиувилля для $Y(y)$:
+	\begin{equation}
+		\begin{cases}
+			Y''(y) + \mu^2 Y(y) = 0,\\
+			Y(0) = 0,\\
+			Y(b) = 0.
+		\end{cases}
+	\end{equation}
+	Найдем собственные значения и собственные функции из задачи (7). Общее решение задачи (7) имеет вид
+	$$Y(y) = C_1 \cos \mu y + C_2 \sin \mu y,$$
+	подставим первое краевое условие и получим
+	$$Y(0) = C_1 = 0.$$
+	Подставим второе краевое условие и получим
+	$$Y(b) = C_2 \cos \mu b =0,$$
+	отсюда собственные значения и собственные функции равны
+	\begin{equation}
+		\mu_m = \dfrac{\pi n}{b},\ Y_m(y) = \sin \left(\dfrac{\pi m}{b} y\right),\ m=1,2,\ldots.
+	\end{equation}
+	Возьмем полученные результаты (5), (8) и подставим их в общий вид (2). Тогда произведение преобразуется в сумму следующего вида
+	\begin{equation}
+		u(x,y,z) = \sum_{n=1}^\infty \sum_{m=1}^\infty Z_{nm}(z)\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right).
+	\end{equation}
+	Подставим этот вид решения в уравнение задачи (1) и получим
+	\begin{multline*}
+		-\left(\dfrac{\pi n}{a}\right)^2\sum_{n=1}^\infty \sum_{m=1}^\infty Z_{nm}(z)\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right) -\left(\dfrac{\pi m}{b}\right)^2\sum_{n=1}^\infty \sum_{m=1}^\infty Z_{nm}(z)\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right) + \\
+		+ \sum_{n=1}^\infty \sum_{m=1}^\infty Z''_{nm}(z)\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right) = 0.
+	\end{multline*}
+	Приравнивая коэффициенты степенных рядов, получим
+	\begin{equation*}
+		Z_{nm}''(z) - \left[\left(\dfrac{\pi n}{a}\right)^2 + \left(\dfrac{\pi m}{b}\right)^2\right]Z_{nm}(z) = 0.
+	\end{equation*}
+	Введем новую величину
+	\begin{equation}
+		\nu_{nm}^2 = \lambda_n^2 + \mu_m^2,
+	\end{equation}
+	Тогда
+	\begin{equation}
+		Z_{nm}''(z) - \nu_{nm}^2Z_{nm}(z) = 0.
+	\end{equation}
+	Подставим в выражение (9) третье граничное условие задачи (1) и получим
+	$$u|_{z=0} = \sum_{n=1}^\infty \sum_{m=1}^\infty Z_{nm}(0)\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right) = x+y.$$
+	Разложим функцию справа в ряд Фурье по собственным функциям и получим
+	$$u|_{z=0} = \sum_{n=1}^\infty \sum_{m=1}^\infty Z_{nm}(0)\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi n}{b} y\right) = \sum_{n=1}^\infty\sum_{m=1}^\infty \varphi_{nm}\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi n}{b} y\right),$$
+	где
+	\begin{equation}
+		\varphi_{nm} = \dfrac{\int\limits_0^a \int \limits_0^b (x+y) \sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right) dx dy}{\int\limits_0^a \int \limits_0^b \sin^2 \left(\dfrac{\pi n}{a}x\right) \sin^2 \left(\dfrac{\pi m}{b} y\right) dx dy}.
+	\end{equation}
+	Тогда мы можем приравнять коэффициенты степенных рядов и получить условие
+	$$Z_{nm}(0) = \varphi_{nm}.$$
+	Аналогично подставляем в выражение (9) четвертое граничное условие задачи (1) и получим
+	$$u|_{z=c} = \sum_{n=1}^\infty \sum_{m=1}^\infty Z_{nm}(c)\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right) = \sum_{n=1}^\infty\sum_{m=1}^\infty \psi_{nm}\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right),$$
+	где
+	\begin{equation}
+		\psi_{nm} = \dfrac{\int\limits_0^a \int \limits_0^b (x-y) \sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right) dx dy}{\int\limits_0^a \int \limits_0^b \sin^2 \left(\dfrac{\pi n}{a}x\right) \sin^2 \left(\dfrac{\pi m}{b} y\right) dx dy}.
+	\end{equation}
+	Тогда мы можем приравнять коэффициенты степенных рядов и получить условие
+	$$Z_{nm}(c) = \psi_{nm}.$$ 
+	Соберем вместе уравнение (11) и построенные условия, чтобы сформулировать граничную задачу для обыкновенного дифференциального уравнения
+	\begin{equation}
+		\begin{cases}
+			Z''_{nm}(z) - \nu_{nm}^2 Z_{nm}(z) = 0,\\
+			Z_{nm}(0) = \varphi_{nm},\\
+			Z_{nm}(c) = \psi_{nm}.
+		\end{cases}
+	\end{equation}
+	Рассмотрим дифференциальное уравнение задачи (14). Построим общее решение этого дифференциального уравнения. Для этого составим соответствующее характеристическое уравнение
+	$$\xi^2 - \nu_{nm}^2 = 0,$$
+	корнями которого будут
+	$$\xi_{1,2} = \pm\nu_{nm}.$$
+	Тогда общее решение имеет вид
+	$$Z_{nm}(z) = C_1e^{-\nu_{nm}} + C_2e^{\nu_{nm}}.$$
+	Однако такая форма записи общего решения может оказаться не совсем удобной. Поэтому мы построим альтернативный вид общего решения. Поскольку $C_1$ и $C_2$ -- это произвольные постоянные, то их можно выразить через другие константы $C_1 = A-B$, $C_2 = C + D$, тогда
+	$$Z_{nm}(z) = \dfrac{A e^{-\nu_{nm}} + C e^{\nu_{nm}}}{2} + \dfrac{-B e^{-\nu_{nm}} + D e^{\nu_{nm}}}{2}.$$
+	А константы $A,B,C,D$ можно заменить на новые константы. Мы обозначим для удобства эти новые константы через $C_1, C_2$, но, вообще говоря, это не те же постоянные, что мы вводили выше.
+	Тогда
+	\begin{equation}
+		Z_{nm}(z) = C_1 \dfrac{e^{-\nu_{nm}} + e^{\nu_{nm}}}{2} + C_2 \dfrac{- e^{-\nu_{nm}} + e^{\nu_{nm}}}{2} = C_1 \ch \nu_{nm}z + C_2 \sh \nu_{nm} z.
+	\end{equation}
+	Таким образом, имеем
+	\begin{equation}
+		Z_{nm}(z) = C_1 \ch \nu_{nm}z + C_2 \sh \nu_{nm} z,\ n,m = 1,2,\ldots.
+	\end{equation}
+	Подставим в это решение первое граничное условие задачи (14)
+	$$Z_{nm}(0) = C_1 = \varphi_{nm}.$$
+	Подставим в решение второе граничное условие задачи (14)
+	$$Z_{nm}(c) = \varphi_{nm} \ch \nu_{nm}c + C_2 \sh \nu_{nm} c = \psi_{nm}.$$
+	Тогда из этого уравнения выразим
+	$$C_2 = \dfrac{\psi_{nm}}{\sh \nu_{nm}c} - \varphi_{nm} \cth \nu_{nm} c.$$
+	Тогда можно подставить найденные $C_1$ и $C_2$ в решение (16) 
+	\begin{equation}
+		Z_{nm}(z) = \varphi_{nm} \ch \nu _{nm} z + \left(\dfrac{\psi_{nm}}{\sh \nu_{nm}c} - \varphi_{nm} \cth \nu_{nm} c\right)\sh \nu _{nm} z.
+	\end{equation}
+	Выражение (17) подставляем в вид (9) и получаем решение исходной задачи (1) равное
+	\begin{equation}
+		u(x,y,z) = \sum_{n=1}^\infty \sum_{m=1}^\infty \left[ \varphi_{nm} \ch \nu _{nm} z + \left(\dfrac{\psi_{nm}}{\sh \nu_{nm}c} - \varphi_{nm} \cth \nu_{nm} c\right)\sh \nu _{nm} z\right]\sin \left(\dfrac{\pi n}{a}x\right) \sin \left(\dfrac{\pi m}{b} y\right),
+	\end{equation}
+	где функции $\varphi_{nm}$, $\psi_{nm}$ вычисляются по формулам (12) и (13).
+\end{document}

@@ -1,0 +1,234 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\E}{\mathbf E}
+\newcommand{\D}{\mathbf D}
+\begin{document}
+	\section*{Разбор задач к контрольной работе №1}
+	\textbf{Задача 1.} Найти математическое ожидание и дисперсию суммарных выплат для портфеля из 100 договоров страхования при вероятности страхового случая $q=0.05$. Размер иска $B$ имеет равномерное распределение на отрезке $[0,20]$.\\\\
+	Используя нормальную аппроксимацию, оценить вероятность того, что выплаты превысят среднее более, чем на 1\%.\\\\
+	\textbf{Решение.}
+	Случайную величину, соответствующую суммарным выплатам для портфеля из 100 договоров обозначим 
+	$$S = X_1 + \ldots + X_{100},$$
+	где случайная величина $X_i$ -- выплата по одному договору, причем $X_i$ и $X_j$ -- независимые случайные величины $\forall i,j$.
+	Итак, мы можем представить исследуемую случайную величину  $X_i$ в виде
+	$$X_i = I \cdot B,$$
+	где $I$ -- это дискретная случайная величина, обозначающая наступление события «страховой случай», то есть
+	\begin{align*}
+		\left[
+		\begin{array}{ll}
+			P\{I = 0\} = 1-q,\\
+			P\{I = 1\} = q,\\
+		\end{array}
+		\right .
+	\end{align*}
+	а $B$ -- это случайная величина соответствующая размеру иска, имеющая равномерное распределение
+	$$p_B(x) = \begin{dcases}
+		\dfrac{1}{20},\ x \in [0, 20],\\
+		0,\ x \not\in [0, 20].
+	\end{dcases}$$
+	Нам необходимо найти $\E \{S\}$, $\D \{S\}$. По свойствам матожидания мы можем матожидание следующим образом:
+	$$E\{\S\} = \E \{X_1 + \ldots + X_{100}\} = \E \{X_1\} + \ldots + \E \{X_{100}\},$$
+	где
+	$$\E\{X_1\} = \ldots = \E\{X_{100}\} = \E \{X\},$$
+	следовательно,
+	$$\E\{S\} = 100\cdot  \E \{X\}.$$
+	Аналогично мы можем расписать дисперсию
+	$$\D\{\S\} = \D \{X_1 + \ldots + X_{100}\} = \D \{X_1\} + \ldots + \D \{X_{100}\},$$
+	где
+	$$\D\{X_1\} = \ldots = \D\{X_{100}\} = \D \{X\},$$
+	следовательно,
+	$$\D\{S\} = 100\cdot  \D \{X\}.$$
+	Исследовать матожидание и дисперсию $X$ мы будем, используя формулы условных матожидания и дисперсии
+	$$\E \{X\} = \E\{\E\{X|I\}\},\ \D \{X\} = \D\{\E\{X | I\}\} + \E\{\D\{X | I\}\}.$$
+	Начнем с вычисления $\E X$. Для этого рассмотрим $\E \{ X | I\}$, здесь может быть два случая (поскольку $I$ принимает всего два значения):
+	\begin{align*}
+		\left[
+		\begin{array}{ll}
+			\E \{X | I = 0\} = \E \{ I\cdot B | I = 0\} = 0,\\
+			\E \{X | I = 1\} = \E \{ I\cdot B | I = 1\} = \E \{B | I = 1\}
+		\end{array}
+		\right .
+	\end{align*}
+	А поскольку $B$ имеет равномерное распределение, то $$\E \{B\} = \dfrac{a+b}{2} = \dfrac {20}2 = 10.$$
+	А следовательно отсюда
+	$$\E \{X | I = 1\} = 10.$$
+	Итак, в итоге мы можем записать условное матожидание как функцию от $I$ вида
+	$$\E \{X | I\} = I\cdot \E \{B\} = 10I.$$
+	Отсюда можем вычислить искомое матожидание
+	$$\E \{ X\} = \E \{ \E \{B\} \cdot I\} = \E \{B\}\cdot  \E \{ I\} =  \E \{B\} \cdot (0 \cdot (1-q) + 1 \cdot q) = \E \{B\}\cdot q.$$
+	Подставляя известные нам значения, получим
+	$$\E \{X\} = \E \{B\}\cdot q = 10 \cdot 0.05 = 0.5.$$
+	Тогда
+	$$\E \{S\} = 100\cdot \E\{X\} = 100\cdot 0.5 = 50.$$
+	Теперь вычислим дисперсию $X$. Рассмотрим отдельное каждое из слагаемых. В первом слагаемом нам уже известна величина
+	$\E \{X | I\}$, нужно лишь найти от нее дисперсию:
+	$$\D \{\E \{X | I\} \} = \D \{ I \cdot \E \{B\}\} = (\E \{B\})^2 \cdot \D \{I\} =(\E \{B\})^2  \cdot q (1-q) = 100 \cdot 0.05\cdot 0.95 = 4.75$$
+	Рассмотрим второе слагаемое. Здесь у нас есть величина
+	$\D \{X | I\}$, которую мы также попытаемся записать в виде функции от $I$. Эта дисперсия распадается на два случая
+	\begin{align*}
+		\left[
+		\begin{array}{ll}
+			\D \{X | I = 0\} = \D \{ I\cdot B | I = 0\} = 0,\\
+			\D \{X | I = 1\} = \D \{ I\cdot B | I = 1\} = \D \{B | I = 1\}
+		\end{array}
+		\right .
+	\end{align*}
+	Поскольку $B$ имеет равномерное распределение, то 
+	$$\D \{B\} = \dfrac{(b-a)^2}{12} = \dfrac{400}{12}= \dfrac{
+	100}{3}.$$
+	Таким образом,
+	$$\D \{X | I\} =I\cdot \D \{B\} = \dfrac{100}{3} I.$$
+	Теперь вычислим
+	$$\E \{ \D \{X | I\}\} =\E\{I\cdot \D \{B\}\} = \D \{B\}\cdot \E \left\{I\right\} = \D \{B\}q= \dfrac{100}{3} q = \dfrac53.$$
+	Итак, складывая найденные слагаемые, получим
+	$$\D \{X\} = 4.75 + \dfrac 53 = \dfrac{11}{12}.$$
+	Тогда
+	$$\D \{S\} = 100\cdot \D \{X\} = 100\cdot \dfrac{11}{12} \approx 91.667$$
+	Для оценки вероятности того, что выплаты превысят среднее более, чем на 1\%, рассмотрим следующую величину
+	\begin{multline*}
+		P\{S > 1.01 \E\{S\}\}= 1 - P\{S \leq 1.01 \E\{S\}\} = 1 - P\left\{\dfrac{S - \E \{S\}}{\sqrt{\D \{S\}}} \leq \dfrac{1.01\E \{S\} - \E \{S\}}{\sqrt{\D \{S\}}} \right\} =\\=
+		1 - P\left\{\dfrac{S - 50}{9.574} \leq \dfrac{0.01 \cdot 50}{9.574} \right\} = 1 - P\left\{\dfrac{S - 50}{9.574} \leq 0.0512 \right\} = 1 - \Phi(0.0512),
+	\end{multline*}
+	где $\Phi(x)$ -- функция стандартного нормального распределения. Используя таблицу значений, можно определить
+	$$\Phi(0.0512) \approx 0.5203.$$
+	Следовательно, $$P\{S > 1.01 \E\{S\}\} = 1 - 0.5203 = 0.4797.$$
+	\textbf{Задача 2.}
+	Даны две независимые случайные величины $\xi_1$, $\xi_2$. Найти распределение случайной величины $$\eta = \xi_1 + \xi_2 -2$$
+	\begin{enumerate}
+		\item случайная величина $\xi_1$ распределена равномерно на отрезке $[0,3]$, а $\xi_2$ имеет распределение Бернулли с параметром $0.3$;
+		\item случайные величины распределены экспоненциально с параметрами $\lambda_1 = 4$ и $\lambda_2 = 1$ соответственно.
+	\end{enumerate}
+	\textbf{Решение.}
+	\begin{enumerate}
+		\item Запишем математически законы распределения данных случайных величин $\xi_1$, $\xi_2$, то есть
+		$$F_{\xi_1}(x) = P\{\xi_1 \leq x\} = \begin{cases}
+			0,\ x < 0,\\
+			\dfrac{x}{3},\ x \in [0,3],\\
+			1,\ x > 3
+		\end{cases}\quad P\{\xi_2 = k\} = \begin{cases}
+		0.3,\ k =1,\\
+		0.7,\ k = 0.
+		\end{cases}$$
+	Будем искать функцию распределения случайной величины $F_\eta(x)$. Распишем, чему равна эта ФР
+	\begin{multline*}
+		F_\eta(x) = P \{\eta \leq x\} = P \{\xi_1 + \xi_2 -2\leq x \} =\\ P \{\xi_1 + \xi_2 -2\leq x |\xi_2 = 0\}P\{\xi _2 = 0\} + P \{\xi_1 + \xi_2 -2\leq x |\xi_2 = 1\}P\{\xi _2 = 1\}= \\ = P \{\xi_1 -2\leq x |\xi_2 = 0\}\cdot 0.7 + P \{\xi_1 +1-2\leq x |\xi_2 = 1\}\cdot 0.3 = \\=
+		P \left\{\xi_1 \leq  x + 2 \right\}\cdot 0.7 + P \left\{\xi_1 \leq  x + 1\right\}\cdot 0.3.
+	\end{multline*}
+	Причем $$	P \left\{\xi_1 \leq  x + 2 \right\} = F_{\xi_1}\left( x+2 \right)= \begin{cases}
+		0,\ x+2 < 0,\\
+		\dfrac{x+2}{3},\ x+2 \in [0,3],\\
+		1,\ x+2 > 3
+	\end{cases} = \begin{cases}
+	0,\ x < -2,\\
+	\dfrac{x+2}{3},\ x \in [-2,1],\\
+	1,\ x > 1.
+	\end{cases}$$
+	Аналогично
+	$$	P \left\{\xi_1 \leq  x + 1 \right\} = F_{\xi_1}\left( x+1 \right)=\begin{cases}
+		0,\ x < -1,\\
+		\dfrac{x+1}{3},\ x \in [-1,2],\\
+		1,\ x > 2.
+	\end{cases}$$
+	Таким образом, искомая функция распределения распадается на несколько случаев
+	$$F_\eta(x) = P\{\eta \leq x\} =\begin{dcases}
+		0,\ x < -2,\\
+		0.7\cdot\dfrac{x+2}{3},\ -2 \leq x<-1 ,\\
+		0.7\cdot \dfrac{x+2}{3} + 0.3\cdot \dfrac{x+1}{3},\ -1\leq x < 1,\\
+		0.7 + 0.3\cdot \dfrac{x+1}{3},\ 1\leq x < 2,\\
+		1, \ x\geq 2.
+	\end{dcases} $$
+	\item Запишем математически законы распределения данных случайных величин $\xi_1$, $\xi_2$, то есть
+	$$p_{\xi_1}(x)=\begin{cases}
+		4e^{-4x},\ x \geq 0,\\
+		0,\ x < 0;
+	\end{cases}\quad p_{\xi_2}(x)=\begin{cases}
+	e^{-x},\ x \geq 0,\\
+		0,\ x < 0.
+	\end{cases}$$
+	В данном случае мы введем новую случайную величину $\eta_2 = \xi_2$. Таким образом, имеем
+	$$\begin{cases}
+		\eta_1 = \xi_1 + \xi_2 - 2,\\
+		\eta_2 = \xi_2.
+	\end{cases}$$
+	Заменим в данной системе случайные величины переменными
+	$$\begin{cases}
+		y_1 = x_1 + x_2 - 2,\\
+		y_2 = x_2.
+	\end{cases}$$
+	Теперь найдем обратное линейное преобразование
+	$$\begin{cases}
+		x_1 = y_1 - y_2 + 2,\\
+		x_2 = y_2.
+	\end{cases}$$
+	Вычислим якобиан обратного преобразования
+	$$|I| = \begin{vmatrix}
+		\dfrac{\d x_1}{\d y_1} & \dfrac{\d x_1}{\d y_2}\\
+		\dfrac{\d x_2}{\d y_1} & \dfrac{\d x_2}{\d y_2}
+	\end{vmatrix}= \begin{vmatrix}
+	1 & -1\\
+	0 & 1
+	\end{vmatrix} = |1| = 1.$$
+	Теперь можем приступать к вычислению искомого распределения
+	\begin{multline*}
+		p_{\eta_1}(y_1) = \int_{B_x}p_{\eta_1 \eta_2}(x_1, x_2) dx_2 = \int_{B_x}p_{\xi_1\xi_2}(y_1 - y_2 + 2, y_2)|I|dy_2 =\\= \int_{B_x} p_{\xi_1}(y_1 -y_2 + 2)p_{\xi_2}(y_2)|I|dy_2=\int_{B_x} 4e^{-4(y_1 - y_2 + 2)}e^{-y_2}\cdot 1\cdot  dy_2=4e^{-4y_1-8}\int_{B_x}e^{3y_2}dy_2.
+	\end{multline*}
+	Теперь нам нужно определить область интегрирования $B_x$. Она должна быть такой, что
+	$$B_x : \begin{cases}
+		y_1 - y_2 + 2 \geq 0,\\
+		y_2 \geq 0.
+	\end{cases}\Rightarrow \begin{cases}
+	y_2 \leq y_1 + 2,\\
+	y_2 \geq 0.
+	\end{cases}$$
+	Итак, эту область можно изобразить следующим образом
+	$$
+		\includegraphics[scale=0.35]{img01}
+	$$
+	По этой области мы и проводим интегрирование. Тогда
+	$$p_{\eta_1}(y_1)=4e^{-4y_1-8}\int\limits_0^{y_1+2}e^{3y_2}dy_2 =\dfrac13\cdot 4e^{-4y_1-8}e^{3y_1+6} - \dfrac13 \cdot 4e^{-4y_1-8} = \dfrac{4}{3}(e^{-y_1-2}-e^{-4y_1-8}).$$
+	\end{enumerate}
+	
+\end{document}

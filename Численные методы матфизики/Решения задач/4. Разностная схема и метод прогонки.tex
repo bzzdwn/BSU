@@ -1,0 +1,204 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	\section*{Построение разностной схемы, повышение порядка и обоснование использование метода прогонки для ОДУ}
+	\subsubsection*{Условия}
+	\begin{enumerate}
+		\item Построить разностную схему в индексной и безиндексной форме для дифференциальной задачи, определить порядок аппроксимации, повысить порядок аппроксимации на минимальном шаблоне, обосновать применимость метода прогонки для реализации разностной схемы
+		$$\begin{dcases}
+			u''(x) + r(x)u'(x) + q(x)u(x) = f(x),\ 0 < x< 1,\\
+			u'(0) = \sigma_0 u(0) + \mu_0,\\
+			-u'(1) = \sigma_1 u(1) + \mu_1,\\
+		\end{dcases}$$
+		если $q(x) = -4$, $r(x) = x$, $\sigma_0 = 4$, $\sigma_1 = -4$, $\mu_0 = -1$, $\mu_1 = 1$.
+		(\hyperlink{t1}{Решение})
+	\end{enumerate}
+	
+	\newpage
+	\subsubsection*{Решения}
+	\begin{enumerate}
+		\item \hypertarget{t1}{}
+		Решение задачи будем проводить в четыре этапа.\\\\ 
+		\textbf{Первый этап}. Сначала задаем сетку узлов, на которой будем строить аппроксимацию исходной задачи. Зададим равномерную одномерную сетку.
+		Графически это можно изобразить как
+		$$
+		\includegraphics[scale=0.25]{images/img004}
+		$$
+		где внутренние точки обозначены  через точки, а граничные точки -- через крестики.
+		На этой сетке мы определяем сеточную функцию $y = y(x),\ x\in \overline\omega _{h}$.\\\\
+		\textbf{Второй этап.} Заменяя в исходном дифференциальном уравнении производные от функции на разностные аналоги, формулируем разностную схему дифференциальной задачи в безиндексной форме
+		$$\begin{cases}
+			y_{\overline x x}(x) + r(x)y_{\overset\circ x}(x) + q(x)y(x) = f(x),\ x \in \omega_{h},\\
+			y_x(0) = \sigma_0 y(0) + \mu_0,\\
+			-y_{\overline x}(1) = \sigma_1 y(1) + \mu_1.
+		\end{cases}$$
+		Как и ранее, заменяя $y(x_i)=y_i$, записываем разностную схему в индексной форме  
+		$$\begin{dcases}
+			\dfrac{y_{i-1}-2y_i + y_{i+1}}{h^2} + p(x_i)\dfrac{y_{i+1}-y_{i-1}}{2h} + q(x_i) y_i = -f(x_i),\ i = \overline{1,N-1},\\
+			\dfrac{y_1 - y_0}{h} = \sigma_1 y_0 + \mu_1,\\
+			\dfrac{y_{N-1} - y_{N}}{h} = \sigma_2 y_N + \mu_2.
+		\end{dcases}$$
+		Далее нам нужно исследовать порядок аппроксимации задачи разностной схемой. Для этого рассмотрим поведение погрешности аппроксимации для уравнения, а затем для граничных условий:
+		\begin{equation*}
+			\psi_h(x) = u_{\overline x x}(x) + p(x)u_{\overset{\circ}{x}}(x) + q(x) u(x) +f(x).
+		\end{equation*}
+		Поскольку мы можем записать
+		$$u_{\overline x x}(x) = u''(x) + \dfrac{h^2}{12}u^{IV}(x) + O(h^3),$$
+		$$u_{\overset{\circ}{x}}(x) = u'(x) + \dfrac{h^2}{6}u'''(x) + O(h^3),$$
+		то
+		\begin{equation*}
+			\psi_h(x) = u''(x) + \dfrac{h^2}{12}u^{IV}(x)  + p(x)\left[u'(x) + \dfrac{h^2}{6}u'''(x)\right] + q(x) u(x) +f(x) + O(h^3).
+		\end{equation*}
+		Из исходной задачи мы имеем $u''(x) + p(x) u'(x) + q(x) u(x) = -f(x)$, поэтому
+		$$\psi_h(x) =\dfrac{h^2}{12}u^{IV}(x)+\dfrac{h^2}{6}u'''(x)+O(h^3) = O(h^2).$$
+		То есть разностное уравнение аппроксимирует исходное дифференциальное уравнение со вторым порядком.
+		Учитывая, что
+		$$u_x (x)= u'(x) + \dfrac{h}{2} u''(x) + O(h^2),$$
+		$$u_{\overline x}(x) = u'(x) + \dfrac{h}{2} u''(x) + O(h^2),$$
+		рассмотрим погрешность аппроксимации граничных условий,
+		$$\nu _h (0) = u_x(0) - \sigma_0 u(0) - \mu_0 = u'(0) + \dfrac{h}{2}u''(0) + O(h^2) - \sigma_0 u(0) - \mu_0 .$$
+		Из поставленной задачи нам известно, что $u'(0) = \sigma_0 u(0) +\mu_0$. Тогда, используя этот факт, получим
+		$$\nu_h(0) = \dfrac{h}{2}u''(0) + O(h^2) = O(h).$$
+		Аналогично для второго граничного условия
+		\begin{multline*}
+			\nu _h (1) = -u_{\overline x}(1) - \sigma_1 u(1) - \mu_1= -u'(1) - \dfrac{h}{2}u''(1) + O(h^2) - \sigma_1 u(1) - \mu_1 =\\= -\dfrac{h}{2}u''(1) + O(h^2) = O(h).
+		\end{multline*}
+		то есть граничные условия аппроксимируются с первым порядком $$\nu_h = \nu_h(0) + \nu_h(1) = O(h).$$
+		Таким образом, общий порядок аппроксимации $$\Psi_h(x) = \psi_h(x) + \nu_h(x) = O(h),$$ то есть разностная схема аппроксимирует поставленную дифференциальную задачу с первым порядком точности. \\\\
+		\textbf{Третий этап.} Повысим порядок аппроксимации разностной схемой. Уравнение мы смогли аппроксимировать со вторым порядком, а вот граничные условия у нас аппроксимируются с первым порядком. Поэтому нам необходимо повысить порядок аппроксимации граничных условий. \\\\
+		Рассмотрим первое граничное условие. Для него составим аппроксимацию
+		$$y_x(0) = \overline \sigma_0 y(0) + \overline \mu_0,$$
+		где $\overline \sigma_0$, $\overline \mu _0$ -- сеточные параметры. Рассмотрим невязку над точным решением, чтобы определить вид введенных параметров
+		\begin{multline*}
+			\nu _h (0) = u_x(0) - \overline \sigma_0 u(0) - \overline \mu_0 = u'(0) + \dfrac{h}{2}u''(0) + O(h^2) - \overline \sigma_0 u(0) - \overline \mu_0 =\\=\Big[u''(0) = -r(0)u'(0) - q(0)u(0) + f(0), \ u'(0) = \sigma_0 u(0) + \mu_0\Rightarrow\\\Rightarrow u''(0) = -r(0) ( \sigma_0 u(0) + \mu_0)- q(0)u(0) + f(0)\Big] = \\=
+			\left(\sigma_0 - \overline\sigma_0 - \dfrac h2 r(0)\sigma_0 - \dfrac h2 q(0)\right)u(0) + \left(\mu_0 - \overline \mu _0 + \dfrac h2f(0) - \dfrac h2 r(0)\mu_0\right) + O(h^2).
+		\end{multline*}
+		Таким образом, можно выбрать
+		$$\begin{dcases}
+			\overline \sigma_0 = \sigma_0- \dfrac h2 r(0)\sigma_0 - \dfrac h2 q(0) = \sigma_0 \left(1 - \dfrac h2 r(0)\right) - \dfrac h2 q(0),\\
+			\overline \mu_0 = \mu_0  + \dfrac h2f(0) - \dfrac h2 f(0)\mu_0 = \mu_0 \left(1 - \dfrac h2 r(0)\right) + \dfrac h2 f(0).
+		\end{dcases}$$
+		Аналогично можно показать
+		$$-y_{\overline x}(1) = \overline \sigma _1 y(1) + \overline \mu_1,$$
+		$$\begin{dcases}
+			\overline \sigma_1 = \sigma_1 \left(\dfrac h2 r(1)-1\right) + \dfrac h2 q(1),\\
+			\overline \mu_1 = \mu_1 \left(\dfrac h2 r(1)-1\right) - \dfrac h2 f(1).
+		\end{dcases}$$
+		Таким образом, получаем разностную схему 
+		$$\begin{cases}
+			y_{\overline x x}(x) + r(x)y_{\overset\circ x}(x) + q(x)y(x) = f(x),\ x \in \omega_{h},\\
+			y_x(0) = \overline \sigma_0 y(0) + \overline \mu_0,\\
+			-y_{\overline x}(1) =\overline \sigma_1 y(1) + \overline \mu_1,
+		\end{cases}$$
+		общий порядок аппроксимации которой
+		$$\Psi_h(x) = \psi_h(x) + \nu_h(0) + \nu_h(1) = O(h^2) + O(h^2) + O(h^2) = O(h^2).$$
+		\textbf{Четвертый этап.} Обоснуем применимость метода прогонки к реализации разностной схемы на ЭВМ. Для этого обратимся к индексной форме записи разностной схемы 
+		$$\begin{dcases}
+			\dfrac{y_{i-1}-2y_i + y_{i+1}}{h^2} + r(x_i)\dfrac{y_{i+1}-y_{i-1}}{2h} + q(x_i) y_i = -f(x_i),\ i = \overline{1,N-1},\\
+			\dfrac{y_1 - y_0}{h} = \overline\sigma_0 y_0 +\overline \mu_0,\\
+			\dfrac{y_{N-1} - y_{N}}{h} = \overline\sigma_1 y_N + \overline\mu_1.
+		\end{dcases}$$
+		Метод прогонки используется для отыскания решения системы с трехдиагональной матрицей. В общем случае он задается тремя формулами
+		$$\begin{cases}
+			c_0 y_0 - b_0 y_1 = f_0,\\
+			-a_i y_{i-1} + c_i y_i - b_i y_{i+1} = f_i,\ i=\overline{1,n-1},\\
+			-a_n y_{n-1}  + c_n y_n = f_n.
+ 		\end{cases}$$
+ 		Обоснование применимости метода прогонки равносильно обоснованию сходимости этого метода. Вспомним, какие условия сходимости метода прогонки
+ 		$$\begin{cases}
+ 			|c_i| \geq |a_i| + |b_i|,\\
+ 			|c_0|\geq |b_0|,\\
+ 			|c_n|\geq |a_n|,
+ 		\end{cases}$$
+ 		причем хотя бы одно из неравенств строгое (еще есть условия $|c_0|, |c_n|, |a_i|, |b_i|>0$, но здесь они очевидно выполняются).\\\\
+ 		Сначала мы сопоставим нашу разностную схему с формулами метода прогонки:
+ 		$$\begin{dcases}
+ 			\left(\overline \sigma_0 + \dfrac 1h\right)y_0 - \dfrac 1h y_1 = - \overline \mu _0,\\
+ 			\left(\dfrac1{h^2} - \dfrac{r(x_i)}{2h}\right)y_{i-1} + \left(q(x_i) - \dfrac 2{h^2}\right)y_i + \left(\dfrac{1}{h^2} + \dfrac{r(x_i)}{2h}\right)y_{i+1} = -f(x_i),\\
+ 			- \dfrac 1h y_{N-1} + \left(\overline \sigma_1 + \dfrac 1h\right)y_N  = - \overline \mu _1.
+ 		\end{dcases}$$
+ 		Рассмотрим первое условие сходимости метода прогонки. В нем у нас
+ 		$$c_i = q(x_i) - \dfrac 2{h^2},\ a_i = -\left(\dfrac1{h^2} - \dfrac{r(x_i)}{2h}\right),\ b_i = -\left(\dfrac{1}{h^2} + \dfrac{r(x_i)}{2h}\right).$$
+ 		Следовательно, подставляя в неравенство для сходимости, получим
+ 		$$\left|q(x_i) - \dfrac 2{h^2}\right|\geq \left|\dfrac1{h^2} - \dfrac{r(x_i)}{2h} \right| + \left|\dfrac{1}{h^2} + \dfrac{r(x_i)}{2h} \right|.$$
+ 		Данное условие проверяется при известных значениях $r(x), q(x)$. По условию нам даны $q(x) = -4$, $r(x) = x$. Подставим их и получим
+ 		$$\left|-4 - \dfrac 2{h^2}\right|\geq \left|\dfrac1{h^2} - \dfrac{x_i}{2h} \right| + \left|\dfrac{1}{h^2} + \dfrac{x_i}{2h} \right|.$$
+ 		Далее начинается анализ. Мы должны показать возможность раскрытия модуля. Первый модуль мы раскрываем, меняя знак, поскольку под модулем отрицательное число.
+ 		Рассмотрим второй модуль
+ 		$$\dfrac1{h^2} - \dfrac{x_i}{2h} \geq \dfrac {1}{h^2} - \dfrac{h}{2h}>0\ \forall h.$$
+ 		Значит раскрываем модуль без изменения знака. Третий модуль также раскрываем без изменения знака, поскольку под модулем находится положительное значение. В итоге
+ 		$$\dfrac 2{h^2}+ 4 \geq \dfrac1{h^2} - \dfrac{x_i}{2h}+ \dfrac{1}{h^2} + \dfrac{x_i}{2h} .$$
+ 		Отсюда
+ 		$$4 \geq 0,$$
+ 		что верно.
+ 		Проверим второе условие сходимости
+ 		$$c_0 = \overline{\sigma_0} + \dfrac1h,\ b_0 = \dfrac 1h.$$
+ 		Тогда
+ 		$$\left|\overline{\sigma_0} + \dfrac1h\right|\geq \left|\dfrac1h \right|.$$
+ 		Оба модуля раскрываем без изменений знака, поскольку под модулями положительные числа 
+ 		$$\overline \sigma_0 = \sigma_0 \left(1 - \dfrac h2 r(0)\right) - \dfrac h2 q(0)\geq 0.$$
+ 		Подставим известные значения и получим
+ 		$$4 + 4\dfrac h2 \geq 0,$$
+ 		что верно. Проверим третье условие сходимости
+ 		$$c_n = \overline \sigma_1 + \dfrac 1h,\ a_n = \dfrac 1h,$$
+ 		$$\left|\overline{\sigma_1} + \dfrac1h\right|\geq \left|\dfrac1h \right|.$$
+ 		Опять же раскрываем модуль без изменения знака и получаем
+ 		$$\overline{\sigma_1} = \sigma_1 \left(\dfrac h2 r(1)-1\right) + \dfrac h2 q(1) = -4 \left(\dfrac h2 - 1\right) - 4\dfrac h2 = -8\dfrac h2 + 4\geq -\dfrac8 4 + 4 \geq 0,$$
+ 		что также верно.\\\\
+ 		Таким образом, все неравенства выполняются и любое из них можно принять за строгое неравенство. Следовательно, мы доказали применимость метода прогонки к реализации разностной схемы на ЭВМ. Далее остается только запрограммировать и получить на выходе приближенное решение поставленной дифференциальной задачи.
+	\end{enumerate}
+	
+\end{document} 
