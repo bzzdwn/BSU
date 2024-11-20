@@ -1,0 +1,774 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{empheq}
+\usepackage{mathtools}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\theta}{\uptheta}
+\renewcommand{\eta}{\upeta}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\sigma}{\upsigma}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\varepsilon}{\upvarepsilon}
+
+\renewcommand{\d}{\partial}
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumn}{\sum\limits_{n=0}^\infty}
+\newcommand{\summ}{\sum\limits_{m=0}^\infty}
+\newcommand{\sumnm}{\sum_{n,m=0}^{\infty}}
+
+\begin{document}
+	\begin{titlepage}
+		\begin{center}
+			\textsc{МИНИСТЕРСТВО ОБРАЗОВАНИЯ РЕСПУБЛИКИ БЕЛАРУСЬ БЕЛОРУССКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ
+				\\[5mm]
+				Факультет прикладной математики и информатики\\[2mm]
+				Кафедра компьютерных технологий и систем
+			}
+			\vfill
+			\textbf{Лабораторная работа №3
+				\\[3mm]
+				Вариант 4
+				\\[20mm]
+			}
+		\end{center}
+		
+		\hfill
+		\begin{minipage}{.4\textwidth}
+			Выполнил:\\[2mm] 
+			Бовт Тимофей Анатольевич\\
+			студент 4 курса 7 группы\\[5mm]
+			
+			Преподаватель:\\[2mm] 
+			Каркоцкий Александр Геннадьевич
+		\end{minipage}%
+		\vfill
+		\begin{center}
+			Минск, 2024\ г.
+		\end{center}
+	\end{titlepage}
+	\newpage
+	\subsubsection*{Постановка задачи.}
+	Найти электрический и магнитный потенциал, электрическую и магнитную напряжённость внутри шара (внутри сферического слоя) при заданных диэлектрической проницаемости $\epsilon=-1$, условиях на электрический и магнитный потенциал ($u$ и $v$ соответственно) на его
+	поверхности (на границах сферического слоя), и постоянной магнитной проницаемости,
+	если распределение зарядов изменяется по закону $$\rho(r, \phi, \theta)=11r^6\cos ^4 \theta \sin^4 \theta (\cos 4\phi - \sin^2\phi).$$
+	\begin{enumerate}
+		\item $
+		u|_{r=3}=4\cos ^2\theta \sin^4 \theta \sin^4 \phi.
+		$
+		\item $\begin{dcases}
+			v|_{r=1} = 7\sin \theta \cos^3\theta \cos \phi,\\
+			v|_{r=4}=6\sin^3\theta (\cos \phi  - \sin 3 \phi).
+		\end{dcases}$
+	\end{enumerate}
+	\subsubsection*{Решение задачи.}
+	Начнем c задачи для электрического потенциала. Считая
+	$$\Delta u = - \dfrac{\rho(x,y,z)}{\epsilon},$$
+	можем сформулировать задачу
+	\begin{equation}
+		\begin{cases}
+			\Delta u = 11r^6\cos ^4 \theta \sin^4 \theta (\cos 4\phi - \sin^2\phi),\\
+			u|_{r=3}=4\cos ^2\theta \sin^4 \theta \sin^4 \phi.
+		\end{cases}
+	\end{equation}
+	Представим решение задачи в виде
+	$$u(r,\theta,\phi)=w(r,\theta,\phi) + v(r,\theta,\phi),$$
+	где 
+	\begin{equation}
+		\begin{cases}
+			\Delta w = 0,\\
+			w|_{r=3}=4\cos ^2\theta \sin^4 \theta \sin^4 \phi.
+		\end{cases}
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			\Delta v = 11r^6\cos ^4 \theta \sin^4 \theta (\cos 4\phi - \sin^2\phi),\\
+			 v|_{r=3}=0,
+		\end{cases}
+	\end{equation}
+	Начнем с отыскания решения задачи (2). Можно показать, что решение задачи (2) представимо в виде
+	\begin{equation}
+		w(r,\theta,\phi) = \sumnm (A_{nm} \cos m\phi + B_{nm}\sin m\phi) \cdot r^n \cdot P_n^{(m)}(\cos \theta),
+	\end{equation}
+	здесь мы учитываем неограниченность $r^{-(n+1)}$ при $r\to 0$. Подставим в выражение (4) граничное условие задачи (2):
+	\begin{multline*}
+		w(r,\theta,\phi)|_{r=3} = \sumnm (A_{nm} \cos m\phi + B_{nm}\sin m\phi) \cdot 3^n \cdot P_n^{(m)}(\cos \theta) = 4\cos ^2\theta \sin^4 \theta \sin^4 \phi.
+	\end{multline*}
+	В силу того, что
+	\begin{multline*}
+		\sin ^4 \phi = \left(\dfrac{1 - \cos 2 \phi}{2} \right)^2 = \dfrac{1 - 2\cos 2 \pi + \cos ^2 2 \phi}{4 } =  \dfrac{1 - 2\cos 2 \phi + \frac{1+\cos 4 \phi}2 }{4 }= \\ = \dfrac 3 8 \cos 0 \phi - \dfrac 12 \cos 2 \phi + \dfrac 18 \cos 4 \phi,
+	\end{multline*}
+	получаем
+	\begin{multline*}
+		w(r,\theta,\phi)|_{r=3} = \sumnm (A_{nm} \cos m\phi + B_{nm}\sin m\phi) \cdot 3^n \cdot P_n^{(m)}(\cos \theta) = \\ = \dfrac 3 2\cos ^2\theta \sin^4 \theta \cos 0 \phi  -2 \cos ^2\theta \sin^4 \theta \cos 2 \phi + \dfrac 1 2 \cos ^2\theta \sin^4 \theta \cos 4 \phi.
+	\end{multline*}
+	Таким образом, приравнивая соответствующие коэффициенты $\cos m\phi$, $\sin m \phi$, мы имеем
+	$$A_{nm} = \begin{cases}
+		A_{n0},\ m = 0,\\
+		A_{n2},\ m = 2,\\
+		A_{n4},\ m = 4,\\
+		0, \ \text{иначе}.
+	\end{cases}\ B_{nm} = 0,\ \forall m.$$
+	Отсюда следует, что
+	\begin{multline*}
+		w(r,\theta,\phi)|_{r=3} = \sumn \Big(A_{n0}\cdot P_n^{(0)}(\cos \theta) + A_{n2}\cdot P_n^{(2)}(\cos \theta)\cos 2 \phi + A_{n4} \cdot P_n^{(4)}(\cos \theta)\cos 4 \phi\Big) \cdot 3^n  = \\ = \dfrac 3 2\cos ^2\theta \sin^4 \theta -2 \cos ^2\theta \sin^4 \theta \cos 2 \phi + \dfrac 1 2 \cos ^2\theta \sin^4 \theta \cos 4 \phi.
+	\end{multline*}
+	Приравняем соответствующие коэффициенты при $\cos m \phi$ и получим 3 разложения
+	\begin{equation}
+		\sumn (A_{n0}\cdot P_n^{(0)}(\cos \theta))\cdot 3^n = \dfrac 3 2\cos ^2\theta \sin^4 \theta,
+	\end{equation}
+	\begin{equation}
+		\sumn (A_{n2}\cdot P_n^{(2)}(\cos \theta))\cdot 3 ^n = -2 \cos ^2\theta \sin^4 \theta,
+	\end{equation}
+	\begin{equation}
+		\sumn (A_{n4}\cdot P_n^{(4)}(\cos \theta))\cdot 3 ^n = \dfrac 1 2 \cos ^2\theta \sin^4 \theta.
+	\end{equation}
+	Теперь будем вычислять коэффициенты разложений $A_{n0}$, $A_{n2}$, $A_{n4}$. Начнем с разложения (5). Определим степень правой части при замене $x = \cos \theta$:
+	$$\deg \left( \dfrac 3 2x^2 (1-x^2)^2\right)=6.$$
+	Теперь оценим степень многочленов Лежандра $P_n^{(0)}(x)$, она должна не превосходить степень правой части:
+	$$\deg P_n^{(0)}(x) = \deg \left(\dfrac{1}{2^n \cdot n!}\cdot \dfrac{d^{n}}{dx^n}(x^2 - 1)^n\right) = 2n - n = n \leq 6.$$
+	Таким образом, нам нужно вычислить все многочлены Лежандра вида $P_n^{(0)}(x)$, $n = \overline {0,6}$. С помощью Wolfram Mathematica мы можем получить следующий результат
+	\begin{align*}
+		&P_0^{(0)}(x)= 1,\\ 
+		&P_1^{(0)}(x)= x,\\
+		&P_2^{(0)}(x) = \dfrac 12 (3x^2 - 1),\\
+		&P_3^{(0)}(x) = \dfrac 12 (5x^3 - 3x),
+	\end{align*}
+	\begin{align*}
+		&P_4^{(0)}(x) = \dfrac 1 8 (35x^4 - 30x^2 + 3), \\ &P_5^{(0)}(x) = \dfrac 18(63x^5 - 70x^3 + 15x),\\ &P_6^{(0)}(x) = \dfrac{1}{16}(231x^6-315x^4+105x^2-5).
+	\end{align*}
+	Подставим это в разложение (5) и получим
+	\begin{multline*}
+		A_{00} + 3 A_{10} x + 3^2 A_{20} \cdot \dfrac 12 (3x^2 - 1) + 3^3 A_{30} \cdot \dfrac 12 (5x^3 - 3x)  + 3^4 A_{40} \cdot  \dfrac 1 8 (35x^4 - 30x^2 + 3) +\\+ 3^5 A_{50}\cdot \dfrac 18(63x^5 - 70x^3 + 15x) + 3^6 A_{60} \cdot \dfrac{1}{16}(231x^6-315x^4+105x^2-5) = \dfrac 32 x^2(1-x^2)^2.
+	\end{multline*}
+	Приравняем коэффициенты при соответствующих степенях $x$:
+	\begin{align*}
+		&x^6 : 3^6 A_{60} \cdot \dfrac{1}{16}\cdot 231 = \dfrac 32 \Rightarrow A_{60} = \dfrac{8}{56133},\\
+		&x^5: 3^5 A_{50}\cdot \dfrac 18 \cdot 63 = 0 \Rightarrow A_{50} = 0,\\
+		&x^4 : 3^4 A_{40}\cdot \dfrac 18 \cdot 35 - 3^6 A_{60}\cdot \dfrac{1}{16}\cdot 315 = -3 \Rightarrow A_{40} = -\dfrac{4}{1485},\\
+		&x^3 : 3^3 A_{30} \dfrac 12 \cdot 5 - 3^5 \cdot A_{50}\cdot \dfrac 18 \cdot 70 = 0 \Rightarrow A_{30} = 0,\\
+		&x^2 : 3^2 A_{20} \cdot \dfrac 12 \cdot 3 -3^4 A_{40} \cdot  \dfrac 1 8\cdot 30 +  3^6 A_{60} \cdot \dfrac{1}{16}\cdot 105 = \dfrac 3 2\Rightarrow A_{20} = 0,\\
+		&x:3A_{10} - 3^3 A_{30}\cdot \dfrac 12 \cdot 3 + 3^5 A_{50}\cdot 18 \cdot 15 = 0\Rightarrow A_{10} = 0,\\
+		& x^0 : A_{00} - 3^2 A_{20}\cdot \dfrac 12 + 3^4 A_{40} \cdot  \dfrac 1 8\cdot 3 -  3^6 A_{60} \cdot \dfrac{1}{16}\cdot 5 = 0 \Rightarrow A_{00} = \dfrac {4}{35}.
+	\end{align*}
+	Мы вычислили вручную все коэффициенты разложения (5). 
+	\\\\
+	Рассмотрим разложение (6). Степень правой части все так же равна 6. Оценим степень левой части
+	$$\deg P_n^{(2)}(x) = \deg \left(\dfrac{(1-x^2)}{2^n \cdot n!}\cdot \dfrac{d^{n+2}}{dx^{n+2}}(x^2 - 1)^n\right) = 2 + 2n - (n+2) = n \leq 6.$$
+	С помощью Wolfram Mathematica вычислим все многочлены вида $ P_n^{(2)}(x)$:
+	\begin{align*}
+		&P_2^{(2)}(x) = 3(1-x^2),\\
+		&P_3^{(2)}(x) = 15x(1-x^2),\\
+		&P_4^{(2)}(x) = \dfrac{15}{2}(7x^2-1)(1-x^2), \\ &P_5^{(2)}(x) = \dfrac{105}{2}(3x^3-x)(1-x^2),\\ &P_6^{(2)}(x) = \dfrac{105}{8}(33x^4-18x^2+1)(1-x^2).
+	\end{align*}
+	Подставим эти многочлены в разложение (6) и получим
+	\begin{multline*}
+		3^2A_{22}\cdot 3 (1-x^2) + 3^3 A_{32}\cdot 15x(1-x^2) + 3^4 A_{42} \cdot \dfrac{15}{2}(7x^2-1)(1-x^2) +\\+ 3^5 A_{52}\cdot \dfrac{105}{2}(3x^3-x)(1-x^2) + 3^6A_{62}\cdot  \dfrac{105}{8}(33x^4-18x^2+1)(1-x^2) = -2x^2(1-x^2)^2
+	\end{multline*}
+	Можно сократить на $(1-x^2)$. Тогда получим
+		\begin{multline*}
+		3^2A_{22}\cdot 3 + 3^3 A_{32}\cdot 15x + 3^4 A_{42} \cdot \dfrac{15}{2}(7x^2-1) +\\+ 3^5 A_{52}\cdot \dfrac{105}{2}(3x^3-x) + 3^6A_{62}\cdot  \dfrac{105}{8}(33x^4-18x^2+1) = -2x^2(1-x^2).
+	\end{multline*}
+	Приравняем коэффициенты при соответствующих степенях $x$ и получим
+	\begin{align*}
+		&x^4 : 3^6A_{62}\cdot  \dfrac{105}{8}\cdot 33 = 2\Rightarrow A_{62} = \dfrac{16}{2525985},\\
+		&x^3 : 3^5 A_{52}\cdot \dfrac{105}{2}\cdot 3 = 0 \Rightarrow A_{52} = 0,\\
+		&x^2 : 3^4 A_{42} \cdot \dfrac{15}{2}\cdot 7 - 3^6A_{62}\cdot  \dfrac{105}{8} \cdot 18 = -2 \Rightarrow A_{42} = -\dfrac{4}{18711},\\
+		&x :3^3 A_{32}\cdot 15 - 3^5 A_{52}\cdot \dfrac{105}2 = 0 \Rightarrow  A_{32} = 0,\\
+		&x^0 : 3^2 A_{22}\cdot 3 - 3^4 A_{42}\cdot \dfrac{15}{2} + 3^6A_{62}\cdot  \dfrac{105}{8} = 0 \Rightarrow A_{22} = -\dfrac{4}{567},\\
+		&A_{02}=A_{12} = 0.\\
+	\end{align*}
+	Рассмотрим выражение (7). Степень правой части все так же равна 6. Оценим степень левой части
+	$$\deg P_n^{(4)}(x) = \deg \left(\dfrac{(1-x^2)^2}{2^n \cdot n!}\cdot \dfrac{d^{n+4}}{dx^{n+4}}(x^2 - 1)^n\right) = 4 + 2n - (n+4) = n \leq 6.$$
+	С помощью Wolfram Mathematica вычислим все многочлены вида $ P_n^{(4)}(x)$:
+	\begin{align*}
+		&P_4^{(4)}(x) = 105(1-x^2)^2, \\ 
+		&P_5^{(4)}(x) = 945x(1-x^2)^2,\\ 
+		&P_6^{(4)}(x) = \dfrac{945}{2}(11x^2-1)(1-x^2)^2.
+	\end{align*}
+	Подставим эти выражения в разложение (7) и получим
+	\begin{multline*}
+		3^4 A_{44}\cdot 105(1-x^2)^2 + 3^5 A_{54}\cdot  945x(1-x^2)^2 + 3^6 A_{64}\cdot \dfrac{945}{2}(11x^2-1)(1-x^2)^2 = \dfrac 12 x^2 (1-x^2)^2.
+	\end{multline*}
+	Можем сократить все на $(1-x^2)^2$, тогда
+	$$
+		3^4 A_{44}\cdot 105 + 3^5 A_{54}\cdot  945x + 3^6 A_{64}\cdot \dfrac{945}{2}(11x^2-1) = \dfrac 12 x^2.
+	$$
+	\begin{align*}
+		&x^2 :3^6 A_{64}\cdot \dfrac{945}{2}\cdot 11 = \dfrac 12 \Rightarrow A_{64} = \dfrac{1}{7577955},\\
+		&x: 3^5 A_{54}\cdot 945 =0 \Rightarrow A_{54} = 0,\\
+		&x^0 : 3^4 A_{44}\cdot 105 -3^6 A_{64}\cdot \dfrac{945}{2} = 0\Rightarrow A_{44} = \dfrac{1}{187110},\\
+		&A_{04}=A_{14} = A_{24} = A_{34} = 0.
+	\end{align*}
+	Таким образом, подставляя все найденные коэффициенты в выражение (4), получим решение задачи (2)
+	\begin{multline}
+		w(r,\theta,\phi) = \left[\dfrac{8}{56133}r^6 P_6^{(0)}(\cos\theta ) - \dfrac{4}{1485}r^4 P_4^{(0)}(\cos\theta ) + \dfrac{4}{35}P_0^{(0)}(\cos\theta )\right] +\\+ \left[\dfrac{16}{2525985}r^6 P_6^{(2)}(\cos\theta ) -\dfrac{4}{18711}r^4P_4^{(2)}(\cos\theta ) - \dfrac{4}{567}r^2 P_2^{(2)}(\cos\theta )\right]\cos 2 \phi+\\+ \left[\dfrac{1}{7577955}r^6 P_6^{(4)}(\cos\theta ) + \dfrac{1}{187110}r^4 P_4^{(4)}(\cos\theta )\right]\cos 4 \phi.
+	\end{multline}
+	Теперь будем искать решение задачи (3). Сперва нам нужно преобразовать правую часть дифференциального уравнения к более удобному виду. Мы можем записать правую часть как
+	\begin{multline*}
+		11r^6\cos ^4 \theta \sin^4 \theta (\cos 4\phi - \sin^2\phi) = 11r^6\cos ^4 \theta \sin^4 \theta (\cos 4\phi - \dfrac{1-\cos 2 \phi}{2}) =\\= r^6 \cos 4\phi \sumn A_{n4} P_n^{(4)}(\cos \theta) + r^6 \cos  2\phi \sumn A_{n2} P_n^{(2)}(\cos \theta) + r^6 \sumn A_{n0} P_n^{(0)}(\cos \theta).
+	\end{multline*}
+	Тогда, приравнивая соответствующие коэффициенты, получим 3 разложения
+	\begin{equation}
+		\sumn A_{n0} P_n^{(0)}(\cos \theta) = -\dfrac{11}{2}\cos ^4 \theta \sin^4\theta.
+	\end{equation}
+	\begin{equation}
+		\sumn A_{n2} P_n^{(2)}(\cos \theta) = \dfrac{11}{2}\cos ^4 \theta \sin^4 \theta,
+	\end{equation}
+	\begin{equation}
+		\sumn A_{n4} P_n^{(4)}(\cos \theta)  =11 \cos ^4 \theta \sin^4 \theta,
+	\end{equation}
+	Далее отыщем все коэффициенты разложений. Рассмотрим разложение (9). Степень правой части при замене $x = \cos \theta$ будет равна
+	$$\deg \left( 11 x^4 (1-x^2)^2\right) = 8.$$
+	Ранее мы уже проводили оценку подобной левой части:
+	$$\deg P_n^{(0)}(x) = n \leq 8.$$
+	Таким образом, нам нужно вычислить все многочлены Лежандра вида $P_n^{(0)}(x)$, $n = \overline {0,6}$. С помощью Wolfram Mathematica мы можем получить следующий результат
+	\begin{align*}
+		&P_0^{(0)}(x)= 1,\\ 
+		&P_1^{(0)}(x)= x,\\
+		&P_2^{(0)}(x) = \dfrac 12 (3x^2 - 1),\\
+		&P_3^{(0)}(x) = \dfrac 12 (5x^3 - 3x),\\
+		&P_4^{(0)}(x) = \dfrac 1 8 (35x^4 - 30x^2 + 3),
+	\end{align*}
+	\begin{align*}
+		&P_5^{(0)}(x) = \dfrac 18(63x^5 - 70x^3 + 15x),\\ &P_6^{(0)}(x) = \dfrac{1}{16}(231x^6-315x^4+105x^2-5),\\
+		&P_7^{(0)}(x) = \dfrac{1}{16}x(429x^6-693x^4+315x^2-35),\\
+		&P_8^{(0)}(x) = \dfrac{1}{128}(6435x^8-12012x^6+6930x^4-1260x^2+35).
+	\end{align*}
+	Подставим эти выражения в разложение (9) и получим
+	\begin{multline*}
+		A_{00} + A_{10} x + A_{20} \cdot \dfrac 12 (3x^2 - 1) + A_{30} \cdot \dfrac 12 (5x^3 - 3x)  + A_{40} \cdot  \dfrac 1 8 (35x^4 - 30x^2 + 3) +\\+ A_{50}\cdot \dfrac 18(63x^5 - 70x^3 + 15x) + A_{60} \cdot \dfrac{1}{16}(231x^6-315x^4+105x^2-5) + \\ +  A_{70}\cdot \dfrac{1}{16}x(429x^6-693x^4+315x^2-35) +\\ + A_{80}\cdot \dfrac{1}{128}(6435x^8-12012x^6+6930x^4-1260x^2+35)=- \dfrac {11}{2} x^4(1-x^2)^2.
+	\end{multline*}
+	Приравняем коэффициенты при соответствующих степенях $x$ и получим
+	\begin{align*}
+		&x^8 : A_{80}\cdot \dfrac{1}{128}\cdot 6435 = -\dfrac {11}2 \Rightarrow A_{80}=-\dfrac{64}{585},\\
+		&x^7 : A_{70} = 0,\\
+		&x^6 : A_{60} \cdot \dfrac{1}{16}\cdot 231 - A_{80}\cdot \dfrac{1}{128}\cdot 12012 = 11 \Rightarrow A_{60} = \dfrac{16}{315},\\
+		&x^5: A_{50} = 0,\\
+		&x^4 : A_{40}\cdot \dfrac 18 \cdot 35 - A_{60}\cdot \dfrac{1}{16}\cdot 315 + A_{80}\cdot \dfrac{1}{128}\cdot 6930 = -\dfrac{11}{2} \Rightarrow A_{40} = \dfrac{148}{455},\\
+		&x^3 :  A_{30} = 0,\\
+		&x^2 : A_{20} \cdot \dfrac 12 \cdot 3 -A_{40} \cdot  \dfrac 1 8\cdot 30 + A_{60} \cdot \dfrac{1}{16}\cdot 105 - A_{80}\cdot\dfrac{1}{128}\cdot 1260 = 0 \Rightarrow A_{20} = -\dfrac{8}{63},\\
+		&x:  A_{10} = 0,\\
+		& x^0 : A_{00} - A_{20}\cdot \dfrac 12 +  A_{40} \cdot  \dfrac 1 8\cdot 3 -  A_{60} \cdot \dfrac{1}{16}\cdot 5 + A_{80}\cdot \dfrac{1}{128}\cdot 35 = 0 \Rightarrow A_{00} = -\dfrac {44}{315}.
+	\end{align*}
+	Рассмотрим разложение (10). По аналогии с предыдущими разложениями 
+	$$\deg P_n^{(2)}(x) = n \leq 8.$$
+	С помощью Wolfram Mathematica вычислим все многочлены вида $ P_n^{(2)}(x)$:
+	\begin{align*}
+		&P_2^{(2)}(x) = 3(1-x^2),\\
+		&P_3^{(2)}(x) = 15x(1-x^2),\\
+		&P_4^{(2)}(x) = \dfrac{15}{2}(7x^2-1)(1-x^2), \\ &P_5^{(2)}(x) = \dfrac{105}{2}(3x^3-x)(1-x^2),\\ &P_6^{(2)}(x) = \dfrac{105}{8}(33x^4-18x^2+1)(1-x^2),\\
+		&P_7^{(2)}(x) = \dfrac{63}{8}x(143x^4-110x^2+15)(1-x^2),\\
+		&P_8^{(2)}(x) = \dfrac{315}{16}(143x^6-143x^4+33x^2-1)(1-x^2).
+	\end{align*}
+	Подставим эти выражения в разложение (10) и, сокращая на $(1-x^2)$, получим
+		\begin{multline*}
+		A_{22}\cdot 3 +  A_{32}\cdot 15x +  A_{42} \cdot \dfrac{15}{2}(7x^2-1) +  A_{52}\cdot \dfrac{105}{2}(3x^3-x)  + A_{62}\cdot  \dfrac{105}{8}(33x^4-18x^2+1) +\\+ A_{72}\cdot\dfrac{63}{8}x(143x^4-110x^2+15) + A_{82}\cdot\dfrac{315}{16}(143x^6-143x^4+33x^2-1)   = \dfrac{11}{2}x^4(1-x^2).
+	\end{multline*}
+	Приравняем коэффициенты при соответствующих степенях $x$
+	\begin{align*}
+		&x^6: A_{82}\cdot\dfrac{315}{16} \cdot 143 = - \dfrac{11}{2}  \Rightarrow A_{82} = -\dfrac{8}{4095},\\
+		&x^5 : A_{72} = 0,\\
+		&x^4 : A_{62}\cdot \dfrac{105}{8}\cdot 33 - A_{82}\cdot \dfrac{315}{16}\cdot 143 = \dfrac{11}{2}\Rightarrow A_{62} = 0,\\
+		&x^3 : A_{52} = 0,\\
+		&x^2 : A_{42} \cdot \dfrac{15}{2}\cdot 7 - A_{62}\cdot  \dfrac{105}{8}\cdot 18 + A_{82}\cdot\dfrac{315}{16}\cdot 33 = 0 \Rightarrow  A_{42} = \dfrac{11}{455},\\
+		&x : A_{32} = 0,\\
+		&x^0 : A_{22}\cdot 3 -  A_{42} \cdot \dfrac{15}{2} + A_{62}\cdot  \dfrac{105}{8} - A_{82}\cdot\dfrac{315}{16} = 0 \Rightarrow A_{22} = \dfrac{1}{21},\\
+		&A_{12} = A_{02} = 0.
+	\end{align*}
+	Рассмотрим разложение (11). По аналогии с предыдущими разложениями 
+	$$\deg P_n^{(4)}(x) = n \leq 8.$$
+	С помощью Wolfram Mathematica вычислим все многочлены вида $ P_n^{(4)}(x)$:
+	\begin{align*}
+		&P_4^{(4)}(x) = 105(1-x^2)^2, \\ 
+		&P_5^{(4)}(x) = 945x(1-x^2)^2,\\ 
+		&P_6^{(4)}(x) = \dfrac{945}{2}(11x^2-1)(1-x^2)^2,\\
+		&P_7^{(4)}(x) = \dfrac{3465}{2}x(13x^2-3)(1-x^2)^2,\\
+		&P_8^{(4)}(x) = \dfrac{10395}{8}(65x^4-26x^2+1)(1-x^2)^2.
+	\end{align*}
+	Подставим эти выражения в разложение (11) и, сокращая на $(1-x^2)^2$, получим
+	$$
+	A_{44}\cdot 105 + A_{54}\cdot  945x + A_{64}\cdot \dfrac{945}{2}(11x^2-1)+A_{74}\cdot\dfrac{3465}{2}x(13x^2-3) + A_{84}\cdot \dfrac{10395}{8}(65x^4-26x^2+1)  = 11 x^4.
+	$$
+	Приравняем коэффициенты при соответствующих степенях $x$
+	\begin{align*}
+		& x^4 :  A_{84}\cdot \dfrac{10395}{8}\cdot 65 = 11 \Rightarrow A_{84} = \dfrac{8}{61425},\\
+		& x^3 : A_{74} = 0,\\
+		& x^2 : A_{64}\cdot \dfrac{945}{2}\cdot 11 -  A_{84}\cdot \dfrac{10395}{8}\cdot 26 = 0 \Rightarrow A_{64} = \dfrac{4}{4725},\\
+		&x : A_{54} = 0,\\
+		&x^0 : A_{44}\cdot 105 -  A_{64}\cdot \dfrac{945}{2} +  A_{84}\cdot \dfrac{10395}{8} = 0 \Rightarrow A_{44} = \dfrac{1}{455},\\
+		&A_{34} = A_{24} = A_{14} = A_{04} = 0.
+	\end{align*}
+	Все найденные коэффициенты позволяют нам записать неоднородность в следующем виде
+	\begin{multline*}
+		11r^6\cos ^4 \theta \sin^4 \theta (\cos 4\phi - \sin^2\phi) =\\= r^6 \left(-\dfrac{64}{585}P_8^{(0)}(\cos \theta) + \dfrac{16}{315}P_6^{(0)}(\cos \theta) + \dfrac{148}{455}P_4^{(0)}(\cos \theta) - \dfrac{8}{63}P_2^{(0)}(\cos \theta)-\dfrac{44}{315}P_0^{(0)}(\cos \theta) \right)  + \\ + r^6 \cos 2 \phi \left( -\dfrac{8}{4095}P_8^{(2)}(\cos \theta) + \dfrac{11}{455}P_4^{(2)}(\cos \theta) + \dfrac{1}{21}P_2^{(2)}(\cos \theta)\right)+\\+ r^6 \cos 4 \phi \left(\dfrac{8}{61425}P_8^{(4)}(\cos \theta) + \dfrac{4}{4725}P_6^{(4)}(\cos \theta) + \dfrac{1}{455}P_4^{(4)}(\cos \theta)\right).
+	\end{multline*}
+	Введем замену $\cos m \phi\cdot  P_n^{(m)}(\cos \theta) = Y_n^{(m)}(\phi,\theta)$. Причем учтем, что получившиеся функции $Y_n^{(m)}(\phi,\theta)$ являются сферическими функциями. Для сферических функций справедливо соотношение
+	\begin{equation}
+		\Lambda Y_n^{(m)}(\phi,\theta) +n(n+1)Y_n^{(m)}(\phi,\theta)  = 0,\ \Lambda = \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(\sin \theta \dfrac{\d}{\d \theta}\right) + \dfrac{1}{\sin ^2 \phi}\cdot \dfrac{\d^2}{\d \phi^2}.
+	\end{equation} Тогда после замены неоднородность можно переписать в виде
+	\begin{multline}
+	11r^6\cos ^4 \theta \sin^4 \theta (\cos 4\phi - \sin^2\phi) = r^6 \left(-\dfrac{64}{585}Y_8^{(0)} + \dfrac{16}{315}Y_6^{(0)} + \dfrac{148}{455}Y_4^{(0)} - \dfrac{8}{63}Y_2^{(0)}-\dfrac{44}{315}Y_0^{(0)} \right) + \\ + r^6 \left( -\dfrac{8}{4095}Y_8^{(2)} + \dfrac{11}{455}Y_4^{(2)} + \dfrac{1}{21}Y_2^{(2)}\right)+ r^6  \left(\dfrac{8}{61425}Y_8^{(4)} + \dfrac{4}{4725}Y_6^{(4)} + \dfrac{1}{455}Y_4^{(4)}\right).
+	\end{multline}
+	Решение задачи (3) будем искать в виде
+	\begin{multline}
+		v(r,\theta,\phi) = Z_1(r)Y_8^{(0)} + Z_2(r)Y_6^{(0)} + Z_3(r)Y_4^{(0)} + Z_4(r)Y_2^{(0)} + Z_5(r)Y_0^{(0)} +\\+ Z_6(r)Y_8^{(2)} + Z_7(r)Y_4^{(2)} + Z_8(r)Y_2^{(2)} + Z_9(r)Y_8^{(4)} + Z_{10}(r)Y_6^{(4)} + Z_{11}(r)Y_4^{(4)}.
+	\end{multline}
+	В силу того, что оператор Лапласа в сферических координатах имеет вид
+	$$\Delta v = \dfrac{1}{r^2}\cdot \dfrac{\d}{\d r}(r^2 v_r) + \dfrac1{r^2\sin \theta} \cdot \dfrac{\d }{\d \theta}(v_\theta \sin \theta) + \dfrac{v_{\phi \phi}}{r^2 \sin^2 \phi},$$
+	то, подставляя выражение (13) в уравнение задачи (3), получим
+	\begin{gather*}
+		\Delta v = \dfrac{Y_8^{(0)}}{r^2}(2r Z_1' + r^2 Z_1'') + \dfrac {Z_1}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{8_{\theta}}^{(0)}\sin \theta \right) + \dfrac{Y_{8_{\phi \phi }}^{(0)}}{\sin ^2 \phi}\right) + \\ + \dfrac{Y_6^{(0)}}{r^2}(2r Z_2' + r^2 Z_2'') + \dfrac {Z_2}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{6_{\theta}}^{(0)}\sin \theta \right) + \dfrac{Y_{6_{\phi \phi }}^{(0)}}{\sin ^2 \phi}\right) + \\ + \dfrac{Y_4^{(0)}}{r^2}(2r Z_3' + r^2 Z_3'') + \dfrac {Z_3}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{4_{\theta}}^{(0)}\sin \theta \right) + \dfrac{Y_{4_{\phi \phi }}^{(0)}}{\sin ^2 \phi}\right) + \\ + \dfrac{Y_2^{(0)}}{r^2}(2r Z_4' + r^2 Z_4'') + \dfrac {Z_4}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{2_{\theta}}^{(0)}\sin \theta \right) + \dfrac{Y_{2_{\phi \phi }}^{(0)}}{\sin ^2 \phi}\right) + \\ + \dfrac{Y_0^{(0)}}{r^2}(2r Z_5' + r^2 Z_5'') + \dfrac {Z_5}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{0_{\theta}}^{(0)}\sin \theta \right) + \dfrac{Y_{0_{\phi \phi }}^{(0)}}{\sin ^2 \phi}\right) + \\ +\dfrac{Y_8^{(2)}}{r^2}(2r Z_6' + r^2 Z_6'') + \dfrac {Z_6}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{8_{\theta}}^{(2)}\sin \theta \right) + \dfrac{Y_{8_{\phi \phi }}^{(2)}}{\sin ^2 \phi}\right) + \\ +\dfrac{Y_4^{(2)}}{r^2}(2r Z_7' + r^2 Z_7'') + \dfrac {Z_7}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{4_{\theta}}^{(2)}\sin \theta \right) + \dfrac{Y_{4_{\phi \phi }}^{(2)}}{\sin ^2 \phi}\right) +
+		\end{gather*}
+		\begin{gather*}
+		+\dfrac{Y_2^{(2)}}{r^2}(2r Z_8' + r^2 Z_8'') + \dfrac {Z_8}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{2_{\theta}}^{(2)}\sin \theta \right) + \dfrac{Y_{2_{\phi \phi }}^{(2)}}{\sin ^2 \phi}\right) + \\ + \dfrac{Y_8^{(4)}}{r^2}(2r Z_9' + r^2 Z_9'') + \dfrac {Z_9}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{8_{\theta}}^{(4)}\sin \theta \right) + \dfrac{Y_{8_{\phi \phi }}^{(4)}}{\sin ^2 \phi}\right) + \\ + \dfrac{Y_6^{(4)}}{r^2}(2r Z_{10}' + r^2 Z_{10}'') + \dfrac {Z_{10}}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{6_{\theta}}^{(4)}\sin \theta \right) + \dfrac{Y_{6_{\phi \phi }}^{(4)}}{\sin ^2 \phi}\right) + \\ + \dfrac{Y_4^{(4)}}{r^2}(2r Z_{11}' + r^2 Z_{11}'') + \dfrac {Z_{11}}{r^2}\left( \dfrac{1}{\sin \theta}\cdot \dfrac {\d}{\d \theta}\left(Y_{4_{\theta}}^{(4)}\sin \theta \right) + \dfrac{Y_{4_{\phi \phi }}^{(4)}}{\sin ^2 \phi}\right) = \\ = r^6 \left(-\dfrac{64}{585}Y_8^{(0)} + \dfrac{16}{315}Y_6^{(0)} + \dfrac{148}{455}Y_4^{(0)} - \dfrac{8}{63}Y_2^{(0)}-\dfrac{44}{315}Y_0^{(0)} \right) + \\ + r^6 \left( -\dfrac{8}{4095}Y_8^{(2)} + \dfrac{11}{455}Y_4^{(2)} + \dfrac{1}{21}Y_2^{(2)}\right)+\\+ r^6  \left(\dfrac{8}{61425}Y_8^{(4)} + \dfrac{4}{4725}Y_6^{(4)} + \dfrac{1}{455}Y_4^{(4)}\right).
+		\end{gather*}
+	Тогда мы добавим и отнимем соответствующие значения, чтобы выполнялась формула (12).
+	\begin{gather*}
+		\Delta v = \dfrac{Y_8^{(0)}}{r^2}(2r Z_1' + r^2 Z_1'') + \dfrac {Z_1}{r^2}\left(-72 Y_8^{(0)}\right) + \dfrac{Y_6^{(0)}}{r^2}(2r Z_2' + r^2 Z_2'') + \dfrac {Z_2}{r^2}\left(-42Y_6^{(0)}\right) + \\ + \dfrac{Y_4^{(0)}}{r^2}(2r Z_3' + r^2 Z_3'') + \dfrac {Z_3}{r^2}\left(-20Y_4^{(0)}\right)  + \dfrac{Y_2^{(0)}}{r^2}(2r Z_4' + r^2 Z_4'') + \dfrac {Z_4}{r^2}\left(-6Y_2^{(0)}\right) + \\ + \dfrac{Y_0^{(0)}}{r^2}(2r Z_5' + r^2 Z_5'') +\dfrac{Y_8^{(2)}}{r^2}(2r Z_6' + r^2 Z_6'') + \dfrac {Z_6}{r^2}\left(-72Y_8^{(2)}\right)+ \\ +\dfrac{Y_4^{(2)}}{r^2}(2r Z_7' + r^2 Z_7'') + \dfrac {Z_7}{r^2}\left(-20Y_4^{(2)}\right) 
+		+\dfrac{Y_2^{(2)}}{r^2}(2r Z_8' + r^2 Z_8'') + \dfrac {Z_8}{r^2}\left(-6Y_2^{(2)}\right) + \\ + \dfrac{Y_8^{(4)}}{r^2}(2r Z_9' + r^2 Z_9'') + \dfrac {Z_9}{r^2}\left(-72Y_8^{(4)}\right) + \dfrac{Y_6^{(4)}}{r^2}(2r Z_{10}' + r^2 Z_{10}'') + \dfrac {Z_{10}}{r^2}\left(-42Y_6^{(0)}\right) + \\ + \dfrac{Y_4^{(4)}}{r^2}(2r Z_{11}' + r^2 Z_{11}'') + \dfrac {Z_{11}}{r^2}\left(-20Y_4^{(4)}\right) = \\ = r^6 \left(-\dfrac{64}{585}Y_8^{(0)} + \dfrac{16}{315}Y_6^{(0)} + \dfrac{148}{455}Y_4^{(0)} - \dfrac{8}{63}Y_2^{(0)}-\dfrac{44}{315}Y_0^{(0)} \right) + \\ + r^6 \left( -\dfrac{8}{4095}Y_8^{(2)} + \dfrac{11}{455}Y_4^{(2)} + \dfrac{1}{21}Y_2^{(2)}\right)+\\+ r^6  \left(\dfrac{8}{61425}Y_8^{(4)} + \dfrac{4}{4725}Y_6^{(4)} + \dfrac{1}{455}Y_4^{(4)}\right).
+	\end{gather*}
+	Таким образом, мы можем составить 11 граничных задач для обыкновенных дифференциальных уравнений Эйлера. Будем последовательно составлять и сразу же решать граничные задачи.
+	\begin{equation}
+		\begin{cases}
+			r^2Z_1'' + 2rZ_1' - 72 Z_1 = -\dfrac{64}{585}r^8,\\
+			Z_1(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_1(r) = C_1 r^8,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_1(r) = Cr^8\ln r,$$
+	подставляя, получим
+	$$2 Cr^8 + 8Cr^8 + 7 Cr^8 =  -\dfrac{64}{585}r^8,$$
+	откуда
+	$$C = -\dfrac{64}{9945}.$$
+	Таким образом,
+	$$Z_1(r) = C_1 r^8 -\dfrac{64}{9945} r^8\ln r.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_1(3) = C_1 3^8 -\dfrac{64}{9945} 3^8\ln 3 = 0,$$
+	откуда
+	$$C_1 = \dfrac{64}{9945}\ln 3.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_1(r) = \dfrac{64}{9945}r^8 (\ln 3 -\ln r).
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			r^2Z_2'' + 2rZ_2' - 42 Z_2 = \dfrac{16}{315}r^8,\\
+			Z_2(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_2(r) = C_1 r^6,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_2(r) = Cr^8,$$
+	подставляя, получим
+	$$56 Cr^8 + 16Cr^8 -42 Cr^8 = 30Cr^8=  \dfrac{16}{315}r^8,$$
+	откуда
+	$$C = \dfrac{8}{4725}.$$
+	Таким образом,
+	$$Z_2(r) = C_1 r^6 +\dfrac{8}{4725} r^8.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_2(3) = C_1 3^6 +\dfrac{8}{4725} 3^8 = 0,$$
+	откуда
+	$$C_1 = -\dfrac{8}{4725}3^2.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_2(r) = \dfrac{8}{4725}r^6 (r^2 -3^2).
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			r^2Z_3'' + 2rZ_3' - 20 Z_3 = \dfrac{148}{455}r^8,\\
+			Z_3(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_3(r) = C_1 r^4,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_3(r) = Cr^8,$$
+	подставляя, получим
+	$$56 Cr^8 + 16Cr^8 -20 Cr^8 = 52Cr^8=  \dfrac{148}{455}r^8,$$
+	откуда
+	$$C = \dfrac{37}{5915}.$$
+	Таким образом,
+	$$Z_3(r) = C_1 r^4 + \dfrac{37}{5915} r^8.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_3(3) = C_1 3^4 + \dfrac{37}{5915} 3^8 = 0,$$
+	откуда
+	$$C_1 = - \dfrac{37}{5915} 3^4.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_3(r) =\dfrac{37}{5915}r^4 (r^4 -3^4).
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			r^2Z_4'' + 2rZ_4' - 6 Z_3 = -\dfrac{8}{63}r^8,\\
+			Z_4(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_4(r) = C_1 r^2,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_4(r) = Cr^8,$$
+	подставляя, получим
+	$$56 Cr^8 + 16Cr^8 -6 Cr^8 = 66Cr^8= -\dfrac{8}{63}r^8,$$
+	откуда
+	$$C = -\dfrac{4}{2079}.$$
+	Таким образом,
+	$$Z_4(r) = C_1 r^2 -\dfrac{4}{2079} r^8.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_4(3) = C_1 3^2 -\dfrac{4}{2079} 3^8 = 0,$$
+	откуда
+	$$C_1 = \dfrac{4}{2079} 3^6.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_4(r) =\dfrac{4}{2079}r^2 (3^6 -r^6).
+	\end{equation}
+		\begin{equation}
+		\begin{cases}
+			r^2Z_5'' + 2rZ_5' = -\dfrac{44}{315}r^8,\\
+			Z_5(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_5(r) = C_1,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_5(r) = Cr^8,$$
+	подставляя, получим
+	$$56 Cr^8 + 16Cr^8 = 72Cr^8= -\dfrac{44}{315}r^8,$$
+	откуда
+	$$C = -\dfrac{11}{5670}.$$
+	Таким образом,
+	$$Z_5(r) = C_1 -\dfrac{11}{5670} r^8.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_5(3) = C_1 -\dfrac{11}{5670} 3^8 = 0,$$
+	откуда
+	$$C_1 = \dfrac{11}{5670} 3^8.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_5(r) =\dfrac{11}{5670} (3^8 -r^8).
+	\end{equation}
+		\begin{equation}
+		\begin{cases}
+			r^2Z_6'' + 2rZ_6' - 72 Z_6 = -\dfrac{8}{4095}r^8,\\
+			Z_4(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_6(r) = C_1 r^8 ,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_6(r) = Cr^8\ln r,$$
+	подставляя, получим
+	$$2 Cr^8 + 8Cr^8 +7 Cr^8 = 17Cr^8= -\dfrac{8}{4095}r^8,$$
+	откуда
+	$$C = -\dfrac{8}{69615}.$$
+	Таким образом,
+	$$Z_6(r) = C_1 r^8  -\dfrac{8}{69615} r^8\ln r.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_6(3) = C_1 3^8-\dfrac{8}{69615} 3^8\ln 3 = 0,$$
+	откуда
+	$$C_1 = \dfrac{8}{69615} \ln 3.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_6(r) =\dfrac{8}{69615}r^8 (\ln 3 -\ln r).
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			r^2Z_7'' + 2rZ_7' - 20 Z_7 = \dfrac{11}{455}r^8,\\
+			Z_7(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_7(r) = C_1 r^4,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_7(r) = Cr^8,$$
+	подставляя, получим
+	$$56 Cr^8 + 16Cr^8 -20 Cr^8 = 52Cr^8= \dfrac{11}{455}r^8,$$
+	откуда
+	$$C = \dfrac{11}{23660}.$$
+	Таким образом,
+	$$Z_7(r) = C_1 r^4 + \dfrac{11}{23660} r^8.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_7(3) = C_1 3^4 +  \dfrac{11}{23660} 3^8 = 0,$$
+	откуда
+	$$C_1 = -  \dfrac{11}{23660} 3^4.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_7(r) = \dfrac{11}{23660} r^4 (r^4 -3^4).
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			r^2Z_8'' + 2rZ_8' - 6 Z_8 = \dfrac{1}{21}r^8,\\
+			Z_8(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_8(r) = C_1 r^2,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_8(r) = Cr^8,$$
+	подставляя, получим
+	$$56 Cr^8 + 16Cr^8 -6 Cr^8 = 66Cr^8= \dfrac{1}{21}r^8,$$
+	откуда
+	$$C = \dfrac{1}{1386}.$$
+	Таким образом,
+	$$Z_8(r) = C_1 r^2 +\dfrac{1}{1386} r^8.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_8(3) = C_1 3^2 +\dfrac{1}{1386} 3^8 = 0,$$
+	откуда
+	$$C_1 = -\dfrac{1}{1386} 3^6.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_8(r) =\dfrac{1}{1386}r^2 (r^6 -3^6).
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			r^2Z_9'' + 2rZ_9' - 72 Z_9 = \dfrac{8}{61425}r^8,\\
+			Z_9(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_9(r) = C_1 r^8,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_9(r) = Cr^8\ln r,$$
+	подставляя, получим
+	$$2 Cr^8 + 8Cr^8 + 7 Cr^8 = \dfrac{8}{61425}r^8,$$
+	откуда
+	$$C = \dfrac{8}{1044225}.$$
+	Таким образом,
+	$$Z_9(r) = C_1 r^8 + \dfrac{8}{1044225} r^8\ln r.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_9(3) = C_1 3^8 + \dfrac{8}{1044225} 3^8\ln 3 = 0,$$
+	откуда
+	$$C_1 = - \dfrac{8}{1044225}\ln 3.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_9(r) =  \dfrac{8}{1044225}r^8 (\ln r - \ln 3).
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			r^2Z_{10}'' + 2rZ_{10}' - 42 Z_{10} = \dfrac{4}{4725}r^8,\\
+			Z_{10}(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_{10}(r) = C_1 r^6,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_{10}(r) = Cr^8,$$
+	подставляя, получим
+	$$56 Cr^8 + 16Cr^8 -42 Cr^8 = 30Cr^8= \dfrac{4}{4725}r^8,$$
+	откуда
+	$$C = \dfrac{2}{70875}.$$
+	Таким образом,
+	$$Z_{10}(r) = C_1 r^6 + \dfrac{2}{70875} r^8.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_{10}(3) = C_1 3^6 + \dfrac{2}{70875} 3^8 = 0,$$
+	откуда
+	$$C_1 = - \dfrac{2}{70875}3^2.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_{10}(r) =  \dfrac{2}{70875}r^6 (r^2 -3^2).
+	\end{equation}
+	\begin{equation}
+		\begin{cases}
+			r^2Z_{11}'' + 2rZ_{11}' - 20 Z_{11} = \dfrac{1}{455}r^8,\\
+			Z_{11}(3) = 0.
+		\end{cases}
+	\end{equation}
+	Общее решение дифференциального уравнения имеет вид
+	$$Z^{\text{оо}}_{11}(r) = C_1 r^4,$$
+	а частное решение ищем в виде
+	$$Z^{\text{чн}}_{11}(r) = Cr^8,$$
+	подставляя, получим
+	$$56 Cr^8 + 16Cr^8 -20 Cr^8 = 52Cr^8=  \dfrac{1}{455}r^8,$$
+	откуда
+	$$C = \dfrac{1}{23660}.$$
+	Таким образом,
+	$$Z_{11}(r) = C_1 r^4 + \dfrac{1}{23660} r^8.$$
+	Подставим в это решение граничное условие и найдем значение $C_1$:
+	$$Z_{11}(3) = C_1 3^4 + \dfrac{1}{23660} 3^8 = 0,$$
+	откуда
+	$$C_1 = - \dfrac{1}{23660} 3^4.$$
+	В итоге решение граничной задачи имеет вид
+	\begin{equation}
+		Z_{11}(r) =\dfrac{1}{23660}r^4 (r^4 -3^4).
+	\end{equation}
+	Все найденные функции $Z_i(r)$ позволяют нам записать итоговую формулу решения задачи (3)
+	\begin{multline*}
+		v(r,\theta,\phi) = \dfrac{64}{9945}r^8 (\ln 3 -\ln r)P_8^{(0)}(\cos \theta)
+		+  \dfrac{8}{4725}r^6 (r^2 -3^2)P_6^{(0)}(\cos \theta) +\\+ \dfrac{37}{5915}r^4 (r^4 -3^4)P_4^{(0)}(\cos \theta) + \dfrac{4}{2079}r^2 (3^6 -r^6)P_2^{(0)}(\cos \theta) + \dfrac{11}{5670} (3^8 -r^8)P_0^{(0)}(\cos\theta) +\\+ \Big[\dfrac{8}{69615}r^8 (\ln 3 -\ln r)P_8^{(2)}(\cos\theta) + \dfrac{11}{23660} r^4 (r^4 -3^4)P_4^{(2)}(\cos \theta) +\\+ \dfrac{1}{1386}r^2 (r^6 -3^6)P_2^{(2)}(\cos \theta)\Big] \cos2\phi + \Big[\dfrac{8}{1044225}r^8 (\ln r - \ln 3)P_8^{(4)}(\cos \theta) + \\ + \dfrac{2}{70875}r^6 (r^2 -3^2)P_6^{(4)}(\cos \theta) + \dfrac{1}{23660}r^4 (r^4 -3^4)P_4^{(4)}(\cos \theta)\Big]\cos 4 \phi.
+	\end{multline*}
+	Таким образом, решение задачи (1) будет иметь вид
+	\begin{multline*}
+		u(r,\theta,\phi) =  \left[\dfrac{8}{56133}r^6 P_6^{(0)}(\cos\theta ) - \dfrac{4}{1485}r^4 P_4^{(0)}(\cos\theta ) + \dfrac{4}{35}P_0^{(0)}(\cos\theta )\right] +\\+ \left[\dfrac{16}{2525985}r^6 P_6^{(2)}(\cos\theta ) -\dfrac{4}{18711}r^4P_4^{(2)}(\cos\theta ) - \dfrac{4}{567}r^2 P_2^{(2)}(\cos\theta )\right]\cos 2 \phi+\\+ \left[\dfrac{1}{7577955}r^6 P_6^{(4)}(\cos\theta ) + \dfrac{1}{187110}r^4 P_4^{(4)}(\cos\theta )\right]\cos 4 \phi + \\ +\dfrac{64}{9945}r^8 (\ln 3 -\ln r)P_8^{(0)}(\cos \theta)
+		+  \dfrac{8}{4725}r^6 (r^2 -3^2)P_6^{(0)}(\cos \theta) +\\+ \dfrac{37}{5915}r^4 (r^4 -3^4)P_4^{(0)}(\cos \theta) + \dfrac{4}{2079}r^2 (3^6 -r^6)P_2^{(0)}(\cos \theta) + \dfrac{11}{5670} (3^8 -r^8)P_0^{(0)}(\cos\theta) +\\+ \Big[\dfrac{8}{69615}r^8 (\ln 3 -\ln r)P_8^{(2)}(\cos\theta) + \dfrac{11}{23660} r^4 (r^4 -3^4)P_4^{(2)}(\cos \theta) +\\+ \dfrac{1}{1386}r^2 (r^6 -3^6)P_2^{(2)}(\cos \theta)\Big] \cos2\phi + \Big[\dfrac{8}{1044225}r^8 (\ln r - \ln 3)P_8^{(4)}(\cos \theta) + \\ + \dfrac{2}{70875}r^6 (r^2 -3^2)P_6^{(4)}(\cos \theta) + \dfrac{1}{23660}r^4 (r^4 -3^4)P_4^{(4)}(\cos \theta)\Big]\cos 4 \phi.
+	\end{multline*}
+	Для магнитного потенциала сформулируем задачу следующим образом
+	\begin{equation}
+		\begin{dcases}
+			\Delta v = 0,\\
+			v|_{r=1} = 7\sin \theta \cos^3\theta \cos \phi,\\
+			v|_{r=4}=6\sin^3\theta (\cos \phi  - \sin 3 \phi).
+		\end{dcases}
+	\end{equation}
+	Решение задачи (14) будем искать в виде
+	\begin{equation}
+		v(r,\theta,\phi)=\sumnm \Big[(A_{nm}r^n  + B_{nm}r^{-(n+1)}) \cos m\phi + (C_{nm}r^n  + D_{nm}r^{-(n+1)})\sin m\phi\Big]  \cdot P_n^{(m)}(\cos \theta).
+	\end{equation}
+	Подставим в выражение (15) внутреннее граничное условие
+	\begin{equation*}
+		v|_{r=1}=\sumnm \Big[(A_{nm}  + B_{nm}) \cos m\phi + (C_{nm} + D_{nm})\sin m\phi\Big]  \cdot P_n^{(m)}(\cos \theta) = 7\sin \theta \cos^3\theta \cos \phi.
+	\end{equation*}
+	Отсюда следует, что
+	$$A_{nm}  + B_{nm} = \begin{cases}
+		A_{n1}  + B_{n1},\ m = 1,\\
+		0,\ m\ne 1,
+	\end{cases}\ C_{nm} + D_{nm} = 0\ \forall m.$$
+	Таким образом, можно записать
+	\begin{equation*}
+		v|_{r=1}=\sumn (A_{n1}  + B_{n1})\cos \phi   \cdot P_n^{(1)}(\cos \theta) = 7\sin \theta \cos^3\theta \cos \phi.
+	\end{equation*}
+	Тогда $$\sumn (A_{n1}  + B_{n1}) \cdot P_n^{(1)}(\cos \theta) = 7\sin \theta \cos^3\theta.$$
+	Оценим степени:
+	$$\deg( 7(1-x^2)^{1/2} x^3) = 4,$$
+	$$\deg P_n^{(1)}(x) = \deg \left(\dfrac{(1-x^2)^{1/2}}{2^n \cdot n!}\cdot \dfrac{d^{n+1}}{dx^{n+1}}(x^2 - 1)^n\right) = 1 + 2n - (n+1) = n \leq 4.$$
+	Таким образом, нужно вычислить все многочлены вида $ P_n^{(1)}(x)$, $n \leq 4$:
+	\begin{align*}
+		&P_1^{(1)}(x) = \sqrt{(1-x^2)},\\
+		&P_2^{(1)}(x) = 3x\sqrt{(1-x^2)},\\
+		&P_3^{(1)}(x) = \dfrac{3}{2}(5x^2-1)\sqrt{(1-x^2)}, \\ &P_4^{(1)}(x) = \dfrac{5}{2}x(7x^2-3)\sqrt{(1-x^2)}.
+	\end{align*} 
+	Тогда
+	\begin{multline*}
+		(A_{41} +B_{41}) P_4^{(1)}(\cos \theta) + (A_{31} +B_{31}) P_3^{(1)}(\cos \theta) + (A_{21} +B_{21}) P_2^{(1)}(\cos \theta) +\\+ (A_{11} +B_{11}) P_1^{(1)}(\cos \theta) = 7\cos^3 \theta \sin \theta.
+	\end{multline*}
+	Тогда для получения выражений на коэффициенты нам нужно представить правую часть в виде линейной комбинации многочленов Лежандра вида $P_n^{(1)}(x)$. Путем подбора можно получить
+	$$7\cos^3 \theta \sin \theta = \dfrac 25 P_4^{(1)} +  P_2^{(1)}.$$
+	Отсюда получаем условия на коэффициенты
+	$$\begin{dcases}
+		A_{41} +B_{41} = \dfrac 25,\\
+		A_{21} +B_{21} = 1.
+	\end{dcases}$$
+	Подставим выражение (15) во внешнее граничное условие
+	\begin{multline*}
+		v|_{r=4}=\sumnm \Big[(A_{nm}4^n  + B_{nm}4^{-(n+1)}) \cos m\phi + (C_{nm}4^n + D_{nm}4^{-(n+1)})\sin m\phi\Big]  \cdot P_n^{(m)}(\cos \theta)=\\ = 6\sin^3\theta (\cos \phi  - \sin 3 \phi).
+	\end{multline*}
+	Отсюда, оценивая ненулевые коэффициенты при соответствующих значениях $\cos m\phi$, $\sin m \phi$, получаем, что
+	\begin{multline*}
+		v|_{r=4}=\sumn (A_{n1}4^n  + B_{n1}4^{-(n+1)})  \cdot P_n^{(1)}(\cos \theta)\cos \phi  + \\+ \sumn (C_{n3}4^n  + D_{n3}4^{-(n+1)})  \cdot P_n^{(3)}(\cos \theta)\sin3 \phi  = 6\sin^3\theta (\cos \phi  - \sin 3 \phi).
+	\end{multline*}
+	Отсюда получаем два выражения
+	\begin{equation}
+		\sumn (A_{n1}4^n  + B_{n1}4^{-(n+1)})  \cdot P_n^{(1)}(\cos \theta) = 6\sin^3\theta,
+	\end{equation}
+	\begin{equation}
+		 \sumn (C_{n3}4^n  + D_{n3}4^{-(n+1)})  \cdot P_n^{(3)}(\cos \theta) = -6\sin^3\theta.
+	\end{equation}
+	Рассмотрим разложение (16). Оценим степени
+	$$\deg( 6(1-x^2)^{3/2}) = 3,$$
+	$$\deg P_n^{(1)}(x)= n \leq 3.$$
+	Таким образом, нам нужно взять многочлены 
+	\begin{align*}
+		&P_1^{(1)}(x) = \sqrt{(1-x^2)},\\
+		&P_2^{(1)}(x) = 3x\sqrt{(1-x^2)},\\
+		&P_3^{(1)}(x) = \dfrac{3}{2}(5x^2-1)\sqrt{(1-x^2)}.
+	\end{align*} 
+	Тогда разложение (16) может быть записано как
+	\begin{multline*}
+		(A_{31}4^3 + B_{31}4^{-4})  P_3^{(1)}(\cos \theta) + (A_{21}4^2 + B_{21}4^{-3})  P_2^{(1)}(\cos \theta) +\\+ (A_{11}4 + B_{11}4^{-2})  P_1^{(1)}(\cos \theta) = 6\sin^3 \theta. 
+	\end{multline*}
+	Для задания условий на коэффициенты выразим правую часть в виде линейной комбинации многочленов Лежандра вида $P_n^{(1)}(\cos \theta)$. Путем подбора можно определить, что
+	$$6\sin^3 \theta = -\dfrac45 P_3^{(1)}+\dfrac{24}{5}P_{1}^{(1)}.$$
+	Таким образом, условия на коэффициенты будут следующими
+	$$\begin{dcases}
+		A_{31}4^3 + B_{31}4^{-4} =-\dfrac 45,\\
+		A_{11}4 + B_{11}4^{-2} = \dfrac{24}{5}.
+	\end{dcases}$$
+	Рассмотрим разложение (17). Оценим степени
+	$$\deg( -6(1-x^2)^{3/2}) = 3,$$
+	$$\deg P_n^{(3)}(x) = \deg \left(\dfrac{(1-x^2)^{3/2}}{2^n \cdot n!}\cdot \dfrac{d^{n+3}}{dx^{n+3}}(x^2 - 1)^n\right) = 3 + 2n - (n+3) = n \leq 3.$$
+	Таким образом, нам нужно взять многочлен
+	$$P_3^{(3)}(x) = 15 (1-x^2)^{3/2}.$$
+	Тогда разложение (17) может быть записано как
+	$$(C_{33}4^3 + D_{33}4^{-4})P_3^{(3)}(\cos \theta) = -6\sin^3 \theta.$$
+	Для задания условия на коэффициент, представим правую часть как
+	$$-6 \sin^3 \theta = -\dfrac 2 5 P_3^{(3)}(\cos\theta).$$
+	Таким образом,
+	$$C_{33}4^3 + D_{33}4^{-4} = -\dfrac 2 5.$$
+	С учетом того, что все остальные суммы коэффициентов равны нулю, мы можем дополнить все наши условия на коэффициенты дополнительными условиями и получить 4 системы уравнений для коэффициентов:
+		$$\begin{dcases}
+		A_{41} +B_{41} = \dfrac 25,\\
+		A_{41}4^4 + B_{41}4^{-5} = 0,
+	\end{dcases}$$
+	$$\begin{dcases}
+		A_{21} +B_{21} = 1,\\
+		A_{21}4^2 +B_{21}4^{-3} = 0,
+	\end{dcases}$$
+	$$\begin{cases}
+		A_{31}4^3 + B_{31}4^{-4} =-\dfrac 45,\\
+		A_{31} + B_{31} = 0,
+	\end{cases}$$
+	$$\begin{dcases}
+		A_{11}4 + B_{11}4^{-2} = \dfrac{24}{5},\\
+		A_{11} + B_{11}=0,
+	\end{dcases}$$
+	$$\begin{dcases}
+		C_{33}4^3 + D_{33}4^{-4} = -\dfrac 2 5,\\
+		C_{33} + D_{33} = 0.
+	\end{dcases}$$
+	С помощью Wolfram Mathematica найдем решения систем. Таким образом
+	$$A_{41} = -\dfrac{2}{1310715},\ B_{41} = \dfrac{524288}{1310715},\ A_{21} = -\dfrac{1}{1023},\ B_{21} = \dfrac{1024}{1023}, \ A_{31} = -\dfrac{1024}{81915},\ B_{31} = \dfrac{1024}{81915},
+	$$ $$A_{11}=\dfrac{128}{105},\ B_{11}=-\dfrac{128}{105},\ C_{33} = -\dfrac{512}{81915},\ D_{33}=\dfrac{512}{81915}.$$
+	В итоге мы можем записать решение задачи (14)
+	\begin{multline*}
+		v(r,\theta,\phi) = \Big[\left(-\dfrac{2}{1310715} \cdot r^4 +  \dfrac{524288}{1310715} \cdot r^{-5}\right)\cdot P_4^{(1)}(\cos \theta) +\\+ \left(-\dfrac{1024}{81915}\cdot r^3 +\dfrac{1024}{81915}\cdot r^{-4} \right)P_3^{(1)}(\cos \theta) + \left(-\dfrac{1}{1023}\cdot r^2 +\dfrac{1024}{1023} r^{-3} \right)P_2^{(1)}(\cos \theta) +\\+ \left(\dfrac{128}{105} \cdot r + -\dfrac{128}{105}\cdot r^{-2} \right)P_1^{(1)}(\cos \theta)\Big]\cos \phi + \left(-\dfrac{512}{81915}\cdot r^3 + \dfrac{512}{81915} r^{-4} \right)P_3^{(3)}(\cos \theta)\sin 3\phi.
+	\end{multline*}
+	\end{document}
+
+
+
+
