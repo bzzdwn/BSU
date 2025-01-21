@@ -1,0 +1,423 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\setcounter{MaxMatrixCols}{11}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\boxtimes$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\d}{\partial}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\sigma}{\upsigma}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+\begin{document}
+	% Оформление титульного листа
+	\begin{titlepage}
+		\begin{center}
+			\textsc{МИНИСТЕРСТВО ОБРАЗОВАНИЯ РЕСПУБЛИКИ БЕЛАРУСЬ БЕЛОРУССКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ
+				\\[5mm]
+				Факультет прикладной математики и информатики\\[2mm]
+				Кафедра вычислительной математики
+			}
+			
+			\vfill
+			
+			\textbf{Лабораторная работа №4
+				\\[3mm]
+				«Разностная схема для уравнения теплопроводности»\\[6mm]
+				Вариант 4
+				\\[20mm]
+			}
+		\end{center}
+		
+		\hfill
+		\begin{minipage}{.4\textwidth}
+			Выполнила:\\[2mm] 
+			Гут Валерия Александровна\\
+			студентка 4 курса 7 группы\\[5mm]
+			
+			Преподаватель:\\[2mm] 
+			Репников Василий Иванович
+		\end{minipage}%
+		\vfill
+		\begin{center}
+			Минск, 2024\ г.
+		\end{center}
+	\end{titlepage}
+	
+	\newpage
+	\section*{Постановка задачи 1}
+	Поставлена третья краевая задача для уравнения теплопроводности с постоянными коэффициентами
+	\begin{equation}
+		\begin{cases}
+			\dfrac{\d u}{\d t} = \dfrac{\d ^2 u}{\d x^2} + \sqrt 2\sin \left(\dfrac \pi 4  + x + t\right),\ t>0,\ 0 < x < 1,\\
+			u(x,0) = \sin x,\ 0 \leq x \leq 1,\\
+			\dfrac{\d u(0,t)}{\d x} - 2u(0, t) = \cos t - 2 \sin t,\ t\geq 0\\ 
+			u(1,t) = \sin(t+1),\ t\geq 0.
+		\end{cases}
+	\end{equation}
+	\section*{Построение разностной схемы}
+	Сперва проверим корректную постановку данной дифференциальной задачи, для чего рассмотрим условия согласования:
+	$$\dfrac{\d \sin x}{\d x} - 2\sin x|_{x=0} = 1 = \cos t - 2\sin t|_{t = 0},$$
+	$$\cos x|_{x=1} = \sin 1 = \sin(t+1)|_{t=0}.$$
+	Таким образом, условия согласования выполнены. Также для данной задачи выполняется принцип максимума, который позволяет заключить, что если решение задачи существует, то оно единственно. Следовательно, дифференциальная задача является корректно поставленной.\\\\
+	Поставленная дифференциальная задача имеет точное решение $$u(x,t) = \sin(x+t).$$
+	Зададим равномерную по каждому направлению сетку
+	$$\overline\omega_{h\tau} = \overline \omega_h \times \overline \omega_\tau,\ \overline \omega_h = \{x_k = kh,\ k = \overline{0,N},\ Nh = 1\}, \ \overline \omega_\tau = \{t_j = j\tau,\ j=\overline{0,N_1},\ N_1\tau=T\}.$$
+	На этой сетке зададим шеститочечный шаблон
+	$$
+		\includegraphics[scale=0.3]{images/img_5}
+	$$
+	Используя данный шаблон и заменяя дифференциальные операторы разностными, можем записать разностную схему для поставленной задачи в бензиндексной форме
+	\begin{equation}
+		\begin{cases}
+			y_t = \Lambda(\sigma \hat y + (1-\sigma)y)+\varphi,\ (x,t)\in \omega_{h\tau},\\
+			y(x,0) = \sin x,\ x \in \overline \omega_h,\\
+			y_x^{(\sigma)}(0,t) = 2y^{(\sigma)}(0,t) + \dfrac h2 y_t(0,t) - \tilde \mu_0(t),\ t \in \overline \omega_\tau,\\ 
+			y(1,t) = \sin(t+1),\ t \in \overline \omega_\tau.
+		\end{cases}
+	\end{equation}
+	Здесь $$\Lambda y = y_{\overline x x},\ \hat y = y(x, t+\tau),$$
+	$\sigma$ -- это параметр, а $\varphi$ и $\tilde\mu_0(t)$ -- это сеточные функция, аппроксимирующая функции $f$ и $\mu_0(t)$ соответственно, определенную в задаче (1).
+	\section*{Исследование аппроксимации и устойчивости разностной схемы}
+	\subsection*{Аппроксимация разностного уравнения}
+	Исследуем погрешность $\psi(x,t)$ аппроксимации разностного уравнения.
+	Для упрощения записи будем обозначать
+	$$\dot u = \dfrac{\d u(x,t)}{\d t},\ u' =\dfrac{\d u(x,t)}{\d x}.$$ 
+	Берем любую точку сетки $(x,t)$ и рассматриваем величину $\psi(x,t)$ в этой точке
+	\begin{multline*}
+		\psi(x,t) = \varphi + \sigma \left(\hat u '' + \dfrac{h^2}{12}\hat u '''' + O(h^4) \right) + (1-\sigma)\left(u'' + \dfrac {h^2}{12} u'''' + O(h^4)\right) - \left(\dot u + \dfrac \tau 2 \ddot u + O(\tau^2) \right)=\\
+		= \varphi + \sigma \left(u'' + \tau \dot u '' + \dfrac {h^2}{12} u'''' + O(\tau^2 + h^4)\right) + (1-\sigma) \left(u'' + \dfrac{h^2}{12} u'''' + O(h^4)\right) - (\dot u - \dfrac \tau 2 \ddot u + O(\tau^2)) = \\=
+		\varphi + (u'' - \dot u) + \sigma \tau \dot u '' + \dfrac {h^2}{12} u''' - \dfrac \tau 2 \ddot u + O(\tau^2 + h^4).
+	\end{multline*}
+	Учтем вид дифференциального оператора. По условию
+	$$\dot u = u'' + f,\ \ddot u = \dot u '' + \dot f,\ \dot u '' = u'''' + f'',$$
+	тогда получим выражение для аппроксимации разностной схемы
+	$$\psi(x,t) = \varphi - f + \tau \dot u''\left(\sigma - \dfrac 12 + \dfrac {h^2}{12\tau}\right) - \dfrac \tau 2 \dot f - \dfrac{h^2}{12}f'' + O(\tau^2 + h^4).$$
+	\subsection*{Аппроксимация граничного условия}
+	Исследуем погрешность аппроксимации левого граничного условия
+	\begin{equation*}
+		\nu(0,t) = u_x^{(\sigma)}(0,t) - \beta_0 u^{(\sigma)}(0,t) - \dfrac h2 u_t(0,t) + \tilde \mu_0(t).
+	\end{equation*}
+	Так как
+	\[
+	u^{(\sigma)}(0, t) = \sigma u(0, t + \tau) + (1 - \sigma) u(0, t) = \sigma \left[ u(0, t) + \tau \dot{u}(0, t) + O(\tau^2) \right] + (1 - \sigma) u(0, t) =
+	\]
+	\[
+	= u(0, t) + \sigma \tau \dot{u}(0, t) + O(\tau^2),
+	\]
+	то
+	\[
+	u^{(\sigma)}_x(0, t) = u'(0, t) + \frac{h}{2} u''(0, t) + \frac{h^2}{6} u'''(0, t) + \frac{h^3}{24} u^{(IV)}(0, t) + O(h^4) +
+	\]
+	\[
+	+ \sigma \tau \left[ u'(0, t) + \frac{h}{2} u''(0, t) + O(h^2) \right] + O(\tau^2)
+	\]
+	и, следовательно,
+	\[
+	\nu(0, t) = u'(0, t) + \frac{h}{2} u''(0, t) + \frac{h^2}{6} u'''(0, t) + \frac{h^3}{24} u^{(IV)}(0, t) + O(h^4) + \sigma \tau \left[ u'(0, t) + \frac{h}{2} u''(0, t) + O(h^2) \right] +
+	\]
+	\[
+	+ O(\tau^2) - \beta_0 \left[ u(0, t) + \sigma \tau \dot{u}(0, t) + O(\tau^2) \right] - \left[ \frac{h}{2} \dot{u}(0, t) + \frac{\tau}{2} \ddot{u}(0, t) + O(\tau^2) \right] + \tilde{\mu}_0(t).
+	\]
+	Тогда, используя выражения из исходного уравнения и граничного условия, получим
+	\[
+	\nu(0, t) = \tilde{\mu}_0(t) + \beta_0 u(0, t) - \mu_0(t) + \frac{h}{2} \left[ \dot{u}(0, t) - f(0, t) \right] + \frac{h^2}{6} \left[ \beta_0 \dot{u}(0, t) - \dot{\mu}_0(t) - f'(0, t) \right] +
+	\]
+	\[
+	+ \frac{h^3}{24} \left[ \ddot{u}(0, t) - f''(0, t) \right] + \sigma \tau \left[ \beta_0 \dot{u}(0, t) - \dot{\mu}_0(t) \right] + \sigma \tau \frac{h}{2} \ddot{u}(0, t) -
+	\]
+	\[
+	- \beta_0 u(0, t) - \beta_0 \sigma \tau \dot{u}(0, t) - \frac{h}{2} \dot{u}(0, t) - \frac{\tau}{2} \cdot \frac{h}{2} \left[ \ddot{u}(0, t) + f'(0, t) \right] + O(\tau^2 + h^4) =
+	\]
+	\[
+	= \tilde{\mu}_0(t) - \mu_0(t) - \frac{h}{2} f(0, t) - \sigma \tau \dot{\mu}_0(t).
+	\]
+	\[
+	+ \frac{h^2}{6} \beta_0 \dot{u}(0, t) - \frac{h^2}{6} \dot{\mu}_0(t) - \frac{h^2}{6} f'(0, t) - \frac{h^3}{24} f''(0, t) + \frac{\tau h}{2} \left( \frac{h^2}{12 \tau} + \sigma - \frac{1}{2} \right) \ddot{u}(0, t) -
+	\]
+	\[
+	- \frac{\tau}{2} \cdot \frac{h}{2} f'(0, t) + O(\tau^2 + h^4).
+	\]
+	\subsection*{Устойчивость по начальным данным}
+	Рассмотрим разностную схему с однородным уравнением
+	\begin{equation}
+		\begin{cases}
+			y_t = \Lambda(\sigma \hat y + (1-\sigma)y),\ (x,t)\in \omega_{h\tau},\\
+			y(x,0) = \sin x,\ x \in \overline \omega_h,\\
+			y_x^{(\sigma)}(0,t) = 2y^{(\sigma)}(0,t) + \dfrac h2 y_t(0,t) - \tilde \mu_0(t),\ t \in \overline \omega_\tau,\\ 
+			y(1,t) = \sin(t+1),\ t \in \overline \omega_\tau.
+		\end{cases}
+	\end{equation}
+	Исследовать данную разностную схему на устойчивость будем методом разделения переменных. Учитывая граничные условия задачи, разложим решение соответствующей этой разностной задачи по собственным функциям $\mu_k(x)$ разностного оператора $\Lambda y = y_{\overline x x}$, которые являются решениями разностной задачи Штурма-Лиувилля
+	\begin{equation*}\begin{dcases}
+		y_{\overline x x} - \lambda y = 0,\\
+		y_x(0)- 2y(0) = 0,\\
+		y(1) = 0.
+		\end{dcases}
+	\end{equation*}
+	или в индексной форме
+	\begin{equation*}
+		\begin{dcases}
+		\dfrac{y_{k+1} - 2y_k + y_{k-1}}{h^2} - \lambda y_k= 0,\ k = \overline{1, N-1},\\
+		\dfrac{y_1 - y_0}{h} - 2y_0 = 0,\\
+		y_N = 0.
+		\end{dcases}
+	\end{equation*}
+	Решение этой разностной задачи можно найти с помощью вычислительных методов алгебры. Нас же интересует ограничение на собственные значения $\lambda_k$, которое мы можем получить, составив характеристическое уравнение для разностного уравнения этой задачи:
+	\begin{equation*}
+		r^2 - (2+\lambda h^2) r + 1 = 0.
+	\end{equation*}
+	Причем при наличии у характеристического уравнения вещественных корней построить нетривиальное решение разностной задачи Штурма-Лиувилля не удается. Поэтому необходимо, чтобы дискриминант этого квадратного уравнения был отрицательным, а следовательно
+	$$\dfrac D 4 = \left(1 - \dfrac{\lambda h^2}{2}\right) - 1 < 0,$$
+	откуда получаем
+	$$\lambda h^2 \left( \dfrac{\lambda h^2}{4} - 1\right) < 0.$$
+	Таким образом, $$\lambda \in \left(0,\ \dfrac{4}{h^2}\right).$$
+	Тогда решение разностной задачи можно представить в виде
+	\begin{equation}
+		y(x,t) = \sum_{k=1}^{N-1}T_k(t)\mu_k(x).
+	\end{equation}
+	Любая гармоника является решением задачи (13) при начальном условии $$u_0(x)= T_k(0)\mu_k(x).$$
+	Подставим выражение (3) в разностное уравнение, тогда получим соотношение
+	\begin{equation*}
+		\sum_{k=1}^{N-1} (T_k)_t \mu_k = \sum_{k=1}^{N-1} (\sigma \hat T_k + (1-\sigma)T_k)\Lambda \mu_k,
+	\end{equation*}
+	при этом, поскольку $\mu_k$ -- это собственные функции разностного оператора $\Lambda$, то
+	$$\Lambda \mu_k = \lambda_k \mu _k.$$
+	Воспользуемся ортонормированностью системы функций $\mu_k$. Тогда из последнего равенства у нас останутся лишь слагаемые, относящиеся скалярному произведению при совпадающих индексах, то есть
+	$$\dfrac{\hat T_k - T_k}{\tau} = -\lambda_k (\sigma \hat T_k + (1-\sigma)T_k),\ k=\overline{1, N-1}.$$
+	Отсюда выразим $T_k$ на верхнем слое через $T_k$ на нижнем слое:
+	\begin{equation}
+		\hat T_k = q_k T_k,\ q_k = \dfrac{1 - (1-\sigma)\lambda_k \tau}{1+\sigma \lambda_k \tau},\ k = \overline {1, N-1}.
+	\end{equation}
+	Как следует из формулы (5) устойчивость $k$-ой гармоники будет иметь место при выполнении неравенства
+	$$|q_k|\leq 1,$$
+	отсюда следует, что 
+	$$\sigma \geq \dfrac 12 - \dfrac{1}{\lambda_k \tau}.$$
+	Нам нужно также оценить то, как себя ведут $\lambda_k$. Для собственных значений $\lambda_k$ справедлива оценка
+	$$\lambda_k \leq \lambda _{N-1} < \dfrac{4}{h^2}.$$
+	Отсюда следует, что 
+	$$-\dfrac{1}{\lambda_k\tau} < -\dfrac{h^2}{4\tau}.$$
+	Тогда условие устойчивости по начальным данным в сеточной норме $L_2$ будет выполняться, если 
+	\begin{equation}
+		\sigma \geq \sigma_0 = \dfrac 12 - \dfrac {h^2}{4\tau}.
+	\end{equation}
+	\subsection*{Устойчивость по правой части}
+	Рассмотрим разностную схему с однородным начальным условием
+	\begin{equation}
+		\begin{cases}
+			y_t = \Lambda(\sigma \hat y + (1-\sigma)y) + \varphi,\ (x,t)\in \omega_{h\tau},\\
+			y(x,0) = 0,\ x \in \overline \omega_h,\\
+			y_x^{(\sigma)}(0,t) = 2y^{(\sigma)}(0,t) + \dfrac h2 y_t(0,t) - \tilde \mu_0(t),\ t \in \overline \omega_\tau,\\ 
+			y(1,t) = \sin(t+1),\ t \in \overline \omega_\tau.
+		\end{cases}
+	\end{equation}
+	Нам нужно исследовать устойчивость задачи (7). Вновь решение будем искать в виде разложения, но у нас также добавится сеточная функция в правой части основного уравнения. Поэтому мы представим эту сеточную функцию в виде разложения по системе базисных функций $\mu_k$
+	$$\varphi(x,t) = \sum_{k=1}^{N-1}\varphi_k(t)\mu_k(x).$$
+	Проделывая те же операции, как и в предыдущем пункте, мы можем получить соотношение между функциями $T_k$ на верхнем слое и на нижнем слое:
+	\begin{equation}
+		\hat T_k = q_k T_k + \dfrac{\tau \varphi_k}{1 + \sigma \lambda_k \tau}.
+	\end{equation}
+	Таким образом, суммируя по гармоникам, мы можем записать решение задачи (7) на верхнем слое
+	$$\hat{{ y}} = \sum_{k=1}^{N-1}\hat T_k \mu_k = \sum_{k=1}^{N-1}q_kT_k\mu_k + \tau \sum_{k=1}^{N-1}\dfrac{\varphi_k}{1 + \sigma \lambda_k \tau}\mu_k.$$
+	Оценим это решение по норме
+	\begin{multline*}
+		\Norm {\hat{{ y}}}\leq \Norm{\sum_{k=1}^{N-1}q_kT_k\mu_k } + \tau \Norm{ \sum_{k=1}^{N-1}\dfrac{\varphi_k}{1 + \sigma \lambda_k \tau}\mu_k} = \left[\Norm{\cdot} = \sqrt{(\cdot, \cdot )}\right]\leq \underset{1\leq k \leq N-1}{\max} |q_k| \left(\sum_{k=1}^{N-1}T_k^2\right)^{1/2} + \\ +
+		\underset{1\leq k \leq N-1}{\max} \dfrac{\tau}{|1+\sigma \lambda_k \tau|} \left(\sum_{k=1}^{N-1}\phi_k^2\right)^{1/2} = \underset{1\leq k \leq N-1}{\max} |q_k|\cdot \Norm{{ y}}  +
+		\underset{1\leq k \leq N-1}{\max} \dfrac{\tau}{|1+\sigma \lambda_k \tau|} \Norm{\phi}.
+	\end{multline*}
+	Если одновременно будут выполняться условия $\sigma \geq \sigma_0$, $\sigma \geq 0$, то будет выполняться $1+\sigma \lambda_k \tau \geq 1$, $\forall k$ и $|q_k|\leq 1$. А тогда 
+	$$\Norm {\hat{{ y}}}\leq\Norm{{ y}} + \tau \Norm{\varphi}.$$
+	Если мы будем суммировать это неравенство по всем временным слоям, то мы получим оценку всего решения на любом слое 
+	$$\Norm{{ {y}}^{j+1}} \leq \Norm{y^0} + \tau \sum_{j'= 0}^j \Norm{\phi^{j'}}.$$
+	Отсюда следует окончательная оценка
+	\begin{equation}
+		\Norm{{ {y}}^{j+1}}\leq \Norm{\phi}_{\omega _{h\tau}}.
+	\end{equation}
+	Условие (9) доказывает устойчивость разностной схемы по правой части при одновременном выполнении условий $\sigma \geq \sigma_0$, $\sigma \geq 0$.
+	\subsection*{Вариации параметра $\sigma$}
+	Из аппроксимации разностного уравнения следует
+	\begin{enumerate}
+		\item Пусть $\sigma$ -- это любое число. Если мы в качестве $\varphi$ выберем
+		$$\varphi = f + O(\tau + h^2),$$ то тогда погрешность аппроксимации будет равна
+		$$\Psi = O(\tau + h^2),\ u(x,t) \in C_2^4 (\overline D).$$
+		\item Пусть $\sigma = \sigma_\alpha = \dfrac 12 + \alpha \dfrac{h^2}{\tau},$ где $\alpha$ -- любое число. Если в этом случае мы возьмем
+		$$\varphi = f + \dfrac \tau 2 \dot f + O(\tau^2 + h^2) = f\left(x,t + \dfrac \tau 2\right) + O(\tau^2 + h^2).$$ Тогда мы получим значение погрешности равное
+		$$\Psi = O(\tau^2 + h^2).$$
+		Таким образом, мы получим семейство схем второго порядка. В частности при $\alpha = 0$ мы получим схему Кранка-Николсона.
+		\item Пусть $\sigma = \sigma_* = \dfrac 12 - \dfrac {h^2}{12\tau}$, то есть мы выбрали $\alpha = - \dfrac {1}{12}$. Если мы возьмем
+		$$\varphi = f + \dfrac \tau 2 \dot f + \dfrac{h^2}{12}f'' + O(\tau^2 + h^4),$$
+		то получим порядок аппроксимации
+		$$\Psi(x,t) = O(\tau^2 + h^4).$$
+	\end{enumerate}
+	Из аппроксимации левого краевого условия
+	\begin{enumerate}
+		\item При любых $\sigma$ и
+		$$\tilde \mu_0(t) = \mu_0(t) + \dfrac h2 f(0,t),$$
+		получим $$\nu(0,t) = O(\tau + h^2).$$
+		\item При любых $\sigma$ и
+		$$\tilde \mu_0(t) = \mu_0(t) + \dfrac h2 f(0,t) + \sigma \tau \dot \mu_0(t),$$
+		получим $$\nu(0,t) = O(\tau^2 + h^2).$$
+		\item При $\sigma = \sigma_* = \dfrac 12 - \dfrac{h^2}{12\tau}$ и 
+		$$\tilde \mu_0(t) = \mu_0(t) + \dfrac h2 f(0,t) + \left(\dfrac \tau 2 + \dfrac {h^2}{12}\right)\dot \mu_0(t) - \dfrac{h^2}{6}\beta_0 y_t(0,t) + \dfrac {h^2}{2}f'(0,t) + \dfrac{h^3}{24}f''(0,t) + \dfrac{\tau h}{4}\dot f(0,t)$$
+		получим $$\nu(0,t) = O(\tau^2 + h^4).$$
+	\end{enumerate}
+	Из условий устойчивости по начальным данным и правойй части
+	\begin{enumerate}
+		\item Если $\sigma = 0$, то схема будет явная и условие устойчивости имеет вид
+		\begin{equation*}
+			\tau \leq \dfrac{h^2}{2}.
+		\end{equation*}
+		\item Если $\sigma \geq \dfrac 12$, то схема устойчива при любых шагах $\tau$ и $h$. В частности при $\sigma = 1$ мы получим чисто неявную схему, которая является абсолютно устойчивой для любых шагов $\tau, h$.
+		\item Если $ 0 < \sigma < \dfrac 12$, то получим оценку устойчивости
+		\begin{equation*}
+			\tau \leq \dfrac{h^2}{2(1-\tau\sigma)}.
+		\end{equation*}
+		\item Если $\sigma = \sigma_\alpha = \dfrac 12 + \alpha \dfrac {h^2}{\tau}$, то для выполнения условия устойчивости нужно взять $\alpha \geq -\dfrac 1 4$. Причем в данном случае схема будет устойчива при любых шагах $\tau$, $h$.
+		\item Если $\sigma = \sigma_* = \dfrac 12 - \dfrac{h^2}{12\tau}$, то схема будет устойчива при любых шагах $\tau$, $h$.
+	\end{enumerate}
+	Таким образом, в итоге 
+	\begin{enumerate}
+		\item при $\sigma = 0$,
+		выбирая
+		$$\varphi = f + O(\tau + h^2),\ \tilde \mu_0(t) = \mu_0(t) + \dfrac h2 f(0,t),$$
+		получим разностную схему порядка аппроксимации
+		$$\Psi (x,t) = O(\tau + h^2)$$
+		и устойчивую при $$\tau \leq \dfrac{h^2}{2};$$
+		\item при $\sigma = 1$, выбирая 
+		$$\varphi = f + O(\tau + h^2),\ \tilde \mu_0(t) = \mu_0(t) + \dfrac h2 f(0,t),$$
+		получим разностную схему порядка аппроксимации
+		$$\Psi (x,t) = O(\tau + h^2)$$
+		и устойчивую при любых шагах $\tau$, $h$;
+		\item при $\sigma = \sigma_\alpha = \dfrac 12 + \alpha \dfrac{h^2}{\tau},$ где $\alpha$ -- любое число, выбирая
+		$$\varphi = f + \dfrac \tau 2 \dot f + O(\tau^2 + h^2) = f\left(x,t + \dfrac \tau 2\right) + O(\tau^2 + h^2),\ \tilde \mu_0(t) = \mu_0(t) + \dfrac h2 f(0,t) + \sigma \tau \dot \mu_0(t),$$ получим разностную схему порядка аппроксимации
+		$$\Psi (x,t) = O(\tau^2 + h^2)$$
+		и устойчивую при любых шагах $\tau$, $h$, если $\alpha\geq - \dfrac 14$;
+		\item при $\sigma = \sigma_* = \dfrac 12 - \dfrac {h^2}{12\tau}$, выбирая
+		$$\varphi = f + \dfrac \tau 2 \dot f + \dfrac{h^2}{12}f'' + O(\tau^2 + h^4), $$
+		$$\tilde \mu_0(t) = \mu_0(t) + \dfrac h2 f(0,t) + \left(\dfrac \tau 2 + \dfrac {h^2}{12}\right)\dot \mu_0(t) - \dfrac{h^2}{6}\beta_0 y_t(0,t) + \dfrac {h^2}{2}f'(0,t) + \dfrac{h^3}{24}f''(0,t) + \dfrac{\tau h}{4}\dot f(0,t),$$
+		получим разностную схему порядка аппроксимации
+		$$\Psi (x,t) = O(\tau^2 + h^4)$$
+		и устойчивую при любых шагах $\tau$, $h$;
+	\end{enumerate}
+	где $$f(x,t) = \sqrt 2\sin \left(\dfrac \pi 4  + x + t\right),\ \mu_0(t) = \cos t - 2\sin t,\ \beta_0 = 2.$$
+	\subsection*{Реализация разностной схемы}
+	Алгоритм реализации будет следующий:
+	\begin{enumerate}
+		\item нулевой слой заполняем по формуле \begin{equation}
+			y_k^0 = \sin (x_k),\ k = \overline {0,N};
+		\end{equation}
+		\item для всех $j = \overline {0, N_1-1}$ будем вычислять $y_k^j$, решая систему линейных алгебраических уравнений с трехдиагональной матрицей, а именно
+		\begin{equation}
+			\begin{dcases}
+				\dfrac{\sigma}{h^2}y_{k-1}^{j+1} - \left(\dfrac{2\sigma}{h^2} + \dfrac 1 \tau\right) y_k^{j+1} + \dfrac {\sigma}{h^2} y_{k+1}^{j+1} = - F_k^j,\ k = \overline {1, N-1},\\
+				\dfrac \sigma h y_1^{j+1} - \left(2\sigma + \dfrac \sigma h + \dfrac{h}{2\tau}\right)y_0^{j+1} = -\dfrac{(1-\sigma)}{h}y_1^j + \left((1-\sigma)\left(\dfrac 1 h + 2\right) - \dfrac{h}{2\tau}\right) y_0^j - \tilde \mu_0(t_{j+1}),\\ y_N^{j+1} = \sin(t_{j+1} + 1),
+			\end{dcases}
+		\end{equation}
+		где $$F_k^j = \dfrac 1 \tau y_k^j + (1-\sigma) \dfrac{y_{k-1}^j - 2 y_k^j + y_{k+1}^j}{h^2} + \varphi_k^j.$$
+	\end{enumerate}
+	Очевидно, что наиболее эффективным методом решения системы (11) будет метод прогонки, а сам он будет устойчивый, что следует из вида коэффициентов.
+	
+	\section*{Постановка задачи 2}
+	Поставлена третья краевая задача для уравнения теплопроводности с непрерывными коэффициентами
+	\begin{equation}
+		\begin{cases}
+			\dfrac{\d u}{\d t} = \dfrac{\d }{\d x}\left((x+t+1)\dfrac{\d u}{\d x}\right) +(x+t+1)\sin(x+t),\ t>0,\ 0 < x < 1,\\
+			u(x,0) = \sin x,\ 0 \leq x \leq 1,\\
+			u(0,t)=\sin t,\ t\geq 0\\ 
+			-\dfrac{\d u(1,t)}{\d x} - u(1,t) = - \sqrt2\sin\left(t+1+\dfrac \pi 4\right),\ t\geq 0.
+		\end{cases}
+	\end{equation}
+	\section*{Построение разностной схемы}
+	Сперва проверим корректную постановку данной дифференциальной задачи, для чего рассмотрим условия согласования:
+	$$\sin x|_{x=0} = 0 = \sin t|_{t=0},$$
+	\begin{multline*}
+		-\dfrac{ \d \sin x}{\d x} - \sin x\Big|_{x=1} = -\cos 1 - \sin 1 = -\sin\left(\dfrac \pi 2 + 1\right)-\sin 1 =\\= -2\sin\left(\dfrac \pi 4 + 1 \right)\cos \dfrac \pi 4= - \sqrt 2 \sin\left(\dfrac \pi 4 + 1\right) = - \sqrt2\sin\left(t+1+\dfrac \pi 4\right)\Big|_{t=0}.
+	\end{multline*}
+	Таким образом, условия согласования выполнены. Также для данной задачи выполняется принцип максимума, который позволяет заключить, что если решение задачи существует, то оно единственно. Следовательно, дифференциальная задача является корректно поставленной.\\\\
+	Поставленная дифференциальная задача имеет точное решение $$u(x,t) = \sin(x+t).$$
+	Зададим равномерную по каждому направлению сетку
+	$$\overline\omega_{h\tau} = \overline \omega_h \times \overline \omega_\tau,\ \overline \omega_h = \{x_k = kh,\ k = \overline{0,N},\ Nh = 1\}, \ \overline \omega_\tau = \{t_j = j\tau,\ j=\overline{0,N_1},\ N_1\tau=T\}.$$
+	На этой сетке зададим шеститочечный шаблон
+	$$
+	\includegraphics[scale=0.3]{images/img_5}
+	$$
+	В соответствии с методом баланса, используя данный шаблон и заменяя дифференциальные операторы разностными, можем записать разностную схему для поставленной задачи в бензиндексной форме
+	\begin{equation}
+		\begin{cases}
+			y_t = \Lambda(\sigma \hat y + (1-\sigma)y)+\varphi,\ (x,t)\in \omega_{h\tau},\\
+			y(x,0) = \sin x,\ x \in \overline \omega_h,\\
+			y(0,t) = \sin t,\ t \in \overline \omega_\tau,\\ 
+			-y_x^{(\sigma)}(1,t) = y^{(\sigma)}(1,t) - \sqrt2\sin\left(t+1+\dfrac \pi 4\right),\ t \in \overline \omega_\tau.
+		\end{cases}
+	\end{equation}
+	Здесь $$\Lambda y = (\overline a y_{\overline x})_{x},\ \hat y = y(x, t+\tau),$$
+	$\sigma$ -- это параметр, а из метода баланса
+	$$\overline a_i = \left[\dfrac 1 h \int\limits_{x_i-1}^{x_i}\dfrac{d x}{k\left(x, t_j+\dfrac \tau 2\right)}\right]^{-1},\ \text{где } k(x,t) = \cos(x+t)+1,$$
+	$\overline a$, $\varphi$ -- это некоторые сеточные функции. В частности, можно выбирать
+	$$a_i^j = k\left(x_i - \dfrac h 2, t_j + \dfrac \tau 2\right), \text{ или } a_i^j = \dfrac 12 \left[k\left(x_i - h, t_j + \dfrac \tau2\right) + k \left(x_i, t_j + \dfrac \tau2\right)\right],$$
+	$$\varphi_i^j = f_i^{j+\frac 12}, \text { или } \varphi_i^j = \dfrac 12(f_i^j + f_i^{j+1}).$$
+	\section*{Реализация разностной схемы}
+	Пусть $$a_i^j = k\left(x_i - \dfrac h 2, t_j + \dfrac \tau 2\right) = k_{i-\frac 12}^{j + \frac 12},\ \varphi_i^j = f_i^{j + \frac 12}$$
+	Алгоритм реализации будет следующий:
+	\begin{enumerate}
+		\item нулевой слой заполняем по формуле \begin{equation}
+			y_i^0 = \sin(x_i),\ i = \overline {0,N};
+		\end{equation}
+		\item для всех $j = \overline {0, N_1-1}$ будем вычислять $y_k^j$, решая систему линейных алгебраических уравнений с трехдиагональной матрицей, а именно
+		\begin{equation}
+			\begin{dcases}
+				\dfrac{\sigma}{h^2}k_{i-\frac 12}^{j+\frac 12}y_{i-1}^{j+1} - \left(\dfrac{\sigma}{h^2}\left(k_{i-\frac 12}^{j + \frac 12} + k_{i + \frac 12}^{j + \frac 12}\right) + \dfrac 1 \tau\right) y_i^{j+1} + \dfrac {\sigma}{h^2}k_{i+\frac 12}^{j+\frac 12} y_{i+1}^{j+1} = - F_i^j,\ i = \overline {1, N-1},\\
+				y_0^{j+1} = \sin (t_{j+1}),\\ 
+				-\sigma \left(\dfrac 1 h + 1\right) y_N^{j+1} + \dfrac \sigma h y_{N-1}^{j+1} = (1-\sigma)\left(\dfrac 1 h + 1\right)y_N^j - \dfrac{(1-\sigma)}{h}y_{N-1}^j -\sqrt 2\sin\left(t_{j+1} + 1 + \dfrac \pi 4\right),
+			\end{dcases}
+		\end{equation}
+		где $$F_k^j = \dfrac 1 \tau y_i^j + \dfrac{(1-\sigma)}{h^2}(k_{i-\frac 12}^{j+\frac 12} y_{i-1}^j - k_{i-\frac 12}^{j+\frac 12} y_i^j- k_{+\frac 12}^{j+\frac 12} y_i^j + k_{i+\frac12}^{j+\frac12}y_{i+1}^j) + f_i^{j+\frac 12}.$$
+	\end{enumerate}
+	Очевидно, что наиболее эффективным методом решения системы (15) будет метод прогонки, а сам он будет устойчивый, что следует из вида коэффициентов.
+\end{document} 

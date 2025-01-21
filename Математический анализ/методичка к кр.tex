@@ -62,6 +62,31 @@
 \newcommand{\sumnz}{\sum\limits_{n=0}^\infty}
 \newcommand{\summz}{\sum\limits_{m=0}^\infty}
 
+\makeatletter
+\newcommand*{\relrelbarsep}{.386ex}
+\newcommand*{\relrelbar}{%
+	\mathrel{%
+		\mathpalette\@relrelbar\relrelbarsep
+	}%
+}
+\newcommand*{\@relrelbar}[2]{%
+	\raise#2\hbox to 0pt{$\m@th#1\relbar$\hss}%
+	\lower#2\hbox{$\m@th#1\relbar$}%
+}
+\providecommand*{\rightrightarrowsfill@}{%
+	\arrowfill@\relrelbar\relrelbar\rightrightarrows
+}
+\providecommand*{\leftleftarrowsfill@}{%
+	\arrowfill@\leftleftarrows\relrelbar\relrelbar
+}
+\providecommand*{\xrightrightarrows}[2][]{%
+	\ext@arrow 0359\rightrightarrowsfill@{#1}{#2}%
+}
+\providecommand*{\xleftleftarrows}[2][]{%
+	\ext@arrow 3095\leftleftarrowsfill@{#1}{#2}%
+}
+\makeatother
+
 \begin{document}
 	\section*{Пример решения варианта контрольной работы}
 	\begin{enumerate}
@@ -70,19 +95,295 @@
 		Нам дан положительный числовой ряд. Рассмотрим $n$-ый член ряда
 		$$a_n = \dfrac{n}{(n^2+5)\sqrt {\ln n}}.$$
 		Его можно ограничить сверху следующим образом
-		$$a_n = \dfrac{n}{(n^2+5)\sqrt {\ln n}} \leq \dfrac{n}{n^2\cdot \sqrt n} = \dfrac{1}{n^{3/2}} = b_n.$$
+		$$a_n = \dfrac{n}{(n^2+5)\sqrt {\ln n}} \leq \dfrac{1}{n \sqrt {\ln n}}.$$
 		По признаку сравнения, если числовой ряд
-		$\sum \limits_{n=2}^\infty \dfrac{1}{n^{3/2}}$ сходится, то и исходный ряд будет сходящимся. А это ряд вида $\sum \limits_{n=1}^\infty \dfrac{1}{n^\alpha}$, где в данном случае $\alpha = 3/2 > 1$. Следовательно, ряд $\sum \limits_{n=2}^\infty \dfrac{1}{n^{3/2}}$ сходится по степенному признаку. Таким образом, исходный ряд сходится по признаку сравнения.
+		$$\sum \limits_{n=2}^\infty \dfrac{1}{n\sqrt {\ln n}}$$ сходится, то и исходный ряд будет сходящимся. \\\\
+		Исследуем этот ряд на сходимость с помощью интегрального критерия. Ряд $$\sum \limits_{n=2}^\infty \dfrac{1}{n\sqrt {\ln n}}$$ сходится тогда и только тогда, когда сходится несобственный интеграл первого рода
+		$$\int\limits_2^{\infty} \dfrac{dx}{x \sqrt{\ln x}}.$$
+		Этот интеграл можно вычислить, используя замену
+		\begin{gather*}\int\limits_2^{\infty} \dfrac{dx}{x \sqrt{\ln x}} = \left[\begin{gathered}\ln x = t\Rightarrow x = e^t,\ dx = e^t dt, \\ x = 2 \Rightarrow t = \ln 2,\ x \to \infty \Rightarrow t \to \infty \end{gathered}\right] = \int\limits_{\ln 2}^\infty \dfrac{e^t dt}{e^t \sqrt t} = \int\limits_{\ln 2}^\infty t^{-1/2}dt = 2\sqrt t \Big|_{\ln 2}^\infty =\\
+		\\ = \lim\limits_{t \to \infty} 2 \sqrt t - 2 \sqrt{\ln 2} = \infty.
+		\end{gather*}
+		Таким образом, несобственный интеграл не имеет конченого значения, а следовательно является расходящимся. Отсюда числовой ряд $\sum \limits_{n=2}^\infty \dfrac{1}{n\sqrt {\ln n}}$ является расходящимся по интегральному критерию. Отсюда исходный ряд является расходящимся по признаку сравнения.
+		\newpage
 		\item Исследовать сходимость ряда
 		$$\sum_{n=1}^{\infty} \dfrac{(-1)^n (n+4)}{\sqrt{n^3 + 4n^2 - 1}}.$$
 		Нам дан знакочередующийся числовой ряд. Для него мы можем применить признак Лейбница. По признаку Лейбница, если $a_n = \dfrac{n+4}{\sqrt{n^3 + 4n^2 - 1}}$ монотонно стремится к нулю, то исходный числовой ряд сходится.\\\\
 		Проверим стремление к нулю
 		$$a_n = \dfrac{n+4}{\sqrt{n^3 + 4n^2 - 1}} = \dfrac{\dfrac{1}{\sqrt n}+ \dfrac{4}{n\sqrt n}}{\sqrt{1 + \dfrac 4 n - \dfrac {1}{n^3}}}\xrightarrow[n\to\infty ]{}0.$$
 		Проверим монотонность. Рассмотрим $(n+1)$-ый член ряда и сравним его с $n$-ым членом:
-		$$a_n = \dfrac{n+5}{\sqrt{n^3 + 7n^2 + 11 n + 4}}.$$ Легко видеть, что при $n\to\infty$ числитель будет возрастать медленнее, чем знаменатель, а тогда
+		$$a_{n+1} = \dfrac{n+5}{\sqrt{n^3 + 7n^2 + 11 n + 4}}.$$ Легко видеть, что при $n\to\infty$ числитель будет возрастать медленнее, чем знаменатель, а тогда
 		$$a_{n+1} < a_n,\ \forall n.$$
 		Таким образом, монотонность доказана. Следовательно, числовой ряд сходится по признаку Лейбница.
+		\newpage
 		\item Исследовать на абсолютную и неабсолютную сходимость
-		$$\sum_{n=1}^\infty \dfrac{(-1)^{n-1}(2n+1)!!}{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3n-1).}$$
+		$$\sum_{n=1}^\infty \dfrac{(-1)^{n-1}(2n+1)!!}{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3n-1)}.$$
+		Для абсолютной сходимости знакочередующегося ряда необходимо, чтобы ряд из модулей был сходящимся. Тогда рассмотрим ряд из модулей
+		$$\sum_{n=1}^\infty \left|\dfrac{(-1)^{n-1}(2n+1)!!}{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3n-1)}\right| = 
+		\sum_{n=1}^\infty \dfrac{(2n+1)!!}{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3n-1)}.$$
+		Получили положительный числовой ряд. Для него применим признак Даламбера. По признаку Даламбера нам нужно исследовать предел
+		$$\lim\limits_{n \to \infty}\dfrac{a_{n+1}}{a_n},$$
+		то есть
+		\begin{gather*}\lim\limits_{n\to \infty}  \dfrac{(2(n+1)+1)!!}{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3(n+1)-1)}\cdot  \dfrac{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3n-1)}{(2n+1)!!}= \\=\lim\limits_{n\to \infty}  \dfrac{(2n+3)!!}{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3n+2)}\cdot  \dfrac{2\cdot 5 \cdot 8 \cdot \ldots\cdot  (3n-1)}{(2n+1)!!}= \\ 
+		= \lim\limits_{n \to \infty} \dfrac{2n+3}{3n+2} = \dfrac 2 3 < 1.
+		\end{gather*}
+		Таким образом, по признаку Даламбера ряд из модулей является сходящимся. Следовательно, исходный знакочередующийся ряд является абсолютно сходящимся.
+		\newpage
+		\item Исследовать на равномерную сходимость функциональную последовательность 
+		$$f_n(x) = \dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x}$$ на множестве $X = (0; + \infty).$
+		\\\\
+		У функциональной последовательности есть два типа сходимости: поточечная и равномерная; причем, если функциональная последовательность сходится равномерно, то поточечный предел совпадает с равномерным пределом.\\\\
+		Сперва найдем поточечный предел функциональной последовательности
+		$$f(x) = \lim\limits_{n\to \infty} f_n(x) = \lim\limits_{n\to \infty}\dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} = \lim\limits_{n\to \infty} \dfrac{1}{\sqrt n}\cdot \dfrac{4\sqrt x}{\frac{3}{n^2} + 4x} = 0.$$
+		Таким образом, имеем поточечную сходимость $$\dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} \xrightarrow[n\to \infty]{X} 0.$$
+		Теперь исследуем функциональную последовательность на равномерную сходимость. По критерию равномерной сходимости $$\dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} \xrightrightarrows[n\to \infty]{X} 0$$ тогда и только тогда, когда
+		$$\lim\limits_{n \to \infty}\underset{x \in X}{\sup}\left|\dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} - 0\right| = 0.$$
+		Чтобы найти значение супремума, исследуем функцию под модулем на экстремумы. Пусть 
+		$$g(x) = \dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} - 0 = \dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x}.$$
+		Тогда нам нужны точки, в которых производная этой функции обращается в ноль, то есть
+		$$g'(x) = \dfrac{6 n \sqrt n}{(3+4n^2x)^2} = 0,$$
+		но это неверно для любых $x \in X$. Тогда нам остается исследовать краевые точки множества $X$:
+		$$\lim\limits_{x\to 0} g(x) = \lim\limits_{x\to 0} \dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} = 0,$$
+		$$\lim\limits_{x\to \infty} g(x) = \lim\limits_{x\to \infty} \dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} = 0.$$
+		Таким образом, максимальное значение функции под модулем -- это 0, а значит $$\underset{x \in X}{\sup}\left|\dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} - 0\right|=0.$$
+		А тогда $$\lim\limits_{n \to \infty}\underset{x \in X}{\sup}\left|\dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} - 0\right| = 0.$$
+		Следовательно, по критерию равномерной сходимости исходная функциональная последовательность равномерно сходится к нулю, то есть $$\dfrac{4n {\sqrt {nx}}}{3+ 4n^2 x} \xrightrightarrows[n\to \infty]{X} 0.$$
+		\newpage
+		\item Исследовать на равномерную сходимость 
+		$$\sum_{n=2}^{\infty}\dfrac{(-1)^{n+1}}{n + \cos x},\ x \in X=[0; + \infty).$$
+		Имеем знакочередующийся функциональный ряд. Для исследования сходимости воспользуемся признаком Дирихле. Представим $n$-ый член суммы как произведение
+		$$\dfrac{(-1)^{n+1}}{n + \cos x} = \underbrace{(-1)^{n+1}}_{b_n(x)}\cdot\underbrace{\dfrac{1}{n+\cos x}}_{a_n(x)}.$$
+		Для выполнения признака Дирихле нам необходимо выполнение трех пунктов теоремы. Проверим каждый из пунктов.
+		\begin{enumerate}
+			\item[I.] $a_n(x) \xrightrightarrows[n\to\infty]{X} 0$, покажем это.
+			Сперва найдем поточечный предел функциональной последовательности:
+			$$\lim\limits_{n \to \infty} \dfrac{1}{n+\cos x} = 0.$$
+			Покажем, что последовательность сходится равномерно к поточечному пределу. По критерию равномерной сходимости для выполнения условия
+			$$\dfrac{1}{n+\cos x} \xrightrightarrows[n\to\infty]{X} 0$$
+			необходимо и достаточно, чтобы
+			$$\lim\limits_{n \to \infty}\underset{x \in X}{\sup}\left| \dfrac{1}{n + \cos x} - 0\right| = 0.$$
+			Действительно, введем функцию $$g(x) = \dfrac{1}{n + \cos x}$$ и исследуем ее на экстремумы:
+			$$g'(x) = \dfrac{\sin x}{(n+\cos x)^2} = 0,$$
+			тогда точки, подозрительные на экстремум
+			$$x = \pi k,\ k = 0, 1,\ldots.$$
+			Граничная точка множества $X$ также входит в эти точки. При этом из-за того, что значения чередуются, нам достаточно найти
+			$$g(0) = \dfrac{1}{n+1},\ g(\pi) = \dfrac{1}{n-1},$$
+			значения по всех последующих точках будут совпадать либо с первым, либо со вторым. Поскольку $$\dfrac{1}{n-1} > \dfrac{1}{n+1},$$
+			то в итоге получим
+			$$\underset{x \in X}{\sup}\left| \dfrac{1}{n + \cos x} - 0\right| = \dfrac{1}{n-1}.$$
+			А тогда
+			$$\lim\limits_{n \to \infty}\underset{x \in X}{\sup}\left| \dfrac{1}{n + \cos x} - 0\right| = \lim\limits_{n\to \infty} \dfrac{1}{n-1} = 0.$$
+			Таким образом, первое условие теоремы выполнено.
+			\item[II.] Частные суммы ряда $\sum_{n=2}^{\infty} (-1)^{n+1}$ должны быть ограничены для любого $x \in X$. Действительно, если рассмотрим частные суммы этого ряда, то для каждого $N \in \mathbb N$
+			$$\left|\sum_{n=2}^N (-1)^{n+1}\right| \leq 1.$$
+			\item[III.] Функциональная последовательность $a_n(x)$ монотонна при каждом фиксированном $x \in X$. Тогда зафиксируем $x$ и рассмотрим $a_{n+1}(x)$ член суммы: 
+			$$a_n(x) = \dfrac{1}{n + \cos x} > \dfrac{1}{n+1 +\cos x} = a_{n+1}(x)$$
+			для любого $n \in \mathbb N$.
+			Таким образом, функциональная последовательность является монотонно убывающей при каждом фиксированном $x \in X$.
+		\end{enumerate}
+		Таким образом, все пункты признака Дирихле выполняются, следовательно, исходный функциональный ряд сходится равномерно на $X$.
+		\newpage
+		\item Найти множество сходимости степенного ряда $$\sum_{n=2}^\infty \dfrac{n(x-10)^n}{(2n^3-3)\cdot 8^n}.$$
+		Имеем степенной ряд вида $\sum_{n=1}^\infty a_n (x-x_0)^n$, у которого $$a_n = \dfrac{n}{(2n^3-3)\cdot 8^n}.$$
+		Применим признак Коши для вычисления радиуса сходимости $R$ степенного ряда. В соответствии с признаком Коши
+		$$\lim\limits_{n \to \infty} \sqrt[n]{\left|\dfrac{n}{(2n^3-3)\cdot 8^n}\right|} = \lim\limits_{n \to \infty} \sqrt[n]{\dfrac{n}{(2n^3-3)\cdot 8^n}}= \lim\limits_{n \to \infty} \dfrac 1 8 \cdot \dfrac{\sqrt[n]{n}}{\sqrt[n]{(2n^3 - 3)}} = [n^{1/n}\xrightarrow[n\to \infty]{}1]=\dfrac 1 8 = \dfrac 1 R.$$
+		Таким образом, по признаку Коши радиус сходимости степенного ряда равен $$R = 8.$$
+		Отсюда имеет множество сходимости
+		$$|x-x_0| = |x-10|<8,$$
+		то есть
+		$$2 < x < 18.$$
+		Остается выяснить, входят ли точки $x=2$, $x=18$ в множество сходимости. Для этого исследуем на сходимость значения степенного ряда в этих точках.\\\\
+		Пусть $x = 2$. Тогда, подставляя это в исходный степенной ряд, получим
+		$$\sum_{n=2}^\infty \dfrac{n(2-10)^n}{(2n^3-3)\cdot 8^n} = \sum_{n=2}^\infty \dfrac{(-1)^n\cdot 8^n\cdot n}{(2n^3-3)\cdot 8^n} = \sum_{n=2}^\infty \dfrac{(-1)^n\cdot n}{(2n^3-3)}.$$
+		Получили знакочередующийся ряд, исследование сходимости которого можно провести по признаку Лейбница. Выбрав для этого ряда
+		$$a_n = \dfrac{n}{(2n^3-3)},$$
+		получим, что
+		$$a_n = \dfrac{n}{(2n^3-3) }\xrightarrow[n\to \infty]{}0,$$
+		причем в числителе и знаменателе монотонно возрастающие функции для $n > 2$, но знаменатель будет возрастать быстрее. Следовательно, вся числовая последовательность будет монотонно убывающей. Таким образом, выполняются условия признака Лейбница, следовательно, числовой ряд сходится по признаку Лейбница.\\\\
+		Пусть $x=18$. Тогда, подставляя это в исходный степенной ряд, получим
+		$$\sum_{n=2}^\infty \dfrac{n(18-10)^n}{(2n^3-3)\cdot 8^n} = \sum_{n=2}^\infty \dfrac{8^n\cdot n}{(2n^3-3)\cdot 8^n} = \sum_{n=2}^\infty \dfrac{ n}{(2n^3-3)}.$$
+		Получили положительный числовой ряд. Применим для него степенной признак:
+		$$a_n = \dfrac{ n}{(2n^3-3)} \underset{n\to \infty}{\sim} \dfrac{1}{2 n^2},$$
+		таким образом, исходный числовой ряд сходится по степенному признаку.\\\\
+		В итоге мы получили, что в обеих граничных точках степенной ряд также сходится, а значит они входят в множество сходимости, то есть
+		$$2\leq x \leq 18.$$
+		\newpage
+		\item Представить степенным рядом по степеням $x - \dfrac \pi 4$ функцию $f(x) = 1+\cos^2x$.\\\\
+		Известно, что
+		$$1+\cos^2 x = 1 + \dfrac{1 + \cos 2 x}{2} = \dfrac{3}{2} + \dfrac{\cos 2 x}{2},$$
+		при этом
+		$$\cos 2 x = \cos \left(\dfrac \pi 2 + 2 x - \dfrac \pi 2\right) = \cos\left(\dfrac \pi 2 + 2 \cdot \left(x - \dfrac \pi 4\right)\right) = - \sin \left(2 \left(x - \dfrac \pi 4\right)\right).$$
+		Тогда разложим в ряд Тейлора по степеням $x - \dfrac \pi 4$
+		$$\sin \left(2 \left(x - \dfrac \pi 4\right)\right) = \sum_{n=0}^{\infty} \dfrac{(-1)^n \cdot 2^{2n + 1}\cdot \left(x - \dfrac \pi 4\right)^{2n+1}}{(2n+1)!},\ x \in \Rm.$$
+		Таким образом,
+		$$f(x) = \dfrac{3}{2} - \dfrac{1}{2}\sin \left(2 \left(x - \dfrac \pi 4\right)\right) = \dfrac{3}{2} - \dfrac{1}{2}\cdot \sum_{n=0}^{\infty} \dfrac{(-1)^n \cdot 2^{2n + 1}\cdot \left(x - \dfrac \pi 4\right)^{2n+1}}{(2n+1)!},\ x \in \Rm.$$
+		В итоге
+		$$f(x) = \dfrac{3}{2} + \cdot \sum_{n=0}^{\infty} \dfrac{(-1)^{n+1} \cdot 2^{2n}\cdot \left(x - \dfrac \pi 4\right)^{2n+1}}{(2n+1)!},\ x \in \Rm.$$
+		\newpage
+		\item Представить функцию $$f(x) = \begin{cases}
+			0.5,\ x \in (0, 0.5),\\
+			-0.5,\ x \in [0.5, 1)
+		\end{cases}$$
+		рядом Фурье по косинусам. Нарисовать график суммы ряда Фурье этой функции.
+		\\\\
+		Сперва изобразим график исходной функции
+		$$
+			\includegraphics[scale=0.2]{img/graph01}
+		$$
+		(стрелки нужны для индикации того, что точки не включаются в отрезок). Поскольку нам нужно разложить функцию в ряд Фурье по косинусам (четная функция), то доопределим данную функцию четным образом от $-1$  до 0
+		$$
+			\includegraphics[scale=0.2]{img/graph02}
+		$$
+		\item
+		\newpage
+		\item Исследовать сходимость интеграла $$\int\limits_0^{+\infty} \dfrac{x^p}{1+x}\arctg ^2 x dx.$$
+		В данном случае мы имеем несобственный интеграл (НИ), у которого 2 особые точки: $x=0$ и $x=+\infty$. Причем точка $x=0$ является особой только при значениях параметра $p<0$.\\\\
+		Для исследования сходимости разобьем этот интеграл на сумму двух несобственных интегралов, каждый из которых будет иметь всего одну особую точку:
+		$$\int\limits_0^{+\infty} \dfrac{x^p}{1+x}\arctg ^2 x dx = \int\limits_0^{1} \dfrac{x^p}{1+x}\arctg ^2 x dx + \int\limits_1^{+\infty} \dfrac{x^p}{1+x}\arctg ^2 x dx.$$
+		Далее нам нужно исследовать сходимость каждого из этих несобственных интегралов, используя соответствующие признаки.
+		\begin{enumerate}
+			\item Исследуем на сходимость НИ-1
+			$$\int\limits_1^{+\infty} \dfrac{x^p}{1+x}\arctg ^2 x dx.$$
+			Рассмотрим подынтегральную функцию. Попытаемся ограничить сверху эту функцию:
+			$$\dfrac{x^p}{1+x}\arctg ^2 x \leq \dfrac\pi 4 \cdot \dfrac{x^p}{1+x} \leq \dfrac\pi 4 \cdot \dfrac{x^p}{x} = \dfrac\pi 4 \cdot \dfrac{1}{x^{1-p}}.$$
+			А НИ-1
+			$$\int\limits_1^{+\infty} \dfrac\pi 4 \cdot \dfrac{1}{x^{1-p}} dx$$
+			будет сходиться по степенному признаку при значениях $$1-p > 1\Rightarrow p < 0.$$ Используя признак сравнения, мы можем заключить, что и рассматриваемый НИ-1 сходится при $p<0$.
+			\item Исследуем на сходимость НИ-2
+			$$\int\limits_0 ^ 1\dfrac{x^p}{1+x}\arctg ^2 x dx.$$
+			Рассмотрим подынтегральную функцию. Воспользуемся эквивалентностью $$\arctg x \underset{x\to 0}{\sim} x$$ и получим
+			$$\dfrac{x^p}{1+x}\arctg ^2 x \underset{x\to +0}{\sim} x^{p+2} = \dfrac{1}{x^{-p-2}}.$$
+			НИ-2
+			$$\int\limits_0^1\dfrac{1}{x^{-p-2}}dx $$
+			сходится по степенному признаку при значениях $$-p - 2 < 1 \Rightarrow p > -3.$$
+			Следовательно, и рассматриваемый интеграл сходится при $p > -3$.
+		\end{enumerate}
+		Таким образом, область значений параметра $p$, при которых исходных несобственный интеграл сходится, можно задать как
+		$$-3 < p < 0.$$
+		\newpage
+		\item Исследовать на равномерную сходимость 
+		$$\int\limits_1^{+\infty} \dfrac{\sin (x^\alpha)}{\sqrt[10]{x+x^{15}}}dx,\ \alpha \in \mathbb R.$$
+		В данном случае мы имеем несобственный интеграл первого зависящий от параметра (НИЗОП-1), так как у него одна особая точка $x = +\infty$.\\\\
+		Для исследования равномерной сходимости воспользуемся признаком Вейерштрасса. Для выполнения признака необходимо, чтобы существовала сходящаяся мажоранта. Ограничим подынтегральную функцию при каждом фиксированном $\alpha \in \Rm$:
+		$$\left|\dfrac{\sin (x^\alpha)}{\sqrt[10]{x+x^{15}}}\right|\leq \dfrac{1}{\sqrt[10]{x+x^{15}}}.$$
+		Таким образом, необходимо исследовать на сходимость НИ-1
+		$$\int\limits_1^{+\infty} \dfrac{1}{\sqrt[10]{x+x^{15}}}.$$
+		Рассмотрим подынтегральную функцию 
+		$$\dfrac{1}{\sqrt[10]{x+x^{15}}} \underset{x \to +\infty}{\sim} \dfrac{1}{\sqrt[10]{x^{15}}} = \dfrac{1}{x^{3/2}},$$
+		тогда по степенному признаку НИ-1 от мажорирующей функции является сходящимся. Следовательно, по признаку Вейерштрасса исходный НИЗОП-1 сходится равномерно по $\alpha \in \Rm$.
+		\newpage
+		\item Вычислить $$\int\limits_0^{+\infty}\dfrac{e^{\alpha x^2} - 1}{x^2}dx,\ \alpha < 0$$ дифференцированием по параметру.
+		\\\\
+		Итак, обозначим функцию $$F (\alpha) = \int\limits_0^{+\infty}\dfrac{e^{\alpha x^2} - 1}{x^2}dx,\ \alpha < 0.$$
+		Сперва найдем значение интеграла, используя дифференцирование, а затем обоснуем возможность дифференцирования по параметру. Итак,
+		$$F'(\alpha) = \int\limits_0^{+\infty}\left(\dfrac{e^{\alpha x^2} - 1}{x^2}\right)'_\alpha dx=\int\limits_0^{+\infty} \dfrac{x^2 e^{\alpha x^2} - 0}{x^2}dx = \int\limits_0^{+\infty} e^{\alpha x^2}dx.$$
+		Значение справа мы можем вычислить через Гамма-функцию:
+		$$F'(\alpha) = \int\limits_0^{+\infty} e^{\alpha x^2}dx = \left[\alpha x^2 = -t^2 \Rightarrow x = \dfrac{t}{\sqrt{-\alpha}},\ dx = \dfrac{dt}{\sqrt{-\alpha}}\right]=\dfrac{1}{\sqrt{-\alpha}}\int\limits_0^{+\infty} e^{-t^2}dt = \dfrac{\sqrt{\pi}}{2}\cdot \dfrac{1}{\sqrt{-\alpha}}.$$
+		Таким образом, имеем простейшее дифференциальное уравнение первого порядка
+		$$F'(\alpha) = \dfrac{\sqrt{\pi}}{2}\cdot \dfrac{1}{\sqrt{-\alpha}}.$$
+		Чтобы получить не семейство решений, а одно конкретное решение, нужно задать начальные условия. Из исходной функции $F(\alpha)$ можно получить, что
+		$$F (-1) = \int\limits_0^{+\infty}\dfrac{e^{-x^2} - 1}{x^2}dx = \int\limits_0^{+\infty}\dfrac{e^{-x^2}}{x^2}dx - \int\limits_0^{+\infty}\dfrac{1}{x^2}dx=\int\limits_0^{+\infty}\dfrac{e^{-x^2}}{x^2}dx + \dfrac 1 x\Big|_0^{+\infty};$$
+		для первого слагаемого, применяя интеграл Эйлера-Пуассона, получаем
+		$$\int\limits_0^{+\infty}\dfrac{e^{-x^2}}{x^2}dx = \left[\begin{gathered}
+			u=e^{-x^2}\Rightarrow du = -2x e^{-x^2}\\
+			dv = \dfrac{dx}{x^2} \Rightarrow v = -\dfrac{1}x
+		\end{gathered}\right] = - \dfrac{e^{-x^2}}{x}\Big|_{0}^{+\infty} - \int\limits_0^{+\infty} \dfrac{2 x e^{-x^2}}{x}dx = - \dfrac{e^{-x^2}}{x}\Big|_{0}^{+\infty} -\sqrt \pi;$$
+		а тогда
+		$$F (-1) = \int\limits_0^{+\infty}\dfrac{e^{-x^2}}{x^2}dx + \dfrac 1 x\Big|_0^{+\infty} =  - \dfrac{e^{-x^2}}{x}\Big|_{0}^{+\infty} -\sqrt \pi+ \dfrac 1 x\Big|_0^{+\infty};$$
+		поскольку
+		$$\left[\begin{gathered}
+			\lim_{x\to +\infty}\dfrac{1 - e^{-x^2}}{x} =0
+			\\
+			\lim_{x\to0}\dfrac{1 - e^{-x^2}}{x} \underset{x \to 0}{\sim} \left[ e^x - 1  \underset{x \to 0}{\sim} x\right]  \underset{x \to 0}{\sim} \lim_{t\to0}\dfrac{-x^2}{x} = 0,
+		\end{gathered} \right]$$
+		то 
+		$$F(-1) = -\sqrt{\pi}.$$
+		В итоге мы можем сформулировать задачу Коши
+		$$\begin{cases}
+			F'(\alpha) = \dfrac{\sqrt{\pi}}{2}\cdot \dfrac{1}{\sqrt{-\alpha}},\\
+			F(-1) = -\sqrt{\pi}.
+		\end{cases}$$
+		Найдем общее решение дифференциального уравнения, проинтегрировав с двух сторон по $\alpha$:
+		$$F(\alpha) =\int \dfrac{\sqrt{\pi}}{2}\cdot \dfrac{1}{\sqrt{-\alpha}} d\alpha +C= -\dfrac{\sqrt{\pi}}{2}\cdot 2\sqrt{-\alpha}+C=-\sqrt{-\pi \alpha}+C.$$
+		Подставим начальное условие, чтобы определить значение $C$:
+		$$F(-1)=-\sqrt{\pi}+C = -\sqrt{\pi},$$
+		тогда $$C = 0.$$
+		Таким образом, значение исходного интеграла равно
+		$$F(\alpha) = -\sqrt{-\pi \alpha}.$$
+		Докажем возможность дифференцирования данного НИЗОП:
+		\begin{enumerate}
+			\item Функция $f(x,\alpha) = \dfrac{e^{\alpha x^2} - 1}{x^2}$ непрерывна по $x \in (0; + \infty)$ при каждом фиксированном $\alpha <0$ как комбинация элементарных функций.
+			\item Функция $f'_\alpha(x,\alpha) = e^{\alpha x^2}$ непрерывна на прямоугольнике $(0; + \infty)\times (-\infty; 0)$ как элементарная функция.
+			\item НИ $\int\limits_0^{+\infty}\frac{e^{\alpha x^2} - 1}{x^2}dx$ сходится при каждом фиксированном $\alpha \in (-\infty, 0)$. Действительно, для любого фиксированного $\alpha < 0$ мы можем представить этот НИ как
+			$$\int\limits_0^{+\infty}\frac{e^{\alpha x^2} - 1}{x^2}dx = \int\limits_0^{1}\frac{e^{\alpha x^2} - 1}{x^2}dx +\int\limits_1^{+\infty}\frac{e^{\alpha x^2} - 1}{x^2}dx.$$
+			Рассмотрим каждый интеграл по отдельности.
+			\begin{enumerate}
+				\item Рассмотрим $$\int\limits_0^{1}\frac{e^{\alpha x^2} - 1}{x^2}dx.$$
+				В частности, возьмем подынтегральную функцию
+				$$\frac{e^{\alpha x^2} - 1}{x^2}\underset{x \to +0}{\sim} -\dfrac{\alpha x^2}{x^2} = \dfrac{-\alpha}{x^0},$$
+				то есть по степенному признаку НИ-2 данный интеграл сходится.
+				\item ассмотрим $$\int\limits_0^{+\infty}\frac{e^{\alpha x^2} - 1}{x^2}dx.$$
+				В частности, возьмем подынтегральную функцию
+				$$\frac{e^{\alpha x^2} - 1}{x^2}\underset{x \to +\infty}{\sim}\dfrac{1}{x^2},$$
+				то есть по степенному признаку НИ-1 данный интеграл сходится.
+			\end{enumerate}
+			\item НИЗОП $\int\limits_0^{+\infty}e^{\alpha x^2}dx$ сходится равномерно по $\alpha \in (-\infty, 0)$. Действительно, мы знаем, что это Гамма-функция, значение которой определено при $\alpha < 0$. Таким образом, имеется равномерная сходимость по $\alpha$.
+		\end{enumerate}
+		Таким образом, теорема о дифференцировании НИЗОП по параметру выполняется, следовательно, дифференцирование по параметру возможно. Тогда конечное значение интеграла будет равно $$F(\alpha) = -\sqrt{-\pi \alpha},\ \alpha < 0.$$
+		\newpage
+		\item Вычислить $$\int\limits_0^{+\infty} \dfrac{3x - \sin 3x}{x^3}dx.$$
+		Для вычисления значения интеграла введем замену $3x = t$, чтобы попытаться привести его к интегралу Дирихле:
+		\begin{gather*}
+			\int\limits_0^{+\infty} \dfrac{3x - \sin 3x}{x^3}dx = \left[\begin{gathered}
+				3x = t \Rightarrow x = \dfrac t 3,\ dx = \dfrac{dt}3,\\
+				x \to 0 \Rightarrow t \to 0,\ x \to \infty \Rightarrow t \to \infty
+			\end{gathered}\right] = 9\int\limits_0^{+\infty} \dfrac{t - \sin t}{t^3}dt = \\
+			9 \left( \int\limits_0^{+\infty} \dfrac {dt}{t^2} - \int\limits_0^{+\infty} \dfrac {\sin t}{t^3}dt\right) = \left[\begin{gathered}
+				u = \sin t \Rightarrow du = \cos t dt \\ dv = \dfrac{dt}{t^3} \Rightarrow v = -\dfrac{1}{2 t^2}
+ 			\end{gathered}\right] =- 9 \dfrac{1}{t} \Big|_0^{+\infty} + 9 \dfrac{\sin t}{2 t^2}\Big|_0^{+\infty} - \dfrac92\int\limits_0^{+\infty}\dfrac{\cos t}{t^2}dt=\\ = 
+ 			 \left[\begin{gathered}
+ 			 	u = \cos t \Rightarrow du = -\sin t dt \\ dv = \dfrac{dt}{t^2} \Rightarrow v = -\dfrac{1}{ t} 
+ 			 \end{gathered}\right] = -9 \dfrac{1}{t} \Big|_0^{+\infty} + 9 \dfrac{\sin t}{2 t^2}\Big|_0^{+\infty} + \dfrac92\dfrac{\cos t}{t}\Big|_0^{+\infty}+ \dfrac92\int\limits_0^{+\infty}\dfrac{\sin t}{t}dt = \\
+ 			 \\ =\left[\begin{gathered}
+ 			 	\lim_{t\to \infty}-9 \dfrac{1}{t} + 9 \dfrac{\sin t}{2 t^2} + \dfrac92\dfrac{\cos t}{t} =0
+ 			 	\\
+ 			 	\lim_{t\to0}-9 \dfrac{1}{t} + 9 \dfrac{\sin t}{2 t^2} + \dfrac92\dfrac{\cos t}{t} = 0
+ 			 \end{gathered} \right]= \dfrac92 \cdot \dfrac \pi 2 = \dfrac{9\pi}{4}.
+		\end{gather*}
+		\newpage
+		\item Вычислить, используя эйлеровы интегралы,
+		$$\int\limits_0^{+\infty}\dfrac{\sqrt{x}}{1+x^2}dx.$$
+		Вид данного интеграла напоминает одну из форм записи Бета-функции. Следовательно, сведем данный интеграл в Бета-функции, сделав замену:
+		$$\int\limits_0^{+\infty}\dfrac{\sqrt{x}}{1+x^2}dx = \left[\begin{gathered}x^2 = t \Rightarrow x = \sqrt t,\ dx = \dfrac{1}{2\sqrt t}dt,\\ x \to \infty \Rightarrow t \to \infty,\\ x = 0 \Rightarrow t = 0\end{gathered}\right] = \int\limits_0^{+\infty}\dfrac{t^{\frac 14}}{1+t}\cdot\dfrac{1}{2 t^{\frac 12}} dt = \dfrac 12 \int\limits_0^{+\infty}\dfrac{t^{-\frac 14}}{1+t} dt=$$
+		$$=\int\limits_0^{+\infty}\dfrac{t^{\frac 34-1}}{(1+t)^{\frac 34 + \frac 14}} dt = \dfrac 12 B\left(\dfrac 34, \dfrac 14\right) = \dfrac 12 B\left(\dfrac 14, \dfrac 34\right) = \dfrac 12B\left(\dfrac 14, 1-\dfrac 14\right) = \dfrac{\pi}{2 \sin \frac\pi 4} = \dfrac{\pi}{\sqrt 2}.$$
+		\newpage
+		\item Исследовать на абсолютную и неабсолютную сходимость
+		$$\int\limits_0^{+\infty} \dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}dx.$$
+		В данном случае мы имеем несобственный интеграл, у которого две особые точки: $x = 0$, $x=+\infty$.\\\\
+		Исследуем интеграл на абсолютную сходимость. Для этого рассмотрим несобственный интеграл вида
+		$$\int\limits_0^{+\infty} \left|\dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx.$$
+		Данный НИ имеет две особые точки, поэтому для исследования сходимости представим его в виде суммы двух НИ, каждый из которых имеет по одной особой точке
+		$$\int\limits_0^{+\infty} \left|\dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx = \int\limits_0^{1} \left|\dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx + \int\limits_1^{+\infty} \left|\dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx.$$
+		Рассмотрим по отдельности каждый из интегралов.
+		\begin{enumerate}
+			\item Рассмотрим НИ-2 $$\int\limits_0^{1} \left|\dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx.$$
+			Рассмотрим подынтегральную функцию. По свойствам модуля поменяем знак:
+			$$\left|\dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right| = \left|\dfrac{2- \cos 2x - \cos 3x}{x^2 \sqrt {x}}\right| = \left|\dfrac{1- \cos 2x + 1-\cos 3x}{x^2 \sqrt {x}}\right|.$$
+			Оба слагаемых $1-\cos 2x \geq 0$, $1-\cos 3 x \geq 0$, а также $x^2 \sqrt x\geq 0$ для любого их из $(0,1]$, поэтому можем записать следующим образом
+			$$\left|\dfrac{1- \cos 2x + 1-\cos 3x}{x^2 \sqrt {x}}\right| = \dfrac{|1-\cos 2 x|}{x^2 \sqrt {x}} + \dfrac{|1-\cos 3 x|}{x^2 \sqrt {x}}.$$
+			То есть мы разделили рассматриваемый НИ-2 на два. Исследуем каждое слагаемое по отдельности, используя эквивалентность $$1-\cos x\underset{x \to 0}{\sim} \dfrac {x^2}2,$$ тогда
+			$$\dfrac{|1-\cos 2 x|}{x^2 \sqrt {x}} \underset{x \to +0}{\sim} \dfrac{\frac{4x^2}{2}}{x^2 \sqrt x} = \dfrac{2}{\sqrt x}$$
+			то есть по степенному признаку для НИ-2 мы получаем, что НИ-2 от этой функции будет сходящимся.\\\\
+			Аналогично для второго слагаемого
+			$$\dfrac{|1-\cos 3 x|}{x^2 \sqrt {x}} \underset{x \to +0}{\sim} \dfrac{\frac{9x^2}{2}}{x^2 \sqrt x} = \dfrac{9}{2\sqrt x},$$
+			также сходится по степенному признаку для НИ-2.\\\\
+			Таким образом, НИ-2 $\int\limits_0^{1} \left|\frac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx$ сходится как сумма двух сходящихся НИ-2.
+			\item Рассмотрим НИ-1 
+			$$ \int\limits_1^{+\infty} \left|\dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx.$$
+			Рассмотрим подынтегральную функцию
+			$$\left|\dfrac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right| \leq \dfrac{1}{x^2 \sqrt x} = \dfrac{1}{x^{\frac 52}},$$
+			таким образом по степенному признаку для НИ-1 интеграл от функции справа сходится, а значит по предельному признаку интеграл $ \int\limits_1^{+\infty} \left|\frac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx$ сходится.
+		\end{enumerate}
+		Таким образом, интеграл $\int\limits_0^{+\infty} \left|\frac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}\right|dx$ сходится как сумма двух сходящихся интегралов, а значит исходный интеграл $\int\limits_0^{+\infty} \frac{\cos 2x + \cos 3x - 2}{x^2 \sqrt {x}}dx$ сходится абсолютно.
 	\end{enumerate}
 \end{document}

@@ -1,0 +1,189 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{empheq}
+\usepackage{mathtools}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\square$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\theta}{\uptheta}
+\renewcommand{\eta}{\upeta}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\sigma}{\upsigma}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\varepsilon}{\upvarepsilon}
+
+\renewcommand{\d}{\partial}
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+
+\date{}
+\begin{document}
+	\newpage
+	\section*{Задачи с экзамена.}
+	\begin{enumerate}
+		\item Исследовать устойчивость по начальным данным разностной схемы $y_{\ol t} + a\check y _{\overset{\circ}x}=\varphi$, аппроксимирующей задачу Коши для уравнения переноса $\dfrac{\d u}{\d t} + a \dfrac{\d u}{\d x} = f(x,t).$
+		\item Для дифференциальной задачи
+		$$\begin{cases}
+			\dfrac{\d ^2 u}{\d x_1^2} + \dfrac{\d ^2 u}{\d x_2^2} = f(x_1, x_2),\ u\in \Pi,\ \Pi = \{0< x_\alpha<1\},\ \alpha = 1,2,\\
+			u|_{\Gamma} = \mu(x_1,x_2),
+		\end{cases}$$
+		$$f(x_1,x_2) = x_1^2 + x_2^2,\ \mu(x_1,x_2) = \dfrac{1}{12}(x_1^4 + x_2^4),$$
+		где $\Gamma$ -- граница $\Pi$, построить разностную схему порядка аппроксимации $O(h_1^4 + h_2^2)$ и записать алгоритм метода Зейделя ее реализации.
+		\item Для дифференциальной задачи
+		$$\begin{cases}
+			\dfrac{\d ^2 u}{\d x_1^2} + \dfrac{\d ^2 u}{\d x_2^2} = f(x_1, x_2),\ u\in \Pi,\ \Pi = \{0< x_\alpha<1\},\ \alpha = 1,2,\\
+			u|_{\Gamma} = \mu(x_1,x_2),
+		\end{cases}$$
+		$$f(x_1,x_2) = x_1^2 + x_2^2,\ \mu(x_1,x_2) = \dfrac{1}{12}(x_1^4 + x_2^4),$$
+		где $\Gamma$ -- граница $\Pi$, построить разностную схему порядка аппроксимации $O(h_1^2 + h_2^4)$ и записать алгоритм метода Зейделя ее реализации.
+		\item Исследовать с помощью принципа максимума устойчивость разностной схемы
+		$$\begin{cases} 
+			y_t = \dfrac{\hat y_{\ol x x} + y_{\ol x x}}{2} + \varphi,\ (x,t) \in \omega_{h \tau},\\
+			y(x,0) = u_0(x),\ x \in \ol \omega_h,\\
+			y_x(0,t) = \mu_0(t),\\
+			y(1,t) = \mu_1(t),
+		\end{cases}$$
+		аппроксимирующей задачу
+		$$\begin{cases}
+			\dfrac{\d u}{\d t} = \dfrac{\d ^ 2 u}{\d x ^2} + f(x,t),\ 0<x<1,\ t>0,\\
+			u(x,0) = u_0(x),\ 0 \leq x \leq 1,\\
+			\dfrac{\d u (0,t)}{\d x} = \mu_0(t),\ t \geq 0,\\
+			u(1,t) = \mu_1(t),\ t \geq 0.
+		\end{cases}$$
+		\item Исследовать с помощью принципа максимума устойчивость разностной схемы
+		$$\begin{dcases}
+			y_{\ol x_1 x_1} + y_{\ol x_2 x_2} + \dfrac{h_1^2 + h_2^2}{12}y_{\ol x _1 x_1 \ol x_2 x_2} = - \varphi,\ (x_1,x_2)\in \omega_{h_1,h_2},\\
+			y(x_1,x_2) = \mu(x_1, x_2),\ (x_1,x_2)\in \gamma _{h_1 h_2},
+		\end{dcases}$$
+		аппроксимирующей задачу
+		$$\begin{dcases}
+			\dfrac{\d^2 u}{\d x_1^2} + \dfrac{\d ^2 u}{\d x_2 ^2} = - f(x_1,x_2),\ 0<x_1<1,\ 0<x_2<1,\\
+			u(x_1, x_2) = \mu(x_1, x_2),\ (x_1,x_2) \in \Gamma.
+		\end{dcases}$$
+		\item Аппроксимировать методом неопределенных коэффициентов $$Lu(x) = x^2 \dfrac{\d^2 u}{\d x^2} + \sin x \dfrac{\d u}{\d x}$$ на минимальном шаблоне из равноотстоящих узлов. Найти порядок аппроксимации и главный член погрешности.
+		\item Будет ли устойчив метод прогонки реализации нижеприведенной разностной схемы?
+		$$\begin{cases}
+			y_{\ol t t} = \hat y_{\ol x x} + \varphi,\ (x,t) \in \omega_{h\tau},\\
+			y_{i,0} = 1 + x_i,\ (y_t)_{i,0} = 2,\ i = 0, N_1,\\
+			(y_x)_{0,j} = x_0^2 - y_{0,j},\ (y_{\ol x})_{N_1, j} = 3 + y_{N_1, j},\ j = 1, N_2.
+		\end{cases}$$
+		Записать расчетные формулы для 0, 1 и 2 временных слоев.
+		\item С какой точностью оператор $u_{\ol x x \ol x}$ аппроксимирует третью производную $u(x)$ в точке $x-h$.
+		\item Построить неявную разностную схему с порядком $O(\tau + h^2)$ для решения следующей краевой задачи и записать алгоритм ее реализации
+		$$\begin{cases}
+			\dfrac{\d u}{\d t} = (e^t + e^x) \dfrac{\d ^2 u}{\d x^2} + e^{xt},\ x \in [0,1],\ t \in \left[0, \dfrac 12\right],\\
+			u(x,0) = e^x,\\
+			u(0,t) = e^t,\\
+			u(1,t) = e^t + 1
+		\end{cases}$$
+		\item С каким порядком разностное уравнение $y_t+a y_{\overset{\circ}x}=0$ аппроксимирует однородное уравнение переноса в точке $\left(x, t+ \dfrac \tau 2\right)$?
+		\item При каком выборе сеточной функции $\varphi$ разностное уравнение $y_t+a y_{\overset{\circ}x}= \varphi$ будет аппроксимировать неоднородное уравнение переноса в точке $\left(x, t+\dfrac \tau 2\right)$ со вторым порядком?
+		\item С каким порядком разностное уравнение $y_t = y_{\ol x x} + \varphi$ аппроксимирует уравнение теплопроводности в точке $\left(x, t+ \dfrac \tau 2\right)$, если $\varphi = f\left(x , t + \dfrac \tau 2\right)$?
+		\item При каком выборе сеточной функции $\varphi$ разностное уравнение $y_t = y_{\ol x x} + \varphi$ будет аппроксимировать уравнение теплопроводности в точке $\left(x, t+\dfrac \tau 2\right)$ со вторым порядком?
+		\item Используя метод разделения переменных, исследовать устойчивость по начальным данным разностной схемы
+		$$\begin{cases}
+			y_{\ol t t} = y_{\ol x x} + \varphi,\ (x,t) \in \omega_{h\tau},\\
+			y(x,0) = u_0(x),\ x \in \ol \omega_h,\\
+			y_t(x,0) = u_1(x),\ x \in \ol \omega_h,\\
+			y(0,t) = \mu_0(t),\ t \in \ol \omega_\tau,\\
+			y(1,t) = \mu_1(t), t \in \ol \omega_\tau,
+		\end{cases}$$
+		аппроксимирующей задачу
+		$$\begin{cases}
+			\dfrac{\d^2 u}{\d t^2} = \dfrac{\d ^2 u}{\d x^2} + f(x,t),\ 0<x<1,\ t > 0,\\
+			u(x,0) = u_0(x),\ 0 \leq x \leq 1\\
+			\dfrac{\d u(x,0)}{\d t} = u_1(x),\ 0 \leq x \leq 1\\
+			u(0,t) = \mu_0(t),\ t \geq 0\\
+			u(1,t) = \mu_1(t),\ t \geq 0.
+		\end{cases}$$
+		\item Построить разностную схему порядка аппроксимации $O(\tau + h^2)$ для решения следующей краевой задачи и записать алгоритм ее реализации
+		$$\begin{cases}
+			\dfrac{\d u}{\d t} = (x^2 + 1) \dfrac{\d ^2 u}{\d x^2} + e^{xt},\ x \in [0,1],\ t \in \left[0, \dfrac 12\right],\\
+			u(x,0) = x^2 -1,\\
+			u(0,t) = 2t + 1,\\
+			\dfrac{\d u(1,t)}{\d x} = t^2 + 1.
+		\end{cases}$$
+		\item Разностная схема 
+		$$\begin{cases}
+			(a y_{\ol x})_x - dy = - \varphi,\ x \in \omega_h,\\
+			y_0 = 1, y_N = 2
+		\end{cases}$$
+		с коэффициентами
+		$$a_i = \dfrac{2 k_i k_{i-1}}{k_i + k_{i-1}},\ d_i = \dfrac{q_{i - 0.5} + q_{i + 0.5}}{2},\ \varphi_i = \dfrac{f_{i-0.5}+f_{i+0.5}}{2}$$
+		аппроксимирует следующую дифференциальную задачу
+		$$\begin{cases}
+			(k(x)u'(x))' - q(x)u(x) = - f(x),\ 0 < x< 2,\\
+			u(0) = 1,\ u(1) = 2.
+		\end{cases}$$
+		Показать, является ли эта схема консервативной и указать ее порядок аппроксимации.
+		\item 
+		Найти погрешность аппроксимации дифференциального оператора $$Lu = \dfrac{d }{dx}\left(k(x)\dfrac{\d u}{\d x}\right)$$ разностным оператором $$L_hu = (a y_{\ol x})_x,\ a(x) = \dfrac{k(x+h)-k(x)}{2}.$$
+		\item Путем повышения порядка аппроксимации на минимальном шаблоне разностной схемы
+		$$\begin{cases} 
+			y_t = (k(x,t)y_{\ol x})_X + \varphi,\ (x,t) \in \omega_{h \tau},\\
+			y(x,0) = u_0(x),\ x \in \ol \omega_h,\\
+			y(0,t) = \mu_0(t),\\
+			y_x(1,t) = \mu_1(t),
+		\end{cases}$$
+		аппроксимирующей задачу
+		$$\begin{cases}
+			\dfrac{\d u}{\d t} = \dfrac{\d  }{\d x }\left(k(x,t) \dfrac{\d u}{\d x}\right) + f(x,t),\ 0<x<1,\ t>0,\\
+			u(x,0) = u_0(x),\ 0 \leq x \leq 1,\\
+			u (0,t) = \mu_0(t),\ t \geq 0,\\
+			\dfrac{\d u (1,t)}{\d x} = \mu_1(t),\ t \geq 0.
+		\end{cases}$$ 
+		построить разностную схему с порядком аппроксимации $O(\tau + h^2)$.
+	\end{enumerate}
+	
+\end{document}

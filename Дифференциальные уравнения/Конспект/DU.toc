@@ -1,0 +1,52 @@
+\babel@toc {russian}{}\relax 
+\contentsline {chapter}{\numberline {1}Основные понятия. Простейшие дифференциальные уравнения.}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Основные понятия.}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Простейшие дифференциальные уравнения.}{4}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Линейные стационарные уравнения.}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Линейные стационарные дифференциальные уравнения. Существование и единственность решения задачи Коши.}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Структура множества решений линейного однородного стационарного уравнения.}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Построение фундаментальной системы решений линейного стационарного однородного уравнения.}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Неоднородные стационарные линейные уравнения. Метод Коши. Метод Лагранжа.}{15}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Стационарное линейное неоднородное уравнение со специальной правой частью. Метод Эйлера.}{18}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Непрерывная зависимость решений от начальных данных.}{21}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Устойчивость решений дифференциальных уравнений.}{22}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Фазовая плоскость.}{24}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Классификация точек покоя.}{25}{section.2.9}%
+\contentsline {chapter}{\numberline {3}Линейные стационарные векторные уравнения.}{32}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Системы стационарных линейных уравнений.}{32}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Структура множества решений линейной стационарной системы однородных уравнений.}{34}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Метод Эйлера построения фундаментальной системы решений линейных векторных уравнений.}{36}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Матричный метод построения фундаментальной системы решений линейных стационарных векторных уравнений.}{38}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Неоднородные стационарные линейные векторные уравнения.}{41}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Непрерывная зависимость решений стационарного линейного векторного уравнения от начальных значений.}{43}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Устойчивость стационарных линейных векторных уравнений.}{44}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Фазовая плоскость линейных стационарных векторных уравнений порядка 2.}{46}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Элементарные дифференциальные уравнения.}{49}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Дифференциальные уравнения первого порядка. Основные понятия.}{49}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Уравнения в полных дифференциалах. Уравнения с разделенными переменными.}{50}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Интегрирующий множитель. Уравнение с разделяющимися переменными.}{52}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Линейные уравнения. Уравнения Бернулли. Уравнения Риккати.}{54}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Однородные уравнения.}{56}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Существование и единственность решения задачи Коши.}{58}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Особые решения.}{62}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Уравнения 1-го порядка, не разрешенные относительно производной.}{63}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Метод введения параметра.}{64}{subsection.4.8.1}%
+\contentsline {subsubsection}{Уравнения, разрешенные относительно $x$ и $y$.}{65}{section*.3}%
+\contentsline {subsubsection}{Уравнение Клеро.}{66}{section*.4}%
+\contentsline {subsubsection}{Уравнение Лагранжа.}{67}{section*.5}%
+\contentsline {subsubsection}{Неполные уравнения.}{67}{section*.6}%
+\contentsline {section}{\numberline {4.9}Дифференциальные уравнения высших порядков.}{69}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Простейшие способы понижения порядка дифференциального уравнения.}{70}{subsection.4.9.1}%
+\contentsline {chapter}{\numberline {5}Линейные уравнения с переменными коэффициентами.}{73}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Линейные уравнения с переменными коэффициентами.}{73}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Методы понижения порядка линейного уравнения.}{74}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Приведение линейного уравнения n-ого порядка к линейному стационарному уравнению.}{76}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Уравнения Эйлера.}{76}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Интегрирование линейных уравнений с помощью степенных рядов.}{78}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Колеблющиеся решения.}{80}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Системы дифференциальных уравнений.}{85}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Нелинейные системы. Первые интегралы систем дифференциальных уравнений.}{85}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Интегрирование систем дифференциальных уравнений.}{88}{section.6.2}%
+\contentsline {subsubsection}{Методы интегрирования систем дифференциальных уравнений.}{88}{section*.7}%
+\contentsline {section}{\numberline {6.3}Линейные и квазилинейные уравнения с частными производными.}{90}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Устойчивость решений дифференциальных систем.}{94}{section.6.4}%
