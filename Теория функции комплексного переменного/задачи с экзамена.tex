@@ -1,0 +1,95 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{empheq}
+\usepackage{mathtools}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\square$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\theta}{\uptheta}
+\renewcommand{\eta}{\upeta}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\sigma}{\upsigma}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\varepsilon}{\upvarepsilon}
+
+\renewcommand{\d}{\partial}
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumk}{\sum\limits_{k=0}^\infty}
+\newcommand{\sumi}{\sum\limits_{i=0}^\infty}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+
+\date{}
+\begin{document}
+	\newpage
+	\section*{Задачи с экзамена.}
+	\begin{enumerate}
+		\item Разложить в ряд Лорана функцию $\dfrac{\sin^2 \dfrac 2 z}z$ и найти вычет.
+		\item Вычислить $\int\limits_{|z|<\frac12} z^2\sin\dfrac 1z dz$.
+		\item Вычислить $\int\limits_0^{2\pi}\dfrac{dx}{1-\cos x + \frac 14}$.
+		\item Разложить по степеням $z$: $\dfrac{z}{z^2+i}$.
+		\item Найти область сходимости $\sum_{n=1}^{\infty}\left(\dfrac 2 z \right)^n + \sum_{n=0}^{\infty}\left(\dfrac z 4 \right)^n$.
+		\item Вычислить $\int\limits_{-\infty}^\infty \dfrac{1}{(x^2+1)^2}dx$.
+		\item Вычислить $\int\limits_{-\infty}^\infty \dfrac{x\cos x}{x^2 - 2x + 10}dx$.
+		\item Разложить по степеням $z+1$ : $\sin(2z+1)$.
+		\item Вычислить $\int\limits_0^{2\pi}\dfrac{dx}{x+\cos x}$.
+		\item Найти решение $D^3x+x=e^t$, $x(0)=0$, $Dx(0)=2$, $D^2x(0)=0$.
+		\item Найти решения $z^4 - 4z^3 + 6z² - 4z - 15 = 0$.
+		\item Функцию $\dfrac{2}{z^2-1}$ разложить в ряд Лорана в кольце $1<|z+2|<3$.
+		\item Вычислить $\int\limits_{|z|=1} z \Re z dz$.
+		\item Вычислить $\int\limits_{C} \dfrac{z}{(z-1)^2(z+2)} dz$, $C:x^{2/3}+y^{2/3}=2^{2/3}$.
+		\item Вычислить $\int\limits_0^{2\pi}\dfrac{dx}{\frac 54-\cos x}$.
+		\item Вычислить $\int\limits_{|z|=1} \dfrac{z^2}{\sin^2 z \cos z} dz$.
+		\item Найти область сходимости $\sum_{n=0}^\infty \dfrac{1}{4^n(z+1)^n}$.
+		\item Найти решение $D^2x-Dx=e^{2t}$, $x(0)=0$, $Dx(0)=0$.
+	\end{enumerate}
+	
+\end{document}
