@@ -1,0 +1,45 @@
+\babel@toc {russian}{}\relax 
+\contentsline {chapter}{ВВЕДЕНИЕ}{5}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}БАЗОВЫЕ МАТЕМАТИЧЕСКИЕ МОДЕЛИ ЗАБОЛЕВАНИЙ}{8}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Классическая SI-модель}{8}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Классическая SIR-модель}{11}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Структура модели}{11}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Достоинства и недостатки}{12}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Формулировка SIR-модели в непрерывном времени}{12}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}Построение задачи Коши для базовой SIR-модели.}{13}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Корректная постановка задачи Коши для базовой SIR-модели}{17}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Аналитическое решение задачи Коши для базовой SIR-модели}{18}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Приближенное численное решение задачи Коши}{21}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Расширения SIR-модели}{22}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}SIS-модель}{22}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}SIRD-модель}{22}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}SIRS-модель}{23}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Модели с учетом смертности и рождаемости особей}{24}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}SEIR-модель, или модель с учетом инкубационного периода}{25}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}MSIR-модель}{27}{subsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.4.7}MSEIR-модель}{28}{subsection.1.4.7}%
+\contentsline {chapter}{\numberline {2}РАСШИРЕННЫЕ МЕТОДЫ МОДЕЛИРОВАНИЯ ЗАБОЛЕВАНИЙ НА ОСНОВЕ БАЗОВЫХ МОДЕЛЕЙ}{30}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Вероятностные популяционные модели}{31}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Вероятностная модель с дискретным временем}{31}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Вероятностная модель с непрерывным временем}{33}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Сравнение вероятностных моделей с дискретным и непрерывным временем}{34}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Реализация вероятностных моделей}{34}{subsection.2.1.4}%
+\contentsline {section}{\numberline {2.2}Имитационные модели с пространственной структурой}{34}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Клеточные автоматы}{35}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Сетевые модели}{36}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Постановка задачи для пространственной модели}{36}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Реализация пространственной модели}{37}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}Индивидуум-ориентированные и мультиагентные методы моделирования}{38}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Постановка задачи для мультиагентной модели}{39}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Реализация мультиагентной модели}{39}{subsection.2.3.2}%
+\contentsline {chapter}{\numberline {3}МОДЕЛИРОВАНИЕ ПРОЦЕССА РАСПРОСТРАНЕНИЯ ГРИППА}{41}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Постановка практической задачи}{41}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Применение детерминированной SEIR модели для моделирования}{42}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Применение вероятностной SEIR модели для моделирования}{44}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Применение пространственной SEIR модели для моделирования}{45}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Применение мультиагентной SEIR модели для моделирования}{46}{section.3.5}%
+\contentsline {section}{ЗАКЛЮЧЕНИЕ}{50}{chapter*.8}%
+\contentsline {section}{СПИСОК ИСТОЧНИКОВ}{51}{chapter*.9}%
+\contentsline {section}{ПРИЛОЖЕНИЕ}{52}{chapter*.10}%
+\contentsline {subsection}{Приложение 1}{52}{section*.11}%
+\contentsline {subsection}{Приложение 2}{53}{section*.12}%

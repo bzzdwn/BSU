@@ -1,0 +1,49 @@
+\babel@toc {russian}{}\relax 
+\contentsline {chapter}{\numberline {1}Математический анализ}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Функции одной и нескольких переменных}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Интегралы}{9}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Функциональные последовательности и ряды}{16}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Геометрия и алгебра}{21}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Векторные пространства и линейные операторы в конечномерных векторных пространствах}{21}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Системы линейных алгебраических уравнений}{24}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Дискретная математика и алгоритмика}{27}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Булевы функции и их представления}{27}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Основные классы графов}{30}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Алгоритмы и рекурсивные функции}{34}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Дифференциальные уравнения и функциональный анализ}{38}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Линейные дифференциальные уравнения и системы}{38}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Общая теория дифференциальных уравнений}{41}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Принцип сжимающих отображений и его применение}{44}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Компактные множества и компактные операторы}{48}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Математическое моделирование}{52}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Методы решения задачи Коши для дифференциальных уравнений с частными производными}{52}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Дифференциальные модели. Постановка краевых задач для дифференциальных уравнений с частными производными}{56}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Задачи для уравнений эллиптического типа}{61}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Уравнения Лагранжа второго рода}{66}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Модели и моделирование, их определение и роль}{70}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Постановка краевых задач в задачах моделирования (в физике и биологии)}{74}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Численные методы}{79}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Численные методы решения нелинейных уравнений, систем и задач оптимизации}{79}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Приближение функцией. Основные приближения функций и соответствующие алгоритмы}{84}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Приближенное вычисление интегралов}{88}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Методы численного решения начальных и граничных задач для обыкновенных дифференциальных уравнений}{91}{section.6.4}%
+\contentsline {chapter}{\numberline {7}Математические методы принятия решений}{96}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Симплекс-метод как основной метод решения задач линейного программирования}{96}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Метод множителей Лагранжа в нелинейном и выпуклом программировании}{98}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Метод ветвей и границ, динамическое программирование для решения конечномерных экстремальных задач}{101}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Бесконечномерные экстремальные задачи}{105}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Программирование}{108}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Основные типы данных в языках программирования и операции над ними.}{108}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Парадигмы программирования. Объектно - ориентированное программирование}{111}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Проектирование и разработка приложений Java}{113}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Унифицированный язык моделирования UML}{114}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Анализ и проектирование программного обеспечения}{118}{section.8.5}%
+\contentsline {chapter}{\numberline {9}Компьютерные системы}{123}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Процессы и потоки}{123}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Взаимодействие процессов}{125}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Определение понятий <<базы данных>> и <<СУБД>>}{128}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Проектирование баз данных. Реляционная модель базы данных. Нормализация данных, типы нормальных форм}{130}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Язык SQL}{133}{section.9.5}%
+\contentsline {chapter}{\numberline {10}Компьютерные сети}{136}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Основные понятия компьютерных сетей. Принципы организации. Сетевые протоколы}{136}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Основные принципы построения и архитектура сети Интернет. Алгоритмы и протоколы внешней и внутренней маршрутизации}{139}{section.10.2}%
