@@ -128,7 +128,7 @@ $\bullet$ \textit{Такая форма записи комплексного ч
 	\item $\ef{\varphi_1}\cdot \ef{\varphi_2} = \ef{(\varphi_1 + \varphi_2)}$.
 	\begin{Proof}
 		\begin{multline*}
-			\ef{\varphi_1}\cdot \ef{\varphi_2} = (\cos\varphi_1, \sin\varphi_1)\cdot (\cos\varphi_2, \sin\varphi_2) =\\= (\cos\varphi_1\cos\varphi_2-\sin\varphi_1\sin\varphi_2,\ \cos\varphi_1\sin\varphi_2 + \sin\varphi_1\cos\varphi_2)=\\=(\cos(\varphi_1 + \varphi_2),\ \sin(\varphi_1 + \varphi_2)) = \ef{\varphi_1 + \varphi_2}.
+			\ef{\varphi_1}\cdot \ef{\varphi_2} = (\cos\varphi_1, \sin\varphi_1)\cdot (\cos\varphi_2, \sin\varphi_2) =\\= (\cos\varphi_1\cos\varphi_2-\sin\varphi_1\sin\varphi_2,\ \cos\varphi_1\sin\varphi_2 + \sin\varphi_1\cos\varphi_2)=\\=(\cos(\varphi_1 + \varphi_2),\ \sin(\varphi_1 + \varphi_2)) = \ef{(\varphi_1 + \varphi_2)}.
 		\end{multline*}
 	\end{Proof}
 \item $\dfrac{\ef{\varphi_1}}{\ef{\varphi_2}} = \ef{(\varphi_1 - \varphi_2)}.$
@@ -1190,7 +1190,7 @@ $$\includegraphics[scale=0.4]{images/048.png}$$
 		\item \textbf{Интегрирование стационарных линейных уравнений.}\\\\
 		Найти решение задачи Коши $$D^2x - 2Dx + 2x = 1,\quad x(0) = 0,\ Dx(0) = 0.$$
 		\textbf{Решение.} Пусть $x(t) \fallingdotseq X(p)$. Тогда вычислим производные $$Dx \fallingdotseq pX(p) - x(0) = pX(p);$$
-		$$D^2x \fallingdotseq p^2X(p) - pDx(0) - x(0) = p^2X(p).$$
+		$$D^2x \fallingdotseq p^2X(p) - px(0) - Dx(0) = p^2X(p).$$
 		Найдем изображение неоднородности:
 		$$1 \fallingdotseq \dfrac{1}{p}.$$
 		Подставим найденные значения в исходное уравнение:

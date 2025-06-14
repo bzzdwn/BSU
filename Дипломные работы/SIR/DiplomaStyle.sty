@@ -1,0 +1,187 @@
+\ProvidesPackage{BSUStyle}[2017/05/01 BSU diploma and master thesis package]
+
+\RequirePackage[russian]{babel}
+\RequirePackage{indentfirst}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath,amsfonts,amssymb}
+\RequirePackage{mathtools}
+\RequirePackage[unicode]{hyperref}
+\RequirePackage{cite}
+
+
+\RequirePackage{multirow}
+
+\RequirePackage{epstopdf}
+\RequirePackage{tikz}
+\usetikzlibrary{positioning}
+
+\RequirePackage{geometry}
+\geometry{left=3cm}               % левое поле
+\geometry{right=1cm}              % правое поле
+\geometry{top=2cm}                % верхнее поле
+\geometry{bottom=2cm}             % нижнее поле
+
+\parindent=10mm
+\sloppy
+
+\numberwithin{equation}{chapter}
+
+\RequirePackage{setspace}
+\setstretch{1.1} % устанавливает интервал. 1.5 дает полуторный
+%\baselineskip=18pt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ТЕОРЕМЫ ИТД
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{theorem}{Теорема}[chapter]
+\newtheorem{corollary}{Следствие}[chapter]
+\newtheorem{lemma}{Лемма}[chapter]
+\newtheorem{proposition}{Утверждение}[chapter]
+\newtheorem{remark}{Замечание}[chapter]
+\newtheorem{assumption}{Предположение}[chapter]
+\newtheorem{example}{Пример}[chapter]
+\newtheorem{definition}{Определение}[chapter]
+
+\newcommand{\proof}{\par\mbox{Доказательство.}\hspace{2mm}}
+\newcommand{\proofnp}{\par\mbox{Доказательство}\hspace{2mm}}
+
+\def\@begintheorem#1#2{\trivlist \item[\hskip \labelsep {\hspace*{\parindent} \bf #1\ #2}]}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% РИСУНКИ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{figcount}[chapter]
+\renewcommand{\thefigcount}{\arabic{chapter}.\arabic{figcount}}
+\newcommand{\dfig}[1]%
+{\refstepcounter{figcount}\rm \small \bf Рисунок \thefigcount \ --- \  #1}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% СТРУКТУРНЫЕ ЧАСТИ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{titlesec}
+
+\newcommand{\chapterbreak}{\clearpage}
+
+\titleformat{\chapter}[display]{\bfseries\large\centering}{ГЛАВА \ \thechapter}{0em}
+{\uppercase}
+
+\titleformat*{\section}{\large\bfseries}     % * -- краткая версия \titleformat
+\titleformat*{\subsection}{\normalsize\bfseries}
+
+
+\titlespacing{\chapter}{0em}{0em}{2em}
+\titlespacing{\section}{\parindent}{2em}{2em}
+\titlespacing{\subsection}{\parindent}{1em}{1em}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  СОДЕРЖАНИЕ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\addto\captionsrussian{\def\contentsname{\centerline{ОГЛАВЛЕНИЕ\vspace{-1em}}}}
+\setcounter{tocdepth}{1}
+
+\RequirePackage{titletoc}
+
+\titlecontents{chapter}[0pt]{\vspace{1em}}{\bfseries ГЛАВА \contentslabel{0em} \hspace*{0.5em}}
+{\bfseries}{\titlerule*[1pc]{.}\contentspage}
+
+
+\titlecontents{section}[0pt]{}{\thecontentslabel \quad }
+{}{\titlerule*[1pc]{.}\contentspage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  ЛИТЕРАТУРА
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\@biblabel#1{#1}
+\addto\captionsrussian{\def\bibname{\centerline{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ \vspace{-1em}}}}
+
+\newenvironment{biblio}{
+        \newpage
+        \addcontentsline{toc}{chapter}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}
+        \begin{thebibliography}{99}
+                  \itemindent=15mm \itemsep=-4pt} % для оформления по ГОСТ}
+        {\end{thebibliography}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  МАТЕМАТИЧЕСКИЕ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\rank}{\mathop{\rm rank}\nolimits}
+\newcommand{\diag}{\mathop{\rm diag}\nolimits}
+\newcommand{\dett}{\mathop{\rm det}\nolimits}
+\newcommand{\intt}{\mathop{\rm int}\nolimits}
+\newcommand{\sign}{\mathop{\rm sign}\nolimits}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\st}{\textrm{при} \ \ }
+\renewcommand{\d}{\operatorname{d}}
+\newcommand{\Binom}{\operatorname{Binom}}
+\newcommand{\Pois}{\operatorname{Pois}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  ТИТУЛЬНЫЙ ЛИСТ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\makeatletter
+\newcommand*{\project}[1]{\gdef\@project{#1}}
+\newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
+\newcommand*{\spec}[1]{\gdef\@spec{#1}}
+
+\def\BSUtitle{%
+\begin{titlepage}
+\baselineskip 1.7em
+
+    \begin{center}
+        {\hspace{-3mm}МИНИСТЕРСТВО ОБРАЗОВАНИЯ РЕСПУБЛИКИ БЕЛАРУСЬ \\
+        БЕЛОРУССКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ\\
+        ФАКУЛЬТЕТ ПРИКЛАДНОЙ МАТЕМАТИКИ И ИНФОРМАТИКИ \\
+        Кафедра математического моделирования и анализа данных} \\
+
+        \vfill
+
+        \@author
+
+        \vskip 2em
+
+        {\bfseries  \@title}
+
+        \vskip 2em
+
+        \@project
+    \end{center}
+
+\vfill
+
+
+
+{\hspace*{8cm}\begin{minipage}[t]{0.5\textwidth}
+Научный руководитель \\ \@supervisor
+\end{minipage}}
+
+
+\vfill
+
+\noindent\begin{minipage}[t]{0.7\textwidth}
+Допущена к защите \\ \vskip 0.1em
+<<\rule{1 cm}{0,2 pt}>> \rule{4 cm}{0,2 pt} {\the\year \ г.}  \\
+Зав. кафедрой математического моделирования и анализа данных \\
+док. эконом. наук, канд. физ.-мат. наук, профессор В.И. Малюгин
+\end{minipage}
+
+ \vskip 4em
+
+\centerline{Минск, \the\year}
+\end{titlepage}
+\setcounter{page}{2}
+}
