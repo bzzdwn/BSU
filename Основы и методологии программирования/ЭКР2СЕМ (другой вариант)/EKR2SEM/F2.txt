@@ -1,0 +1,8 @@
+Orange
+Fruits
+Apple
+Fruits
+Pear
+Vegetable
+Strawberry
+Berries

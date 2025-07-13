@@ -419,6 +419,19 @@ $\Leftarrow)$ Общее решение однородного уравнени�
 	--- произведение многочленов с неотрицательными коэффициентами. Следовательно, $\Delta(\lambda)$ --- многочлен с неотрицательными коэффициентами.
 \end{enumerate}
 \end{Proof}
+\begin{theorem}
+	 [критерий асимптотической устойчивости Гурвица]
+	 Уравнение $(2.7.1)$ асимптотически устойчиво $\Longleftrightarrow$ положительны все угловые миноры матрицы
+	 \begin{equation*}
+	 	\begin{pmatrix}
+	 		a_{n-1} & a_{n-3} & a_{n-5} & \ldots & \ldots \\
+	 		1 & a_{n-2} & a_{n-4} & \ldots & \ldots \\
+	 		0 & a_{n-1} & a_{n-3} & \ldots & \ldots \\
+	 		\vdots & \vdots & \vdots & \ddots & \vdots \\
+	 		\ldots & \ldots & \ldots & \ldots & a_0
+	 	\end{pmatrix}
+	 \end{equation*}
+\end{theorem}
 \section{Фазовая плоскость.}
 Рассмотрим линейное уравнение $$D^2x + a_1Dx + a_0x = 0,\quad t \in \Rm. \eqno(2.8.1)$$
 И пусть $x(t)$ --- некоторое решение этого уравнения.\\\\
@@ -555,7 +568,7 @@ $$\includegraphics[scale = 0.5]{images/dots_line_lines}$$
 \chapter{Линейные стационарные векторные уравнения.}
 \section{Системы стационарных линейных уравнений.}
 $\bullet$ \textit{\textbf{Системой дифференциальных уравнений} называется совокупность выражений вида
-$$F_i(t,x_1(t), Dx_1, \ldots, D^{m_1}x_1, x_2(t), Dx_2,\ldots,D^{m_2}x_2,\ldots,x_k(t),D^kx,\ldots,D^{m_k}x_k) = 0,$$ $$i = 1,\ldots,s,\quad t\in \I\subseteq \Rm,$$ где $F_i$ --- некоторая функция от своих $(m_1+\ldots+m_k + k + 1)$ переменных.}\\\\
+$$F_i(t,x_1(t), Dx_1, \ldots, D^{m_1}x_1, x_2(t), Dx_2,\ldots,D^{m_2}x_2,\ldots,x_k(t),Dx_k,\ldots,D^{m_k}x_k) = 0,$$ $$i = 1,\ldots,s,\quad t\in \I\subseteq \Rm,$$ где $F_i$ --- некоторая функция от своих $(m_1+\ldots+m_k + k + 1)$ переменных.}\\\\
 $\bullet$ \textit{Говорят, что система дифференциальных уравнений \textbf{имеет нормальную форму}, если она состоит из уравнений вида $$D^{m_i}x_i(t) = f_i(t,x_1(t),Dx_1,\ldots,D^{m_1-1}x_1, \ldots, x_k(t), Dx_k, \ldots, D^{m_k - 1}x_k),\quad i = 1,\ldots, k.$$}
 $\bullet$ \textit{Если функции $f_i$ являются линейными функциями от неизвестных функций $x_i(t)$ и их производных, то система называется \textbf{линейной}.}\\\\
 Линейную систему из $k$ уравнений можно заменить эквивалентной ей системой из $m_1+\ldots +m_k$ линейных уравнений первого порядка. Следовательно, любое линейное уравнение можно свести к системе из $k$ уравнений.\\\\
@@ -748,46 +761,133 @@ $\bullet$ \textit{Ряд $(3.4.2)$ также является сходящим�
 \end{pmatrix}i$, то он является решением задачи Коши для уравнения (3.4.1) с начальным условием $X|_{t=t_0} = \begin{pmatrix}
 0\\\vdots\\0\\1\\0\\\vdots\\0
 \end{pmatrix}$. Следовательно, каждый столбец матрицы $e^{A(t-t_0)}$ --- решение уравнения (3.4.1). При $t=t_0$ матрица $e^{A(t-t_0)} = E$, следовательно, совокупность решений уравнения (3.4.1), образующих матрицу $e^{A(t-t_0)}$, имеет невырожденный вронскиан в точке $t=t_0$. А значит эти решения линейно независимые. То есть матрица $e^{A(t-t_0)}$ фундаментальная. 
-\end{Proof}\\\\
-Таким образом, общее решение уравнения (3.4.1) имеет вид $$X_\text{оо}(t) = e^{A(t-t_0)}\ C,\ C = \begin{pmatrix}
-	C_1\\\vdots\\C_n
-\end{pmatrix}.$$
-\subsection*{Вычисление матричной экспоненты.}
-$\forall A \in \Cm_{n,n}$ $\exists J$ --- жорданова нормальная форма, то есть $\exists$ невырожденная матрица $S: J = S^{-1}AS \Rightarrow A = S JS^{-1}$. Следовательно, \begin{multline*}
-	e^{At} = e^{(SJS^{-1})t} = SES^{-1} + \dfrac{SJS^{-1}}{1!}t + \dfrac{SJS^{-1}SJS^{-1}}{2!}t^2 + \ldots =\\= S\cdot \Big(E + \dfrac{J}{1!}t + \dfrac{J^2}{2!}t^2 + \dfrac{J^3}{3!}t^3 + \ldots\Big)\cdot S^{-1} = Se^{Jt}S^{-1}.
-\end{multline*}
-Пусть $J = \operatorname{diag}[J_1,\ldots,J_k]$, где $J_i$ --- жордановы клетки. Следовательно, $e^{Jt} = \operatorname{diag}(e^{J_1t},\ldots,e^{J_kt})$.\\
-Вычислим матричную экспоненту для клетки Жордана:
-$$J = \begin{pmatrix}
-	\lambda & 1 & \dots & 0\\
-	\vdots & \vdots & \ddots & \vdots\\
-	0 & 0 & \dots & 1\\
-	0 & 0 & \dots & \lambda
-\end{pmatrix};\quad J^2 = \begin{pmatrix}
-\lambda^2 & 2\lambda & 1 & \dots & 0\\
-\vdots & \vdots & \vdots & \ddots & \vdots\\
-0 & 0 & 0 & \dots & 1\\
-0 & 0 & 0 & \dots & 2\lambda\\
-0 & 0 & 0 & \dots & \lambda^2
-\end{pmatrix};\quad J^3 = \begin{pmatrix}
-\lambda^3 & 3\lambda^2 & 3\lambda & 1 & \dots & 0\\
-\vdots & \vdots & \vdots & \ddots & \vdots\\
-0 & 0 & 0 & 0 & \dots & 1\\
-0 & 0 & 0 & 0 & \dots & 3\lambda\\
-0 & 0 & 0 & 0 & \dots & 3\lambda^2\\
-0 & 0 & 0 & 0 & \dots & \lambda^3
-\end{pmatrix}.$$
-Тогда первый элемент матрицы $e^{Jt}$ равен $$1 + \dfrac{\lambda}{1!}t + \dfrac{\lambda^2}{2!}t^2 + \dfrac{\lambda^3}{3!}t^3 + \ldots = e^{\lambda t}.$$
-Второй элемент матрицы $e^{Jt}$ равен $$0 + \dfrac{1}{1!}t + \dfrac{2\lambda}{2!}t^2 + \dfrac{3\lambda^2}{3!}t^3 + \ldots  = t \Big(1 + \dfrac{\lambda}{1!}t + \dfrac{\lambda^2}{2!}t^2 + \dfrac{\lambda^3}{3!}t^3 + \ldots\Big)= te^{\lambda t}.$$
-Следующий элемент будет равен $\dfrac{t^2}{2!}e^{\lambda t}$. И так далее. В итоге получим
-$$e^{Jt} = e^{\lambda t}\begin{pmatrix}
-	1 & \dfrac{t}{1!} & \dfrac{t^2}{2!} & \dfrac{t^3}{3!} & \dots & \dfrac{t^{k-1}}{(k-1)!}\\[2ex]
-	0 & 1 & \dfrac{t}{1!} & \dfrac{t^2}{2!} & \dots & \dfrac{t^{k-2}}{(k-2)!}\\[2ex]
-	0 & 0 & 1 & \dfrac{t}{1!} & \dots & \dfrac{t^{k-3}}{(k-3)!}\\[2ex]
-	0 & 0 & 0 & 1 & \dots&\dfrac{t^{k-4}}{(k-4)!}\\[2ex]
-	\vdots & \vdots & \vdots & \vdots & \ddots&\vdots \\
-	0 & 0 & 0 & 0 & \ldots & 1
-\end{pmatrix}$$
+\end{Proof}
+\begin{cor}
+	Общее решение уравнения $(3.4.1)$ имеет вид $$X_\text{оо}(t) = e^{A(t-t_0)}\cdot C,$$ где  $C$ -- это столбец произвольных постоянных вида $C = \begin{pmatrix}
+		C_1\\\vdots\\C_n
+	\end{pmatrix}.$
+\end{cor}
+\section*{Вычисление матричной экспоненты.}
+Рассмотрим матрицу $A \in \mathbb R_{n,n}$.
+\begin{theorem}
+	Если $A$ -- это диагональная матрица вида $A = \operatorname{diag}\{\alpha_1,\ldots, \alpha_n\}$, то $$e^{At} = \operatorname{diag}\{e^{\alpha_1 t},\ldots, e^{\alpha_nt}\}.$$
+\end{theorem}
+\begin{Proof}
+	Пусть $$A = \begin{pmatrix}
+		\alpha_1 & 0 \\
+		0 & \alpha_2
+	\end{pmatrix}.$$
+	Тогда
+	\begin{multline*}
+		e^{At} = \begin{pmatrix}
+			1 & 0 \\
+			0 & 1
+		\end{pmatrix}+
+		\dfrac{t}{1!} \cdot \begin{pmatrix}
+			\alpha_1 & 0 \\
+			0 & \alpha_2
+		\end{pmatrix} +
+		\dfrac{t^2}{2!}\cdot \begin{pmatrix}
+			\alpha_1^2 & 0 \\
+			0 & \alpha_2^2
+		\end{pmatrix} + \ldots =\\= \begin{pmatrix}
+		1 + \dfrac{1}{1!}\alpha_1 t + \dfrac{1}{2!} \alpha_1^2 t^2 + \ldots & 0 \\[2ex]
+		0 & 1 + \dfrac{1}{1!}\alpha_2 t + \dfrac{1}{2!} \alpha_2^2 t^2 + \ldots
+		\end{pmatrix} = \begin{pmatrix}
+		e^{\alpha_1 t} & 0\\
+		0 & e^{\alpha_2 t}
+		\end{pmatrix}.
+	\end{multline*}
+\end{Proof}
+\begin{theorem}
+	Если $A$ -- это блочно-диагональная матрица вида $A = \operatorname{diag}[A_1,\ldots, A_n]$, то $$e^{At} = \operatorname{diag}[e^{A_1t},\ldots, e^{A_nt}].$$
+\end{theorem}
+\begin{Proof}
+	Аналогично предыдущей теореме.
+\end{Proof}
+\begin{theorem}
+	Если $A$ является жордановой клеткой порядка $k$, соответствующей собственному значению $\alpha$, то есть $$A = J_k(\alpha) = \begin{pmatrix}
+		\alpha & 1 & \dots & 0\\
+		\vdots & \vdots & \ddots & \vdots\\
+		0 & 0 & \dots & 1\\
+		0 & 0 & \dots & \alpha
+	\end{pmatrix},$$
+\end{theorem}
+то 
+\begin{equation*}
+	e^{At} = e^{\alpha t}\begin{pmatrix}
+		1 & \dfrac{t}{1!} & \dfrac{t^2}{2!} & \dfrac{t^3}{3!} & \dots & \dfrac{t^{k-1}}{(k-1)!}\\[2ex]
+		0 & 1 & \dfrac{t}{1!} & \dfrac{t^2}{2!} & \dots & \dfrac{t^{k-2}}{(k-2)!}\\[2ex]
+		0 & 0 & 1 & \dfrac{t}{1!} & \dots & \dfrac{t^{k-3}}{(k-3)!}\\[2ex]
+		0 & 0 & 0 & 1 & \dots&\dfrac{t^{k-4}}{(k-4)!}\\[2ex]
+		\vdots & \vdots & \vdots & \vdots & \ddots&\vdots \\
+		0 & 0 & 0 & 0 & \ldots & 1
+	\end{pmatrix}
+\end{equation*}
+\begin{Proof}
+	Обозначим $$B = A - \alpha E = \begin{pmatrix}
+		0 & 1 & \dots & 0\\
+		\vdots & \vdots & \ddots & \vdots\\
+		0 & 0 & \dots & 1\\
+		0 & 0 & \dots & 0
+	\end{pmatrix}.$$
+	Так как матрица $E$ перестановочна с любой матрицей, то $\alpha E$ также перестановочна с любой матрицей. Следовательно, 
+	\begin{equation*}
+		e^{At} = e^{(A - \alpha E)t - \alpha E t} = e^{Bt + \alpha E t} = e^{Bt}\cdot e^{\alpha E t}.
+	\end{equation*}
+	При этом
+	\begin{equation*}
+		\alpha E t = \operatorname{diag}\{\alpha t,\ldots, \alpha t\},
+	\end{equation*}
+	а тогда
+	\begin{equation*}
+		e^{\alpha E t} = \operatorname{diag}\{e^{\alpha t},\ldots, e^{\alpha t}\} = e ^{\alpha t}\cdot E.
+	\end{equation*}
+	В свою очередь, 
+	\begin{equation*}
+		\begin{gathered}
+			e^{B t} = \begin{pmatrix}
+			1 & 0 & 0 & \dots & 0\\
+			\vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & 0 & \dots & 0\\
+			0 & 0 & 0 & \dots & 0\\
+			0 & 0 & 0 & \dots & 1
+		\end{pmatrix} + \dfrac{t}{1!} \cdot \begin{pmatrix}
+		0 & 1 & 0 & \dots & 0\\
+		\vdots & \vdots & \ddots & \vdots\\
+		0 & 0 & 0 & \dots & 0\\
+		0 & 0 & 0 & \dots & 1\\
+		0 & 0 & 0 & \dots & 0
+		\end{pmatrix} +
+		\dfrac{t^2}{2!} \cdot \begin{pmatrix}
+			0 & 0 & 1 & \dots & 0\\
+			\vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & 0 & \dots & 1\\
+			0 & 0 & 0 & \dots & 0\\
+			0 & 0 & 0 & \dots & 0
+		\end{pmatrix} +\ldots =\\
+		=\begin{pmatrix}
+			1 & \dfrac{t}{1!} & \dfrac{t^2}{2!} & \dots & \dfrac{t^{k-1}}{(k-1)!}\\[2ex]
+			\vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & 0 & \dots & \dfrac{t^2}{2!}\\[2ex]
+			0 & 0 & 0 & \dots & \dfrac{t}{1!}\\[2ex]
+			0 & 0 & 0 & \dots & 1
+		\end{pmatrix}
+		\end{gathered}
+	\end{equation*}
+	Таким образом,
+	\begin{equation*}
+		e^{At} = e^{Bt}\cdot e^{\alpha t}\cdot E = e^{\alpha t}\cdot e^{Bt}.
+	\end{equation*}
+\end{Proof}
+\begin{theorem}
+	Пусть $A$ -- это произваольная матрица, $J$ -- это ее жорданова нормальная форма, а $S$ -- матрица трансформирующая $A$ в $J$, то есть $J = S^{-1}AS$. Тогда
+	\begin{equation*}
+		e^{At} = Se^{Jt}S^{-1}.
+	\end{equation*}
+\end{theorem}
+
+\noindent\textbf{Замечание.} Так как $e^{At}$ -- это фундаментальная матрица $Dx = Ax$, а $S$ -- это невырожденная матрица, то матрица $e^{At}\cdot S = S e^{Jt}S^{-1} S = S e^{Jt}$ также является фундаментальной, если $J \in \mathbb R_{n,n}$.
 \section{Неоднородные стационарные линейные векторные уравнения.}
 Рассмотрим уравнение $$DX = AX + f(t), t \in \I\eqno(3.5.1)$$
 с непрерывной на $\I$ векторной функцией $f(t)$ и соответствующее ему однородное уравнение $$DX = AX.\eqno(3.5.2)$$
@@ -1094,8 +1194,8 @@ $$\alpha z' = p\alpha^2z^2 + z(2p\alpha\beta + q\alpha - \alpha') + p\beta^2 + q
 $$z' = p\alpha z^2 + \Big(2p\beta + q - \dfrac{\alpha '}{\alpha }\Big)z + \dfrac{1}{\alpha} (p\beta^2 + q\beta + r - \beta ^2).$$
 Подберем функции $\alpha(x)$ и $\beta (x)$ так, чтобы $$p\alpha = \pm 1\Rightarrow \alpha = \pm \dfrac{1}{p};$$
 $$2p\beta + q -\dfrac{\alpha '}{\alpha } = 0\Rightarrow\beta = \dfrac{1}{2p}\Big(\dfrac{\alpha '}{\alpha} - q\Big).$$
-\section{Однородные уравнения.}
-	$\bullet$ \textit{Функция двух переменных $F(x,y)$ называется \textbf{однородной функцией степени} $k$, если $F(tx,ty) = t^kF(x,y)$.}\\\\
+\section{Уравнения, приводящиеся к уравнению с разделяющимися переменными. Однородное уравнение.}
+$\bullet$ \textit{Функция двух переменных $F(x,y)$ называется \textbf{однородной функцией степени} $k$, если $F(tx,ty) = t^kF(x,y)$.}\\\\
 	$\bullet$ \textit{Уравнение $$P(x,y)dx + Q(x,y)dy = 0$$ называется \textbf{однородным уравнением}, если функции $P(x,y)$ и $Q(x,y)$ являются однородными функциями одной степени.}\\\\
 	Если однородное уравнение представить в виде разрешенном относительно производной, то получим $$\dfrac{dy}{dx} = -\dfrac{P(x,y)}{Q(x,y)}.$$
 	При этом $$\dfrac{P(tx,ty)}{Q(tx,ty)} = \dfrac{t^kP(x,y)}{t^kQ(x,y)} = \dfrac{P(x,y)}{Q(x,y)}.$$
@@ -1111,7 +1211,7 @@ $$2p\beta + q -\dfrac{\alpha '}{\alpha } = 0\Rightarrow\beta = \dfrac{1}{2p}\Big
 	$$(\underbrace{P(x,xz)}_{x^kP(1,z)} + z\cdot \underbrace{Q(x,xz)}_{x^kQ(1,z)})dx +x\cdot  \underbrace{Q(x,xz)}_{x^kQ(1,z)}dz = 0.$$
 	$$(\underbrace{P(1,z) + z\cdot Q(1,z)}_{f_1(z)})dx + \underbrace{Q(1,z)}_{f_2(z)}\cdot \underbrace{x}_{g_1(x)}\cdot dz = 0.$$
 	Получили уравнение с разделяющимися переменными.\\\\
-Рассмотрим уравнение  $$y' = f\Big(\dfrac{a_1x + b_1y + c_1}{a_2 x + b_2y + c_2}\Big).$$
+Рассмотрим уравнение  $$y' = f\Big(\dfrac{a_1x + b_1y + c_1}{a_2 x + b_2y + c_2}\Big),\ c_1^2 + c_2^2 \ne 0.$$
 \begin{enumerate}
 	\item Пусть $\dfrac{a_1}{a_2} = \dfrac{b_1}{b_2}$. Тогда $a_1x + b_1y = k(a_2x + b_2y)$. Тогда уравнение имеет вид $$y' = g(ax + by).$$
 	Выполним замену неизвестной функции $$ax + by(x) = z(x)\Rightarrow y = \dfrac{1}{b}(z-ax).$$
@@ -1537,7 +1637,7 @@ $$\alpha_1 x_2 + \ldots + \alpha_{k-1}x_k - Cx_1 = 0,$$
 Запишем уравнение (5.1.1) через оператор дифференцирования $$D^nx + a_{n-1}(t)\cdot D^{n-1}x + \ldots + a_1(t)\cdot Dx + a_0(t)\cdot x = f(t).\eqno (5.1.1)$$
 Выполним в уравнении (5.1.1) замену независимой переменной $\tau = \varphi(t)$. Тогда $$D_tx = \dfrac{dx}{dt} = \dfrac{dx}{d\tau}\cdot \dfrac{d\tau}{dt} = D_\tau x \cdot \varphi'(t),$$
 $$D^2_tx = \dfrac{d}{dt}(D_tx) = D^2_\tau x \cdot \varphi' \cdot \varphi' + D_\tau x \cdot \varphi'',$$
-$$D^3_tx = \dfrac{d}{dt}(D^2_tx) = D^3_\tau x\cdot (\varphi')^3 + D^2_\tau x \cdot 2\varphi' \cdot \varphi'' + D^2_\tau x \cdot \varphi' \cdot \varphi'' + D_\tau x\cdot \varphi'',$$
+$$D^3_tx = \dfrac{d}{dt}(D^2_tx) = D^3_\tau x\cdot (\varphi')^3 + D^2_\tau x \cdot 2\varphi' \cdot \varphi'' + D^2_\tau x \cdot \varphi' \cdot \varphi'' + D_\tau x\cdot \varphi''',$$
 $$\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots$$
 $$D^n_t x = D^n_\tau x\cdot (\varphi')^n + \ldots + D_\tau x \cdot \varphi^{(n)}.$$
 В результате такой замены получим уравнение $$(\varphi')^n \cdot D^nx + \ldots + a_0(t)\cdot x = f(t).$$

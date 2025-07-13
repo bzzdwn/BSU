@@ -1,0 +1,12 @@
+﻿  main.cpp
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\PROD.h(181,1): warning C4267: аргумент: преобразование из "size_t" в "const int"; возможна потеря данных
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\PROD.h(172): message : во время компиляции функции-члена класс шаблон "PROD<Market> PROD<Market>::function(PROD<Prod> &,PROD<Bag> &)"
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\main.cpp(26): message : выполняется компиляция ссылки на экземпляр шаблон функции "PROD<Market> PROD<Market>::function(PROD<Prod> &,PROD<Bag> &)"
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\PROD.h(175): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "PROD<Market>"
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\PROD.h(211): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "PROD<T>"
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\PROD.h(186,1): warning C4267: аргумент: преобразование из "size_t" в "const int"; возможна потеря данных
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\PROD.h(145,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\PROD.h(134): message : во время компиляции функции-члена класс шаблон "void PROD<Prod>::ReadBinaryData(char *)"
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\main.cpp(34): message : выполняется компиляция ссылки на экземпляр шаблон функции "void PROD<Prod>::ReadBinaryData(char *)"
+C:\Users\User\Documents\Visual Studio\EKR2SEM\EKR2SEM\PROD.h(175): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "PROD<Prod>"
+  EKR2SEM.vcxproj -> C:\Users\User\Documents\Visual Studio\EKR2SEM\x64\Debug\EKR2SEM.exe

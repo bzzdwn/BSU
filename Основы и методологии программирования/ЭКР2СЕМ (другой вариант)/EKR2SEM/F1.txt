@@ -1,0 +1,12 @@
+Sugar
+7500
+Orange
+20000
+Apple
+10000
+Pineapple
+10999
+Strawberry
+999
+Kds
+123
