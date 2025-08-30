@@ -1,0 +1,239 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage{cmap}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{setspace}
+\usepackage{empheq}
+\usepackage{mathtools}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathtext} % русские буквы в формулах
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[english,russian]{babel}
+\usepackage[unicode]{hyperref}
+\newenvironment{Proof} % имя окружения
+{\par\noindent{$\blacklozenge$}} % команды для \begin
+{\hfill$\scriptstyle\square$}
+\newcommand{\Rm}{\mathbb{R}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\FI}{\Phi}
+\newcommand{\Sp}{\text{Sp}}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\renewcommand{\alpha}{\upalpha}
+\renewcommand{\beta}{\upbeta}
+\renewcommand{\gamma}{\upgamma}
+\renewcommand{\delta}{\updelta}
+\renewcommand{\varphi}{\upvarphi}
+\renewcommand{\phi}{\upvarphi}
+\renewcommand{\tau}{\uptau}
+\renewcommand{\theta}{\uptheta}
+\renewcommand{\eta}{\upeta}
+\renewcommand{\lambda}{\uplambda}
+\renewcommand{\sigma}{\upsigma}
+\renewcommand{\psi}{\uppsi}
+\renewcommand{\mu}{\upmu}
+\renewcommand{\omega}{\upomega}
+\renewcommand{\xi}{\upxi}
+\renewcommand{\epsilon}{\upvarepsilon}
+\renewcommand{\rho}{\uprho}
+\renewcommand{\varepsilon}{\upvarepsilon}
+
+\renewcommand{\d}{\partial}
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand{\intx}{\int\limits_{x_0}^x}
+\newcommand\Norm[1]{\left\| #1 \right\|}
+\newcommand{\sumn}{\sum\limits_{n=1}^\infty}
+\newcommand{\sumnk}{\sum\limits_{n=1}^k}
+\newtheorem*{theorem}{Теорема}
+\newtheorem*{cor}{Следствие}
+\newtheorem*{lem}{Лемма}
+
+\date{}
+\begin{document}
+	\newpage
+	\section{Сходимость и расходимость числовых рядов}
+	Пусть задача числовая последовательность $a_1, a_2,\ldots, a_n,\ldots \in \mathbb R$. 
+	Сумма членов этой последовательности записывается в виде
+	\begin{equation}
+		a_1 + a_2 + \ldots + a_n + \ldots = \sumn a_n
+	\end{equation}
+	и называется \textbf{числовым рядом}.
+	Сумма членов последовательности до $k$ называется \textbf{частной суммой ряда}
+	\begin{equation}
+		S_k = a_1 + a_2 + \ldots + a_k = \sumnk a_n.
+	\end{equation}
+	Рассмотрим последовательность частных сумм ряда
+	\begin{equation*}
+		S_1 = a_1,\ S_2 = a_1 + a_2,\ \ldots,\ S_k = a_1 + a_2 + \ldots + a_k,\ \ldots.
+	\end{equation*}
+	Если существует конечный предел последовательности частных сумм ряда
+	\begin{equation*}
+		\lim\limits_{k\to \infty}S_k = S,
+	\end{equation*}
+	то ряд называется \textbf{сходящимся}, иначе \textbf{расходящимся}.
+	\begin{theorem}
+		[Необходимое условие сходимости]
+		Если числовой ряд $\sumn a_n$ сходится, то $$a_n \xrightarrow[n\to \infty]{}0.$$
+	\end{theorem}
+	\noindent\textbf{Следствие.} Если $a_n \not\xrightarrow[n\to \infty]{}0$, то числовой ряд $\sumn a_n$ расходится.
+	\begin{theorem}
+		[Критерий сходимости положительных числовых рядов ($a_n > 0$)]
+		Числовой ряд $\sumn a_n$, $a_n > 0$ сходится тогда и только тогда, когда последовательность частных сумм $(S_n)_{n=1}^\infty$ ограничена, то есть $|S_n| \leq M$, $\forall n$, $M = \const$.
+	\end{theorem}
+	\begin{theorem}
+		[Признаки сравнения]
+		Пусть $a_n \geq 0$, $a_n \leq b_n$, $\forall n \in \mathbb N$. Тогда
+		\begin{enumerate}
+			\item Из сходимости $\sumn b_n$ следует сходимость $\sumn a_n$;
+			\item Из расходимости $\sumn a_n$ следует расходимость $\sumn b_n$.
+		\end{enumerate}
+	\end{theorem}
+	\begin{theorem}
+		[Предельный признак сравнения]
+		Пусть $b_n > 0$. Если \begin{equation}
+			\lim\limits_{n\to\infty} \dfrac{a_n}{b_n} = l,\ 0 < l < +\infty,
+		\end{equation}
+		то $\sumn a_n$ и $\sumn b_n$ сходятся или расходятся одновременно.
+	\end{theorem}
+	\section*{Практика}
+	\textbf{2546.}
+	$$1 - \frac{1}{2} + \frac{1}{4} - \frac{1}{8} + \dots + \frac{(-1)^{n-1}}{2^{n-1}} + \dots$$ Перед нами бесконечно убывающая геометрическая прогрессия. Следовательно, используя формулу для такой прогрессии, сразу найдем сумму ряда
+	$$\sum_{n=1}^{\infty} \frac{(-1)^{n-1}}{2^{n-1}} = \left[ \frac{b_1}{1-q} \right] = \frac{1}{1 - \left(-\frac{1}{2}\right)} = \frac{1}{\frac{3}{2}} = \frac{2}{3}.$$
+	\textbf{2547.}
+	$$\left(\frac{1}{2} + \frac{1}{3}\right) + \left(\frac{1}{2^2} + \frac{1}{3^2}\right) + \dots + \left(\frac{1}{2^n} + \frac{1}{3^n}\right) + \dots$$ 
+	В данном случае имеем сумму двух бесконечно убывающих геометрических прогрессии:
+	$$\sum_{n=1}^{\infty} \frac{1}{2^n} + \sum_{n=1}^{\infty} \frac{1}{3^n} = \left[ \frac{b_1}{1-q} \right] = \frac{\frac{1}{2}}{1-\frac{1}{2}} + \frac{\frac{1}{3}}{1-\frac{1}{3}} = 1 + \frac{1}{2} = \frac{3}{2}.$$
+	\textbf{2549.}$$
+	\frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} + \dots + \frac{1}{n(n+1)} + \dots = \sum_{n=1}^{\infty} \frac{1}{n(n+1)}
+	$$
+	Разложим $n$-ый член последовательности $a_n$ на простейшие дроби:
+	$$\dfrac{A}{n} + \dfrac{B}{n+1} = \left[ A(n+1) + B \cdot n = 1 \Rightarrow \begin{cases} A+B=0 \\ A=1 \end{cases} \Rightarrow \begin{cases} A=1 \\ B=-1 \end{cases} \right] = \frac{1}{n} - \frac{1}{n+1}.
+	$$ 
+	$$\sum_{n=1}^{\infty} \left( \frac{1}{n} - \frac{1}{n+1} \right) = \left(1 - \frac{1}{2}\right)+\left(\frac{1}{2}-\frac{1}{3}\right)+\dots+\left(\frac{1}{n}-\frac{1}{n+1}\right) + \dots.
+	$$ 
+	Тогда рассмотрим частную сумму ряда
+	$$
+	S_k = \sum_{n=1}^{k} \left( \frac{1}{n} - \frac{1}{n+1} \right) = 1 - \frac{1}{k+1} \xrightarrow[k \to \infty]{} 1.
+	$$ 
+	То есть мы доказали, что существует конечный предел последовательности частных сумм. А значит по определению ряд сходится и его сумма равна 
+	$$\sum_{n=1}^{\infty} \frac{1}{n(n+1)} = 1.$$
+	\textbf{2550.}
+	Обозначим исследуемый ряд
+	$$\dfrac{1}{1\cdot 4} + \dfrac{1}{4\cdot 7} + \ldots + \frac{1}{(3n-2)(3n+1)} + \ldots = \sum_{n=1}^{\infty} \frac{1}{(3n-2)(3n+1)}.$$
+	Разложим $a_n$ на сумму простейших дробей
+	$$ \frac{A}{3n-2}+\frac{B}{3n+1} = \left[ \begin{gathered} A(3n+1) + B(3n-2) = 1 \\ \begin{cases} 3A+3B=0 \\ A-2B=1 \end{cases} \Rightarrow \begin{cases} A+B=0 \\ 3B=-1 \\ \end{cases} \Rightarrow \begin{cases} A=\frac{1}{3} \\ B=-\frac{1}{3} \end{cases} \end{gathered} \right] = \frac{1}{3(3n-2)} - \frac{1}{3(3n+1)} $$
+	Тогда рассмотрим частную сумму ряда
+	$$ S_k = \sum_{n=1}^{k} \left( \frac{1}{3(3n-2)} - \frac{1}{3(3n+1)} \right) = \left( \frac{1}{3} - \frac{1}{12} \right) + \left( \frac{1}{12} - \frac{1}{21} \right) + \dots $$
+	$$ \dots + \left( \frac{1}{3(3k-2)} - \frac{1}{3(3k+1)} \right) = \frac{1}{3} - \frac{1}{3(3k+1)} \xrightarrow[k \to \infty]{} \frac{1}{3}.$$
+	Последовательность частных сумм имеет конечный предел, следовательно ряд сходится его сумма равна
+	$$ \sum_{n=1}^{\infty} \frac{1}{(3n-2)(3n+1)} = \frac{1}{3}.$$
+	\textbf{2552.}
+	$$ \sum_{n=1}^{\infty} (\sqrt{n+2} - 2\sqrt{n+1} + \sqrt{n})$$ 
+	Распишем сумму по членам
+	$$(\sqrt{3} - 2\sqrt{2} + 1) + (\sqrt{4} - 2\sqrt{3} + \sqrt{2}) + (\sqrt{5} - 2\sqrt{4} + \sqrt{3}) + (\sqrt{6} - 2\sqrt{5} + \sqrt{4}) + \dots $$ $$\ldots + (\sqrt{n+2} - 2\sqrt{n+1} + \sqrt{n}) + \dots $$
+	Таким образом, частную сумму ряда можно записать в виде
+	$$ S_k = 1 - \sqrt{2} + \sqrt{k+2} - \sqrt{k+1} = 1 - \sqrt{2} + \frac{1}{\sqrt{k+2} + \sqrt{k+1}} \xrightarrow[k \to \infty]{} 1-\sqrt{2}.$$
+	Таким образом,
+	$$ \sum_{n=1}^{\infty} (\sqrt{n+2} - 2\sqrt{n+1} + \sqrt{n}) = 1 - \sqrt{2}.$$
+	\textbf{2556.}
+	$$ 1-1+1-1+\dots = \sum_{n=1}^{\infty} (-1)^{n-1} $$
+	$$ \lim_{n \to \infty} a_n = \lim_{n \to \infty} (-1)^{n-1} = \begin{cases} 1 \\ -1 \end{cases} \not\to 0, \text{предела не существ.} $$
+	Тогда по необходимому условию сходимости числовой ряд расходится.
+	\\\\
+	\textbf{2557.}
+	$$ 0.001 + \sqrt{0.001} + \sqrt[3]{0.001} + \dots = \sum_{n=1}^{\infty} (0.001)^{\frac{1}{n}}.$$
+	Рассмотрим $n$-ый член последовательности
+	$$ a_n = (0.001)^{\frac{1}{n}} \xrightarrow{n \to \infty} 1 \ne 0 \Rightarrow \text{расходится по необходимому условию сходимости.} $$
+	\textbf{2558.}
+	$$ \frac{1}{1!} + \frac{1}{2!} + \dots = \sum_{n=1}^{\infty} \frac{1}{n!} $$
+	Рассмотрим частную сумму ряда
+	$$ S_k = \frac{1}{1!} + \frac{1}{2!} + \dots + \frac{1}{k!} = \sum_{n=1}^{k} \frac{1}{n!}.$$
+	Так как
+	$$ S_{k+1} = S_k + \frac{1}{(k+1)!} \ge S_k,$$
+	то последовательность монотонно возрастает. Нужно найти верхнюю грань.
+	Из неравенства $$ n! \ge 2^{n-1} $$ следует, что
+	$$ \frac{1}{k!} \le \frac{1}{2^{k-1}} \quad \left(n-1, \text{чтобы } \frac{1}{1!} \le \frac{1}{2^0}\right).$$
+	Следовательно,
+	$$ \sum_{k=1}^{n} \frac{1}{k!} \le \sum_{k=1}^{n} \frac{1}{2^{k-1}} = 1 + \frac{1}{2} + \dots + \frac{1}{2^{n-1}} = [\text{геом. прогр. }] = $$
+	$$ = \left[ \frac{b_1(1-q^n)}{1-q} \right] = \frac{1 \cdot (1-\frac{1}{2^n})}{1-\frac{1}{2}} = 2 - \frac{1}{2^{n-1}} \le 2 \quad \forall n \Rightarrow |S_n| \le 2 \quad \forall n. $$
+	Тогда по критерию сходимости исходный ряд сходится, так как последовательность частных сумм является ограниченной.
+	\\\\
+	\textbf{2559.}
+	$$ 1 + \frac{1}{3} + \frac{1}{5} + \frac{1}{7} + \dots + \frac{1}{2n-1} + \dots = \sum_{n=1}^{\infty} \frac{1}{2n-1} $$
+	Используем признак сравнения:
+	$$ \sum_{n=1}^{\infty} \frac{1}{2n-1} \ge \sum_{n=1}^{\infty} \frac{1}{2n} = \frac{1}{2} \sum_{n=1}^{\infty} \frac{1}{n} $$
+	Необходимо доказать расходимость гармонического ряда.
+	Доказательство Орема:
+	$$ \sum \frac{1}{n} = 1 + \left[\frac{1}{2}\right] + \left[\frac{1}{3} + \frac{1}{4}\right] + \left[\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8}\right] + \dots $$
+	$$ > 1 + \left[\frac{1}{2}\right] + \left[\frac{1}{4} + \frac{1}{4}\right] + \left[\frac{1}{8} + \frac{1}{8} + \frac{1}{8} + \frac{1}{8}\right] + \left[\frac{1}{16} + \dots\right] + \dots = $$
+	$$ = 1 + \frac{1}{2} + \frac{1}{2} + \dots \text{ - не ограничена сверху } \Rightarrow \sum \frac{1}{n} \text{ - расх. }.$$
+	Значит по признаку сравнения исходный ряд расходится.
+	\\\\
+	Альтернатива: Из книги Кастрицы:
+	$$ \begin{gathered} S_{2n} = \sum_{k=1}^{2n} \frac{1}{k} = S_n + \frac{1}{n+1} + \dots + \frac{1}{2n} > S_n + n \cdot \frac{1}{2n} = S_n + \frac{1}{2} \end{gathered} ,$$
+	тогда при n $\to \infty$
+	$$ S \ge S + \frac{1}{2} \quad - \text{противоречие}.$$
+	\textbf{2560.}
+	$$ \frac{1}{1001} + \frac{1}{2001} + \dots + \frac{1}{1000n+1} + \dots = \sum_{n=1}^{\infty} \frac{1}{1000n+1}.$$
+	Поскольку
+	$$ 1000n+1 \le 2000n \Rightarrow \frac{1}{1000n+1} \ge \frac{1}{2000n},$$
+	то можем рассмотреть ряд
+	$$ \sum_{n=1}^{\infty} \frac{1}{2000n} = \frac{1}{2000} \sum_{n=1}^{\infty} \frac{1}{n}.$$ Этот ряд расходится как гармонический. Следовательно по признаку сравнения исходный ряд расходится.
+	\\\\
+	\textbf{2561.}
+	$$ 1 + \frac{2}{3} + \frac{3}{5} + \dots + \frac{n}{2n-1} + \dots = \sum_{n=1}^{\infty} \frac{n}{2n-1}.$$
+	Рассмотрим $a_n$ член
+	$$ \frac{n}{2n-1} = \frac{1}{2-\frac{1}{n}} \xrightarrow[n \to \infty]{} \frac{1}{2} \ne 0.$$ А тогда по необходимому условию данный ряд расходится.
+	\\\\
+	\textbf{2562.}
+	$$ 1 + \frac{1}{3^2} +\dfrac{1}{5^2} + \dots + \frac{1}{(2n-1)^2} + \dots = \sum_{n=1}^{\infty} \frac{1}{(2n-1)^2} $$
+	Возьмем ряд $$ \sum_{n=1}^{\infty} \frac{1}{n^2} $$ 
+	Рассмотрим отношение:
+	$$ \frac{n^2}{(2n-1)^2} = \frac{1}{4-\frac{4}{n}+\frac{1}{n^2}} \xrightarrow[n \to \infty]{} \frac{1}{4} = \text{const} $$
+	А тогда по предельному признаку сравнения ряды $ \sum\limits_{n=1}^{\infty} \dfrac{1}{(2n-1)^2} $ и $ \sum\limits_{n=1}^{\infty} \dfrac{1}{n^2} $ сходятся или расходятся одновременно.
+	Докажем сходимость $ \sum\limits_{n=1}^{\infty} \dfrac{1}{n^2} $. Для этого рассмотрим ряд $ \sum\limits_{n=2}^{\infty} \dfrac{1}{n(n-1)} $
+	По аналогии с номером 2549
+	$$ \frac{1}{n(n-1)} = \left[ \begin{gathered} A(n-1) + Bn = 1 \\ \begin{cases} A+B=0 \\ -A=1 \end{cases} \Rightarrow \begin{cases} A=-1 \\ B=1 \end{cases} \end{gathered} \right] = \frac{1}{n-1} - \frac{1}{n} \Rightarrow $$
+	$$ S_k = \sum_{n=2}^{k} \left( \frac{1}{n-1} - \frac{1}{n} \right) = \left( \frac{1}{1} - \frac{1}{2} \right) + \left( \frac{1}{2} - \frac{1}{3} \right) + \dots + \left( \frac{1}{k-1} - \frac{1}{k} \right) = $$
+	$$ = 1 - \frac{1}{k} \xrightarrow[k \to \infty]{} 1 \Rightarrow \text{ряд сходится} $$
+	При этом
+	$$ \frac{1}{n(n-1)} > \frac{1}{n^2} \text{, т.к. } n(n-1) < n^2 \quad \forall n \ge 2 $$
+	а тогда ряд
+	$$ \sum_{n=2}^{\infty} \frac{1}{n^2} \text{ сходится.} $$
+	Причем, если добавить к нему единицу, то на сходимость это не повлияет:
+	$$ 1 + \sum_{n=2}^{\infty} \frac{1}{n^2} = \sum_{n=1}^{\infty} \frac{1}{n^2}.$$
+	Таким образом, исходный ряд сходится по предельному признаку сравнения.
+	\\\\
+	\textbf{2563.}
+	$$ \frac{1}{1\sqrt{2}} + \frac{1}{2\sqrt{3}} + \frac{1}{3\sqrt{4}} + \dots + \frac{1}{n\sqrt{n+1}} + \dots = \sum_{n=1}^{\infty} \frac{1}{n\sqrt{n+1}}.$$
+	Рассмотрим ряд
+	$$ \sum_{n=1}^{\infty} \left( \frac{1}{\sqrt{n}} - \frac{1}{\sqrt{n+1}} \right) $$
+	По аналогии с 2549
+	$$ S_k = \left(\frac{1}{1} - \frac{1}{\sqrt{2}}\right) + \left(\frac{1}{\sqrt{2}} - \frac{1}{\sqrt{3}}\right) + \dots + \left(\frac{1}{\sqrt{k}} - \frac{1}{\sqrt{k+1}}\right) \xrightarrow[k \to \infty]{} 1 \Rightarrow \text{сходится.} $$
+	Теперь сравним его с исходным рядом.
+	Сперва преобразуем:
+	$$ \frac{1}{\sqrt{n}} - \frac{1}{\sqrt{n+1}} = \frac{\sqrt{n+1}-\sqrt{n}}{\sqrt{n}\sqrt{n+1}} = \frac{n+1-n}{\sqrt{n}\sqrt{n+1}(\sqrt{n+1}+\sqrt{n})} = $$
+	$$ = \frac{1}{\sqrt{n}\sqrt{n+1}(\sqrt{n+1}+\sqrt{n})} $$
+	Разделим исходный ряд на получившийся:
+	$$ \frac{\sqrt{n}\sqrt{n+1}(\sqrt{n+1}+\sqrt{n})}{n\sqrt{n+1}} = \sqrt{1+\frac{1}{n}} + 1 \xrightarrow[n \to \infty]{} 2 = \text{const} $$
+	Таким образом, по предельному признаку сравнения исходный ряд сходится.
+\end{document}
